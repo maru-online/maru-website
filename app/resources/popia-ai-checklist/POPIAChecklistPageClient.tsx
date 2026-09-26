@@ -43,7 +43,7 @@ export default function POPIAChecklistPageClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState<{ success: boolean; message: string } | null>(null);
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (_data: FormData) => {
     setIsSubmitting(true);
     setFormStatus(null);
 

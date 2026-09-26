@@ -4,7 +4,6 @@ import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
 import PrimaryServicesFilter from "@/components/homepage/PrimaryServicesFilter";
 import { CaseStudyProofStrip } from "@/components/homepage/CaseStudyProofStrip";
-import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
@@ -12,48 +11,35 @@ import StatBand from "@/components/ui/StatBand";
 import Glyph from "@/components/ui/Glyph";
 import { seo } from '@/lib/seo'
 
+const HOME_TITLE = "POPIA-Safe AI for South African Businesses | Maru Online";
+const HOME_DESCRIPTION =
+  "Your team is already using AI. We find where client data leaks, fix the POPIA risk, and build workflows that save hours every week. Fixed price.";
+
+// seo() replaces the layout's openGraph object, so the COPY-DECK §1 OG title
+// has to be set here for it to appear when the homepage is shared.
+const homeSeo = seo('/');
+
 export const metadata: Metadata = {
-  ...seo('/'),
-  title: "POPIA-Safe AI for South African Businesses | Maru Online",
-  description:
-    "Your team is already using AI. We find where client data leaks, fix the POPIA risk, and build workflows that save hours every week. Fixed price.",
+  ...homeSeo,
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  openGraph: {
+    ...homeSeo.openGraph,
+    title: "AI your business can use, without the POPIA risk",
+    description:
+      "Your team already uses AI. We make it POPIA-safe: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.",
+  },
 };
+
+// The GrowthIQ proof strip still carries a visible PLACEHOLDER. It stays off
+// this indexed page until Jimmy supplies the cleared metric; flip to true then.
+const SHOW_PROOF_STRIP = false;
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
 const outerPad = "px-6 md:px-[60px]";
 const inner     = "max-w-[900px] mx-auto";
-const innerNarrow = "max-w-[720px] mx-auto";
 const innerWide = "max-w-[1100px] mx-auto";
 
-
-// ─── Inline SVGs for trust bar ────────────────────────────────────────────────
-
-function IconSearch() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconShield() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M10 2L3 5v5c0 4.418 3.134 7.5 7 8 3.866-.5 7-3.582 7-8V5L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconStar() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 // ─── Trust strip rows (COPY-DECK §2) ───────────────────────────────────────────
 // `confirmed: false` rows are [CONFIRM] items: they do not render until the
@@ -304,11 +290,13 @@ export default function Home() {
               services choice, so the question "can they actually do it" is
               answered at the point it gets asked. Contains a marked placeholder
               until Jimmy supplies a shareable GrowthIQ metric. */}
-          <div style={{ marginTop: "3rem" }}>
-            <FadeUp>
-              <CaseStudyProofStrip />
-            </FadeUp>
-          </div>
+          {SHOW_PROOF_STRIP && (
+            <div style={{ marginTop: "3rem" }}>
+              <FadeUp>
+                <CaseStudyProofStrip />
+              </FadeUp>
+            </div>
+          )}
         </div>
       </section>
 

@@ -3,11 +3,10 @@ import Button from "@/components/ui/Button";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
-import CardNavy from "@/components/ui/CardNavy";
 import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import Glyph from "@/components/ui/Glyph";
-import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
+import { FadeUp } from "@/components/ui/Animate";
 import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {

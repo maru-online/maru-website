@@ -22,7 +22,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { waitUntil } from "@vercel/functions";
 import { eq } from "drizzle-orm";
-import { calculateScore, getPainTag } from "@/lib/assessment/scoring";
+import { calculateScore } from "@/lib/assessment/scoring";
 import { buildSynthesisPrompt, SynthesisOutput } from "@/lib/assessment/synthesisPrompt";
 import { getFullTemplate } from "@/lib/assessment/reportTemplates";
 import { dbLeadEngine } from "@/lib/db";

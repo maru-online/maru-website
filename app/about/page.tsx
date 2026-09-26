@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { BGPattern } from "@/components/ui/bg-pattern";
-import Button from "@/components/ui/Button";
 import CardNavy from "@/components/ui/CardNavy";
 import CardProof from "@/components/ui/CardProof";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";

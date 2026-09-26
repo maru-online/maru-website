@@ -4,11 +4,10 @@ import { BGPattern } from '@/components/ui/bg-pattern'
 import ImageSplit from '@/components/ui/ImageSplit'
 import ImageBand from '@/components/ui/ImageBand'
 import AccordionFAQ from '@/components/ui/AccordionFAQ'
-import CardProof from '@/components/ui/CardProof'
 import ListItem from '@/components/ui/ListItem'
 import ListGroup from '@/components/ui/ListGroup'
 import ToolsScroller from '@/components/ui/ToolsScroller'
-import { FadeUp, StaggerParent, StaggerChild } from '@/components/ui/Animate'
+import { FadeUp } from '@/components/ui/Animate'
 import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {

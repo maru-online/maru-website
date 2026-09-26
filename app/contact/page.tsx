@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 }
 
 const outerPad    = 'px-6 md:px-[60px]'
-const inner       = 'max-w-[900px] mx-auto'
 const innerWide   = 'max-w-[1100px] mx-auto'
 const innerNarrow = 'max-w-[720px] mx-auto'
 
