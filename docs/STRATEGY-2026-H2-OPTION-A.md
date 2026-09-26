@@ -38,6 +38,9 @@ contractually committed. GrowthIQ is the one live, paying, verified channel into
    folded in, freeze resumes on merge).
    **POPIA-safe repositioning exception approved 26 Sep 2026** (copy change across existing pages
    plus one trust strip, per `docs/positioning/`; no redesign, no new pages; freeze resumes on merge).
+   **Warmer-site image exception approved 26 Sep 2026** (swap and add photos in existing `ImageSplit`/`ImageBand`
+   slots per the image plan: licensed stock plus the founder portrait, used once on About; no copy changes, no new
+   pages; 2-session timebox; freeze resumes on merge).
 3. **No Option C build hours** while Option A is live.
 4. **Pain-first framing in all outreach and copy** — never lead with "AI".
 5. **Every beneficiary-SME engagement must produce documented before/after numbers**

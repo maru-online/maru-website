@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import CardNavy from "@/components/ui/CardNavy";
 import CardProof from "@/components/ui/CardProof";
@@ -232,8 +233,29 @@ export default function AboutPage() {
         className={`${outerPad} py-24`}
         style={{ background: "var(--gradient-surface)" }}
       >
-        <div className={innerNarrow}>
-          <div className="card-lift p-8 md:p-12">
+        <div className="max-w-[960px] mx-auto">
+          <div className="card-lift p-8 md:p-12 grid grid-cols-1 md:grid-cols-[260px_1fr] gap-10 md:gap-12 items-center">
+            <FadeUp>
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  maxWidth: "260px",
+                  aspectRatio: "4/5",
+                  borderRadius: "8px",
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  src="/images/people/founder-portrait.jpg"
+                  alt="Jimmy Motsei, founder of Maru Online"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  sizes="(max-width: 768px) 260px, 260px"
+                />
+              </div>
+            </FadeUp>
+            <div>
             <FadeUp>
               <span className="label-eyebrow" style={{ marginBottom: "1.25rem" }}>Our foundation</span>
               <h2 style={{ marginBottom: "var(--space-heading-body)", border: "none" }}>
@@ -261,6 +283,7 @@ export default function AboutPage() {
                 That focus is deliberate. Narrow scope done properly beats broad scope done badly.
               </p>
             </FadeUp>
+            </div>
           </div>
         </div>
       </section>

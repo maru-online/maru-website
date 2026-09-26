@@ -9,6 +9,8 @@ type ImageSplitProps = {
   body: React.ReactNode
   imagePosition?: 'left' | 'right'
   bg?: string
+  /** CSS object-position for the photo's crop. Default: 'center top'. */
+  objectPosition?: string
 }
 
 export default function ImageSplit({
@@ -19,6 +21,7 @@ export default function ImageSplit({
   body,
   imagePosition = 'left',
   bg = 'var(--color-bg-canvas)',
+  objectPosition = 'center top',
 }: ImageSplitProps) {
   const imageCol = (
     <div
@@ -35,7 +38,7 @@ export default function ImageSplit({
         src={src}
         alt={alt}
         fill
-        style={{ objectFit: 'cover', objectPosition: 'center top' }}
+        style={{ objectFit: 'cover', objectPosition }}
         sizes="(max-width: 768px) 100vw, 50vw"
       />
     </div>
