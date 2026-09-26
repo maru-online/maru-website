@@ -56,7 +56,7 @@ export default function AboutPage() {
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="body-on-navy" style={{ maxWidth: "600px", marginBottom: 0 }}>
-              We&apos;ve lived your journey. Let&apos;s help accelerate yours.
+              Maru exists so South African businesses can use AI without gambling with their clients&apos; trust.
             </p>
           </FadeUp>
         </div>

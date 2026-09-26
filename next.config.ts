@@ -200,9 +200,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       // Consolidated services
+      // POPIA-safe repositioning (26 Sep 2026): the Operations Diagnostic was
+      // renamed the POPIA-Safe AI Audit. Old URL goes straight to the new one,
+      // and the older ai-revenue-diagnostic alias points at the new URL too so
+      // neither becomes a two-hop chain.
+      {
+        source: '/services/operations-diagnostic',
+        destination: '/services/popia-safe-ai-audit',
+        permanent: true,
+      },
       {
         source: '/services/ai-revenue-diagnostic',
-        destination: '/services/operations-diagnostic',
+        destination: '/services/popia-safe-ai-audit',
         permanent: true,
       },
       {

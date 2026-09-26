@@ -76,7 +76,7 @@ export default function AssessmentFormSection() {
                 letterSpacing: "0.02em",
               }}
             >
-              POPIA compliant. No opt-in to marketing — just your results.
+              No opt-in to marketing — just your results.
             </p>
           </div>
 

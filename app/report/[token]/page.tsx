@@ -298,7 +298,7 @@ export default async function ReportPage({
             We review your assessment before the call. On the day, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated.
           </p>
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 28px" }}>
-            We will tell you honestly whether an Operations Diagnostic makes sense for your business right now. If it does not, we will say so directly.
+            We will tell you honestly whether a POPIA-Safe AI Audit makes sense for your business right now. If it does not, we will say so directly.
           </p>
           <a
             href={calendlyUrl}

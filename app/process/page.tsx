@@ -13,7 +13,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'How We Work | Maru Online',
-  description: 'A structured four-phase process. Fixed scope, fixed price, clear deliverables at every stage — from the initial diagnostic through to a 30-day measurement report.',
+  description: 'A four-phase process: POPIA-Safe AI Audit, fixed-scope build, team handover and a 30-day measurement report. Fixed price throughout.',
   ...seo('/process'),
 }
 
@@ -28,10 +28,10 @@ const phases = [
   {
     number:  '01',
     label:   'Diagnose',
-    title:   'We map the gaps before we configure anything.',
+    title:   'We map your data before we touch anything.',
     body: [
-      "You complete a sector-specific intake form. It takes fifteen minutes. We follow up with a short verification call. Within 48 hours, you receive your diagnostic report.",
-      "The report covers your workflows, tools, and site infrastructure. It includes a quantified revenue gap analysis. This is a live document, not a PDF. Whether you proceed or not, the report is yours.",
+      "You complete a sector-specific intake form. It takes fifteen minutes. We follow up with a short verification call. Within 48 hours, you receive your audit report.",
+      "The report covers your workflows and tools. It includes a quantified revenue gap analysis. This is a live document, not a PDF. Whether you proceed or not, the report is yours.",
     ],
     items: [
       { leader: 'Sector-specific intake brief', body: 'Fifteen questions tailored to your industry.' },
@@ -39,7 +39,7 @@ const phases = [
       { leader: 'Written gap report',            body: 'A snapshot of what is working and the cost of your current state.' },
       { leader: '90-day roadmap',                body: 'A sequenced action plan so you know what to do next.' },
     ],
-    note: 'The Operations Diagnostic. If you proceed to a full engagement, this fee offsets against the project cost.',
+    note: 'The POPIA-Safe AI Audit. If you proceed to a full engagement, this fee offsets against the project cost.',
     bg:   'var(--color-bg-primary)',
   },
   {
@@ -47,8 +47,8 @@ const phases = [
     label:   'Design',
     title:   'We scope the work before you commit.',
     body: [
-      "We use the diagnostic findings to build a fixed-scope plan. Every item is specified. We define what we are building, what it connects to, and what it produces. Nothing is vague.",
-      "You review the plan and request adjustments. We do not proceed until you sign off on every element. If your site infrastructure needs work first, the plan addresses it upfront.",
+      "We use the audit findings to build a fixed-scope plan. Every item is specified. We define what we are building, what it connects to, and what it produces. Nothing is vague.",
+      "You review the plan and request adjustments. We do not proceed until you sign off on every element.",
     ],
     items: [
       { leader: 'Fixed-scope definition',    body: 'A clear written spec of what will be built and measured.' },
@@ -64,12 +64,11 @@ const phases = [
     label:   'Build',
     title:   'We configure on solid foundations.',
     body: [
-      "We build exactly what the plan specifies. If your site needs remediation, that happens first. The automation layer follows once the foundation is sound. Every sprint has a defined output.",
+      "We build exactly what the plan specifies. The automation layer follows once the foundation is sound. Every sprint has a defined output.",
       "Everything we build is tested and documented. Your team receives instructions they can follow without a technical background.",
       "**POPIA compliance is designed in from the start.**",
     ],
     items: [
-      { leader: 'Infrastructure first',        body: 'We resolve site and stack issues before adding automation.' },
       { leader: 'Custom integration',          body: 'We connect your CRM, calendar, and email so data passes correctly.' },
       { leader: 'Automation layer',            body: 'Workflows that run without human intervention.' },
       { leader: 'Brand voice calibration',     body: 'AI outputs designed to use your defined business brand voice.' },
@@ -171,7 +170,7 @@ export default function ProcessPage() {
           <div className="card-lift p-8 md:p-12">
             <FadeUp>
               <h3 style={{ marginBottom: 'var(--space-heading-body)', border: 'none' }}>
-                We start with a diagnostic of your current processes.
+                We start with an audit of your current processes.
               </h3>
               <p className="body-muted" style={{ marginBottom: 0 }}>
                 &ldquo;Building the wrong thing faster is still building the wrong thing.&rdquo;
@@ -185,7 +184,7 @@ export default function ProcessPage() {
       <ImageSplit
         src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80"
         alt="Team of professionals reviewing workflow diagrams on multiple screens"
-        eyebrow="Diagnostic first"
+        eyebrow="Audit first"
         heading="We audit your workflows before we touch your tools."
         body="Building automation on top of broken infrastructure just breaks faster. We map how your business actually operates — the manual steps, the data handoffs, the gaps — before a single workflow is configured."
         imagePosition="left"
@@ -349,7 +348,7 @@ export default function ProcessPage() {
             <AccordionFAQ items={[
               {
                 q: 'How long does the whole process take?',
-                a: 'The diagnostic takes 48 hours from intake form submission to report delivery. The core engagement — Phases 2 through 4 — typically runs four to eight weeks depending on complexity and whether site remediation is required. The 30-day measurement phase runs after launch.',
+                a: 'The audit takes 48 hours from intake form submission to report delivery. The core engagement — Phases 2 through 4 — typically runs four to eight weeks depending on complexity. The 30-day measurement phase runs after launch.',
               },
               {
                 q: 'Do I need to be technical to work with you?',
@@ -357,7 +356,7 @@ export default function ProcessPage() {
               },
               {
                 q: "What if my business isn't ready for AI implementation?",
-                a: "The diagnostic will tell you. If the honest answer is that your foundation needs work before AI automation makes sense, we'll say so — and we can scope the infrastructure work that needs to happen first, before any automation is layered on top. We'd rather give you a clear picture than sell you something you're not ready for.",
+                a: "The audit will tell you. If the honest answer is that your foundation needs work before AI automation makes sense, we'll say so — and we can scope the infrastructure work that needs to happen first, before any automation is layered on top. We'd rather give you a clear picture than sell you something you're not ready for.",
               },
               {
                 q: 'I already have AI tools. Do I have to replace them?',
@@ -372,12 +371,12 @@ export default function ProcessPage() {
                 a: "The 30-day measurement phase is where this gets addressed honestly. If something didn't perform as expected, the results report says so and explains why. We don't disappear after handover — the 30-day check-in is built in specifically to catch this and course-correct where needed.",
               },
               {
-                q: 'Can I start with just the diagnostic and decide later?',
-                a: "Yes — that's exactly how it's designed. The diagnostic is a complete, standalone deliverable. There is no obligation to proceed to a full engagement. Many clients use the diagnostic report to make an internal case for the investment before committing.",
+                q: 'Can I start with just the audit and decide later?',
+                a: "Yes — that's exactly how it's designed. The audit is a complete, standalone deliverable. There is no obligation to proceed to a full engagement. Many clients use the audit report to make an internal case for the investment before committing.",
               },
               {
                 q: 'Do you work outside Gauteng, South Africa?',
-                a: "Yes, we do. The diagnostic and most of the engagement work is handled remotely. For clients in Gauteng we can meet in person at key stages. For clients elsewhere in South Africa the process works entirely via video call and shared documents — same quality, same process.",
+                a: "Yes, we do. The audit and most of the engagement work is handled remotely. For clients in Gauteng we can meet in person at key stages. For clients elsewhere in South Africa the process works entirely via video call and shared documents — same quality, same process.",
               },
             ]} />
           </div>
@@ -407,7 +406,7 @@ export default function ProcessPage() {
         />
         <div className={innerNarrow}>
           <FadeUp>
-            <span className="label-eyebrow">The diagnostic</span>
+            <span className="label-eyebrow">The audit</span>
             <h2
               style={{
                 color:        'var(--color-ink-inverted)',
@@ -424,7 +423,7 @@ export default function ProcessPage() {
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: 'var(--space-para-section)' }}>
               The assessment is free and takes about 15 minutes — your report is
-              emailed to you. The Operations Diagnostic that follows is R4,500.
+              emailed to you. The POPIA-Safe AI Audit that follows is R4,500.
             </p>
             <hr
               className="rule"

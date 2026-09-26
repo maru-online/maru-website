@@ -12,9 +12,9 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   ...seo('/services'),
-  title: "Services | Maru Online",
+  title: "Services: POPIA-Safe AI Audit, Integration & Training | Maru Online",
   description:
-    "We configure the connections your business is missing — so your systems share data, your team stops the manual handoffs, and your operation runs the way it should.",
+    "Four fixed-price steps to AI your business can defend: a POPIA-Safe AI Audit, workflow integration, team training, and measured results.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
@@ -28,9 +28,9 @@ const services = [
   {
     id:          "diagnostic",
     label:       "01",
-    title:       "Operations Diagnostic",
+    title:       "POPIA-Safe AI Audit",
     tagline:     "Map where your operation has gaps — before configuring anything.",
-    description: "A structured audit of your current workflows, tools, and data connections. You receive a written report — delivered within 48 hours — that maps where information isn't flowing, quantifies what that's costing, and tells you exactly what to configure first. This is where every engagement starts.",
+    description: "A written map of every tool, AI app and data flow in your business, with POPIA exposure flagged and savings sized. Report in 48 hours. R4,500.",
     bullets: [
       { leader: "Sector-specific intake",   body: "A structured brief tailored to your industry — medico legal, HR & recruitment, or conference & events." },
       { leader: "Verification call",         body: "A 30–45 minute call to clarify the brief, ask the right questions, and confirm scope." },
@@ -39,7 +39,7 @@ const services = [
     ],
     pricing:     "R4,500",
     note:        "If you proceed to a full engagement, this fee offsets against the project cost.",
-    href:        "/services/operations-diagnostic",
+    href:        "/services/popia-safe-ai-audit",
     bg:          "var(--color-bg-primary)",
   },
   {
@@ -47,7 +47,7 @@ const services = [
     label:       "02",
     title:       "Workflow Integration",
     tagline:     "Connect your existing tools. Configure the workflows between them.",
-    description: "Fixed-scope implementation built around what the diagnostic found. We configure the connections between your tools, extend what's already working, and build the automation layer on top. Vendor-agnostic. Your stack stays — we connect it.",
+    description: "We connect your tools and automate the work, with consent, access and data location built in from day one.",
     bullets: [
       { leader: "Custom integration build",  body: "Connecting your existing tools — CRM, calendar, email, forms — so they pass information correctly." },
       { leader: "Automation layer",          body: "The workflows that run without human intervention: follow-ups, confirmations, handoffs, notifications." },
@@ -55,7 +55,7 @@ const services = [
       { leader: "POPIA compliance built in", body: "Every data touchpoint designed for compliance before a line of code is written." },
     ],
     pricing:     "From R35,000",
-    note:        "Fixed price. Scoped after the diagnostic — no surprises.",
+    note:        "Fixed price. Scoped after the audit — no surprises.",
     href:        "/services/workflow-integration",
     bg:          "var(--color-bg-canvas)",
   },
@@ -64,7 +64,7 @@ const services = [
     label:       "03",
     title:       "Team Training & Handover",
     tagline:     "Your team runs the system. Not us.",
-    description: "Hands-on training built around the specific workflows we've configured. Your team learns how to use, manage, and adapt the system — so the capability stays in the business after we hand over.",
+    description: "Your team learns the new workflows and the rules that keep them POPIA-safe: what goes into AI tools, and what never does.",
     bullets: [
       { leader: "Hands-on workshops",       body: "Practical sessions built around your actual tools, not generic AI theory." },
       { leader: "Prompt engineering",       body: "Teaching your team to get consistent, high-quality outputs from the tools you already have." },
@@ -81,7 +81,7 @@ const services = [
     label:       "04",
     title:       "Results Optimisation",
     tagline:     "A second sprint when the first one shows what's next.",
-    description: "A fixed-scope optimisation engagement triggered by what the 30-day measurement phase surfaces. Not a retainer — a defined sprint built around specific opportunities the data identified.",
+    description: "Thirty days after go-live we measure hours saved and risks closed, then tune what the data shows.",
     bullets: [
       { leader: "Data-led scope",              body: "Built around what the 30-day measurement report surfaced — not assumptions." },
       { leader: "Fixed-scope sprint",          body: "Defined deliverables, defined timeline, agreed before work begins." },
@@ -127,9 +127,9 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split">
-              <span className="maru-headline-split-strong">Paying for AI tools</span>
+              <span className="maru-headline-split-strong">Four steps to AI</span>
               <br />
-              <span className="maru-headline-split-light">that don&apos;t pay you back?</span>
+              <span className="maru-headline-split-light">your business can defend.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.16}>
@@ -360,7 +360,7 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              The Operations Diagnostic is where every engagement starts — a
+              The POPIA-Safe AI Audit is where every engagement starts — a
               structured audit of your current setup, a clear picture of what to configure first,
               and a written report delivered within 48 hours.
             </p>

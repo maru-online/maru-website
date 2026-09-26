@@ -9,42 +9,31 @@ import { seo } from '@/lib/seo'
 import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
-  ...seo('/services/operations-diagnostic'),
-  title: "Operations Diagnostic | Maru Online",
+  ...seo('/services/popia-safe-ai-audit'),
+  title: "POPIA-Safe AI Audit | Maru Online",
   description:
-    "Map where your operation has gaps — before configuring anything. A structured audit delivered within 48 hours.",
+    "Find out where your client data goes. We map every tool, AI app and data flow, flag POPIA exposure and size the savings. 48-hour report, R4,500.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
 const inner       = "max-w-[900px] mx-auto";
 const innerNarrow = "max-w-[720px] mx-auto";
 
-const bullets = [
-  {
-    leader: "Sector-specific intake brief",
-    body: "Structured questions tailored to your industry (medico-legal, HR & recruitment, or conference & events).",
-  },
-  {
-    leader: "Verification call",
-    body: "A 30–45 minute call to clarify the brief, ask the right questions, and confirm scope.",
-  },
-  {
-    leader: "Written gap report",
-    body: "A clear document mapping where your workflows aren't connected, the cost of each gap, and the configuration priority order.",
-  },
-  {
-    leader: "90-day roadmap",
-    body: "A sequenced action plan so you know exactly what to configure and in what order.",
-  },
+// "What you get" — COPY-DECK §3, verbatim. Plain sentences, so no bold leader.
+const bullets: { leader?: string; body: string }[] = [
+  { body: "A data-flow map of your tools, AI apps and WhatsApp workflows" },
+  { body: "POPIA exposure flagged: cross-border transfers (s72), automated decisions (s71), consent gaps" },
+  { body: "The manual work costing you time, sized in hours per week" },
+  { body: "A fixed-price plan for what to fix first" },
 ];
 
-export default function OperationsDiagnosticPage() {
+export default function PopiaSafeAiAuditPage() {
   return (
     <>
       <ServiceJsonLd
-        name="Operations Diagnostic"
-        description="Map where your operation has gaps \u2014 before configuring anything. A structured audit delivered within 48 hours."
-        path="/services/operations-diagnostic"
+        name="POPIA-Safe AI Audit"
+        description="Find out where your client data goes. We map every tool, AI app and data flow, flag POPIA exposure and size the savings. 48-hour report, R4,500."
+        path="/services/popia-safe-ai-audit"
         price="4500"
       />
       {/* ── Hero ── */}
@@ -78,15 +67,15 @@ export default function OperationsDiagnosticPage() {
                   </Link>
                 </li>
                 <li aria-hidden="true">→</li>
-                <li style={{ color: "var(--color-cyan)" }}>Operations Diagnostic</li>
+                <li style={{ color: "var(--color-cyan)" }}>POPIA-Safe AI Audit</li>
               </ol>
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">01 — Operations Diagnostic</span>
+            <span className="label-eyebrow-ochre">01 — POPIA-Safe AI Audit</span>
           </FadeUp>
           <FadeUp delay={0.12}>
-            <h1 style={{ color: "var(--color-ink-inverted)" }}>Operations Diagnostic</h1>
+            <h1 style={{ color: "var(--color-ink-inverted)" }}>POPIA-Safe AI Audit</h1>
           </FadeUp>
           <FadeUp delay={0.18}>
             <p
@@ -188,10 +177,10 @@ export default function OperationsDiagnosticPage() {
                   What it is
                 </span>
                 <p className="body-muted" style={{ marginBottom: "2.5rem" }}>
-                  A structured audit of your current workflows, tools, and data connections. You
-                  receive a written report — delivered within 48 hours — that maps where information
-                  isn&apos;t flowing, quantifies what that&apos;s costing, and tells you exactly what
-                  to configure first. This is where every engagement starts.
+                  Before anything gets built, we find out where your client information actually
+                  goes: which AI tools see it, which apps store it offshore, and which workflows copy
+                  it by hand. You get a written report within 48 hours: the risks, ranked, and the
+                  time and money each fix will save.
                 </p>
               </FadeUp>
               <FadeUp delay={0.08}>
@@ -214,10 +203,9 @@ export default function OperationsDiagnosticPage() {
                   How it connects
                 </span>
                 <p className="body-muted" style={{ margin: 0 }}>
-                  The diagnostic report is the input to every other engagement. If we find a clear
+                  The audit report is the input to every other engagement. If we find a clear
                   integration opportunity, we scope the Workflow Integration engagement directly from
-                  the report findings. If the diagnostic surfaces a site infrastructure problem first,
-                  we scope that. Either way, you know the full cost before committing to anything
+                  the report findings. Either way, you know the full cost before committing to anything
                   further.
                 </p>
               </FadeUp>
@@ -245,7 +233,7 @@ export default function OperationsDiagnosticPage() {
               </span>
               <ListGroup>
                 {bullets.map((b) => (
-                  <ListItem key={b.leader} leader={b.leader} body={b.body} />
+                  <ListItem key={b.body} leader={b.leader} body={b.body} />
                 ))}
               </ListGroup>
             </FadeUp>

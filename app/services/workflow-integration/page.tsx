@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   ...seo('/services/workflow-integration'),
   title: "Workflow Integration | Maru Online",
   description:
-    "Connect your existing tools. Configure the workflows between them. Fixed-scope, vendor-agnostic.",
+    "Fixed-scope integration built on your audit. We connect your tools and automate the work, with consent, access controls and data location built in.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
@@ -47,7 +47,7 @@ export default function WorkflowIntegrationPage() {
     <>
       <ServiceJsonLd
         name="Workflow Integration"
-        description="Connect your existing tools. Configure the workflows between them. Fixed-scope, vendor-agnostic."
+        description="Fixed-scope integration built on your audit. We connect your tools and automate the work, with consent, access controls and data location built in."
         path="/services/workflow-integration"
         price="45000"
       />
@@ -156,7 +156,7 @@ export default function WorkflowIntegrationPage() {
                   margin: 0,
                 }}
               >
-                Fixed price scoped after the diagnostic — no surprises.
+                Fixed price scoped after the audit — no surprises.
               </p>
             </div>
           </FadeUp>
@@ -192,10 +192,9 @@ export default function WorkflowIntegrationPage() {
                   What it is
                 </span>
                 <p className="body-muted" style={{ marginBottom: "2.5rem" }}>
-                  Fixed-scope implementation built around what the diagnostic found. We configure the
-                  connections between your existing tools, extend what&apos;s already working, and
-                  build the automation layer on top. Vendor-agnostic — your stack stays, we connect
-                  it. Nothing is built until the scope and price are agreed.
+                  We build on what the audit found. Your existing tools get connected, the manual
+                  work gets automated, and every workflow is designed so client data stays where
+                  POPIA allows: logged, permissioned and documented.
                 </p>
               </FadeUp>
               <FadeUp delay={0.08}>
@@ -218,7 +217,7 @@ export default function WorkflowIntegrationPage() {
                   How it connects
                 </span>
                 <p className="body-muted" style={{ margin: 0 }}>
-                  At day 30 we measure results against the baseline established in the diagnostic. If
+                  At day 30 we measure results against the baseline established in the audit. If
                   the measurement surfaces further optimisation opportunities, that becomes the input
                   to a Results Optimisation sprint. Team Training & Handover runs alongside or
                   immediately after the build to ensure the capability stays in your business.
@@ -286,7 +285,7 @@ export default function WorkflowIntegrationPage() {
                 marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Every integration starts with the diagnostic.</span>
+              <span style={{ fontWeight: 300 }}>Every integration starts with the audit.</span>
               <br />
               <span style={{ fontWeight: 700 }}>That&apos;s where the scope comes from.</span>
             </h2>

@@ -32,16 +32,16 @@ const inter = localFont({
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL('https://maruonline.com'),
-  title: 'AI & Automation Consultants for Growing SMEs | Maru Online',
+  title: 'POPIA-Safe AI & Automation for SA Businesses | Maru Online',
   description:
-    'We find where your processes are costing you time and money — then build AI-powered workflows that cut costs and free your team. Free assessment.',
+    'Your team already uses AI. We make it POPIA-safe: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
   openGraph: {
     type: 'website',
     siteName: 'Maru Online',
     locale: 'en_ZA',
-    title: 'AI That Actually Works for Your Business — Not Just Another Tool',
+    title: 'AI your business can use, without the POPIA risk',
     description:
-      'We connect AI with your existing tools and workflows to automate the work your team shouldn\'t be doing manually. Free assessment for growing SMEs.',
+      'Your team already uses AI. We make it POPIA-safe: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
   },
   twitter: {
     card: 'summary_large_image',

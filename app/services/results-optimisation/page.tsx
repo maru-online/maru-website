@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   ...seo('/services/results-optimisation'),
   title: "Results Optimisation | Maru Online",
   description:
-    "A second sprint when the first one shows what's next. Fixed-scope, data-led, available after a completed build.",
+    "Thirty days after go-live we measure hours saved and POPIA risks closed, then run a fixed-scope sprint on what the data shows.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
@@ -43,7 +43,7 @@ export default function ResultsOptimisationPage() {
     <>
       <ServiceJsonLd
         name="Results Optimisation"
-        description="A second sprint when the first one shows what's next. Fixed-scope, data-led, available after a completed build."
+        description="Thirty days after go-live we measure hours saved and POPIA risks closed, then run a fixed-scope sprint on what the data shows."
         path="/services/results-optimisation"
         price="8500"
       />
@@ -217,7 +217,7 @@ export default function ResultsOptimisationPage() {
                   This engagement is only available after a completed Workflow Integration build. The
                   30-day measurement data from Phase 4 is the input. If measurement surfaces a clear
                   next intervention, we scope it here. Not all clients will need this — some builds
-                  deliver everything the diagnostic identified and no further sprint is required.
+                  deliver everything the audit identified and no further sprint is required.
                 </p>
               </FadeUp>
             </div>
@@ -282,7 +282,7 @@ export default function ResultsOptimisationPage() {
                 marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Every engagement starts with the diagnostic.</span>
+              <span style={{ fontWeight: 300 }}>Every engagement starts with the audit.</span>
               <br />
               <span style={{ fontWeight: 700 }}>The data tells us what comes next.</span>
             </h2>

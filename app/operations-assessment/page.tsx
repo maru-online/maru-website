@@ -509,7 +509,7 @@ function AssessmentWizard() {
                 While you wait:
               </p>
               <p className="body-muted text-base leading-relaxed">
-                The report will invite you to book a free 30-minute discovery call. That is where we review your assessment together, go deeper on what we find, and tell you honestly whether a full Operations Diagnostic makes sense for your business right now.
+                The report will invite you to book a free 30-minute discovery call. That is where we review your assessment together, go deeper on what we find, and tell you honestly whether a full POPIA-Safe AI Audit makes sense for your business right now.
               </p>
             </div>
 

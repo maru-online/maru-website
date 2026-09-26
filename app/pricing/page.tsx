@@ -10,7 +10,7 @@ import { FaqJsonLd } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
   title:       'Pricing | Maru Online',
-  description: 'Every Maru engagement begins with the Operations Diagnostic. Fixed scope, fixed price, clear deliverables at every stage. No surprises.',
+  description: 'Every Maru engagement begins with the POPIA-Safe AI Audit (R4,500). Fixed scope, fixed price, clear deliverables at every stage.',
   ...seo('/pricing'),
 }
 
@@ -26,7 +26,7 @@ const engagements = [
     id:      'diagnostic',
     label:   '01',
     badge:   'Start here',
-    title:   'Operations Diagnostic',
+    title:   'POPIA-Safe AI Audit',
     price:   'R4,500',
     note:    'Offsets against build cost if you proceed.',
     scope:   '48 hours',
@@ -37,7 +37,7 @@ const engagements = [
       { leader: 'Gap report',          body: 'Named failures, cost per gap, and fix priority.' },
       { leader: '90-day roadmap',      body: 'A sequenced action plan for your next steps.' },
     ],
-    href:      '/services/operations-diagnostic',
+    href:      '/services/popia-safe-ai-audit',
     featured:  false,
   },
   {
@@ -46,9 +46,9 @@ const engagements = [
     badge:   'Most common',
     title:   'Workflow Integration',
     price:   'From R35,000',
-    note:    'Fixed price. Scoped after the diagnostic.',
+    note:    'Fixed price. Scoped after the audit.',
     scope:   '4–8 weeks',
-    body:    'Implementation built around the diagnostic findings. We configure the connections between your tools and build the automation layer. We work with your existing stack.',
+    body:    'Implementation built around the audit findings. We configure the connections between your tools and build the automation layer. We work with your existing stack.',
     items: [
       { leader: 'Custom integration',   body: 'Connecting your CRM, calendar, and email correctly.' },
       { leader: 'Automation layer',     body: 'Workflows that run without human intervention.' },
@@ -80,20 +80,20 @@ const engagements = [
 
 const faqs = [
   {
-    q: 'Why do I have to pay for the diagnostic?',
-    a: "Because it is real work that produces a real deliverable. A free call tells you what we think is wrong. A paid diagnostic tells you exactly what is wrong and what it is costing you. It ensures we are both serious about the conversation.",
+    q: 'Why do I have to pay for the audit?',
+    a: "Because it is real work that produces a real deliverable. A free call tells you what we think is wrong. A paid audit tells you exactly what is wrong and what it is costing you. It ensures we are both serious about the conversation.",
   },
   {
-    q: 'What if I decide not to proceed after the diagnostic?',
+    q: 'What if I decide not to proceed after the audit?',
     a: "That is fine. The report is yours. You walk away with a clear picture of your gaps and a prioritised action plan. You can act on it yourself or take it elsewhere. We would rather you have clarity than commit to an engagement you are not ready for.",
   },
   {
     q: "Why don't you publish a full engagement price?",
-    a: "Every engagement is scoped to what the diagnostic finds. A single number would either undersell complex work or oversell simple work. We guarantee the price is fixed before you commit. No surprises. No scope creep.",
+    a: "Every engagement is scoped to what the audit finds. A single number would either undersell complex work or oversell simple work. We guarantee the price is fixed before you commit. No surprises. No scope creep.",
   },
   {
     q: 'Do you offer payment plans?',
-    a: "The diagnostic is payable upfront. For the core engagement, we can discuss a milestone-based structure. Typically, this is 50% on sign-off and 50% on delivery. We can work something out during the scoping conversation.",
+    a: "The audit is payable upfront. For the core engagement, we can discuss a milestone-based structure. Typically, this is 50% on sign-off and 50% on delivery. We can work something out during the scoping conversation.",
   },
 ]
 
@@ -182,9 +182,9 @@ export default function PricingPage() {
                 }}
               >
                 If you have already invested in AI tools, you don&apos;t need more
-                tools. You need the ones you have to work together. The diagnostic
+                tools. You need the ones you have to work together. The audit
                 is where that starts. If you proceed to a full engagement, the
-                diagnostic fee offsets against the project cost.
+                audit fee offsets against the project cost.
               </p>
             </FadeUp>
           </div>
@@ -213,7 +213,7 @@ export default function PricingPage() {
                 style={{ margin: 0, maxWidth: '560px' }}
               >
                 All three engagements are fixed-scope. We agree on the price before
-                work begins. Start with the diagnostic. Everything else is scoped
+                work begins. Start with the audit. Everything else is scoped
                 from what it finds.
               </p>
             </div>
@@ -501,7 +501,7 @@ export default function PricingPage() {
         />
         <div className={innerNarrow}>
           <FadeUp>
-            <span className="label-eyebrow">The diagnostic</span>
+            <span className="label-eyebrow">The audit</span>
             <h2
               style={{
                 color:        'var(--color-ink-inverted)',
@@ -518,7 +518,7 @@ export default function PricingPage() {
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: 'var(--space-para-section)' }}>
               The assessment is free and takes about 15 minutes — your report is
-              emailed to you. The Operations Diagnostic that follows is R4,500.
+              emailed to you. The POPIA-Safe AI Audit that follows is R4,500.
             </p>
             <hr
               className="rule"

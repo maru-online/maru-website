@@ -454,7 +454,7 @@ export default async function InsightsPage() {
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
               The free assessment shows you where the gaps are, in about fifteen
-              minutes. The Operations Diagnostic goes further — your tools, your
+              minutes. The POPIA-Safe AI Audit goes further — your tools, your
               workflows, your revenue gaps, written up within 48 hours. R4,500.
             </p>
             <hr

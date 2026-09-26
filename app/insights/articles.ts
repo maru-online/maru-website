@@ -240,7 +240,7 @@ export const articles: Article[] = [
       {
         type: "callout",
         label: "The enforcement reality",
-        text:  "The Information Regulator established an AI-focused committee in 2024 specifically to address how AI and automated systems interact with POPIA obligations. The 2025 Amendment Regulations require that all security compromises be reported. This is no longer a theoretical compliance risk.",
+        text:  "The 2025 Amendment Regulations require that all security compromises be reported. This is no longer a theoretical compliance risk.",
       },
       {
         type: "heading",

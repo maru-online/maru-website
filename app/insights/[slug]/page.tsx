@@ -439,7 +439,7 @@ export default async function InsightArticlePage(
               </p>
               <p className="article-cta-body">
                 The free assessment shows you where the gaps are, in about fifteen
-                minutes. The Operations Diagnostic goes further — your tools, your
+                minutes. The POPIA-Safe AI Audit goes further — your tools, your
                 workflows, your revenue gaps, written up within 48 hours. R4,500.
               </p>
               <div className="article-cta-actions">
