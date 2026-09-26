@@ -159,8 +159,9 @@ export default function ServicesPage() {
 
       {/* ── IMAGE SPLIT — between hero and intro ─────────────────────────── */}
       <ImageSplit
-        src="/images/people/integration-looks-like.png"
-        alt="Two professionals reviewing data on a monitor in a modern office"
+        src="/images/people/services-adviser-client.jpg"
+        alt="A financial adviser and a client laughing together across a desk"
+        objectPosition="center 30%"
         eyebrow="Integrated AI in practice"
         heading="What integrated AI actually looks like."
         body="Leads land in your CRM on their own. Follow-ups send themselves. Invoices go out the moment a job closes. Reports update while you sleep."
@@ -308,8 +309,9 @@ export default function ServicesPage() {
       {/* ════════════════════════════════════════════════════════════════════
       {/* ── IMAGE BAND — before final CTA ────────────────────────────────── */}
       <ImageBand
-        src="/images/people/vendor-agnostic.png"
-        alt="South African professionals working together at a computer"
+        src="/images/people/services-shared-desk.jpg"
+        alt="A small team's shared desk with two laptops, a phone, paper files and coffee mugs"
+        objectPosition="center 45%"
         overlayText={
           <>
             <span style={{ fontWeight: 300 }}>Vendor-agnostic.</span>{' '}

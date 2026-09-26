@@ -181,8 +181,9 @@ export default function ProcessPage() {
 
       {/* ── IMAGE SPLIT — between principle and tools scroller ──────────── */}
       <ImageSplit
-        src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80"
-        alt="Team of professionals reviewing workflow diagrams on multiple screens"
+        src="/images/people/process-audit-first.jpg"
+        alt="A consultant and an accounting firm owner sketching a workflow on paper"
+        objectPosition="center 35%"
         eyebrow="Audit first"
         heading="We audit your workflows before we touch your tools."
         body="Building automation on top of broken infrastructure just breaks faster. We map how your business actually operates — the manual steps, the data handoffs, the gaps — before a single workflow is configured."
@@ -312,8 +313,9 @@ export default function ProcessPage() {
 
       {/* ── IMAGE BAND — between phases and principles ───────────────────── */}
       <ImageBand
-        src="/images/people/every-phase.png"
-        alt="Team collaborating in a professional setting"
+        src="/images/people/process-handover.jpg"
+        alt="A practice manager coaching a young colleague at his laptop"
+        objectPosition="center 35%"
         overlayText={
           <>
             <span style={{ fontWeight: 300 }}>Every phase has a defined output.</span>

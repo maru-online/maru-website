@@ -5,6 +5,7 @@ import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import { FadeUp } from "@/components/ui/Animate";
 import { CaseStudyCallout } from "@/components/marketing/CaseStudyCallout";
+import ImageBand from "@/components/ui/ImageBand";
 import { seo } from '@/lib/seo'
 import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
@@ -255,6 +256,13 @@ export default function PopiaSafeAiAuditPage() {
           </FadeUp>
         </div>
       </section>
+
+      {/* ── IMAGE BAND — before the final CTA (image plan, 26 Sep 2026) ── */}
+      <ImageBand
+        src="/images/people/audit-data-flow-map.jpg"
+        alt="Two people's hands drawing a data-flow map on paper, with sticky notes and pencils"
+        objectPosition="center 50%"
+      />
 
       {/* ── CTA ── */}
       <section

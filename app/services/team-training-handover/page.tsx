@@ -5,6 +5,7 @@ import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import { FadeUp } from "@/components/ui/Animate";
 import { CaseStudyCallout } from "@/components/marketing/CaseStudyCallout";
+import ImageBand from "@/components/ui/ImageBand";
 import { seo } from '@/lib/seo'
 import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
@@ -257,6 +258,13 @@ export default function TeamTrainingHandoverPage() {
           </FadeUp>
         </div>
       </section>
+
+      {/* ── IMAGE BAND — before the final CTA (image plan, 26 Sep 2026) ── */}
+      <ImageBand
+        src="/images/people/training-workshop.jpg"
+        alt="A facilitator leading a small workshop with three staff at a law firm"
+        objectPosition="center 35%"
+      />
 
       {/* ── CTA ── */}
       <section

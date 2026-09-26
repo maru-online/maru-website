@@ -386,8 +386,9 @@ export default function Home() {
 
       {/* ── IMAGE BAND — between process and assessment form ────────────── */}
       <ImageBand
-        src="/images/people/replace-team.png"
-        alt="Two professionals celebrating a win together in the office"
+        src="/images/people/home-practice-reception.jpg"
+        alt="A dentist and her receptionist sharing a laugh at the practice reception desk"
+        objectPosition="center 40%"
         overlayText={
           <>
             <span style={{ display: 'block', fontWeight: 300 }}>We don&apos;t replace your team.</span>
