@@ -90,7 +90,7 @@ export default function TeamTrainingHandoverPage() {
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">03 — Team Training &amp; Handover</span>
+            <span className="label-eyebrow-gold">03 — Team Training &amp; Handover</span>
           </FadeUp>
           <FadeUp delay={0.12}>
             <h1 style={{ color: "var(--color-ink-inverted)" }}>Team Training &amp; Handover</h1>

@@ -73,7 +73,7 @@ export default function PopiaSafeAiAuditPage() {
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">01 — POPIA-Safe AI Audit</span>
+            <span className="label-eyebrow-gold">01 — POPIA-Safe AI Audit</span>
           </FadeUp>
           <FadeUp delay={0.12}>
             <h1 style={{ color: "var(--color-ink-inverted)" }}>POPIA-Safe AI Audit</h1>

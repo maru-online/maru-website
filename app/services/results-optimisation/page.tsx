@@ -84,7 +84,7 @@ export default function ResultsOptimisationPage() {
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">04 — Results Optimisation</span>
+            <span className="label-eyebrow-gold">04 — Results Optimisation</span>
           </FadeUp>
           <FadeUp delay={0.12}>
             <h1 style={{ color: "var(--color-ink-inverted)" }}>Results Optimisation</h1>

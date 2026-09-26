@@ -445,6 +445,18 @@
     display:         block;
   }
 
+  /* Eyebrow on navy (service heroes). --color-gold on --color-bg-navy = 4.64:1 (AA). */
+  .label-eyebrow-gold {
+    font-family:     var(--font-body), sans-serif;
+    font-size:       var(--text-label);
+    font-weight:     600;
+    letter-spacing:  var(--tracking-eyebrow);
+    text-transform:  uppercase;
+    color:           var(--color-gold);
+    margin-bottom:   0.5rem;
+    display:         block;
+  }
+
   .label-eyebrow-ochre {
     font-family:     var(--font-body), sans-serif;
     font-size:       var(--text-label);
