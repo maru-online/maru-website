@@ -53,7 +53,7 @@ export default function TermsConditionsPage() {
           </div>
           
           <p className="text-ink-secondary">
-            <strong className="text-ink-primary">Custom Projects:</strong> Project fees range from R25,000 for single workflow automation to R200,000+ for comprehensive sales and marketing systems. All pricing is provided in fixed-price quotes following your Operations Diagnostic.
+            <strong className="text-ink-primary">Custom Projects:</strong> Project fees range from R25,000 for single workflow automation to R200,000+ for comprehensive sales and marketing systems. All pricing is provided in fixed-price quotes following your POPIA-Safe AI Audit.
           </p>
 
           <div>
