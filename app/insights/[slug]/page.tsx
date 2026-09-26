@@ -443,7 +443,7 @@ export default async function InsightArticlePage(
                 workflows, your revenue gaps, written up within 48 hours. R4,500.
               </p>
               <div className="article-cta-actions">
-                <Link href="/operations-assessment" className="btn-cyan">
+                <Link href="/popia-ai-check" className="btn-cyan">
                   Start the assessment
                 </Link>
                 <Link href="/insights" className="btn-ghost-white">

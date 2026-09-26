@@ -22,9 +22,15 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { waitUntil } from "@vercel/functions";
 import { eq } from "drizzle-orm";
-import { calculateScore } from "@/lib/assessment/scoring";
+import {
+  ASSESSMENT_VERSION,
+  calculateScore,
+  isValidAnswerSet,
+  type AssessmentAnswers,
+} from "@/lib/assessment/scoring";
+import { ASSESSMENT_AREAS } from "@/lib/assessment/questions";
 import { buildSynthesisPrompt, SynthesisOutput } from "@/lib/assessment/synthesisPrompt";
-import { getFullTemplate } from "@/lib/assessment/reportTemplates";
+import type { V3StoredTemplate } from "@/lib/assessment/reportTemplates";
 import { dbLeadEngine } from "@/lib/db";
 import { operationsReports } from "@/lib/db/schema/lead-engine";
 import { verifyRecaptcha } from "@/lib/recaptcha";
@@ -32,15 +38,20 @@ import { verifyRecaptcha } from "@/lib/recaptcha";
 // ── Types ──────────────────────────────────────────────────────────────────
 
 interface SubmissionBody {
-  answers: {
-    q1: string;  q2: string;  q3: string;  q4: string;  q5: string;
-    q6: string;  q7: string;  q8: string;  q9: string;  q10: string;
-  };
+  answers: AssessmentAnswers;
   name: string;
   email: string;
   website?: string;
+  marketingConsent?: boolean;
   recaptchaToken?: string;
 }
+
+/**
+ * Bump when the consent wording in app/popia-ai-check/page.tsx changes, so
+ * every stored consent can be matched to the exact text the visitor saw.
+ * 2026-09-v1 = COPY-DECK-ADDENDUM-01 item D, approved 26 Sep 2026.
+ */
+const CONSENT_TEXT_VERSION = "2026-09-v1";
 
 // ── Main handler ───────────────────────────────────────────────────────────
 
@@ -70,6 +81,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Unknown answer keys (a stale tab still on the v2 questions, or a
+    // hand-built request) would otherwise default to 1 and email a result the
+    // visitor never earned.
+    if (!isValidAnswerSet(body.answers)) {
+      console.warn("assessment rejected: answers do not match", ASSESSMENT_VERSION);
+      return NextResponse.json(
+        { error: "Invalid answers" },
+        { status: 400 }
+      );
+    }
+
     const captcha = await verifyRecaptcha(body.recaptchaToken ?? "");
     if (!captcha.ok) {
       return NextResponse.json(
@@ -81,7 +103,18 @@ export async function POST(req: NextRequest) {
     // ── 2. Score + template selection ─────────────────────────────────────
     const scoreResult = calculateScore(body.answers);
     const painTag = scoreResult.painTag;
-    const template = getFullTemplate(scoreResult.level, painTag, scoreResult.segmentB);
+    // Only an explicit `true` counts as consent — never a truthy string.
+    const marketingConsent = body.marketingConsent === true;
+    const consentAt = new Date().toISOString();
+    const template: V3StoredTemplate = {
+      version: ASSESSMENT_VERSION,
+      levelSummary: scoreResult.summary,
+      consent: {
+        marketing: marketingConsent,
+        at: consentAt,
+        textVersion: CONSENT_TEXT_VERSION,
+      },
+    };
 
     let synthesis: SynthesisOutput | null = null;
 
@@ -93,7 +126,7 @@ export async function POST(req: NextRequest) {
       process.env.NEXT_PUBLIC_BASE_URL ??
       (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://maruonline.com");
 
-    let reportUrl = `${baseUrl}/operations-assessment`;
+    let reportUrl = `${baseUrl}/popia-ai-check`;
     let reportId: string | null = null;
     try {
       const rows = await dbLeadEngine
@@ -157,6 +190,8 @@ export async function POST(req: NextRequest) {
           levelLabel: scoreResult.label,
           painTag,
           reportUrl,
+          marketingConsent,
+          consentAt,
         }).catch((err) => console.error("Brevo contact upsert failed:", err));
 
         await fireBrevoEmails({
@@ -170,12 +205,15 @@ export async function POST(req: NextRequest) {
           segmentB: scoreResult.segmentB,
           jimmyBrief: synthesis?.objectB ?? null,
           answers: body.answers,
+          marketingConsent,
         }).catch((err) => console.error("Brevo send failed:", err));
 
         console.log("assessment background finished", {
           synthesisMs: tSynthesis,
           synthesisOk: synthesis !== null,
           synthesisStored: Boolean(reportId && synthesis?.objectA),
+          version: ASSESSMENT_VERSION,
+          marketingConsent,
         });
       })(),
     );
@@ -303,6 +341,9 @@ async function runSynthesis(
 
 // ── Brevo contact upsert ───────────────────────────────────────────────────
 
+// The marketing list. Joining it is direct marketing under POPIA s69, so a
+// contact is added ONLY when they ticked the opt-in. Everyone else is still
+// upserted (the report email and follow-up need the contact) but on no list.
 const BREVO_ASSESSMENT_LIST_ID = 21;
 
 async function upsertBrevoContact(params: {
@@ -312,33 +353,61 @@ async function upsertBrevoContact(params: {
   levelLabel: string;
   painTag: string;
   reportUrl: string;
+  marketingConsent: boolean;
+  consentAt: string;
 }) {
-  const { name, email, level, levelLabel, painTag, reportUrl } = params;
+  const { name, email, level, levelLabel, painTag, reportUrl, marketingConsent, consentAt } = params;
   const firstName = name.trim().split(" ")[0];
   const lastName = name.trim().split(" ").slice(1).join(" ") || "";
 
-  const res = await fetch("https://api.brevo.com/v3/contacts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "api-key": (process.env.BREVO_API_KEY ?? "").trim(),
-    },
-    body: JSON.stringify({
-      email,
-      updateEnabled: true,
-      listIds: [BREVO_ASSESSMENT_LIST_ID],
-      attributes: {
-        FIRSTNAME: firstName,
-        LASTNAME: lastName,
-        ASSESSMENT_LEVEL: level,
-        ASSESSMENT_LABEL: levelLabel,
-        PAIN_TAG: painTag,
-        REPORT_URL: reportUrl,
-        ASSESSMENT_DATE: new Date().toISOString().split("T")[0],
+  const baseAttributes = {
+    FIRSTNAME: firstName,
+    LASTNAME: lastName,
+    ASSESSMENT_LEVEL: level,
+    ASSESSMENT_LABEL: levelLabel,
+    PAIN_TAG: painTag,
+    REPORT_URL: reportUrl,
+    ASSESSMENT_DATE: new Date().toISOString().split("T")[0],
+  };
+  // Proof of consent (or its absence) for this submission. These attributes
+  // were introduced with assessment_v3 and must be created in Brevo.
+  const consentAttributes = {
+    MARKETING_CONSENT: marketingConsent,
+    CONSENT_AT: consentAt,
+    CONSENT_TEXT_VERSION,
+  };
+
+  const send = (attributes: Record<string, unknown>) =>
+    fetch("https://api.brevo.com/v3/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": (process.env.BREVO_API_KEY ?? "").trim(),
       },
-    }),
-  });
-  const body = await res.json();
+      body: JSON.stringify({
+        email,
+        updateEnabled: true,
+        ...(marketingConsent ? { listIds: [BREVO_ASSESSMENT_LIST_ID] } : {}),
+        attributes,
+      }),
+    });
+
+  let res = await send({ ...baseAttributes, ...consentAttributes });
+  let body = await readBrevoBody(res);
+
+  // If the consent attributes are missing in Brevo, a 400 would otherwise lose
+  // the whole upsert — and with it an opted-in contact's list membership. The
+  // consent record of truth is operations_reports.template.consent, so retry
+  // without them and log loudly enough to get the attributes created.
+  if (res.status === 400) {
+    console.error(
+      "Brevo rejected the consent attributes; retrying without them. Create MARKETING_CONSENT, CONSENT_AT and CONSENT_TEXT_VERSION in Brevo.",
+      JSON.stringify(body),
+    );
+    res = await send(baseAttributes);
+    body = await readBrevoBody(res);
+  }
+
   // A non-2xx from Brevo used to be console.log'd and otherwise ignored, so a
   // rejected request looked identical to a delivered one. Throwing puts it in
   // the caller's .catch, which logs at error level and shows up in an error
@@ -347,6 +416,21 @@ async function upsertBrevoContact(params: {
     throw new Error(`Brevo contact upsert ${res.status}: ${JSON.stringify(body)}`);
   }
   console.log("Brevo contact upsert response:", res.status, JSON.stringify(body));
+}
+
+/**
+ * Brevo answers an update to an existing contact with 204 and no body, so a
+ * bare res.json() threw for every repeat submitter and reported a successful
+ * upsert as a failure.
+ */
+async function readBrevoBody(res: Response): Promise<unknown> {
+  const text = await res.text();
+  if (!text) return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text;
+  }
 }
 
 // ── Brevo emails ───────────────────────────────────────────────────────────
@@ -362,6 +446,7 @@ interface BrevoEmailParams {
   segmentB: boolean;
   jimmyBrief: SynthesisOutput["objectB"] | null;
   answers: SubmissionBody["answers"];
+  marketingConsent: boolean;
 }
 
 async function fireBrevoEmails(params: BrevoEmailParams) {
@@ -404,7 +489,7 @@ async function sendProspectEmail(params: BrevoEmailParams) {
         REPORT_URL: reportUrl,
         PAIN_TAG: painTag,
       },
-      tags: [`level-${level}`, painTag, segmentB ? "segment-b" : "segment-standard"],
+      tags: [ASSESSMENT_VERSION, `level-${level}`, painTag, segmentB ? "segment-b" : "segment-standard"],
     }),
   });
   const brevoBody = await brevoRes.json();
@@ -415,10 +500,10 @@ async function sendProspectEmail(params: BrevoEmailParams) {
 }
 
 async function sendJimmyBriefEmail(params: BrevoEmailParams) {
-  const { name, email, website, level, levelLabel, reportUrl, segmentB, jimmyBrief, answers } = params;
+  const { name, email, website, level, levelLabel, reportUrl, segmentB, jimmyBrief, answers, marketingConsent } = params;
 
   const briefHtml = buildJimmyBriefHtml({
-    name, email, website, level, levelLabel, reportUrl, segmentB, jimmyBrief, answers,
+    name, email, website, level, levelLabel, reportUrl, segmentB, jimmyBrief, answers, marketingConsent,
   });
 
   const jimmyRes = await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -430,9 +515,10 @@ async function sendJimmyBriefEmail(params: BrevoEmailParams) {
     body: JSON.stringify({
       sender: { name: "Maru Online", email: "hello@maruonline.com" },
       to: [{ email: "hello@maruonline.com", name: "Maru Online" }],
-      subject: `New diagnostic: ${name} — ${levelLabel}${segmentB ? " ⚠️ Segment B" : ""}`,
+      subject: `New POPIA check: ${name} — ${levelLabel}${segmentB ? " ⚠️ Segment B" : ""}`,
       htmlContent: briefHtml,
       replyTo: { email, name },
+      tags: [ASSESSMENT_VERSION],
     }),
   });
   const jimmyBody = await jimmyRes.json();
@@ -452,8 +538,18 @@ function buildJimmyBriefHtml(params: {
   segmentB: boolean;
   jimmyBrief: SynthesisOutput["objectB"] | null;
   answers: SubmissionBody["answers"];
+  marketingConsent: boolean;
 }): string {
-  const { name, email, website, levelLabel, reportUrl, segmentB, jimmyBrief, answers } = params;
+  const { levelLabel, reportUrl, segmentB, jimmyBrief, answers, marketingConsent } = params;
+  // Visitor-typed fields go into HTML, so escape them.
+  const name = escapeHtml(params.name);
+  const email = escapeHtml(params.email);
+  const website = params.website ? escapeHtml(params.website) : undefined;
+
+  const cell = "padding:8px 12px;border:1px solid #e0e0e0;";
+  const labelCell = `${cell}font-weight:600;background:#f9f9f9;`;
+  const row = (label: string, value: string, width = "") =>
+    `<tr><td style="${labelCell}${width}">${label}</td><td style="${cell}">${value}</td></tr>`;
 
   const flagBanner = segmentB
     ? `<div style="background:#fff3cd;border:1px solid #ffc107;padding:12px 16px;border-radius:4px;margin-bottom:16px;">
@@ -465,61 +561,69 @@ function buildJimmyBriefHtml(params: {
     ? `
       <h2 style="font-size:16px;margin:24px 0 8px;">AI-Generated Brief</h2>
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;width:30%;background:#f9f9f9;">Business</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.business_summary}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Segment</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.segment}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Primary pain</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.primary_pain}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Integration gap</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.integration_gap}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Tech signals</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.tech_signals}</td></tr>
-        <tr style="background:#e8f4fd;"><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;">Open with</td><td style="padding:8px 12px;border:1px solid #e0e0e0;font-style:italic;">"${jimmyBrief.conversation_opener}"</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Probe 1</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.probes[0]}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Probe 2</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.probes[1]}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Flag</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${jimmyBrief.flag}</td></tr>
+        ${row("Business", escapeHtml(jimmyBrief.business_summary), "width:30%;")}
+        ${row("Segment", escapeHtml(jimmyBrief.segment))}
+        ${row("Primary exposure", escapeHtml(jimmyBrief.primary_pain))}
+        ${row("Data-flow gap", escapeHtml(jimmyBrief.integration_gap))}
+        ${row("Tech signals", escapeHtml(jimmyBrief.tech_signals))}
+        <tr style="background:#e8f4fd;"><td style="${cell}font-weight:600;">Open with</td><td style="${cell}font-style:italic;">"${escapeHtml(jimmyBrief.conversation_opener)}"</td></tr>
+        ${row("Probe 1", escapeHtml(jimmyBrief.probes[0]))}
+        ${row("Probe 2", escapeHtml(jimmyBrief.probes[1]))}
+        ${row("Flag", escapeHtml(jimmyBrief.flag))}
       </table>
     `
     : `<p style="color:#666;font-size:14px;">AI brief unavailable for this submission — review assessment answers below.</p>`;
 
+  // Built from questions.ts so the brief always shows the wording and score
+  // the visitor actually saw, not a hand-maintained copy of it.
+  const answerRows = ASSESSMENT_AREAS.map((area) => {
+    const header = `<tr><td colspan="2" style="padding:6px 12px;background:#f0f0f0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid #e0e0e0;">${area.label}</td></tr>`;
+    const qs = area.questions.map((q) => {
+      const chosen = q.options.find((o) => o.value === answers[q.id]);
+      const answer = chosen ? `${chosen.label} <span style="color:#999;">(${chosen.score}/4)</span>` : escapeHtml(answers[q.id] ?? "—");
+      return row(`${q.id.toUpperCase()} — ${q.text}`, answer, "width:45%;");
+    }).join("");
+    return header + qs;
+  }).join("");
+
   return `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:680px;margin:0 auto;padding:32px 24px;color:#1a1a1a;">
-      <h1 style="font-size:20px;margin:0 0 4px;">New Diagnostic: ${name}</h1>
-      <p style="color:#666;font-size:14px;margin:0 0 24px;">${levelLabel} · ${new Date().toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
+      <h1 style="font-size:20px;margin:0 0 4px;">New POPIA-safe AI check: ${name}</h1>
+      <p style="color:#666;font-size:14px;margin:0 0 24px;">${levelLabel} · ${ASSESSMENT_VERSION} · ${new Date().toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
 
       ${flagBanner}
 
       <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px;">
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;width:30%;background:#f9f9f9;">Name</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${name}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Email</td><td style="padding:8px 12px;border:1px solid #e0e0e0;"><a href="mailto:${email}">${email}</a></td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Website</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${website ? `<a href="${website}">${website}</a>` : "Not provided"}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Level</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${levelLabel}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Report</td><td style="padding:8px 12px;border:1px solid #e0e0e0;"><a href="${reportUrl}">View report →</a></td></tr>
+        ${row("Name", name, "width:30%;")}
+        ${row("Email", `<a href="mailto:${email}">${email}</a>`)}
+        ${row("Website", website ? `<a href="${website}">${website}</a>` : "Not provided")}
+        ${row("Level", levelLabel)}
+        ${row("Marketing consent", marketingConsent ? "Yes — opted in, added to list 21" : "No — report and follow-up only. Do not add to marketing.")}
+        ${row("Report", `<a href="${reportUrl}">View report →</a>`)}
       </table>
 
       ${briefSection}
 
       <h2 style="font-size:16px;margin:24px 0 8px;">Assessment Answers</h2>
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
-        <tr><td colspan="2" style="padding:6px 12px;background:#f0f0f0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid #e0e0e0;">Process & Workflow</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;width:30%;background:#f9f9f9;">Q1 — Day-to-day work</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q1}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q2 — Key person unavailable</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q2}</td></tr>
-        <tr><td colspan="2" style="padding:6px 12px;background:#f0f0f0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid #e0e0e0;">Data & Information Flow</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q3 — Where data lives</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q3}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q4 — Data errors frequency</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q4}</td></tr>
-        <tr><td colspan="2" style="padding:6px 12px;background:#f0f0f0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid #e0e0e0;">Client & Lead Management</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q5 — New enquiry process</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q5}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q6 — Lead follow-up confidence</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q6}</td></tr>
-        <tr><td colspan="2" style="padding:6px 12px;background:#f0f0f0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid #e0e0e0;">Visibility & Reporting</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q7 — Performance view</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q7}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q8 — Detecting problems</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q8}</td></tr>
-        <tr><td colspan="2" style="padding:6px 12px;background:#f0f0f0;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid #e0e0e0;">People & Dependency</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q9 — Individual reliance</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q9}</td></tr>
-        <tr><td style="padding:8px 12px;border:1px solid #e0e0e0;font-weight:600;background:#f9f9f9;">Q10 — Prior improvement attempts</td><td style="padding:8px 12px;border:1px solid #e0e0e0;">${answers.q10}</td></tr>
+        ${answerRows}
       </table>
 
-      <p style="margin-top:32px;font-size:12px;color:#999;">This email was generated automatically by the Maru Online assessment tool. Reply to this email to contact ${name} directly.</p>
+      <p style="margin-top:32px;font-size:12px;color:#999;">This email was generated automatically by the Maru Online POPIA-safe AI check. Reply to this email to contact ${name} directly.</p>
     </div>
   `;
 }
 
 // ── Utilities ──────────────────────────────────────────────────────────────
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

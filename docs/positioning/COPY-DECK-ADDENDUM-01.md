@@ -1,6 +1,7 @@
 # Copy Deck Addendum 01: polish round 1
 
 > **Status:** DRAFT, 26 Sep 2026. Jimmy approves, edits or rejects each item before it is built.
+> **Item D APPROVED by Jimmy, 26 Sep 2026** (built with the POPIA-first assessment; the privacy-policy rewrite stays a separate item). A–C, E and F are still drafts.
 > Same rules as `COPY-DECK.md`: verbatim once approved, SA English, pain first, no banned claims.
 > Items A to C reuse copy you've already approved. Items D to F are new wording.
 

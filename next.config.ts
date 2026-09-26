@@ -72,7 +72,7 @@ const nextConfig: NextConfig = {
       // Pre-migration article URLs from the retired static site. Both were live
       // 404s until Sep 2026 and were still taking real traffic — the Next.js
       // migration shipped without 301s for them. They point at
-      // /operations-assessment, not /insights: the planned articles cover
+      // /popia-ai-check, not /insights: the planned articles cover
       // BEE/ESD, not AI regulation or adoption, so they are not a like-for-like
       // replacement and the topical mismatch would just bounce.
       //
@@ -84,24 +84,38 @@ const nextConfig: NextConfig = {
       //
       // These emit 308, not 301: that is what Next.js `permanent: true`
       // produces, and search engines treat the two identically.
+      // The assessment moved here on 26 Sep 2026 when it became the POPIA-first
+      // check (Addendum 02). The old path is linked from emails, Brevo and
+      // earlier reports, so it must keep resolving. The .html form is listed
+      // for the same single-hop reason as the article URLs below.
+      {
+        source: '/operations-assessment',
+        destination: '/popia-ai-check',
+        permanent: true,
+      },
+      {
+        source: '/operations-assessment.html',
+        destination: '/popia-ai-check',
+        permanent: true,
+      },
       {
         source: '/ai-regulation-human-security-south-africa',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/ai-regulation-human-security-south-africa.html',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/ai-adoption-south-african-smbs',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/ai-adoption-south-african-smbs.html',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
@@ -126,22 +140,22 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/operations-diagnostic',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/ai-readiness',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/ai-implementation-assessment',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/ai-implementation-audit',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       // Short URLs that used to be vercel.json rewrites into /assessments/*.
@@ -155,48 +169,48 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/lead-score',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/pipeline-audit',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/proposal-generator',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/tech-audit',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       // Consolidated scoring tools
       {
         source: '/assessments/lead-score',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/assessments/pipeline-leak',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/assessments/tech-audit',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/assessments/proposal',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       {
         source: '/website-audit',
-        destination: '/operations-assessment',
+        destination: '/popia-ai-check',
         permanent: true,
       },
       // Consolidated services

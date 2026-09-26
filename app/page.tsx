@@ -129,7 +129,7 @@ export default function Home() {
               <Button href="/booking" variant="primary" className="w-full sm:w-auto justify-center">
                 Book a POPIA-safe AI call
               </Button>
-              <Button href="/operations-assessment" variant="secondary" className="w-full sm:w-auto justify-center">
+              <Button href="/popia-ai-check" variant="secondary" className="w-full sm:w-auto justify-center">
                 Start the free assessment
               </Button>
             </div>
@@ -333,7 +333,7 @@ export default function Home() {
                 Four steps. Fixed price. Measured outcome.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Button href="/operations-assessment" variant="primary" className="w-full sm:w-auto justify-center">
+                <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
                   Start the assessment
                 </Button>
                 <Button href="/services#how-it-works" variant="tertiary">

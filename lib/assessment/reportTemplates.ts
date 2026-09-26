@@ -1,5 +1,17 @@
 /**
- * Maru Online — Operations Assessment Report Templates (v2)
+ * Maru Online — Assessment Report Templates
+ *
+ * Two versions live here:
+ *   - v2, the retired operations assessment (areaTemplates / summaryTemplates
+ *     below). Kept verbatim so reports already emailed still render.
+ *   - assessment_v3, the POPIA-safe AI check (v3AreaTemplates /
+ *     v3SummaryTemplates at the bottom). Its per-area findings and summaries
+ *     are drafted in docs/positioning/COPY-DECK-ADDENDUM-03.md and stay EMPTY
+ *     until Jimmy approves that draft. The report page shows only the sections
+ *     that have approved copy, so an empty template hides a section rather
+ *     than filling it with improvised text.
+ *
+ * ── v2 notes (original) ───────────────────────────────────────────────────
  *
  * GTmetrix-style per-area structured findings.
  * Each area has findings at 3 severity levels:
@@ -278,26 +290,57 @@ export const segmentBNote: Record<ReadinessLevel, string> = {
   3: "A prior implementation that did not deliver expectations at your level of maturity usually has a specific cause — a vendor that was technically competent but did not account for the operational context of the business, or a scope that was correct in principle but delivered without the change management needed to embed it. It is worth examining that experience clearly before the discovery call so we understand what worked, what did not, and what a different engagement structure would look like.",
 };
 
+// ── assessment_v3: POPIA-safe AI check ─────────────────────────────────────
+//
+// PENDING APPROVAL — COPY-DECK-ADDENDUM-03.md sections B and C. Paste the
+// approved copy in verbatim, keyed by the area keys in scoring.ts AREAS
+// (ai_use, data_location, access, permission, incident). Until then these are
+// empty and the report hides the findings and approach sections for v3.
+
+export const v3AreaTemplates: Partial<Record<string, AreaTemplate>> = {};
+
+export const v3SummaryTemplates: Partial<Record<ReadinessLevel, ReportSummary>> = {};
+
 // ── Public API ─────────────────────────────────────────────────────────────
 
-export function getAreaFinding(areaKey: string, status: AreaStatus): AreaFinding {
-  const template = areaTemplates[areaKey];
-  if (!template) {
-    return {
-      observation: "Your assessment flagged this area as requiring attention. A more detailed review during the discovery call will give us the specific picture.",
-      issues: ["Detailed findings will be discussed during the discovery call."],
-    };
-  }
-  return template[status];
+export type ReportVersion = "v2" | "assessment_v3";
+
+/**
+ * v3 rows carry `version` in their stored template. Rows written before v3
+ * have no version field and are the operations assessment.
+ */
+export function getReportVersion(storedTemplate: unknown): ReportVersion {
+  const version = (storedTemplate as { version?: unknown } | null)?.version;
+  return version === "assessment_v3" ? "assessment_v3" : "v2";
 }
 
-export function getReportSummary(level: ReadinessLevel, isSegmentB: boolean): ReportSummary {
+/**
+ * The finding for one area, or null when there is no approved copy for it.
+ * The old fallback ("Your assessment flagged this area as requiring
+ * attention…") is gone: it rendered on every v3 card, including the strong
+ * ones, which is a false statement about the visitor's result.
+ */
+export function getAreaFinding(
+  areaKey: string,
+  status: AreaStatus,
+  version: ReportVersion = "v2",
+): AreaFinding | null {
+  const templates = version === "assessment_v3" ? v3AreaTemplates : areaTemplates;
+  return templates[areaKey]?.[status] ?? null;
+}
+
+export function getReportSummary(
+  level: ReadinessLevel,
+  isSegmentB: boolean,
+  version: ReportVersion = "v2",
+): ReportSummary | null {
+  if (version === "assessment_v3") return v3SummaryTemplates[level] ?? null;
   const base = summaryTemplates[level];
   if (!isSegmentB) return base;
   return { ...base, segmentBNote: segmentBNote[level] };
 }
 
-// Legacy shim — keeps existing API route happy during transition
+// Legacy shim — the v2 shape still stored in operations_reports.template
 export interface ReportTemplate {
   intro: string;
   insight1: string;
@@ -315,5 +358,20 @@ export function getFullTemplate(level: ReadinessLevel, painTag: string, isSegmen
     insight2: "",
     insight3: "",
     ...(isSegmentB ? { segmentBOverlay: segmentBNote[level] } : {}),
+  };
+}
+
+/**
+ * What a v3 submission stores in operations_reports.template. There is no
+ * version column, and adding one means a migration on the shared Neon
+ * database, so the version tag and the consent record ride in this jsonb.
+ */
+export interface V3StoredTemplate {
+  version: "assessment_v3";
+  levelSummary: string;
+  consent: {
+    marketing: boolean;
+    at: string;           // ISO timestamp of the submission
+    textVersion: string;  // CONSENT_TEXT_VERSION
   };
 }

@@ -1,162 +1,31 @@
 "use client";
 
 /**
- * Maru Online — Operations Assessment Page (v2)
+ * Maru Online — POPIA-safe AI check (assessment_v3)
  *
  * Flow:
  * Step "intro":    Framing (pre-assessment context)
- * Steps 0–9:       10 questions across 5 operational areas (2 per area)
+ * Steps 0–9:       10 questions across 5 areas (2 per area)
  * Step "results":  Area-by-area score preview (ungated)
- * Step "gate":     Name + email + optional website
+ * Step "gate":     Name + email + optional website + opt-in marketing consent
  * Step "done":     Confirmation — report sent
  */
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import { calculateScore, type ScoreResult } from "@/lib/assessment/scoring";
+import { calculateScore, type AssessmentAnswers, type ScoreResult } from "@/lib/assessment/scoring";
+import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questions";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
+import { Checkbox } from "@/components/ui/Checkbox";
 
-// ── Question definitions ───────────────────────────────────────────────────
+// ── Questions ──────────────────────────────────────────────────────────────
+// Approved copy (Addendum 02 item B) lives in lib/assessment/questions.ts so
+// scoring and the synthesis prompt read the same wording the visitor sees.
 
-const questions = [
-  // ── Area 1: Process & Workflow ──────────────────────────────────────────
-  {
-    id: "q1",
-    area: "Process & Workflow",
-    areaIndex: 1,
-    text: "How would you describe the way work actually gets done in your business day-to-day?",
-    options: [
-      { value: "documented-consistent", label: "We have documented steps and the team follows them consistently" },
-      { value: "exist-vary",            label: "We have processes but they vary depending on who is handling it" },
-      { value: "recurring-problems",    label: "Things get done but we keep solving the same problems repeatedly" },
-      { value: "ad-hoc",                label: "It's ad hoc — whoever is available figures it out as they go" },
-    ],
-  },
-  {
-    id: "q2",
-    area: "Process & Workflow",
-    areaIndex: 1,
-    text: "What happens when a key team member is unexpectedly unavailable for a week?",
-    options: [
-      { value: "documented-covered",    label: "Someone else picks it up without skipping a beat — it's all documented" },
-      { value: "scramble-covered",      label: "It usually gets covered but there's significant scrambling" },
-      { value: "significant-slowdown",  label: "Things slow down significantly until they're back" },
-      { value: "stalls-completely",     label: "It stalls — only they know how to handle their area" },
-    ],
-  },
-  // ── Area 2: Data & Information Flow ────────────────────────────────────
-  {
-    id: "q3",
-    area: "Data & Information Flow",
-    areaIndex: 2,
-    text: "Where does your business data live — customer records, job status, financials, communications?",
-    options: [
-      { value: "connected-central",    label: "Mostly in one central system — our tools are connected and talk to each other" },
-      { value: "few-tools-manual",     label: "In a few separate tools — we move data between them manually when needed" },
-      { value: "scattered-no-source",  label: "Spread across email, spreadsheets, and WhatsApp — no single source of truth" },
-      { value: "heads-and-notes",      label: "Mostly in people's heads and informal notes" },
-    ],
-  },
-  {
-    id: "q4",
-    area: "Data & Information Flow",
-    areaIndex: 2,
-    text: "How often does information in your business get lost, re-entered, or entered incorrectly?",
-    options: [
-      { value: "rarely-caught",          label: "Rarely — our systems catch errors and we have checks in place" },
-      { value: "occasionally-caught",    label: "Occasionally — we usually catch it before it causes a real problem" },
-      { value: "regularly-frustrating",  label: "Regularly — it's a source of frustration and wasted time" },
-      { value: "constant-major-issue",   label: "All the time — it's one of our biggest day-to-day issues" },
-    ],
-  },
-  // ── Area 3: Client & Lead Management ───────────────────────────────────
-  {
-    id: "q5",
-    area: "Client & Lead Management",
-    areaIndex: 3,
-    text: "When a new enquiry or lead comes in, what actually happens next?",
-    options: [
-      { value: "defined-automatic",   label: "It enters a defined process — automatically logged, assigned, and followed up" },
-      { value: "process-person-dep",  label: "We have a process but it depends on who's available to action it" },
-      { value: "personal-varies",     label: "Someone handles it personally — how well depends on their current capacity" },
-      { value: "reactive",            label: "It's reactive — we respond when we see it or someone flags it to us" },
-    ],
-  },
-  {
-    id: "q6",
-    area: "Client & Lead Management",
-    areaIndex: 3,
-    text: "How confident are you that every lead gets followed up consistently — not just when it's convenient?",
-    options: [
-      { value: "systematic-tracked",    label: "Very — follow-up is systematic and we track where every lead sits" },
-      { value: "reasonably-some-gaps",  label: "Reasonably — most leads get follow-up but some slip through" },
-      { value: "memory-based",          label: "Not very — follow-up depends on memory or whoever has capacity at the time" },
-      { value: "losing-leads-no-fix",   label: "Not at all — we know we're losing leads but haven't fixed the process" },
-    ],
-  },
-  // ── Area 4: Visibility & Reporting ─────────────────────────────────────
-  {
-    id: "q7",
-    area: "Visibility & Reporting",
-    areaIndex: 4,
-    text: "How do you get a current view of how the business is actually performing?",
-    options: [
-      { value: "automatic-dashboard",  label: "From a dashboard or tool that updates automatically" },
-      { value: "manual-reports",       label: "By pulling reports from our systems — takes some manual effort each time" },
-      { value: "asking-checking",      label: "By asking the team or checking across different tools separately" },
-      { value: "instinct-experience",  label: "Mostly from instinct and experience — no formal process" },
-    ],
-  },
-  {
-    id: "q8",
-    area: "Visibility & Reporting",
-    areaIndex: 4,
-    text: "When something goes wrong in the business, how do you typically find out?",
-    options: [
-      { value: "systems-flag-early",  label: "Our systems flag it before it becomes a real problem" },
-      { value: "checkin-review",      label: "It comes up during a team check-in or scheduled review" },
-      { value: "told-after-fact",     label: "A client or team member tells us — usually after the fact" },
-      { value: "damage-done",         label: "We often only find out once the damage is already done" },
-    ],
-  },
-  // ── Area 5: People & Dependency ────────────────────────────────────────
-  {
-    id: "q9",
-    area: "People & Dependency",
-    areaIndex: 5,
-    text: "How reliant is your business on specific individuals to keep day-to-day operations running?",
-    options: [
-      { value: "low-any-trained",          label: "Low — most processes can be handled by any trained team member" },
-      { value: "moderate-coverable",       label: "Moderate — some roles are critical but most things can be covered" },
-      { value: "high-few-hold-knowledge",  label: "High — a few people hold most of the operational knowledge" },
-      { value: "very-high-critical",       label: "Very high — if one or two people left, the business would struggle significantly" },
-    ],
-  },
-  {
-    id: "q10",
-    area: "People & Dependency",
-    areaIndex: 5,
-    text: "Have you made a deliberate attempt to improve or systematise how your business operates?",
-    options: [
-      { value: "no-not-priority",      label: "No — it hasn't been a priority until now" },
-      { value: "internal-not-far",     label: "Yes — we've worked on it internally but haven't got far" },
-      { value: "external-fell-short",  label: "Yes — we brought someone in to help but it didn't fully deliver" },
-      { value: "partial-needs-work",   label: "Yes — we have systems in place but they need to work better" },
-    ],
-  },
-];
-
-// ── Area metadata ──────────────────────────────────────────────────────────
-
-const areas = [
-  { index: 1, label: "Process & Workflow" },
-  { index: 2, label: "Data & Information Flow" },
-  { index: 3, label: "Client & Lead Management" },
-  { index: 4, label: "Visibility & Reporting" },
-  { index: 5, label: "People & Dependency" },
-];
+const questions = ASSESSMENT_QUESTIONS;
+const areas = ASSESSMENT_AREAS.map((a, i) => ({ index: i + 1, label: a.label }));
 
 // ── Status display ─────────────────────────────────────────────────────────
 
@@ -188,6 +57,9 @@ function AssessmentWizard() {
   const [name, setName]               = useState("");
   const [email, setEmail]             = useState("");
   const [website, setWebsite]         = useState("");
+  // POPIA s69: direct marketing needs a separate opt-in. Unticked by default,
+  // and the report is sent whether or not it is ticked (Addendum 01, item D).
+  const [marketingConsent, setMarketingConsent] = useState(false);
   const [submitting, setSubmitting]   = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [progress, setProgress]       = useState(0);
@@ -210,16 +82,12 @@ function AssessmentWizard() {
     const nextIndex = currentIndex + 1;
 
     if (nextIndex >= questions.length) {
-      const result = calculateScore({
-        q1: newAnswers.q1,   q2: newAnswers.q2,
-        q3: newAnswers.q3,   q4: newAnswers.q4,
-        q5: newAnswers.q5,   q6: newAnswers.q6,
-        q7: newAnswers.q7,   q8: newAnswers.q8,
-        q9: newAnswers.q9,   q10: newAnswers.q10,
-      });
+      // Every question has been answered by this point — the wizard only
+      // advances on a selection.
+      const result = calculateScore(newAnswers as AssessmentAnswers);
       setScoreResult(result);
       window.trackConversion?.("assessment_scored", {
-        assessment_type: "operations",
+        assessment_type: "popia_ai_check",
       });
       setStep("results");
     } else {
@@ -240,7 +108,7 @@ function AssessmentWizard() {
       if (!executeRecaptcha) {
         throw new Error("reCAPTCHA not ready");
       }
-      const recaptchaToken = await executeRecaptcha("operations_assessment");
+      const recaptchaToken = await executeRecaptcha("popia_ai_check");
 
       // The route now stores the report and answers immediately, deferring the
       // Claude synthesis and the emails to a background pass, so this should
@@ -261,6 +129,7 @@ function AssessmentWizard() {
             name: name.trim(),
             email: email.trim(),
             website: website.trim() || undefined,
+            marketingConsent,
             recaptchaToken,
           }),
           signal: controller.signal,
@@ -271,7 +140,7 @@ function AssessmentWizard() {
 
       if (!response.ok) throw new Error("Submission failed");
       window.trackConversion?.("generate_lead", {
-        assessment_type: "operations",
+        assessment_type: "popia_ai_check",
       });
       setStep("done");
     } catch (err) {
@@ -322,15 +191,16 @@ function AssessmentWizard() {
               Find out where your business is losing time and money to manual processes.
             </h1>
             <p className="body-muted text-lg mb-8 leading-relaxed">
-              10 questions across 5 operational areas. About 3 minutes.
+              10 questions across 5 areas. About 3 minutes.
             </p>
 
+            {/* The v2 paragraph that followed here named the old five areas
+                (process, data flow, lead management…), which is now false.
+                Removed rather than rewritten: replacement copy is drafted in
+                COPY-DECK-ADDENDUM-03 §A and awaits approval. */}
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-6">
-              <p className="text-ink-primary text-base font-medium leading-relaxed mb-3">
+              <p className="text-ink-primary text-base font-medium leading-relaxed">
                 Answer based on how things actually work today — not how you want them to work. The more honest your answers, the more useful your result.
-              </p>
-              <p className="body-muted text-base leading-relaxed">
-                You will receive a structured report showing how your business rates across five areas: process, data flow, lead management, visibility, and people dependency — along with a recommended approach specific to where you sit.
               </p>
             </div>
 
@@ -468,6 +338,19 @@ function AssessmentWizard() {
                 />
               </div>
 
+              {/* Addendum 01 item D — approved 26 Sep 2026. Separate, opt-in,
+                  unticked: only a tick adds the contact to the marketing list. */}
+              <label className="flex items-start gap-3 cursor-pointer min-h-[44px] py-1">
+                <Checkbox
+                  checked={marketingConsent}
+                  onChange={(e) => setMarketingConsent(e.target.checked)}
+                  className="mt-0.5"
+                />
+                <span className="text-sm text-ink-secondary leading-relaxed">
+                  Also send me occasional notes on using AI safely under POPIA. Unsubscribe from any email.
+                </span>
+              </label>
+
               {submitError && (
                 <p className="text-danger text-sm">{submitError}</p>
               )}
@@ -481,8 +364,13 @@ function AssessmentWizard() {
                 {submitting ? "Sending your report..." : "Send my report"}
               </Button>
 
+              {/* POPIA s18 notice at the point of collection (Addendum 01 D). */}
               <p className="text-ink-tertiary text-xs text-center leading-relaxed">
-                No spam. Unsubscribe any time.
+                We use your name and email to send your report and to follow up about it. Nothing else. See our{" "}
+                <Link href="/privacy-policy" className="text-cyan-ink underline hover:no-underline">
+                  Privacy Policy
+                </Link>
+                .
               </p>
             </form>
           </div>
@@ -542,7 +430,7 @@ function QuestionStep({
   totalQuestions,
   onAnswer,
 }: {
-  question: typeof questions[0];
+  question: (typeof questions)[number];
   questionNumber: number;
   totalQuestions: number;
   onAnswer: (value: string) => void;

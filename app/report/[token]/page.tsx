@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAreaFinding, getReportSummary, type AreaStatus } from "@/lib/assessment/reportTemplates";
-import type { AreaResult } from "@/lib/assessment/scoring";
+import { getAreaFinding, getReportSummary, getReportVersion, type AreaStatus } from "@/lib/assessment/reportTemplates";
+import { LEVEL_RESULTS, REPORT_CLOSING_LINE, type AreaResult } from "@/lib/assessment/scoring";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -14,6 +14,7 @@ interface ReportData {
   segmentB: boolean;
   answers: Record<string, string>;
   areas: AreaResult[];
+  template: unknown;      // v3 rows carry { version: "assessment_v3", … }
   overallScore: number;
   createdAt: string;
 }
@@ -124,7 +125,15 @@ export default async function ReportPage({
   const { name, level, levelLabel, segmentB } = data;
   const areas: AreaResult[] = Array.isArray(data.areas) ? (data.areas as unknown as AreaResult[]) : [];
   const firstName = name.trim().split(" ")[0];
-  const summary = getReportSummary(level, segmentB);
+  // Reports emailed before 26 Sep 2026 are the operations assessment (v2) and
+  // keep rendering with their original copy. v3 sections without approved copy
+  // (COPY-DECK-ADDENDUM-03) are hidden rather than filled.
+  const version = getReportVersion(data.template);
+  const isV3 = version === "assessment_v3";
+  const summary = getReportSummary(level, segmentB, version);
+  const findings = areas
+    .map((area) => ({ area, finding: getAreaFinding(area.areaKey, area.status, version) }))
+    .filter((f): f is { area: AreaResult; finding: NonNullable<typeof f.finding> } => f.finding !== null);
 
   // Count gaps
   const criticalCount    = areas.filter(a => a.status === "critical").length;
@@ -206,25 +215,25 @@ export default async function ReportPage({
 
           <div style={{ background: "white", border: "1px solid #E2E8F0", borderRadius: 8, padding: 20 }}>
             <p style={{ fontSize: 14, color: "#2D3748", lineHeight: 1.7, margin: 0 }}>
-              {data.levelLabel === "Early Stage" &&
+              {isV3 && LEVEL_RESULTS[level]?.summary}
+              {!isV3 && data.levelLabel === "Early Stage" &&
                 "Your assessment points to a business running largely on effort and institutional knowledge. Most processes are informal — they work because the right people know what to do, not because systems make it automatic. The opportunity across your five areas is significant."}
-              {data.levelLabel === "Building" &&
+              {!isV3 && data.levelLabel === "Building" &&
                 "Your business has real processes in place — but they still depend on manual steps and disconnected systems at key points. Targeted integration at those handoff points is where the return is fastest."}
-              {data.levelLabel === "Primed" &&
+              {!isV3 && data.levelLabel === "Primed" &&
                 "Your business has operational maturity. The opportunity now is in the precision gaps: reporting that still requires manual effort, approval flows tied to specific people, or data that lives in one system but needs to reach another."}
             </p>
           </div>
         </div>}
 
-        {areas.length > 0 && <><Divider />
+        {findings.length > 0 && <><Divider />
 
         {/* ── AREA FINDINGS ─────────────────────────────────────────────── */}
         <div style={{ marginBottom: 40 }}>
           <SectionLabel>Area findings</SectionLabel>
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {areas.map((area, i) => {
+            {findings.map(({ area, finding }, i) => {
               const cfg = statusConfig[area.status];
-              const finding = getAreaFinding(area.areaKey, area.status);
               return (
                 <AreaCard
                   key={area.areaKey}
@@ -243,7 +252,7 @@ export default async function ReportPage({
         <Divider />
 
         {/* ── SEGMENT B NOTE ─────────────────────────────────────────────── */}
-        {segmentB && summary.segmentBNote && (
+        {segmentB && summary?.segmentBNote && (
           <>
             <div style={{ marginBottom: 40 }}>
               <SectionLabel>A note on prior attempts</SectionLabel>
@@ -260,6 +269,7 @@ export default async function ReportPage({
           </>
         )}
 
+        {summary && <>
         {/* ── RECOMMENDED APPROACH ──────────────────────────────────────── */}
         <div style={{ marginBottom: 40 }}>
           <SectionLabel>{summary.approachHeading}</SectionLabel>
@@ -283,6 +293,7 @@ export default async function ReportPage({
         </div>
 
         <Divider />
+        </>}
 
         {/* ── NEXT STEP CTA ──────────────────────────────────────────────── */}
         <div style={{
@@ -329,6 +340,13 @@ export default async function ReportPage({
             Email hello@maruonline.com →
           </a>
         </div>
+
+        {/* Addendum 02: every v3 report ends with this line. */}
+        {isV3 && (
+          <p style={{ color: "#4A5568", fontSize: 13, textAlign: "center", lineHeight: 1.6, margin: "0 0 16px" }}>
+            {REPORT_CLOSING_LINE}
+          </p>
+        )}
 
         {/* Footer */}
         <p style={{ color: "#A0AEC0", fontSize: 12, textAlign: "center", lineHeight: 1.6 }}>

@@ -1,6 +1,6 @@
 # Copy Deck Addendum 02: homepage band and a POPIA-first assessment
 
-> **Status:** DRAFT, 26 Sep 2026. Item A is on the branch preview at Jimmy's request. Item B waits for his approval before any build.
+> **Status:** 26 Sep 2026. Item A is on the branch preview at Jimmy's request. **Item B APPROVED as written by Jimmy, 26 Sep 2026**, and built on `positioning/popia-safe` (route: `/popia-ai-check`, with a 308 from `/operations-assessment`). Report copy for the new areas is drafted in Addendum 03.
 > Same rules as `COPY-DECK.md`: verbatim once approved, SA English, pain first, never lead with "AI", no legal advice, no banned claims.
 
 ---
@@ -111,5 +111,5 @@ Report copy stays plain and non-legal. Every report ends: `This check is a start
 - `lib/assessment/scoring.ts`: new answer keys and maps; level labels above.
 - `lib/assessment/reportTemplates.ts` and `synthesisPrompt.ts`: rewrite for the five POPIA areas. The prompt's rule "never mention AI in Object A" no longer fits and must go.
 - Emails and Brevo list 21: stored answers change shape. Tag new submissions `assessment_v3` so old reports still render.
-- Route: keep `/operations-assessment` and add `/popia-ai-check` as a 308 redirect target, or rename and redirect the old path. Jimmy to choose.
+- Route: keep `/operations-assessment` and add `/popia-ai-check` as a 308 redirect target, or rename and redirect the old path. **Decided 26 Sep 2026: renamed to `/popia-ai-check`; the old path 308s to it.**
 - Consent (Addendum 01, item D) ships in the same release.

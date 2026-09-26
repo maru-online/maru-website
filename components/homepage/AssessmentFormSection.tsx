@@ -76,7 +76,7 @@ export default function AssessmentFormSection() {
                 letterSpacing: "0.02em",
               }}
             >
-              No opt-in to marketing — just your results.
+              Your report, nothing else, unless you ask for more.
             </p>
           </div>
 
@@ -145,7 +145,7 @@ export default function AssessmentFormSection() {
             </div>
 
             <Button
-              href="/operations-assessment"
+              href="/popia-ai-check"
               variant="primary"
               className="w-full justify-center"
             >

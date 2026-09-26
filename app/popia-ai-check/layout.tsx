@@ -7,10 +7,10 @@ import { seo } from '@/lib/seo'
 export const metadata: Metadata = {
   title:       'Free Operations Assessment | Maru Online',
   description: 'Fifteen minutes to find where manual work is costing your business time and money. Free, and your report is emailed to you.',
-  ...seo('/operations-assessment'),
+  ...seo('/popia-ai-check'),
 }
 
-export default function OperationsAssessmentLayout({
+export default function PopiaAiCheckLayout({
   children,
 }: {
   children: React.ReactNode
