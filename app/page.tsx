@@ -391,8 +391,8 @@ export default function Home() {
         objectPosition="center 40%"
         overlayText={
           <>
-            <span style={{ display: 'block', fontWeight: 300 }}>We don&apos;t replace your team.</span>
-            <span style={{ display: 'block', fontWeight: 700 }}>We give them their time back.</span>
+            <span style={{ display: 'block', fontWeight: 300 }}>Your clients trust you with their information.</span>
+            <span style={{ display: 'block', fontWeight: 700 }}>Keep that trust as your team uses AI.</span>
             <span
               style={{
                 display: 'block',
@@ -404,7 +404,7 @@ export default function Home() {
                 letterSpacing: 'normal',
               }}
             >
-              Without putting your clients&apos; data at risk.
+              We check where client data goes and make every workflow POPIA-safe.
             </span>
           </>
         }
