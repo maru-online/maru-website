@@ -50,7 +50,6 @@ export default function WorkflowIntegrationPage() {
         name="Workflow Integration"
         description="Fixed-scope integration built on your audit. We connect your tools and automate the work, with consent, access controls and data location built in."
         path="/services/workflow-integration"
-        price="45000"
       />
       {/* ── Hero ── */}
       <section
@@ -135,7 +134,7 @@ export default function WorkflowIntegrationPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R35,000
+                Fixed quote
               </p>
               <p
                 style={{

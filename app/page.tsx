@@ -318,7 +318,7 @@ export default function Home() {
             </h2>
           </FadeUp>
 
-          {/* The four-phase detail lives on /process — the homepage only needs
+          {/* The four-phase detail lives on /services#how-it-works — the homepage only needs
               the promise, not the method. */}
           <FadeUp delay={0.08}>
             <div
@@ -336,7 +336,7 @@ export default function Home() {
                 <Button href="/operations-assessment" variant="primary" className="w-full sm:w-auto justify-center">
                   Start the assessment
                 </Button>
-                <Button href="/process" variant="tertiary">
+                <Button href="/services#how-it-works" variant="tertiary">
                   See how it works
                 </Button>
               </div>

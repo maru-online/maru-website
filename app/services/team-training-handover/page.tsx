@@ -52,7 +52,6 @@ export default function TeamTrainingHandoverPage() {
         name="Team Training & Handover"
         description="Hands-on training on your new workflows, including the rules that keep them POPIA-safe: what goes into AI tools, and what never does."
         path="/services/team-training-handover"
-        price="15000"
       />
       {/* ── Hero ── */}
       <section
@@ -137,7 +136,7 @@ export default function TeamTrainingHandoverPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R15,000
+                Fixed quote
               </p>
               <p
                 style={{

@@ -38,15 +38,15 @@ const engagements = [
       { leader: '90-day roadmap',      body: 'A sequenced action plan for your next steps.' },
     ],
     href:      '/services/popia-safe-ai-audit',
-    featured:  false,
+    featured:  true,
   },
   {
     id:      'build',
     label:   '02',
-    badge:   'Most common',
+    badge:   '',
     title:   'Workflow Integration',
-    price:   'From R35,000',
-    note:    'Fixed price. Scoped after the audit.',
+    price:   'Fixed quote',
+    note:    'Priced from your audit findings and agreed before work starts.',
     scope:   '4–8 weeks',
     body:    'Implementation built around the audit findings. We configure the connections between your tools and build the automation layer. We work with your existing stack.',
     items: [
@@ -56,15 +56,15 @@ const engagements = [
       { leader: 'POPIA compliance',     body: 'Every data touchpoint is designed for compliance first.' },
     ],
     href:      '/services/workflow-integration',
-    featured:  true,
+    featured:  false,
   },
   {
     id:      'training',
     label:   '03',
     badge:   '',
     title:   'Team Training & Handover',
-    price:   'From R15,000',
-    note:    'Can be standalone or follow a build.',
+    price:   'Fixed quote',
+    note:    'Priced per team and agreed before work starts. Standalone or after a build.',
     scope:   'Scoped per engagement',
     body:    "Hands-on training built around your specific workflows. Your team learns how to use and manage the system. The capability stays in your business after we hand over.",
     items: [
@@ -153,7 +153,7 @@ export default function PricingPage() {
                 Start the assessment
               </Button>
               <Button href="#engagements" variant="tertiary">
-                See all pricing
+                How pricing works
               </Button>
             </div>
           </FadeUp>

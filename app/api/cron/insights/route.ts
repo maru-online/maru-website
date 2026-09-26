@@ -34,6 +34,12 @@ export async function GET(req: Request) {
   if (!authorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
+  // Paused 26 Sep 2026: the writer's prompt predates the POPIA-safe positioning
+  // (docs/positioning/POSITIONING.md). Nothing publishes until the prompt is
+  // rewritten and INSIGHTS_CRON_ENABLED=true is set deliberately.
+  if (process.env.INSIGHTS_CRON_ENABLED !== 'true') {
+    return NextResponse.json({ skipped: 'Insights writer paused (INSIGHTS_CRON_ENABLED is not "true")' })
+  }
   if (!process.env.SANITY_API_WRITE_TOKEN || !process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json(
       { error: 'Missing SANITY_API_WRITE_TOKEN or ANTHROPIC_API_KEY' },

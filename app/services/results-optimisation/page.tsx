@@ -46,7 +46,6 @@ export default function ResultsOptimisationPage() {
         name="Results Optimisation"
         description="Thirty days after go-live we measure hours saved and POPIA risks closed, then run a fixed-scope sprint on what the data shows."
         path="/services/results-optimisation"
-        price="8500"
       />
       {/* ── Hero ── */}
       <section
@@ -131,7 +130,7 @@ export default function ResultsOptimisationPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R8,500
+                Fixed quote
               </p>
               <p
                 style={{

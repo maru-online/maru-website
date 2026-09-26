@@ -147,6 +147,12 @@ const nextConfig: NextConfig = {
       // Short URLs that used to be vercel.json rewrites into /assessments/*.
       // Those routes no longer exist, so the rewrites resolved to nothing —
       // these are redirects now, not internal rewrites. (T7)
+      // /process retired 26 Sep 2026: its four steps now live on /services.
+      {
+        source: '/process',
+        destination: '/services#how-it-works',
+        permanent: true,
+      },
       {
         source: '/lead-score',
         destination: '/operations-assessment',
