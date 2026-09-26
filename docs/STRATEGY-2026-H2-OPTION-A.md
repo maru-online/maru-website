@@ -36,6 +36,8 @@ contractually committed. GrowthIQ is the one live, paying, verified channel into
    **light-theme credibility reskin approved 31 Jul 2026** (scoped amendment — see
    `docs/PLAN-2026-08-LIGHT-REFRESH.md`; 3-session timebox, restyle-only, hygiene sprint
    folded in, freeze resumes on merge).
+   **POPIA-safe repositioning exception approved 26 Sep 2026** (copy change across existing pages
+   plus one trust strip, per `docs/positioning/`; no redesign, no new pages; freeze resumes on merge).
 3. **No Option C build hours** while Option A is live.
 4. **Pain-first framing in all outreach and copy** — never lead with "AI".
 5. **Every beneficiary-SME engagement must produce documented before/after numbers**
