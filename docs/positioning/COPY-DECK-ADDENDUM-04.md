@@ -14,7 +14,7 @@
 |---|---|---|---|---|
 | A1 | Personal About, para 4 | your first safe workflow running live | `your first POPIA-safe workflow running live` | "safe" alone |
 | A2 | Maru Online Experience entry, line 1 | We help owner-led businesses use AI without putting client data at risk. | `We help owner-led businesses use AI within POPIA.` | "at risk" reads as cybersecurity |
-| A3 | Company Page specialities | POPIA-Compliant AI Integration | Remove (if the formal descriptor is retired, see D) | Collides with "POPIA-Safe AI Integration" |
+| A3 | Company Page specialities | POPIA-Compliant AI Integration | Remove (D = No: the formal descriptor stays off LinkedIn) | Collides with "POPIA-Safe AI Integration" |
 
 ## B. Banners (not yet built)
 
