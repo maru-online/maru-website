@@ -69,7 +69,7 @@ export default function POPIAChecklistPageClient() {
   };
 
   return (
-    <main className="bg-ink-primary">
+    <div className="bg-ink-primary">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center py-section-tab lg:py-section overflow-hidden">
         <AtmosphericBackground variant="hero" />
@@ -276,6 +276,6 @@ export default function POPIAChecklistPageClient() {
           </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

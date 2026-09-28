@@ -377,7 +377,7 @@ export default async function InsightArticlePage(
         }
       `}</style>
 
-      <main>
+      <div>
         {/* ── Hero ───────────────────────────────────────────────────────── */}
         <section className="article-hero px-6 md:px-[60px]">
           <div style={{ maxWidth: "780px", margin: "0 auto" }}>
@@ -453,7 +453,7 @@ export default async function InsightArticlePage(
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

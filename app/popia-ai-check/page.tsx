@@ -161,7 +161,7 @@ function AssessmentWizard() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   return (
-    <main
+    <div
       className="relative min-h-screen flex items-center text-ink-primary"
       style={{ background: "var(--gradient-surface)" }}
     >
@@ -407,7 +407,7 @@ function AssessmentWizard() {
         )}
         </div>
       </div>
-    </main>
+    </div>
   );
 }
 

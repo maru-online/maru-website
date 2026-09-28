@@ -10,7 +10,7 @@ export default async function PartnerLandingPage(props: Props) {
   const partnerName = partnerId.charAt(0).toUpperCase() + partnerId.slice(1).replace(/-/g, ' ');
 
   return (
-    <main
+    <div
       className="min-h-screen relative overflow-hidden"
       style={{ background: 'var(--gradient-surface)' }}
     >
@@ -53,6 +53,6 @@ export default async function PartnerLandingPage(props: Props) {
           Available to the {partnerName} network.
         </p>
       </section>
-    </main>
+    </div>
   )
 }

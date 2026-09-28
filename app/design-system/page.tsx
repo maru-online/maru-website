@@ -52,7 +52,7 @@ function CheckIcon() {
 
 export default function DesignSystemPage() {
   return (
-    <main className="bg-[var(--color-bg-canvas)] min-h-screen py-16 px-6 md:px-10 xl:px-16">
+    <div className="bg-[var(--color-bg-canvas)] min-h-screen py-16 px-6 md:px-10 xl:px-16">
       <div className="max-w-[1100px] mx-auto">
         {/* Header */}
         <header className="mb-16">
@@ -188,6 +188,6 @@ export default function DesignSystemPage() {
           </div>
         </Block>
       </div>
-    </main>
+    </div>
   )
 }

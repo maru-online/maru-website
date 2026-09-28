@@ -189,7 +189,7 @@ export default async function ReportPage({
       </div>
 
       {/* ── Body ────────────────────────────────────────────────────────── */}
-      <main style={{ maxWidth: 760, margin: "0 auto", padding: "40px 24px 80px" }}>
+      <div style={{ maxWidth: 760, margin: "0 auto", padding: "40px 24px 80px" }}>
 
         {/* ── OVERVIEW SCORECARD ─────────────────────────────────────────── */}
         {areas.length > 0 && <div style={{ marginBottom: 40 }}>
@@ -365,7 +365,7 @@ export default async function ReportPage({
           <Link href="/" style={{ color: "#A0AEC0" }}>maruonline.com</Link>
         </p>
 
-      </main>
+      </div>
     </div>
   );
 }
