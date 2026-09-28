@@ -165,7 +165,7 @@ test.describe('item 01 — WhatsApp number and openers', () => {
     ['/pricing', 'understand your pricing for workflow integration'],
     ['/contact', "question about Maru Online's services"],
     ['/careers', 'opportunities at Maru Online'],
-    ['/popia-ai-check', 'book my free operations assessment'],
+    ['/popia-ai-check', 'do the free POPIA-safe AI check'],
     ['/services/workflow-integration', 'interested in Workflow Integration'],
     ['/services/team-training-handover', 'Team Training & Handover'],
     ['/services/results-optimisation', 'know more about Results Optimisation'],

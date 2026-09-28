@@ -5,11 +5,11 @@
  *   - v2, the retired operations assessment (areaTemplates / summaryTemplates
  *     below). Kept verbatim so reports already emailed still render.
  *   - assessment_v3, the POPIA-safe AI check (v3AreaTemplates /
- *     v3SummaryTemplates at the bottom). Its per-area findings and summaries
- *     are drafted in docs/positioning/COPY-DECK-ADDENDUM-03.md and stay EMPTY
- *     until Jimmy approves that draft. The report page shows only the sections
- *     that have approved copy, so an empty template hides a section rather
- *     than filling it with improvised text.
+ *     v3SummaryTemplates at the bottom), verbatim from
+ *     docs/positioning/COPY-DECK-ADDENDUM-03.md (approved 28 Sep 2026). The
+ *     report page shows only the sections that have approved copy, so a
+ *     missing template hides a section rather than filling it with
+ *     improvised text.
  *
  * ── v2 notes (original) ───────────────────────────────────────────────────
  *
@@ -292,14 +292,199 @@ export const segmentBNote: Record<ReadinessLevel, string> = {
 
 // ── assessment_v3: POPIA-safe AI check ─────────────────────────────────────
 //
-// PENDING APPROVAL — COPY-DECK-ADDENDUM-03.md sections B and C. Paste the
-// approved copy in verbatim, keyed by the area keys in scoring.ts AREAS
-// (ai_use, data_location, access, permission, incident). Until then these are
-// empty and the report hides the findings and approach sections for v3.
+// COPY-DECK-ADDENDUM-03.md sections B and C, approved by Jimmy 28 Sep 2026.
+// Verbatim: edit the addendum first, then this file. Keyed by the area keys in
+// scoring.ts AREAS (ai_use, data_location, access, permission, incident).
 
-export const v3AreaTemplates: Partial<Record<string, AreaTemplate>> = {};
+export const v3AreaTemplates: Partial<Record<string, AreaTemplate>> = {
+  ai_use: {
+    critical: {
+      observation: "Your team is using AI tools with no agreed rules, and client information may already have gone into them. Nobody could say today what was shared, or where it went.",
+      issues: [
+        "No list of approved AI tools, so each person decides for themselves",
+        "Client names, ID numbers or notes may be sitting in free AI accounts you don't control",
+        "No record to show a client who asks where their information went",
+        "Staff who want to use AI well have no guidance to follow",
+      ],
+    },
+    significant: {
+      observation: "AI use has been talked about, but not settled. Some people use it carefully, and you're relying on their judgement rather than a rule.",
+      issues: [
+        "Informal agreements don't reach new staff or busy weeks",
+        "Nobody has checked whether client information has been pasted into an AI tool",
+        "The free versions of most AI tools don't give you control over what they keep",
+      ],
+    },
+    partial: {
+      observation: "You have clear habits around AI, with a gap or two, usually in what counts as client information and who checks.",
+      issues: [
+        "The rules exist but aren't written down where the team can find them",
+        "Nobody reviews whether the rules still match the tools people now use",
+      ],
+    },
+    strong: {
+      observation: "You've agreed which AI tools are allowed and the team keeps client information out of them.",
+      issues: [
+        "Write the rules into onboarding so new staff learn them on day one",
+        "Review the approved list whenever a new tool is adopted",
+      ],
+    },
+  },
 
-export const v3SummaryTemplates: Partial<Record<ReadinessLevel, ReportSummary>> = {};
+  data_location: {
+    critical: {
+      observation: "Client information lives in phones, inboxes, WhatsApp groups and spreadsheets, so it's in more places than anyone can list. You can't protect what you can't find.",
+      issues: [
+        "Copies of client records on personal phones and in personal accounts",
+        "No view of which apps store information outside South Africa",
+        "Losing one phone or inbox could expose client information with no way to know what was in it",
+        "Answering a client's question about their data would mean searching everywhere",
+      ],
+    },
+    significant: {
+      observation: "Your main systems hold most client information, but copies keep escaping into email and spreadsheets, and the smaller apps haven't been checked.",
+      issues: [
+        "Spreadsheet and email copies go out of date and out of sight",
+        "Smaller apps may store client information offshore without anyone knowing",
+        "Every copy is another place to secure and another place to search",
+      ],
+    },
+    partial: {
+      observation: "You know where most client information lives and you've checked your main systems. The gaps are in the smaller apps and the copies people make to get work done.",
+      issues: [
+        "Smaller or newer apps haven't been checked for where they store data",
+        "Working copies aren't cleaned up when the job is done",
+      ],
+    },
+    strong: {
+      observation: "Client information sits in systems you control, and you know which of them store data outside South Africa.",
+      issues: [
+        "Check each new app's storage location before the team adopts it",
+        "Recheck once a year, because vendors change where they host",
+      ],
+    },
+  },
+
+  access: {
+    critical: {
+      observation: "Shared logins and open access mean almost anyone, including people who've left, could reach your full client list. There's no way to tell who looked at what.",
+      issues: [
+        "Former staff may still have working logins or client information on their devices",
+        "Shared passwords make it impossible to trace who did what",
+        "Client lists circulate in team chats where anyone in the group can see them",
+      ],
+    },
+    significant: {
+      observation: "You remove the main logins when someone leaves, but smaller apps slip through, and most of the team can open the full client list.",
+      issues: [
+        "Leftover logins in smaller apps are an open door",
+        "Access is wider than most people need for their job",
+        "No one list of which apps each person can reach",
+      ],
+    },
+    partial: {
+      observation: "Access is mostly limited to the people who need it, and leavers are usually switched off. The gaps are small and easy to close.",
+      issues: [
+        "No written checklist for switching off a leaver's access",
+        "Access isn't reviewed when people change roles",
+      ],
+    },
+    strong: {
+      observation: "Only the right people can reach client information, and access ends on a leaver's last day.",
+      issues: [
+        "Keep the leaver checklist current as you add apps",
+        "Review who has access to what once a year",
+      ],
+    },
+  },
+
+  permission: {
+    critical: {
+      observation: "You message clients without a record of who agreed, and you couldn't easily tell a client what you hold about them. Both are exactly what clients and the Information Regulator ask about.",
+      issues: [
+        "Marketing goes to people who never agreed to receive it",
+        "No way to prove consent if a client complains",
+        "A client asking what you hold about them would get a slow or incomplete answer",
+      ],
+    },
+    significant: {
+      observation: "Most of your list opted in, but some contacts were added without asking, and answering a client's information request would take real digging.",
+      issues: [
+        "Contacts added from other sources have no consent record",
+        "Client information is spread out, so requests take days of searching",
+        "Unsubscribes may not reach every tool you send from",
+      ],
+    },
+    partial: {
+      observation: "Consent is mostly in place and you could answer a client's request. What's missing is a record you can show and a routine for requests.",
+      issues: [
+        "Consent is given but not stored with a date and the wording that was used",
+        "No set process for handling a client's request about their information",
+      ],
+    },
+    strong: {
+      observation: "Your clients chose to hear from you, and you could tell any of them what you hold within days.",
+      issues: [
+        "Keep a dated record of the consent wording each time it changes",
+        "Make sure new tools respect unsubscribes from day one",
+      ],
+    },
+  },
+
+  incident: {
+    critical: {
+      observation: "Nobody owns the protection of personal information, and a lost phone or a hack could go unnoticed. When something goes wrong, the first hours matter most.",
+      issues: [
+        "No named person responsible for personal information",
+        "No plan for who to tell, what to do and by when",
+        "A breach could go unnoticed until a client finds out first",
+      ],
+    },
+    significant: {
+      observation: "Someone would step in if something went wrong, but there's no plan, and responsibility sits with you by default rather than by decision.",
+      issues: [
+        "Working it out on the day means slower, less certain decisions",
+        "Responsibility hasn't been formally given to anyone",
+        "Nobody has written down which clients and which information each device holds",
+      ],
+    },
+    partial: {
+      observation: "You know who's responsible and roughly what you'd do. The next step is writing it down so it works when that person isn't there.",
+      issues: [
+        "The plan lives in one person's head",
+        "No practice run, so gaps only show up in a real incident",
+      ],
+    },
+    strong: {
+      observation: "A named, registered person owns this, and there's a plan for who to tell, what to do and by when.",
+      issues: [
+        "Walk through the plan once a year with the team",
+        "Update it when you add systems or staff",
+      ],
+    },
+  },
+};
+
+export const v3SummaryTemplates: Partial<Record<ReadinessLevel, ReportSummary>> = {
+  1: {
+    approachHeading: "Recommended approach",
+    approach: "Start with the quick, cheap fixes: agree which AI tools are allowed, switch off old logins, and name the person responsible. Then find out where client information actually goes. The POPIA-Safe AI Audit maps every tool, AI app and data flow in your business and ranks the risks, so you fix the biggest ones first.",
+    outcomeHeading: "What good looks like",
+    outcome: "Your team uses AI with clear rules. Client information sits in systems you control. You know who can see it, and if a client asks what you hold, you can answer.",
+  },
+  2: {
+    approachHeading: "Recommended approach",
+    approach: "Your habits are a good base. The work is closing the gaps where AI tools, WhatsApp and old logins meet client data. The POPIA-Safe AI Audit maps those meeting points and gives you a fixed-price plan for what to fix first.",
+    outcomeHeading: "What good looks like",
+    outcome: "The gaps are closed without slowing the team down. Every tool that touches client information is known, approved and switched off when someone leaves.",
+  },
+  3: {
+    approachHeading: "Recommended approach",
+    approach: "Your foundations are sound. The risk now is new tools arriving faster than your checks. The POPIA-Safe AI Audit reviews the AI tools and automations you're adding and confirms each one keeps client information where it should be.",
+    outcomeHeading: "What good looks like",
+    outcome: "You add AI with confidence, and every new workflow is checked before it touches client information.",
+  },
+};
 
 // ── Public API ─────────────────────────────────────────────────────────────
 

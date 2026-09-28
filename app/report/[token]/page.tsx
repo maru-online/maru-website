@@ -29,6 +29,13 @@ export async function generateMetadata({
   const { token } = await params;
   const data = await fetchReport(token);
   if (!data) return { title: "Report Not Found — Maru Online" };
+  // Addendum 03 A7: v3 reports only; v2 reports keep their original title.
+  if (getReportVersion(data.template) === "assessment_v3") {
+    return {
+      title: "Your POPIA-Safe AI Check Report | Maru Online",
+      robots: { index: false, follow: false },
+    };
+  }
   return {
     title: `Operations Assessment Report — Maru Online`,
     description: `Your personalised operations assessment from Maru Online.`,
@@ -151,7 +158,7 @@ export default async function ReportPage({
             <span>aru Online</span>
           </Link>
           <span style={{ fontSize: 11, fontFamily: "monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            Operations Assessment
+            {isV3 ? "POPIA-safe AI check" : "Operations Assessment"}
           </span>
         </div>
       </header>
@@ -306,7 +313,9 @@ export default async function ReportPage({
             Book a free 30-minute discovery call.
           </h2>
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 12px" }}>
-            We review your assessment before the call. On the day, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated.
+            {isV3
+              ? "We review your answers before the call. On the day, we go deeper: which tools see client information, where it's stored, and who can reach it."
+              : "We review your assessment before the call. On the day, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated."}
           </p>
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 28px" }}>
             We will tell you honestly whether a POPIA-Safe AI Audit makes sense for your business right now. If it does not, we will say so directly.

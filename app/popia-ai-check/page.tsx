@@ -186,19 +186,18 @@ function AssessmentWizard() {
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Operations Assessment</span>
+            <span className="label-eyebrow">POPIA-safe AI check</span>
             <h1 className="text-3xl font-semibold text-navy leading-tight mb-4 border-none">
-              Find out where your business is losing time and money to manual processes.
+              Find out where your client information goes when your team uses AI.
             </h1>
             <p className="body-muted text-lg mb-8 leading-relaxed">
               10 questions across 5 areas. About 3 minutes.
             </p>
 
-            {/* The v2 paragraph that followed here named the old five areas
-                (process, data flow, lead management…), which is now false.
-                Removed rather than rewritten: replacement copy is drafted in
-                COPY-DECK-ADDENDUM-03 §A and awaits approval. */}
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-6">
+              <p className="text-ink-primary text-base font-medium leading-relaxed mb-3">
+                You&apos;ll get a short report showing how your business rates in each of the five areas, and what to fix first.
+              </p>
               <p className="text-ink-primary text-base font-medium leading-relaxed">
                 Answer based on how things actually work today — not how you want them to work. The more honest your answers, the more useful your result.
               </p>
@@ -389,7 +388,7 @@ function AssessmentWizard() {
               Your report is on its way.
             </h2>
             <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
-              Check your inbox for a link to your personalised report — your findings across all five operational areas and a recommended next step.
+              Check your inbox for a link to your report: your result in each of the five areas and a recommended next step.
             </p>
 
             <div className="bg-bg-canvas border border-border-default rounded-lg p-6 text-left mb-8">

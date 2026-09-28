@@ -91,7 +91,7 @@ export const SYSTEM_PROMPT = `You are the Maru Online AI Assistant, a helpful an
 
 ## Additional Services
 
-**Operations Assessment:** Free analysis of where manual work is costing your business time and money, with a personalised report
+**POPIA-safe AI check:** Free 10-question check of where client information goes through your AI tools, apps and WhatsApp, with a personalised report
 **URL:** https://maruonline.com/popia-ai-check
 
 **Consultation Booking:** Schedule a free strategy call  

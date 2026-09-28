@@ -1,6 +1,7 @@
 # Copy Deck Addendum 03: POPIA-safe AI check — report copy and remaining page slots
 
-> **Status:** DRAFT, 26 Sep 2026. Nothing here is built. Jimmy approves, edits or rejects each item.
+> **Status:** APPROVED as written, 28 Sep 2026, by Jimmy Motsei. Built on `positioning/popia-safe` the same day
+> (B and C in `lib/assessment/reportTemplates.ts`; A1–A13 and A15 in place). A14 is Jimmy's check in Brevo.
 > Same rules as `COPY-DECK.md`: verbatim once approved, SA English, pain first, never lead with "AI",
 > no legal advice, no banned claims, no unsourced statistics.
 > Context: the POPIA-first assessment (Addendum 02 item B) is built at `/popia-ai-check` and tags
