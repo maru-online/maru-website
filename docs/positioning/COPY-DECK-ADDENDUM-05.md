@@ -29,7 +29,7 @@ the opt-in, Addendum 01 D); the closing "No obligation…" line.
 | # | Where | Current | Proposed |
 |---|---|---|---|
 | B1 | Homepage hero, secondary button (`app/page.tsx:133`) | Start the free assessment | `Start the free check` (same label as A4) |
-| B2 | `/contact` meta description (`app/contact/page.tsx:12`) | Two ways to start — the Operations Assessment or a 20-minute discovery call. You speak directly with Jimmy. | `Two ways to start: the free POPIA-safe AI check or a [20/30]-minute discovery call. You speak directly with Jimmy.` (see decision D1) |
+| B2 | `/contact` meta description (`app/contact/page.tsx:12`) | Two ways to start — the Operations Assessment or a 20-minute discovery call. You speak directly with Jimmy. | `Two ways to start: the free POPIA-safe AI check or a 30-minute discovery call. You speak directly with Jimmy.` (see decision D1) |
 | B3 | Chatbot instructions, "Is AI right for my business?" (`lib/chatbot-prompt.ts:164`) | Suggest the Operations Assessment | `Suggest the free POPIA-safe AI check` |
 | B4 | Insights CTA band (`app/insights/page.tsx:456`, `app/insights/[slug]/page.tsx:441`; hidden, noindex) | The free assessment shows you where the gaps are, in about fifteen minutes. The POPIA-Safe AI Audit goes further — your tools, your workflows, your revenue gaps, written up within 48 hours. R4,500. | `The free POPIA-safe AI check shows where client information slips through, in about three minutes. The POPIA-Safe AI Audit goes further: every tool, AI app and data flow, mapped and written up within 48 hours. R4,500.` |
 | B5 | `/case-studies/growthiq` closing band (noindex scaffold, line 177) | Start with the free operations assessment. It takes a few minutes and tells you where your workflows are leaking time. / button: Start the assessment | `Start with the free POPIA-safe AI check. It takes about three minutes and shows where client information is exposed, and what to fix first.` / button: `Start the free check` |
@@ -46,7 +46,7 @@ report those visitors actually took.
 
 ## D. Decisions for Jimmy
 
-- **D1. How long is the discovery call?** `/booking` and `/contact` say **20 minutes**; the report page, the check's
+- **D1. DECIDED 28 Sep 2026: 30 minutes, everywhere.** Was: how long is the discovery call? `/booking` and `/contact` say **20 minutes**; the report page, the check's
   done step and `/pricing` say **30 minutes**. Pick one and B2 uses it; the others get aligned in the same build.
   Check it against the Calendly event length.
 - **D2. Chatbot prompt review (flag, not in this addendum).** `lib/chatbot-prompt.ts` still says "proven results"
