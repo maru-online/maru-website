@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { clearCookies, getCookieChoice, COOKIE_CHOICE_EVENT, type CookieChoice } from '@/lib/cookie-consent'
 
 interface AnalyticsTrackerProps {
     measurementId?: string;
@@ -52,15 +53,41 @@ export function AnalyticsTracker({ measurementId }: AnalyticsTrackerProps) {
         script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
         document.head.appendChild(script);
 
+        // Consent Mode: every storage type starts denied, so GA4 sets no cookies
+        // and sends only cookieless pings. analytics_storage is granted only once
+        // the visitor accepts. Ad storage stays denied: the site runs no Google Ads.
+        const granted = getCookieChoice() === 'accepted';
         const inlineScript = document.createElement('script');
         inlineScript.innerHTML = `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          });
+          ${granted ? "gtag('consent', 'update', { analytics_storage: 'granted' });" : ''}
           gtag('js', new Date());
           gtag('config', '${measurementId}', { send_page_view: false });
         `;
         document.head.appendChild(inlineScript);
     }
+  }, [measurementId]);
+
+  // Follow the banner: accept grants analytics storage, decline (including a
+  // later change of mind) denies it again and removes the cookies GA4 set.
+  useEffect(() => {
+    if (!measurementId) return;
+    const onChoice = (e: Event) => {
+      const choice = (e as CustomEvent<CookieChoice>).detail;
+      window.gtag?.('consent', 'update', {
+        analytics_storage: choice === 'accepted' ? 'granted' : 'denied',
+      });
+      if (choice === 'declined') clearCookies(/^_ga/);
+    };
+    window.addEventListener(COOKIE_CHOICE_EVENT, onChoice);
+    return () => window.removeEventListener(COOKIE_CHOICE_EVENT, onChoice);
   }, [measurementId]);
 
   // One page_view per route, including client-side navigations — which the
