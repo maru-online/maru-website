@@ -15,6 +15,23 @@
 - **Never write or improvise marketing copy.** Use COPY-DECK.md verbatim; if a slot has no approved copy, leave
   the existing text and report the gap.
 - Pain first, never lead with "AI". SA English.
+- **Messaging vocabulary (adopted 28 Sep 2026). Use these terms exactly. Each has one job:**
+  - "POPIA-safe AI for South African businesses": the category line. Leads customer-facing surfaces.
+  - "POPIA-Safe AI Integration": the short descriptor for what Maru does as a whole (all four steps together).
+    Use it in headlines, bios, signatures and one-liners. It is not a service name: never price it, never list it
+    as a fifth service, never shorten it to "Integration".
+  - "POPIA-Compliant AI Integration": formal descriptor, proposals and contracts only (per POSITIONING.md).
+  - The only service names: POPIA-Safe AI Audit, Workflow Integration, Team Training & Handover, Results
+    Optimisation. "Workflow Integration" means step 2 only.
+  - Core promise, in these words: "Your team already uses AI. We help you do it within POPIA."
+- **No-confusion rules:**
+  - "Safe" never stands alone. Write "POPIA-safe", or tie it to POPIA in the same sentence, so it reads as the law,
+    not as cybersecurity.
+  - Describe the work with advising and building verbs: map, check, fix, build, train, help. Never imply custody:
+    no "we keep / hold / store / protect your data", "your data is safe with us", "secure your data".
+  - Prefer "within POPIA" (inside the law) to "compliant", which reads as a guarantee. Never "we make you compliant".
+  - Before shipping any line, ask: could a newcomer read it as (a) Maru stores their data, (b) a cybersecurity
+    product, or (c) a compliance guarantee? If yes, rewrite it.
 - **Banned claims:** "certified/guaranteed/100%/fully POPIA compliant", "approved by the Information Regulator",
   legal advice, unsourced statistics, and any offer of web design, websites or digital marketing services.
 - Any form that collects personal information must have a working, consented submission path — never a simulated one.
