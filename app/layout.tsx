@@ -34,14 +34,14 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://maruonline.com'),
   title: 'POPIA-Safe AI & Automation for SA Businesses | Maru Online',
   description:
-    'Your team already uses AI. We make it POPIA-safe: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
+    'Your team already uses AI. We help you do it within POPIA: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
   openGraph: {
     type: 'website',
     siteName: 'Maru Online',
     locale: 'en_ZA',
     title: 'AI your business can use, without the POPIA risk',
     description:
-      'Your team already uses AI. We make it POPIA-safe: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
+      'Your team already uses AI. We help you do it within POPIA: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
   },
   twitter: {
     card: 'summary_large_image',

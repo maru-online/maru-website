@@ -1,6 +1,7 @@
 # Copy Deck Addendum 04: no-confusion sweep (LinkedIn + site)
 
-> **Status:** DRAFT, 28 Sep 2026. Nothing here is built or applied. Jimmy approves, edits or rejects each item.
+> **Status:** APPROVED 28 Sep 2026 by Jimmy Motsei. All items approved as proposed. C5: primary (`Is it within POPIA?`).
+> D: **No**, keep "POPIA-Compliant AI Integration" for proposals and contracts only, never on LinkedIn or the site (so A3 applies).
 > Test applied to every line (CLAUDE.md, "No-confusion rules"): could a newcomer read it as
 > (a) Maru stores their data, (b) a cybersecurity product, or (c) a compliance guarantee? If yes, it is rewritten below.
 > Two patterns fail: "safe" standing alone (reads as cybersecurity) and "make it safe" (reads as a promise).

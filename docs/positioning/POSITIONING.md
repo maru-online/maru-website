@@ -12,7 +12,7 @@
 |---|---|
 | Mind-word (the one word Maru owns) | **safe** |
 | Category line (customer-facing) | **POPIA-safe AI for South African businesses** |
-| Formal service descriptor (proposals, service pages) | POPIA-Compliant AI Integration |
+| Formal service descriptor (proposals and contracts only; never on LinkedIn or the site, decided 28 Sep 2026) | POPIA-Compliant AI Integration |
 | Short descriptor (headlines, bios, one-liners; adopted 28 Sep 2026) | **POPIA-Safe AI Integration**: what Maru does as a whole, never a service name (see CLAUDE.md vocabulary) |
 | Enemy (what we reposition as the risk) | The unmanaged AI stack: free AI tools fed client records, offshore automation platforms, WhatsApp workflows with no consent trail |
 | Supporting tagline (never the lead) | "Most businesses don't have an AI problem. They have an integration problem." |

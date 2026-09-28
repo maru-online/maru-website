@@ -112,7 +112,7 @@ const phases = [
   },
   {
     label: "Step 3 · typically 4 to 8 weeks",
-    title: "We build it safe, then hand it over.",
+    title: "We build it POPIA-safe, then hand it over.",
     body:  "Consent, access controls and data location are designed in from the start. Everything is tested and documented in plain language, and your team learns what goes into AI tools and what never does.",
   },
   {
@@ -133,7 +133,7 @@ const engagementFaqs = [
   },
   {
     q: "I already use AI tools. Do I have to replace them?",
-    a: "Almost certainly not. We start by making what you have safe and useful. We only recommend a new tool when your current ones cannot do the job, or cannot do it without sending client data where it should not go, and we explain why.",
+    a: "Almost certainly not. We start by bringing what you have within POPIA, and making it useful. We only recommend a new tool when your current ones cannot do the job, or cannot do it without sending client data where it should not go, and we explain why.",
   },
   {
     q: "Can I start with just the audit and decide later?",

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     ...homeSeo.openGraph,
     title: "AI your business can use, without the POPIA risk",
     description:
-      "Your team already uses AI. We make it POPIA-safe: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.",
+      "Your team already uses AI. We help you do it within POPIA: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.",
   },
 };
 
@@ -81,7 +81,7 @@ export default function Home() {
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
               <span className="maru-headline-split-light">Your team already uses AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Is your client data safe?</span>
+              <span className="maru-headline-split-strong">Is it within POPIA?</span>
             </h1>
           </FadeUp>
 
@@ -240,7 +240,7 @@ export default function Home() {
                 lineHeight: "var(--leading-body)",
               }}
             >
-              None of this needs new software. We fix it with the systems you already have, and make them safe.
+              None of this needs new software. We fix it with the systems you already have, and bring them within POPIA.
             </p>
           </FadeUp>
         </div>
@@ -274,7 +274,7 @@ export default function Home() {
             <h2>
               <span style={{ fontWeight: 300 }}>Pick the problem.</span>
               <br />
-              <span style={{ fontWeight: 700 }}>We’ll make it safe.</span>
+              <span style={{ fontWeight: 700 }}>We’ll bring it within POPIA.</span>
             </h2>
             <p
               className="body-muted"
@@ -312,7 +312,7 @@ export default function Home() {
         <div className={inner}>
           <FadeUp>
             <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <span style={{ fontWeight: 300 }}>From audit to safe, live workflows</span>
+              <span style={{ fontWeight: 300 }}>From audit to POPIA-safe, live workflows</span>
               <br />
               <span style={{ fontWeight: 700 }}>in about 30 days.</span>
             </h2>
@@ -404,7 +404,7 @@ export default function Home() {
                 letterSpacing: 'normal',
               }}
             >
-              We check where client data goes and make every workflow POPIA-safe.
+              We check where client data goes and design every workflow for POPIA’s requirements.
             </span>
           </>
         }
