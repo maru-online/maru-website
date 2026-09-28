@@ -130,7 +130,7 @@ export default function Home() {
                 Book a POPIA-safe AI call
               </Button>
               <Button href="/popia-ai-check" variant="secondary" className="w-full sm:w-auto justify-center">
-                Start the free assessment
+                Start the free check
               </Button>
             </div>
           </FadeUp>

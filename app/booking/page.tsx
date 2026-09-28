@@ -7,7 +7,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Book a Discovery Call | Maru Online',
-  description: 'Schedule a free 20-minute discovery call with Jimmy. We\'ll have reviewed your assessment before we speak.',
+  description: 'Schedule a free 30-minute discovery call with Jimmy. We\'ll have reviewed your assessment before we speak.',
   ...seo('/booking'),
 }
 

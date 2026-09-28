@@ -15,7 +15,7 @@ export default function AssessmentFormSection() {
 
           {/* ── Left: copy ─────────────────────────────────────────── */}
           <div>
-            <span className="label-eyebrow">Free Business Diagnostic</span>
+            <span className="label-eyebrow">Free · 10 questions · About 3 minutes</span>
 
             <h2
               className="h2-cta"
@@ -98,8 +98,8 @@ export default function AssessmentFormSection() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "2rem" }}>
               {[
-                "See your score live as you go",
-                "Detailed report delivered within 48 hours",
+                "See your result as soon as you finish",
+                "Your full report by email, within minutes",
                 "No sign-up required to begin",
               ].map((point) => (
                 <div key={point} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
@@ -127,7 +127,7 @@ export default function AssessmentFormSection() {
               variant="primary"
               className="w-full justify-center"
             >
-              Start Your Free Assessment
+              Start the free check
             </Button>
 
             <p
@@ -142,7 +142,7 @@ export default function AssessmentFormSection() {
                 lineHeight: 1.5,
               }}
             >
-              Free. No obligation. Results within 48 hours.
+              Free. No obligation.
             </p>
           </div>
           </div>

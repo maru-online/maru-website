@@ -174,12 +174,12 @@ export default function GrowthIqCaseStudy() {
                 <span style={{ fontWeight: 300 }}>Got a similar problem?</span>
               </h2>
               <p className="body-muted" style={{ marginBottom: "1.5rem", maxWidth: "560px" }}>
-                Start with the free operations assessment. It takes a few minutes
-                and tells you where your workflows are leaking time.
+                Start with the free POPIA-safe AI check. It takes about three minutes
+                and shows where client information is exposed, and what to fix first.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
-                  Start the assessment
+                  Start the free check
                 </Button>
                 <Button href="/pricing" variant="tertiary">
                   See pricing
