@@ -1,6 +1,6 @@
 # Cookie policy §4: draft for approval
 
-> **Status:** DRAFT, 2 Oct 2026. Not live. Jimmy approves, edits or rejects; the approved text is then built into
+> **Status:** APPROVED by Jimmy 2 Oct 2026, with the footer wording (question 2). Built into
 > `app/cookie-policy/page.tsx` verbatim (checked by script). Not legal advice.
 
 ## Why it needs changing
@@ -19,7 +19,7 @@ have is the kind of claim a POPIA-safe business can't make.
 | Accept: GA4 may set its cookies, and the Meta Pixel loads. Ad storage stays denied in GA4 either way. | same |
 | Changing from Accept to Decline deletes the `_ga*` and `_fbp` cookies. | `lib/cookie-consent.ts` `clearCookies` |
 | The choice is stored in the browser's local storage (`maru-cookie-consent`), not in a cookie. | `lib/cookie-consent.ts` |
-| "Manage Cookie Preferences" reopens the banner. The button exists **only on the cookie policy page**; there's no footer link. | `grep` of `components/`, `app/` |
+| The banner can be reopened from "Manage Cookie Preferences" on this page **and from "Cookie Preferences" in the footer bottom bar on every page**. (The first draft wrongly said there was no footer link: the grep searched for "Manage Cookie" and missed the footer's shorter label.) | `app/cookie-policy/page.tsx`, `components/ui/Footer.tsx` |
 | Not covered by the choice: Google reCAPTCHA (check page, contact form) and Calendly (booking page). | `app/popia-ai-check`, `app/contact`, `app/booking` |
 
 ## Proposed §4 (replaces the first paragraph; the button and the browser-settings part stay as they are)
@@ -33,7 +33,7 @@ choice, and it covers both.
 - **Decline, or no choice yet:** Google Analytics runs without cookies and sends Google only basic measurements
   that don't identify your browser, and the Meta Pixel does not load at all.
 
-You can change your choice at any time. Click the button below to bring the banner back. If you change from
+You can change your choice at any time. Click the button below or in the footer of any page to bring the banner back. If you change from
 Accept to Decline, we delete the Google Analytics and Meta Pixel cookies from your browser.
 
 We save your choice in your browser's local storage, not in a cookie. It stays until you change it or clear your
@@ -47,12 +47,10 @@ open our booking page.
 
 *[Browser settings paragraph, list and browser-specific links: unchanged]*
 
-## Questions for Jimmy
+## Decisions
 
-1. **Approve the §4 text above?** (approve / edits / reject)
-2. **Footer link.** Should "Manage Cookie Preferences" also go in the footer, so people can change their choice from
-   any page and not only from this one? It's a one-line build. If yes, add "or in the footer of any page" after
-   "Click the button below".
+1. **Approve the §4 text above?** Approved 2 Oct 2026.
+2. **Footer link:** yes. The footer already had one ("Cookie Preferences"), so no build was needed; the wording was added.
 
 ## Other inaccuracies on the same page (not drafted; flagged so the page isn't approved as accurate)
 
