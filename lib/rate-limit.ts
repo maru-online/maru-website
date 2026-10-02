@@ -22,8 +22,6 @@ interface RateLimitConfig {
 const rateLimits: Record<string, RateLimitConfig> = {
   // Assessment APIs - more restrictive
   '/api/assessment/submit': { windowMs: 60 * 1000, maxRequests: 5 }, // 5 per minute
-  '/api/hubspot/sync': { windowMs: 60 * 1000, maxRequests: 5 }, // 5 per minute
-  '/api/email/send': { windowMs: 60 * 1000, maxRequests: 3 }, // 3 per minute
   
   // Admin APIs - less restrictive for authenticated users
   '/api/analytics/dashboard': { windowMs: 60 * 1000, maxRequests: 30 }, // 30 per minute
