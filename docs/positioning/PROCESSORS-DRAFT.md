@@ -29,8 +29,7 @@ Not visitor data: **Sanity** (Insights content only) and the SMTP account used f
 **Done.** Jimmy approved C2 on 2 Oct 2026. PR #14 deleted every route below, plus `/api/email/send` (which also
 emailed any address), `lib/integrations.ts` and the CORS `*`. It was merged to `main` (`0552e55`), and all ten routes
 were verified as 404 on maruonline.com. None of these services handles visitor data any more, so **leave them out of
-the privacy policy**. The API keys can be revoked or removed from Vercel whenever convenient (Resend, Serper, Firecrawl,
-HubSpot, Supabase), after checking that no other project uses them.
+the privacy policy**. `FIRECRAWL_API_KEY` was removed from Vercel on 2 Oct. Resend, Serper, HubSpot and Supabase keys were never set there.
 
 Kept for the record: what each route exposed while it was live.
 
