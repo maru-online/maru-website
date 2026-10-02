@@ -11,9 +11,9 @@
 
 | Service | What it receives | Where it comes from | Where it's stored |
 |---|---|---|---|
-| **Vercel** (hosting) | Every request: IP address, user agent, page; request logs | All pages and API routes | USA **[CONFIRM function region; Vercel's default is Washington DC, `iad1`]** |
+| **Vercel** (hosting) | Every request: IP address, user agent, page; request logs | All pages and API routes | USA: functions run in Washington DC (`iad1`), checked in the project settings 2 Oct 2026 |
 | **Brevo** | Name, email, company/website, assessment level and answers, consent record; contact-form and newsletter entries | `/api/assessment/submit`, `/api/contact`, `/api/newsletter` | EU **[CONFIRM in the Brevo account]** |
-| **Neon** (Postgres) | The assessment report row: answers, level, email, name, website, consent record (`operations_reports`) | `/api/assessment/submit`, `/report/[token]` | **[CONFIRM region: it is in the `DATABASE_URL_WEBSITE` host name]** |
+| **Neon** (Postgres) | The assessment report row: answers, level, email, name, website, consent record (`operations_reports`) | `/api/assessment/submit`, `/report/[token]` | UK: AWS `eu-west-2` (London), from the `DATABASE_URL_WEBSITE` host, checked 2 Oct 2026 |
 | **Anthropic** (Claude) | The visitor's ten answers and level, to write the report. Their name, email and website are not in the prompt (the site-scrape input is passed empty, `route.ts:297`). | `/api/assessment/submit` (runs after the reply) | USA |
 | **Google reCAPTCHA v3** | Browser and interaction signals, IP | Check page and contact form | USA |
 | **Google Analytics 4** | Page views, events, device, approximate location, cookie ID | Every page (`AnalyticsTracker`) | USA. **Loads before and regardless of cookie consent; see C1.** |
@@ -22,7 +22,7 @@
 | **WhatsApp (Meta)** | The visitor's number and message, only when they tap the WhatsApp link | Floating button and page links | Meta. The visitor starts it; the site sends nothing. |
 
 Not visitor data: **Sanity** (Insights content only) and the SMTP account used for internal notifications
-(`lib/insights/notify.ts`, sent to Maru only) **[CONFIRM the SMTP provider: `SMTP_HOST`]**.
+(`lib/insights/notify.ts`, sent to Maru only). **No SMTP vars are set in Vercel (checked 2 Oct 2026), so nothing is sent and there is no SMTP processor today.**
 
 ## B. Services wired into code that no page calls: REMOVED 2 Oct 2026
 
