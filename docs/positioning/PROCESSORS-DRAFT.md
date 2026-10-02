@@ -24,10 +24,15 @@
 Not visitor data: **Sanity** (Insights content only) and the SMTP account used for internal notifications
 (`lib/insights/notify.ts`, sent to Maru only) **[CONFIRM the SMTP provider: `SMTP_HOST`]**.
 
-## B. Services wired into code that no page calls
+## B. Services wired into code that no page calls: REMOVED 2 Oct 2026
 
-These have routes and API keys but no caller anywhere on the site or in the other Maru repos. They should not be
-named in the privacy policy **if** they are removed (C2). If they stay, they are processors too.
+**Done.** Jimmy approved C2 on 2 Oct 2026. PR #14 deleted every route below, plus `/api/email/send` (which also
+emailed any address), `lib/integrations.ts` and the CORS `*`. It was merged to `main` (`0552e55`), and all ten routes
+were verified as 404 on maruonline.com. None of these services handles visitor data any more, so **leave them out of
+the privacy policy**. The API keys can be revoked or removed from Vercel whenever convenient (Resend, Serper, Firecrawl,
+HubSpot, Supabase), after checking that no other project uses them.
+
+Kept for the record: what each route exposed while it was live.
 
 | Service | Route | Risk while it stays public |
 |---|---|---|
@@ -39,7 +44,7 @@ named in the privacy policy **if** they are removed (C2). If they stay, they are
 | (none) | `/api/lead`, `/api/analyze-website`, `/api/calculate-score` | v2-era; Brevo list writes (`/api/lead`) with no caller. |
 
 Vercel keeps only a few hours of logs on Hobby, so the logs can't prove nothing outside the site calls these. The
-code on `main` and the sibling repos shows no caller. All are live on production today.
+code on `main` and the sibling repos showed no caller.
 
 ## C. Decisions for Jimmy
 
@@ -48,7 +53,5 @@ code on `main` and the sibling repos shows no caller. All are live on production
   this is the most visible gap on the site. Fix: load the Meta Pixel only after "Accept", and start GA4 in Google
   Consent Mode with analytics storage denied until "Accept". Cost: GA4 will count fewer visitors (only those who
   accept, plus cookieless modelled pings), so traffic numbers drop from the day it ships. Recommended.
-- **C2. Delete the uncalled routes in B** (and the global `Access-Control-Allow-Origin: *` on `/api/*` in
-  `vercel.json`, which only matters for them). Recommended as a hotfix to `main`, like PR #11, because they are live
-  now. `/api/send-results` is the urgent one.
+- **C2. Delete the uncalled routes in B.** **Done 2 Oct 2026** as hotfix PR #14 (see B).
 - **C3. Confirm the [CONFIRM] cells and add off-site processors.** Then the policy can be drafted as Addendum 06.
