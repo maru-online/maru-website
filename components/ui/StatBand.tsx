@@ -12,9 +12,9 @@ import { useEffect, useRef, useState } from 'react';
 import StatFigure, { type Stat } from './StatFigure';
 
 const STATS: Stat[] = [
-  { icon: 'gift',   suffix: 'Free',   label: 'Assessment — see where you stand' },
-  { icon: 'clock',  count: 48, suffix: 'hr',   label: 'Turnaround on your diagnostic report' },
-  { icon: 'rocket', count: 30, suffix: 'days', label: 'To your first workflow running live' },
+  { icon: 'gift',   suffix: 'Free',   label: 'Assessment: see where your data goes' },
+  { icon: 'clock',  count: 48, suffix: 'hr',   label: 'Turnaround on your audit report' },
+  { icon: 'rocket', count: 30, suffix: 'days', label: 'To your first POPIA-safe workflow running live' },
   { icon: 'tag',    suffix: 'Fixed',  label: 'Price agreed before work starts' },
 ];
 

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 // ── Local presentational helpers (page-scoped, not exported) ────────────────
 
-function Swatch({ name, value, varName, ink = 'light' }: { name: string; value: string; varName: string; ink?: 'light' | 'dark' }) {
+function Swatch({ name, value, varName, ink: _ink = 'light' }: { name: string; value: string; varName: string; ink?: 'light' | 'dark' }) {
   return (
     <div className="border border-[var(--color-border-default)] rounded-[8px] overflow-hidden">
       <div className="h-16" style={{ background: value }} />
@@ -52,7 +52,7 @@ function CheckIcon() {
 
 export default function DesignSystemPage() {
   return (
-    <main className="bg-[var(--color-bg-canvas)] min-h-screen py-16 px-6 md:px-10 xl:px-16">
+    <div className="bg-[var(--color-bg-canvas)] min-h-screen py-16 px-6 md:px-10 xl:px-16">
       <div className="max-w-[1100px] mx-auto">
         {/* Header */}
         <header className="mb-16">
@@ -188,6 +188,6 @@ export default function DesignSystemPage() {
           </div>
         </Block>
       </div>
-    </main>
+    </div>
   )
 }

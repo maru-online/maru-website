@@ -78,7 +78,7 @@ export default function Footer() {
                   className="font-body font-light text-[13px] leading-relaxed mb-6"
                   style={{ color: 'var(--color-ink-inverted-muted)' }}
                 >
-                  Building AI-powered workflows for growing SMEs.
+                  POPIA-safe AI for South African businesses.
                 </p>
                 {/* Social icons */}
                 <div className="flex items-center gap-3">
@@ -146,7 +146,7 @@ export default function Footer() {
                 </h4>
                 <ul className="flex flex-col list-none m-0 p-0">
                   {[
-                    { name: 'Operations Diagnostic',      href: '/services/operations-diagnostic' },
+                    { name: 'POPIA-Safe AI Audit',        href: '/services/popia-safe-ai-audit' },
                     { name: 'Workflow Integration',    href: '/services/workflow-integration' },
                     { name: 'Team Training & Handover',    href: '/services/team-training-handover' },
                     { name: 'Results Optimisation',          href: '/services/results-optimisation' },

@@ -29,8 +29,7 @@ export function OrganizationJsonLd() {
         url: siteConfig.url,
         email: siteConfig.contact.email,
         telephone: siteConfig.contact.phone,
-        description:
-          'AI implementation consultancy for South African SMEs. We find where manual processes cost time and money, then build AI-powered workflows that cut those costs.',
+        description: siteConfig.description,
         areaServed: { '@type': 'Country', name: 'South Africa' },
         address: siteConfig.contact.locations.map((l) => ({
           '@type': 'PostalAddress',
@@ -44,10 +43,11 @@ export function OrganizationJsonLd() {
           siteConfig.links.instagram,
         ],
         knowsAbout: [
+          'POPIA',
+          'Protection of Personal Information Act',
           'AI implementation',
           'Workflow automation',
-          'Business process optimisation',
-          'AI readiness assessment',
+          'Data protection',
         ],
       }}
     />

@@ -126,7 +126,7 @@ test.describe('item 10 — pricing page', () => {
     await withConsentGiven(page)
     await page.goto('/pricing')
 
-    const rows = page.locator('a[href^="#"]', { hasText: /Operations Diagnostic|Workflow Integration|Team Training/ })
+    const rows = page.locator('a[href^="#"]', { hasText: /POPIA-Safe AI Audit|Workflow Integration|Team Training/ })
     await expect(rows).toHaveCount(3)
 
     for (const id of ['diagnostic', 'build', 'training']) {
@@ -146,7 +146,7 @@ test.describe('item 10 — pricing page', () => {
     const order = await page.locator('#diagnostic').evaluate((card) => {
       const text = (card.textContent || '').replace(/\s+/g, ' ')
       return {
-        title: text.indexOf('Operations Diagnostic'),
+        title: text.indexOf('POPIA-Safe AI Audit'),
         duration: text.indexOf('48 hours'),
         price: text.indexOf('R4,500'),
       }
@@ -165,7 +165,7 @@ test.describe('item 01 — WhatsApp number and openers', () => {
     ['/pricing', 'understand your pricing for workflow integration'],
     ['/contact', "question about Maru Online's services"],
     ['/careers', 'opportunities at Maru Online'],
-    ['/operations-assessment', 'book my free operations assessment'],
+    ['/popia-ai-check', 'do the free POPIA-safe AI check'],
     ['/services/workflow-integration', 'interested in Workflow Integration'],
     ['/services/team-training-handover', 'Team Training & Handover'],
     ['/services/results-optimisation', 'know more about Results Optimisation'],

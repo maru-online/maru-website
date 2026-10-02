@@ -56,3 +56,9 @@ mcp.json
 # Sentry Config File
 .env.sentry-build-plugin
 .env*.local
+
+# Claude Code worktrees (transient local copies — never commit)
+.claude/worktrees/
+
+# Per-machine Claude Code permissions (never commit)
+.claude/settings.local.json

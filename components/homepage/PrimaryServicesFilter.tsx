@@ -9,14 +9,19 @@ type Service = {
   body: string;
 };
 
+// Four services, card copy verbatim from COPY-DECK §3. "Site Infrastructure"
+// and "POPIA-Compliant Integration" were removed (CHANGE-MAP §2.1): the first
+// is a sacrificed offer, the second is now built into every service. The audit
+// tag reuses the pricing page's existing "Start here" badge; it was "Free entry
+// point", which contradicted the R4,500 price.
 const services: Service[] = [
   {
     id: 'svc1',
-    tag: 'Free entry point',
+    tag: 'Start here',
     tagColor: 'cyan',
     icon: 'search',
-    name: 'Operations Diagnostic',
-    body: 'We find where the money leaks. Free.',
+    name: 'POPIA-Safe AI Audit',
+    body: 'A written map of every tool, AI app and data flow in your business, with POPIA exposure flagged and savings sized. Report in 48 hours. R4,500.',
   },
   {
     id: 'svc2',
@@ -24,39 +29,23 @@ const services: Service[] = [
     tagColor: 'cyan',
     icon: 'connect',
     name: 'Workflow Integration',
-    body: 'Your tools, finally talking. Fixed price.',
+    body: 'We connect your tools and automate the work, with consent, access and data location built in from day one.',
   },
   {
     id: 'svc3',
-    tag: 'Ongoing',
-    tagColor: 'cyan',
-    icon: 'chart',
-    name: 'Results Measurement',
-    body: 'Proof it worked, against your baseline.',
-  },
-  {
-    id: 'svc4',
-    tag: 'Foundation',
-    tagColor: 'gold',
-    icon: 'layers',
-    name: 'Site Infrastructure',
-    body: 'Clean foundations before automation runs.',
-  },
-  {
-    id: 'svc5',
-    tag: 'Compliance',
-    tagColor: 'gold',
-    icon: 'shield',
-    name: 'POPIA-Compliant Integration',
-    body: 'Compliance built in, not bolted on.',
-  },
-  {
-    id: 'svc6',
     tag: 'Support',
     tagColor: 'cyan',
     icon: 'team',
-    name: 'Team Training',
-    body: 'Your team runs it. Not IT.',
+    name: 'Team Training & Handover',
+    body: 'Your team learns the new workflows and the rules that keep them POPIA-safe: what goes into AI tools, and what never does.',
+  },
+  {
+    id: 'svc4',
+    tag: 'Ongoing',
+    tagColor: 'cyan',
+    icon: 'chart',
+    name: 'Results Optimisation',
+    body: 'Thirty days after go-live we measure hours saved and risks closed, then tune what the data shows.',
   },
 ];
 

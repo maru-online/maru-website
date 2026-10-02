@@ -6,6 +6,8 @@ type ImageBandProps = {
   alt: string
   overlayText?: ReactNode
   height?: number
+  /** CSS object-position for the photo's crop. Default: 'center 30%'. */
+  objectPosition?: string
 }
 
 export default function ImageBand({
@@ -13,6 +15,7 @@ export default function ImageBand({
   alt,
   overlayText,
   height = 420,
+  objectPosition = 'center 30%',
 }: ImageBandProps) {
   return (
     <div
@@ -27,7 +30,7 @@ export default function ImageBand({
         src={src}
         alt={alt}
         fill
-        style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
+        style={{ objectFit: 'cover', objectPosition }}
         sizes="100vw"
       />
       {/* Dark scrim */}

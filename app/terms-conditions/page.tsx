@@ -5,14 +5,14 @@ import { seo } from '@/lib/seo'
 export const metadata: Metadata = {
   ...seo('/terms-conditions'),
   title: 'Terms and Conditions | Maru AI',
-  description: 'Terms and conditions for Maru Online AI automation and marketing services.',
+  description: 'Terms and conditions for Maru Online AI automation services.',
 };
 
 export default function TermsConditionsPage() {
   return (
     <LegalLayout
       title="Terms and Conditions"
-      description="Terms and conditions for Maru Online AI automation and marketing services. These terms govern our relationship with clients and users."
+      description="Terms and conditions for Maru Online AI automation services. These terms govern our relationship with clients and users."
       lastUpdated="January 9, 2026"
       effectiveDate="January 9, 2026"
     >
@@ -53,7 +53,7 @@ export default function TermsConditionsPage() {
           </div>
           
           <p className="text-ink-secondary">
-            <strong className="text-ink-primary">Custom Projects:</strong> Project fees range from R25,000 for single workflow automation to R200,000+ for comprehensive sales and marketing systems. All pricing is provided in fixed-price quotes following your Operations Diagnostic.
+            <strong className="text-ink-primary">Custom Projects:</strong> Project fees range from R25,000 for single workflow automation to R200,000+ for comprehensive sales and marketing systems. All pricing is provided in fixed-price quotes following your POPIA-Safe AI Audit.
           </p>
 
           <div>
@@ -106,7 +106,7 @@ export default function TermsConditionsPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">6. Data Protection and Compliance</h2>
         <p className="text-ink-secondary mb-4">
-          We are committed to protecting your data. All systems we build are POPIA-compliant and hosted on South African cloud infrastructure where possible. Standard security measures include:
+          We are committed to protecting your data. We design every system we build to meet POPIA requirements, and host on South African infrastructure where possible. Standard security measures include:
         </p>
         <ul className="text-ink-secondary mb-4">
           <li>Data encryption in transit and at rest</li>

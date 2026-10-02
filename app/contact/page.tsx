@@ -9,12 +9,11 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Two ways to start — the Operations Assessment or a 20-minute discovery call. You speak directly with Jimmy.",
+  description: "Two ways to start: the free POPIA-safe AI check or a 30-minute discovery call. You speak directly with Jimmy.",
   ...seo('/contact'),
 }
 
 const outerPad    = 'px-6 md:px-[60px]'
-const inner       = 'max-w-[900px] mx-auto'
 const innerWide   = 'max-w-[1100px] mx-auto'
 const innerNarrow = 'max-w-[720px] mx-auto'
 

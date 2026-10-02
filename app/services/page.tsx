@@ -3,18 +3,19 @@ import Button from "@/components/ui/Button";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
-import CardNavy from "@/components/ui/CardNavy";
 import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import Glyph from "@/components/ui/Glyph";
-import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
+import { FadeUp } from "@/components/ui/Animate";
+import AccordionFAQ from "@/components/ui/AccordionFAQ";
+import { FaqJsonLd } from "@/components/seo/JsonLd";
 import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   ...seo('/services'),
-  title: "Services | Maru Online",
+  title: "Services: POPIA-Safe AI Audit, Integration & Training | Maru Online",
   description:
-    "We configure the connections your business is missing — so your systems share data, your team stops the manual handoffs, and your operation runs the way it should.",
+    "Four fixed-price steps to AI your business can defend: a POPIA-Safe AI Audit, workflow integration, team training, and measured results.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
@@ -28,9 +29,9 @@ const services = [
   {
     id:          "diagnostic",
     label:       "01",
-    title:       "Operations Diagnostic",
+    title:       "POPIA-Safe AI Audit",
     tagline:     "Map where your operation has gaps — before configuring anything.",
-    description: "A structured audit of your current workflows, tools, and data connections. You receive a written report — delivered within 48 hours — that maps where information isn't flowing, quantifies what that's costing, and tells you exactly what to configure first. This is where every engagement starts.",
+    description: "A written map of every tool, AI app and data flow in your business, with POPIA exposure flagged and savings sized. Report in 48 hours. R4,500.",
     bullets: [
       { leader: "Sector-specific intake",   body: "A structured brief tailored to your industry — medico legal, HR & recruitment, or conference & events." },
       { leader: "Verification call",         body: "A 30–45 minute call to clarify the brief, ask the right questions, and confirm scope." },
@@ -39,7 +40,7 @@ const services = [
     ],
     pricing:     "R4,500",
     note:        "If you proceed to a full engagement, this fee offsets against the project cost.",
-    href:        "/services/operations-diagnostic",
+    href:        "/services/popia-safe-ai-audit",
     bg:          "var(--color-bg-primary)",
   },
   {
@@ -47,15 +48,15 @@ const services = [
     label:       "02",
     title:       "Workflow Integration",
     tagline:     "Connect your existing tools. Configure the workflows between them.",
-    description: "Fixed-scope implementation built around what the diagnostic found. We configure the connections between your tools, extend what's already working, and build the automation layer on top. Vendor-agnostic. Your stack stays — we connect it.",
+    description: "We connect your tools and automate the work, with consent, access and data location built in from day one.",
     bullets: [
       { leader: "Custom integration build",  body: "Connecting your existing tools — CRM, calendar, email, forms — so they pass information correctly." },
       { leader: "Automation layer",          body: "The workflows that run without human intervention: follow-ups, confirmations, handoffs, notifications." },
       { leader: "Brand voice training",      body: "AI outputs calibrated to sound like your business, not like a generic chatbot." },
       { leader: "POPIA compliance built in", body: "Every data touchpoint designed for compliance before a line of code is written." },
     ],
-    pricing:     "From R35,000",
-    note:        "Fixed price. Scoped after the diagnostic — no surprises.",
+    pricing:     "Fixed quote",
+    note:        "Priced from your audit findings and agreed before work starts.",
     href:        "/services/workflow-integration",
     bg:          "var(--color-bg-canvas)",
   },
@@ -64,14 +65,14 @@ const services = [
     label:       "03",
     title:       "Team Training & Handover",
     tagline:     "Your team runs the system. Not us.",
-    description: "Hands-on training built around the specific workflows we've configured. Your team learns how to use, manage, and adapt the system — so the capability stays in the business after we hand over.",
+    description: "Your team learns the new workflows and the rules that keep them POPIA-safe: what goes into AI tools, and what never does.",
     bullets: [
       { leader: "Hands-on workshops",       body: "Practical sessions built around your actual tools, not generic AI theory." },
       { leader: "Prompt engineering",       body: "Teaching your team to get consistent, high-quality outputs from the tools you already have." },
       { leader: "Workflow adoption",        body: "Getting the new workflows embedded in how the team actually works — not just documented." },
       { leader: "30-day follow-up support", body: "A structured support window after training to catch issues before they become habits." },
     ],
-    pricing:     "From R15,000",
+    pricing:     "Fixed quote",
     note:        "Scoped per engagement. Can be standalone or follow a build.",
     href:        "/services/team-training-handover",
     bg:          "var(--color-bg-primary)",
@@ -81,17 +82,62 @@ const services = [
     label:       "04",
     title:       "Results Optimisation",
     tagline:     "A second sprint when the first one shows what's next.",
-    description: "A fixed-scope optimisation engagement triggered by what the 30-day measurement phase surfaces. Not a retainer — a defined sprint built around specific opportunities the data identified.",
+    description: "Thirty days after go-live we measure hours saved and risks closed, then tune what the data shows.",
     bullets: [
       { leader: "Data-led scope",              body: "Built around what the 30-day measurement report surfaced — not assumptions." },
       { leader: "Fixed-scope sprint",          body: "Defined deliverables, defined timeline, agreed before work begins." },
       { leader: "Compliance review",           body: "Ongoing POPIA review as your data flows and tool stack evolve." },
       { leader: "Updated results baseline",    body: "A new measurement baseline set after the optimisation sprint completes." },
     ],
-    pricing:     "From R8,500",
+    pricing:     "Fixed quote",
     note:        "Available to clients who have completed a build engagement.",
     href:        "/services/results-optimisation",
     bg:          "var(--color-bg-canvas)",
+  },
+];
+
+
+// ─── How an engagement runs (replaces /process, 26 Sep 2026) ─────────────────
+
+const phases = [
+  {
+    label: "Step 1 · 48 hours",
+    title: "We map where client data goes before we touch anything.",
+    body:  "The POPIA-Safe AI Audit covers every tool, AI app and data flow in your business. You get a written report: the risks ranked, the manual work sized, and a fixed-price plan for what to fix first. R4,500, credited to the build if you go ahead.",
+  },
+  {
+    label: "Step 2 · before you commit",
+    title: "You approve a fixed-scope plan.",
+    body:  "Every item is specified: what we build, what it connects to, and where the data sits. The price is agreed before work starts. No hourly billing and no scope creep.",
+  },
+  {
+    label: "Step 3 · typically 4 to 8 weeks",
+    title: "We build it POPIA-safe, then hand it over.",
+    body:  "Consent, access controls and data location are designed in from the start. Everything is tested and documented in plain language, and your team learns what goes into AI tools and what never does.",
+  },
+  {
+    label: "Step 4 · 30 days after go-live",
+    title: "We report what changed.",
+    body:  "You get a written results report: hours saved, risks closed, and what to watch next. Any further work is scoped from that data, not from a sales conversation.",
+  },
+];
+
+const engagementFaqs = [
+  {
+    q: "How long does the whole process take?",
+    a: "The audit report arrives within 48 hours of your intake. A build typically runs four to eight weeks, depending on how many tools and workflows are involved. The 30-day measurement period follows go-live.",
+  },
+  {
+    q: "Do I need to be technical to work with you?",
+    a: "No. Everything we build is documented in plain language, and we train the people who will use it. If something breaks after handover, we are reachable.",
+  },
+  {
+    q: "I already use AI tools. Do I have to replace them?",
+    a: "Almost certainly not. We start by bringing what you have within POPIA, and making it useful. We only recommend a new tool when your current ones cannot do the job, or cannot do it without sending client data where it should not go, and we explain why.",
+  },
+  {
+    q: "Can I start with just the audit and decide later?",
+    a: "Yes. The audit is a complete deliverable on its own, with no obligation to continue. Many owners use the report to decide what to fix themselves.",
   },
 ];
 
@@ -100,6 +146,7 @@ const services = [
 export default function ServicesPage() {
   return (
     <>
+      <FaqJsonLd items={engagementFaqs} />
       {/* ════════════════════════════════════════════════════════════════════
           HERO
           ════════════════════════════════════════════════════════════════════ */}
@@ -127,9 +174,9 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split">
-              <span className="maru-headline-split-strong">Paying for AI tools</span>
+              <span className="maru-headline-split-strong">Four steps to AI</span>
               <br />
-              <span className="maru-headline-split-light">that don&apos;t pay you back?</span>
+              <span className="maru-headline-split-light">your business can defend.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.16}>
@@ -147,7 +194,7 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.24}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <Button href="/operations-assessment" variant="primary">
+              <Button href="/popia-ai-check" variant="primary">
                 Start the assessment
               </Button>
               <Button href="#services" variant="tertiary">
@@ -160,8 +207,9 @@ export default function ServicesPage() {
 
       {/* ── IMAGE SPLIT — between hero and intro ─────────────────────────── */}
       <ImageSplit
-        src="/images/people/integration-looks-like.png"
-        alt="Two professionals reviewing data on a monitor in a modern office"
+        src="/images/people/services-adviser-client.jpg"
+        alt="A financial adviser and a client laughing together across a desk"
+        objectPosition="center 30%"
         eyebrow="Integrated AI in practice"
         heading="What integrated AI actually looks like."
         body="Leads land in your CRM on their own. Follow-ups send themselves. Invoices go out the moment a job closes. Reports update while you sleep."
@@ -307,10 +355,48 @@ export default function ServicesPage() {
       ))}
 
       {/* ════════════════════════════════════════════════════════════════════
+          HOW AN ENGAGEMENT RUNS — replaces the retired /process page
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        id="how-it-works"
+        className={`${outerPad} py-24`}
+        style={{ backgroundColor: "var(--color-bg-canvas)", scrollMarginTop: "96px" }}
+      >
+        <div className={innerWide}>
+          <FadeUp>
+            <span className="label-eyebrow-ochre">How an engagement runs</span>
+            <h2 style={{ border: "none", marginBottom: "var(--space-section-header-mb)" }}>
+              <span style={{ fontWeight: 300 }}>Four steps.</span>
+              <br />
+              <span style={{ fontWeight: 700 }}>Each one has a written output.</span>
+            </h2>
+          </FadeUp>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {phases.map((phase, i) => (
+              <FadeUp key={phase.label} delay={0.06 * i}>
+                <div className="card-lift p-8 h-full">
+                  <span className="label-eyebrow" style={{ marginBottom: "0.75rem" }}>{phase.label}</span>
+                  <h3 style={{ marginBottom: "0.75rem" }}>{phase.title}</h3>
+                  <p className="body-muted" style={{ margin: 0 }}>{phase.body}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+          <div className={innerNarrow} style={{ marginTop: "4rem" }}>
+            <FadeUp>
+              <span className="label-eyebrow-ochre">Common questions</span>
+              <AccordionFAQ items={engagementFaqs} />
+            </FadeUp>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════
       {/* ── IMAGE BAND — before final CTA ────────────────────────────────── */}
       <ImageBand
-        src="/images/people/vendor-agnostic.png"
-        alt="South African professionals working together at a computer"
+        src="/images/people/services-shared-desk.jpg"
+        alt="A small team's shared desk with two laptops, a phone, paper files and coffee mugs"
+        objectPosition="center 45%"
         overlayText={
           <>
             <span style={{ fontWeight: 300 }}>Vendor-agnostic.</span>{' '}
@@ -360,7 +446,7 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              The Operations Diagnostic is where every engagement starts — a
+              The POPIA-Safe AI Audit is where every engagement starts — a
               structured audit of your current setup, a clear picture of what to configure first,
               and a written report delivered within 48 hours.
             </p>
@@ -374,7 +460,7 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
+              <Button href="/popia-ai-check" variant="primary">
                 Start the assessment
               </Button>
               <Button href="/booking" variant="tertiary">

@@ -6,6 +6,7 @@ import Footer from '@/components/ui/Footer'
 import CookieConsent from '@/components/CookieConsent'
 import { AnalyticsTracker } from '@/components/AnalyticsTracker'
 import { ConversionTracking } from '@/components/analytics/ConversionTracking'
+import { MetaPixel } from '@/components/analytics/MetaPixel'
 import { OrganizationJsonLd } from '@/components/seo/JsonLd'
 import './globals.css'
 
@@ -32,16 +33,16 @@ const inter = localFont({
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL('https://maruonline.com'),
-  title: 'AI & Automation Consultants for Growing SMEs | Maru Online',
+  title: 'POPIA-Safe AI & Automation for SA Businesses | Maru Online',
   description:
-    'We find where your processes are costing you time and money — then build AI-powered workflows that cut costs and free your team. Free assessment.',
+    'Your team already uses AI. We help you do it within POPIA: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
   openGraph: {
     type: 'website',
     siteName: 'Maru Online',
     locale: 'en_ZA',
-    title: 'AI That Actually Works for Your Business — Not Just Another Tool',
+    title: 'AI your business can use, without the POPIA risk',
     description:
-      'We connect AI with your existing tools and workflows to automate the work your team shouldn\'t be doing manually. Free assessment for growing SMEs.',
+      'Your team already uses AI. We help you do it within POPIA: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.',
   },
   twitter: {
     card: 'summary_large_image',
@@ -73,35 +74,8 @@ export default function RootLayout({
         {/* Funnel events — assessment steps, completions, lead capture */}
         <ConversionTracking />
 
-        {/* Meta Pixel — base code */}
-        {META_PIXEL_ID && (
-          <>
-            <Script id="meta-pixel" strategy="afterInteractive">
-              {`
-                !function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${META_PIXEL_ID}');
-                fbq('track', 'PageView');
-              `}
-            </Script>
-            <noscript>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                height="1"
-                width="1"
-                style={{ display: 'none' }}
-                src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
-                alt=""
-              />
-            </noscript>
-          </>
-        )}
+        {/* Meta Pixel: loads only after the visitor accepts cookies */}
+        {META_PIXEL_ID && <MetaPixel pixelId={META_PIXEL_ID} />}
 
         {/* Calendly — loaded site-wide so it's pre-cached before /booking */}
         <Script

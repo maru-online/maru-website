@@ -15,18 +15,18 @@ export default function AssessmentFormSection() {
 
           {/* ── Left: copy ─────────────────────────────────────────── */}
           <div>
-            <span className="label-eyebrow">Free Business Diagnostic</span>
+            <span className="label-eyebrow">Free · 10 questions · About 3 minutes</span>
 
             <h2
               className="h2-cta"
               style={{ marginBottom: "var(--space-heading-body)" }}
             >
-              <span style={{ display: "block", fontWeight: 300 }}>What&apos;s Costing You</span>
-              <span style={{ display: "block", fontWeight: 700 }}>Time and Money</span>
+              <span style={{ display: "block", fontWeight: 300 }}>Where does your</span>
+              <span style={{ display: "block", fontWeight: 700 }}>client data go?</span>
             </h2>
 
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              Our free assessment shows you exactly where your processes are losing capacity. Ten minutes. Results within 48 hours.
+              Our free check shows where client information slips through your AI tools, apps and WhatsApp. About three minutes. Your report arrives by email.
             </p>
 
             <p
@@ -43,28 +43,6 @@ export default function AssessmentFormSection() {
               Either way, you get clarity. That&apos;s the point.
             </p>
 
-            {/* Proof stats */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.5rem" }}>
-              {[
-                "Average 3–5 critical gaps identified per assessment",
-                "Average 12–18 hours per week recoverable through integration",
-              ].map((stat) => (
-                <div key={stat} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                  <span className="bullet-cyan" style={{ marginTop: "9px" }} />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-body-sm)",
-                      fontWeight: 500,
-                      color: "var(--color-ink-inverted)",
-                      lineHeight: "var(--leading-body)",
-                    }}
-                  >
-                    {stat}
-                  </span>
-                </div>
-              ))}
-            </div>
 
             <p
               style={{
@@ -76,7 +54,7 @@ export default function AssessmentFormSection() {
                 letterSpacing: "0.02em",
               }}
             >
-              POPIA compliant. No opt-in to marketing — just your results.
+              Your report, nothing else, unless you ask for more.
             </p>
           </div>
 
@@ -102,7 +80,7 @@ export default function AssessmentFormSection() {
                 paddingBottom: 0,
               }}
             >
-              Get Your Free Assessment
+              Get your free POPIA-safe AI check
             </h3>
 
             <p
@@ -115,13 +93,13 @@ export default function AssessmentFormSection() {
                 marginBottom: "1.5rem",
               }}
             >
-              Answer 10 questions about your operations. Takes about 10 minutes. We pinpoint exactly where your business is leaking time and money — and what to do about it.
+              Answer 10 questions about how your business handles client information. Takes about 3 minutes. We show you where it&apos;s exposed, and what to fix first.
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "2rem" }}>
               {[
-                "See your score live as you go",
-                "Detailed report delivered within 48 hours",
+                "See your result as soon as you finish",
+                "Your full report by email, within minutes",
                 "No sign-up required to begin",
               ].map((point) => (
                 <div key={point} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
@@ -145,11 +123,11 @@ export default function AssessmentFormSection() {
             </div>
 
             <Button
-              href="/operations-assessment"
+              href="/popia-ai-check"
               variant="primary"
               className="w-full justify-center"
             >
-              Start Your Free Assessment
+              Start the free check
             </Button>
 
             <p
@@ -164,7 +142,7 @@ export default function AssessmentFormSection() {
                 lineHeight: 1.5,
               }}
             >
-              Free. No obligation. Results within 48 hours.
+              Free. No obligation.
             </p>
           </div>
           </div>

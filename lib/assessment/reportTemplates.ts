@@ -1,5 +1,17 @@
 /**
- * Maru Online — Operations Assessment Report Templates (v2)
+ * Maru Online — Assessment Report Templates
+ *
+ * Two versions live here:
+ *   - v2, the retired operations assessment (areaTemplates / summaryTemplates
+ *     below). Kept verbatim so reports already emailed still render.
+ *   - assessment_v3, the POPIA-safe AI check (v3AreaTemplates /
+ *     v3SummaryTemplates at the bottom), verbatim from
+ *     docs/positioning/COPY-DECK-ADDENDUM-03.md (approved 28 Sep 2026). The
+ *     report page shows only the sections that have approved copy, so a
+ *     missing template hides a section rather than filling it with
+ *     improvised text.
+ *
+ * ── v2 notes (original) ───────────────────────────────────────────────────
  *
  * GTmetrix-style per-area structured findings.
  * Each area has findings at 3 severity levels:
@@ -250,19 +262,19 @@ export const areaTemplates: Record<string, AreaTemplate> = {
 export const summaryTemplates: Record<ReadinessLevel, ReportSummary> = {
   1: {
     approachHeading: "Recommended approach",
-    approach: "The right starting point is a structured conversation to map exactly where the highest-friction processes sit in your business. Before building anything, we need to understand what is actually costing you the most time and money — not what appears to be the problem from the outside. The Operations Diagnostic is designed to answer that question with precision, so that any implementation work that follows is targeted and measurable rather than speculative.",
+    approach: "The right starting point is a structured conversation to map exactly where the highest-friction processes sit in your business. Before building anything, we need to understand what is actually costing you the most time and money — not what appears to be the problem from the outside. The POPIA-Safe AI Audit is designed to answer that question with precision, so that any implementation work that follows is targeted and measurable rather than speculative.",
     outcomeHeading: "What a successful engagement looks like",
     outcome: "A business where the two or three highest-effort manual processes have been replaced with reliable systems. The team's time is redirected from administration and coordination to client work and growth. Operational knowledge that lived in people's heads is captured in a form the business can actually use. The owner's involvement in day-to-day operational decisions reduces significantly.",
   },
   2: {
     approachHeading: "Recommended approach",
-    approach: "Your business has structure — the opportunity is in connecting the gaps between what exists. The starting point is identifying the specific handoff points where information currently travels manually and where the cost of that manual journey is highest. An Operations Diagnostic will map those handoffs with precision and produce a prioritised plan: the three integration points that would deliver the most return, in the order they should be addressed.",
+    approach: "Your business has structure — the opportunity is in connecting the gaps between what exists. The starting point is identifying the specific handoff points where information currently travels manually and where the cost of that manual journey is highest. A POPIA-Safe AI Audit will map those handoffs with precision and produce a prioritised plan: the three integration points that would deliver the most return, in the order they should be addressed.",
     outcomeHeading: "What a successful engagement looks like",
     outcome: "Manual handoffs between your existing tools are replaced with reliable automatic flows. The team's time shifts from data entry and coordination to the work that actually moves the business forward. Lead and client information flows from intake to delivery without anyone having to move it by hand. Errors from manual re-entry drop to near zero. You have a current, accurate view of the business without needing to compile it.",
   },
   3: {
     approachHeading: "Recommended approach",
-    approach: "At your level of operational maturity, the opportunity is in precision optimisation rather than foundation-building. The focus is on identifying where the current infrastructure has hit its ceiling — the manual steps between automated stages, the reporting that still requires human compilation, the approval flows that route through people unnecessarily. An Operations Diagnostic at this stage is a targeted audit of those gaps, not a ground-up assessment.",
+    approach: "At your level of operational maturity, the opportunity is in precision optimisation rather than foundation-building. The focus is on identifying where the current infrastructure has hit its ceiling — the manual steps between automated stages, the reporting that still requires human compilation, the approval flows that route through people unnecessarily. A POPIA-Safe AI Audit at this stage is a targeted audit of those gaps, not a ground-up assessment.",
     outcomeHeading: "What a successful engagement looks like",
     outcome: "The remaining manual steps between your connected systems are automated. Reporting that currently requires effort becomes available automatically. Decision flows are redesigned to match your actual risk tolerance — senior time is freed from routine approval and directed to decisions that genuinely require it. The business has the operational headroom to absorb significantly more volume without a proportional increase in overhead.",
   },
@@ -278,26 +290,242 @@ export const segmentBNote: Record<ReadinessLevel, string> = {
   3: "A prior implementation that did not deliver expectations at your level of maturity usually has a specific cause — a vendor that was technically competent but did not account for the operational context of the business, or a scope that was correct in principle but delivered without the change management needed to embed it. It is worth examining that experience clearly before the discovery call so we understand what worked, what did not, and what a different engagement structure would look like.",
 };
 
+// ── assessment_v3: POPIA-safe AI check ─────────────────────────────────────
+//
+// COPY-DECK-ADDENDUM-03.md sections B and C, approved by Jimmy 28 Sep 2026.
+// Verbatim: edit the addendum first, then this file. Keyed by the area keys in
+// scoring.ts AREAS (ai_use, data_location, access, permission, incident).
+
+export const v3AreaTemplates: Partial<Record<string, AreaTemplate>> = {
+  ai_use: {
+    critical: {
+      observation: "Your team is using AI tools with no agreed rules, and client information may already have gone into them. Nobody could say today what was shared, or where it went.",
+      issues: [
+        "No list of approved AI tools, so each person decides for themselves",
+        "Client names, ID numbers or notes may be sitting in free AI accounts you don't control",
+        "No record to show a client who asks where their information went",
+        "Staff who want to use AI well have no guidance to follow",
+      ],
+    },
+    significant: {
+      observation: "AI use has been talked about, but not settled. Some people use it carefully, and you're relying on their judgement rather than a rule.",
+      issues: [
+        "Informal agreements don't reach new staff or busy weeks",
+        "Nobody has checked whether client information has been pasted into an AI tool",
+        "The free versions of most AI tools don't give you control over what they keep",
+      ],
+    },
+    partial: {
+      observation: "You have clear habits around AI, with a gap or two, usually in what counts as client information and who checks.",
+      issues: [
+        "The rules exist but aren't written down where the team can find them",
+        "Nobody reviews whether the rules still match the tools people now use",
+      ],
+    },
+    strong: {
+      observation: "You've agreed which AI tools are allowed and the team keeps client information out of them.",
+      issues: [
+        "Write the rules into onboarding so new staff learn them on day one",
+        "Review the approved list whenever a new tool is adopted",
+      ],
+    },
+  },
+
+  data_location: {
+    critical: {
+      observation: "Client information lives in phones, inboxes, WhatsApp groups and spreadsheets, so it's in more places than anyone can list. You can't protect what you can't find.",
+      issues: [
+        "Copies of client records on personal phones and in personal accounts",
+        "No view of which apps store information outside South Africa",
+        "Losing one phone or inbox could expose client information with no way to know what was in it",
+        "Answering a client's question about their data would mean searching everywhere",
+      ],
+    },
+    significant: {
+      observation: "Your main systems hold most client information, but copies keep escaping into email and spreadsheets, and the smaller apps haven't been checked.",
+      issues: [
+        "Spreadsheet and email copies go out of date and out of sight",
+        "Smaller apps may store client information offshore without anyone knowing",
+        "Every copy is another place to secure and another place to search",
+      ],
+    },
+    partial: {
+      observation: "You know where most client information lives and you've checked your main systems. The gaps are in the smaller apps and the copies people make to get work done.",
+      issues: [
+        "Smaller or newer apps haven't been checked for where they store data",
+        "Working copies aren't cleaned up when the job is done",
+      ],
+    },
+    strong: {
+      observation: "Client information sits in systems you control, and you know which of them store data outside South Africa.",
+      issues: [
+        "Check each new app's storage location before the team adopts it",
+        "Recheck once a year, because vendors change where they host",
+      ],
+    },
+  },
+
+  access: {
+    critical: {
+      observation: "Shared logins and open access mean almost anyone, including people who've left, could reach your full client list. There's no way to tell who looked at what.",
+      issues: [
+        "Former staff may still have working logins or client information on their devices",
+        "Shared passwords make it impossible to trace who did what",
+        "Client lists circulate in team chats where anyone in the group can see them",
+      ],
+    },
+    significant: {
+      observation: "You remove the main logins when someone leaves, but smaller apps slip through, and most of the team can open the full client list.",
+      issues: [
+        "Leftover logins in smaller apps are an open door",
+        "Access is wider than most people need for their job",
+        "No one list of which apps each person can reach",
+      ],
+    },
+    partial: {
+      observation: "Access is mostly limited to the people who need it, and leavers are usually switched off. The gaps are small and easy to close.",
+      issues: [
+        "No written checklist for switching off a leaver's access",
+        "Access isn't reviewed when people change roles",
+      ],
+    },
+    strong: {
+      observation: "Only the right people can reach client information, and access ends on a leaver's last day.",
+      issues: [
+        "Keep the leaver checklist current as you add apps",
+        "Review who has access to what once a year",
+      ],
+    },
+  },
+
+  permission: {
+    critical: {
+      observation: "You message clients without a record of who agreed, and you couldn't easily tell a client what you hold about them. Both are exactly what clients and the Information Regulator ask about.",
+      issues: [
+        "Marketing goes to people who never agreed to receive it",
+        "No way to prove consent if a client complains",
+        "A client asking what you hold about them would get a slow or incomplete answer",
+      ],
+    },
+    significant: {
+      observation: "Most of your list opted in, but some contacts were added without asking, and answering a client's information request would take real digging.",
+      issues: [
+        "Contacts added from other sources have no consent record",
+        "Client information is spread out, so requests take days of searching",
+        "Unsubscribes may not reach every tool you send from",
+      ],
+    },
+    partial: {
+      observation: "Consent is mostly in place and you could answer a client's request. What's missing is a record you can show and a routine for requests.",
+      issues: [
+        "Consent is given but not stored with a date and the wording that was used",
+        "No set process for handling a client's request about their information",
+      ],
+    },
+    strong: {
+      observation: "Your clients chose to hear from you, and you could tell any of them what you hold within days.",
+      issues: [
+        "Keep a dated record of the consent wording each time it changes",
+        "Make sure new tools respect unsubscribes from day one",
+      ],
+    },
+  },
+
+  incident: {
+    critical: {
+      observation: "Nobody owns the protection of personal information, and a lost phone or a hack could go unnoticed. When something goes wrong, the first hours matter most.",
+      issues: [
+        "No named person responsible for personal information",
+        "No plan for who to tell, what to do and by when",
+        "A breach could go unnoticed until a client finds out first",
+      ],
+    },
+    significant: {
+      observation: "Someone would step in if something went wrong, but there's no plan, and responsibility sits with you by default rather than by decision.",
+      issues: [
+        "Working it out on the day means slower, less certain decisions",
+        "Responsibility hasn't been formally given to anyone",
+        "Nobody has written down which clients and which information each device holds",
+      ],
+    },
+    partial: {
+      observation: "You know who's responsible and roughly what you'd do. The next step is writing it down so it works when that person isn't there.",
+      issues: [
+        "The plan lives in one person's head",
+        "No practice run, so gaps only show up in a real incident",
+      ],
+    },
+    strong: {
+      observation: "A named, registered person owns this, and there's a plan for who to tell, what to do and by when.",
+      issues: [
+        "Walk through the plan once a year with the team",
+        "Update it when you add systems or staff",
+      ],
+    },
+  },
+};
+
+export const v3SummaryTemplates: Partial<Record<ReadinessLevel, ReportSummary>> = {
+  1: {
+    approachHeading: "Recommended approach",
+    approach: "Start with the quick, cheap fixes: agree which AI tools are allowed, switch off old logins, and name the person responsible. Then find out where client information actually goes. The POPIA-Safe AI Audit maps every tool, AI app and data flow in your business and ranks the risks, so you fix the biggest ones first.",
+    outcomeHeading: "What good looks like",
+    outcome: "Your team uses AI with clear rules. Client information sits in systems you control. You know who can see it, and if a client asks what you hold, you can answer.",
+  },
+  2: {
+    approachHeading: "Recommended approach",
+    approach: "Your habits are a good base. The work is closing the gaps where AI tools, WhatsApp and old logins meet client data. The POPIA-Safe AI Audit maps those meeting points and gives you a fixed-price plan for what to fix first.",
+    outcomeHeading: "What good looks like",
+    outcome: "The gaps are closed without slowing the team down. Every tool that touches client information is known, approved and switched off when someone leaves.",
+  },
+  3: {
+    approachHeading: "Recommended approach",
+    approach: "Your foundations are sound. The risk now is new tools arriving faster than your checks. The POPIA-Safe AI Audit reviews the AI tools and automations you're adding and confirms each one keeps client information where it should be.",
+    outcomeHeading: "What good looks like",
+    outcome: "You add AI with confidence, and every new workflow is checked before it touches client information.",
+  },
+};
+
 // ── Public API ─────────────────────────────────────────────────────────────
 
-export function getAreaFinding(areaKey: string, status: AreaStatus): AreaFinding {
-  const template = areaTemplates[areaKey];
-  if (!template) {
-    return {
-      observation: "Your assessment flagged this area as requiring attention. A more detailed review during the discovery call will give us the specific picture.",
-      issues: ["Detailed findings will be discussed during the discovery call."],
-    };
-  }
-  return template[status];
+export type ReportVersion = "v2" | "assessment_v3";
+
+/**
+ * v3 rows carry `version` in their stored template. Rows written before v3
+ * have no version field and are the operations assessment.
+ */
+export function getReportVersion(storedTemplate: unknown): ReportVersion {
+  const version = (storedTemplate as { version?: unknown } | null)?.version;
+  return version === "assessment_v3" ? "assessment_v3" : "v2";
 }
 
-export function getReportSummary(level: ReadinessLevel, isSegmentB: boolean): ReportSummary {
+/**
+ * The finding for one area, or null when there is no approved copy for it.
+ * The old fallback ("Your assessment flagged this area as requiring
+ * attention…") is gone: it rendered on every v3 card, including the strong
+ * ones, which is a false statement about the visitor's result.
+ */
+export function getAreaFinding(
+  areaKey: string,
+  status: AreaStatus,
+  version: ReportVersion = "v2",
+): AreaFinding | null {
+  const templates = version === "assessment_v3" ? v3AreaTemplates : areaTemplates;
+  return templates[areaKey]?.[status] ?? null;
+}
+
+export function getReportSummary(
+  level: ReadinessLevel,
+  isSegmentB: boolean,
+  version: ReportVersion = "v2",
+): ReportSummary | null {
+  if (version === "assessment_v3") return v3SummaryTemplates[level] ?? null;
   const base = summaryTemplates[level];
   if (!isSegmentB) return base;
   return { ...base, segmentBNote: segmentBNote[level] };
 }
 
-// Legacy shim — keeps existing API route happy during transition
+// Legacy shim — the v2 shape still stored in operations_reports.template
 export interface ReportTemplate {
   intro: string;
   insight1: string;
@@ -315,5 +543,20 @@ export function getFullTemplate(level: ReadinessLevel, painTag: string, isSegmen
     insight2: "",
     insight3: "",
     ...(isSegmentB ? { segmentBOverlay: segmentBNote[level] } : {}),
+  };
+}
+
+/**
+ * What a v3 submission stores in operations_reports.template. There is no
+ * version column, and adding one means a migration on the shared Neon
+ * database, so the version tag and the consent record ride in this jsonb.
+ */
+export interface V3StoredTemplate {
+  version: "assessment_v3";
+  levelSummary: string;
+  consent: {
+    marketing: boolean;
+    at: string;           // ISO timestamp of the submission
+    textVersion: string;  // CONSENT_TEXT_VERSION
   };
 }

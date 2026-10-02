@@ -4,7 +4,7 @@
 export const siteConfig = {
     name: 'Maru Online',
     description:
-        "We're your bridge to the Age of AI, combining comprehensive marketing solutions with cutting-edge AI technology to make your business smarter, faster, and more competitive.",
+        "Maru Online makes AI safe for South African businesses. We map where client data goes, fix POPIA risks, and build workflows that save time.",
     url: 'https://maruonline.com',
     ogImage: 'https://maruonline.com/og-image.jpg',
     links: {

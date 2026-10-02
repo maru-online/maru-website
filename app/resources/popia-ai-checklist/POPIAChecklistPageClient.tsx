@@ -26,10 +26,14 @@ const CHECKLIST_HIGHLIGHTS = [
   "Data subject rights handling guide",
 ];
 
+// COPY-DECK §7. The "30 days to respond" stat was removed (unverified against
+// PAIA/POPIA s23). The 1,220+ figure must render with its source link
+// (Polity, 1 Sep 2026:
+// https://www.polity.org.za/article/the-regulator-is-watching-new-enforcement-signals-for-popia-and-paia-compliance-2026-09-01)
+// before this page is republished.
 const STATS = [
-  { value: "83%", label: "of SA businesses unknowingly non-compliant" },
-  { value: "R10M", label: "maximum penalty for POPIA violations" },
-  { value: "30", label: "days to respond to data subject requests" },
+  { value: "R10M", label: "Maximum administrative fine under POPIA" },
+  { value: "1,220+", label: "Breach notifications to the Regulator in five months of 2026" },
 ];
 
 export default function POPIAChecklistPageClient() {
@@ -39,7 +43,7 @@ export default function POPIAChecklistPageClient() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState<{ success: boolean; message: string } | null>(null);
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (_data: FormData) => {
     setIsSubmitting(true);
     setFormStatus(null);
 
@@ -65,7 +69,7 @@ export default function POPIAChecklistPageClient() {
   };
 
   return (
-    <main className="bg-ink-primary">
+    <div className="bg-ink-primary">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center py-section-tab lg:py-section overflow-hidden">
         <AtmosphericBackground variant="hero" />
@@ -272,6 +276,6 @@ export default function POPIAChecklistPageClient() {
           </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

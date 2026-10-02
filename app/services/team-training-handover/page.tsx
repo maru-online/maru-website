@@ -5,6 +5,7 @@ import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import { FadeUp } from "@/components/ui/Animate";
 import { CaseStudyCallout } from "@/components/marketing/CaseStudyCallout";
+import ImageBand from "@/components/ui/ImageBand";
 import { seo } from '@/lib/seo'
 import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
@@ -12,14 +13,14 @@ export const metadata: Metadata = {
   ...seo('/services/team-training-handover'),
   title: "Team Training & Handover | Maru Online",
   description:
-    "Your team runs the system. Not us. Hands-on training built around the specific workflows we've configured.",
+    "Hands-on training on your new workflows, including the rules that keep them POPIA-safe: what goes into AI tools, and what never does.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
 const inner       = "max-w-[900px] mx-auto";
 const innerNarrow = "max-w-[720px] mx-auto";
 
-const bullets = [
+const bullets: { leader?: string; body: string }[] = [
   {
     leader: "Hands-on workshops",
     body: "Practical sessions built around your actual tools, not generic AI theory.",
@@ -40,6 +41,8 @@ const bullets = [
     leader: "30-day follow-up support",
     body: "A structured support window after training to catch issues before they become habits.",
   },
+  // COPY-DECK §3: added verbatim. Plain sentence, so no bold leader.
+  { body: "An AI-use policy for your team: which tools are approved, and what client data must never be pasted into them." },
 ];
 
 export default function TeamTrainingHandoverPage() {
@@ -47,9 +50,8 @@ export default function TeamTrainingHandoverPage() {
     <>
       <ServiceJsonLd
         name="Team Training & Handover"
-        description="Your team runs the system. Not us. Hands-on training built around the specific workflows we've configured."
+        description="Hands-on training on your new workflows, including the rules that keep them POPIA-safe: what goes into AI tools, and what never does."
         path="/services/team-training-handover"
-        price="15000"
       />
       {/* ── Hero ── */}
       <section
@@ -87,7 +89,7 @@ export default function TeamTrainingHandoverPage() {
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">03 — Team Training &amp; Handover</span>
+            <span className="label-eyebrow-gold">03 — Team Training &amp; Handover</span>
           </FadeUp>
           <FadeUp delay={0.12}>
             <h1 style={{ color: "var(--color-ink-inverted)" }}>Team Training &amp; Handover</h1>
@@ -134,7 +136,7 @@ export default function TeamTrainingHandoverPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R15,000
+                Fixed quote
               </p>
               <p
                 style={{
@@ -233,7 +235,7 @@ export default function TeamTrainingHandoverPage() {
               </p>
               <ListGroup>
                 {bullets.map((b) => (
-                  <ListItem key={b.leader} leader={b.leader} body={b.body} />
+                  <ListItem key={b.body} leader={b.leader} body={b.body} />
                 ))}
               </ListGroup>
             </FadeUp>
@@ -256,6 +258,13 @@ export default function TeamTrainingHandoverPage() {
         </div>
       </section>
 
+      {/* ── IMAGE BAND — before the final CTA (image plan, 26 Sep 2026) ── */}
+      <ImageBand
+        src="/images/people/training-workshop.jpg"
+        alt="A facilitator leading a small workshop with three staff at a law firm"
+        objectPosition="center 35%"
+      />
+
       {/* ── CTA ── */}
       <section
         className={`${outerPad} py-24`}
@@ -271,14 +280,14 @@ export default function TeamTrainingHandoverPage() {
                 marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Start with the diagnostic.</span>
+              <span style={{ fontWeight: 300 }}>Start with the audit.</span>
               <br />
               <span style={{ fontWeight: 700 }}>Training is scoped from what we find.</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
+              <Button href="/popia-ai-check" variant="primary">
                 Start the assessment
               </Button>
               <Button href="/booking" variant="tertiary">

@@ -12,7 +12,6 @@ import Button from './Button'
 const allLinks = [
   { label: 'About',        href: '/about' },
   { label: 'Services',     href: '/services' },
-  { label: 'Process',      href: '/process' },
   { label: 'Pricing',      href: '/pricing' },
   // Insights is hidden until there is something behind it. The section renders
   // "New insights are on the way" with zero articles, and a nav item that leads
@@ -110,9 +109,9 @@ export default function Nav() {
                       'font-body text-[14px] font-normal',
                       'relative pb-[2px]',
                       'transition-colors duration-200',
-                      // active state — always cyan
+                      // active state — brand gold (legible on the navy hero and the white bar)
                       active
-                        ? 'var(--color-cyan)'
+                        ? (isHero ? 'text-[var(--color-gold)]' : 'text-[var(--color-gold-antique)]')
                         // hero: white muted default, white on hover
                         : isHero
                           ? 'text-[var(--color-ink-inverted-muted)] hover:text-white'
@@ -125,7 +124,7 @@ export default function Nav() {
                     {active && (
                       <span
                         aria-hidden="true"
-                        className="absolute bottom-[-4px] left-0 right-0 h-[2px] rounded-full bg-[var(--color-cyan)]"
+                        className="absolute bottom-[-4px] left-0 right-0 h-[2px] rounded-full bg-[var(--color-gold)]"
                       />
                     )}
                   </Link>
@@ -136,7 +135,7 @@ export default function Nav() {
 
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="primary" href="/operations-assessment" className="!px-5 !py-2 !text-[11px]">
+            <Button variant="primary" href="/popia-ai-check" className="!px-5 !py-2 !text-[11px]">
               Start the assessment
             </Button>
           </div>
@@ -203,7 +202,7 @@ export default function Nav() {
                       aria-current={active ? 'page' : undefined}
                       className={[
                         'font-body font-light text-[24px] transition-colors duration-150',
-                        active ? 'var(--color-cyan)' : 'text-ink-inverted hover:text-[var(--color-cyan)]',
+                        active ? 'text-[var(--color-gold)]' : 'text-ink-inverted hover:text-[var(--color-cyan)]',
                       ].join(' ')}
                     >
                       {label}
@@ -215,7 +214,7 @@ export default function Nav() {
 
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
-              <Button variant="primary" href="/operations-assessment" className="w-full !justify-center">
+              <Button variant="primary" href="/popia-ai-check" className="w-full !justify-center">
                 Start the assessment
               </Button>
             </div>

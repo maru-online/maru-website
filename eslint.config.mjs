@@ -7,7 +7,17 @@ const tsParser = require("@typescript-eslint/parser");
 
 const eslintConfig = [
   {
-    ignores: [".next/**/*", "node_modules/**/*"],
+    ignores: [
+      ".next/**/*",
+      "node_modules/**/*",
+      // Transient Claude Code worktrees: stale full copies of app/, components/
+      // and _build-brief/. ESLint used to walk into these and report their
+      // problems as if they were real source.
+      ".claude/worktrees/**/*",
+      // Generated Playwright output
+      "playwright-report/**/*",
+      "test-results/**/*",
+    ],
   },
   {
     files: ["**/*.ts", "**/*.tsx"],
@@ -26,7 +36,10 @@ const eslintConfig = [
     rules: {
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs["core-web-vitals"].rules,
-      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
       "@typescript-eslint/no-explicit-any": "warn",
     },
   },

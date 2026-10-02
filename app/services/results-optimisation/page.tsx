@@ -5,6 +5,7 @@ import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import { FadeUp } from "@/components/ui/Animate";
 import { CaseStudyCallout } from "@/components/marketing/CaseStudyCallout";
+import ImageBand from "@/components/ui/ImageBand";
 import { seo } from '@/lib/seo'
 import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   ...seo('/services/results-optimisation'),
   title: "Results Optimisation | Maru Online",
   description:
-    "A second sprint when the first one shows what's next. Fixed-scope, data-led, available after a completed build.",
+    "Thirty days after go-live we measure hours saved and POPIA risks closed, then run a fixed-scope sprint on what the data shows.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
@@ -43,9 +44,8 @@ export default function ResultsOptimisationPage() {
     <>
       <ServiceJsonLd
         name="Results Optimisation"
-        description="A second sprint when the first one shows what's next. Fixed-scope, data-led, available after a completed build."
+        description="Thirty days after go-live we measure hours saved and POPIA risks closed, then run a fixed-scope sprint on what the data shows."
         path="/services/results-optimisation"
-        price="8500"
       />
       {/* ── Hero ── */}
       <section
@@ -83,7 +83,7 @@ export default function ResultsOptimisationPage() {
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">04 — Results Optimisation</span>
+            <span className="label-eyebrow-gold">04 — Results Optimisation</span>
           </FadeUp>
           <FadeUp delay={0.12}>
             <h1 style={{ color: "var(--color-ink-inverted)" }}>Results Optimisation</h1>
@@ -130,7 +130,7 @@ export default function ResultsOptimisationPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R8,500
+                Fixed quote
               </p>
               <p
                 style={{
@@ -217,7 +217,7 @@ export default function ResultsOptimisationPage() {
                   This engagement is only available after a completed Workflow Integration build. The
                   30-day measurement data from Phase 4 is the input. If measurement surfaces a clear
                   next intervention, we scope it here. Not all clients will need this — some builds
-                  deliver everything the diagnostic identified and no further sprint is required.
+                  deliver everything the audit identified and no further sprint is required.
                 </p>
               </FadeUp>
             </div>
@@ -267,6 +267,13 @@ export default function ResultsOptimisationPage() {
         </div>
       </section>
 
+      {/* ── IMAGE BAND — before the final CTA (image plan, 26 Sep 2026) ── */}
+      <ImageBand
+        src="/images/people/results-pharmacy-owner.jpg"
+        alt="A pharmacy owner reading a printed report in his back office, tea in hand"
+        objectPosition="center 35%"
+      />
+
       {/* ── CTA ── */}
       <section
         className={`${outerPad} py-24`}
@@ -282,14 +289,14 @@ export default function ResultsOptimisationPage() {
                 marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Every engagement starts with the diagnostic.</span>
+              <span style={{ fontWeight: 300 }}>Every engagement starts with the audit.</span>
               <br />
               <span style={{ fontWeight: 700 }}>The data tells us what comes next.</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
+              <Button href="/popia-ai-check" variant="primary">
                 Start the assessment
               </Button>
               <Button href="/booking" variant="tertiary">

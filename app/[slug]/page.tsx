@@ -53,7 +53,7 @@ export default async function LandingPage(props: Props) {
   }
 
   return (
-    <main className="min-h-screen" style={{ background: "var(--gradient-surface)" }}>
+    <div className="min-h-screen" style={{ background: "var(--gradient-surface)" }}>
       {/* Hero Section — dark surface is allowed here */}
       <section
         className="relative min-h-[90vh] flex items-center pt-[clamp(150px,20vh,200px)] pb-[clamp(80px,12vh,140px)] overflow-hidden"
@@ -98,6 +98,6 @@ export default async function LandingPage(props: Props) {
             </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

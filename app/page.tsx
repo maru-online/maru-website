@@ -4,57 +4,53 @@ import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
 import PrimaryServicesFilter from "@/components/homepage/PrimaryServicesFilter";
 import { CaseStudyProofStrip } from "@/components/homepage/CaseStudyProofStrip";
-import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
-import MaruM from "@/components/ui/MaruM";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import StatBand from "@/components/ui/StatBand";
 import Glyph from "@/components/ui/Glyph";
 import { seo } from '@/lib/seo'
 
+const HOME_TITLE = "POPIA-Safe AI for South African Businesses | Maru Online";
+const HOME_DESCRIPTION =
+  "Your team is already using AI. We find where client data leaks, fix the POPIA risk, and build workflows that save hours every week. Fixed price.";
+
+// seo() replaces the layout's openGraph object, so the COPY-DECK §1 OG title
+// has to be set here for it to appear when the homepage is shared.
+const homeSeo = seo('/');
+
 export const metadata: Metadata = {
-  ...seo('/'),
-  title: "Cut Your Operating Costs With AI-Powered Workflows | Maru Online",
-  description:
-    "We help businesses cut operating costs by building AI-powered workflows where it matters most. Book a discovery call.",
+  ...homeSeo,
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  openGraph: {
+    ...homeSeo.openGraph,
+    title: "AI your business can use, without the POPIA risk",
+    description:
+      "Your team already uses AI. We help you do it within POPIA: we map where client data goes, fix the risks, and build workflows that save time. Fixed price.",
+  },
 };
+
+// The GrowthIQ proof strip still carries a visible PLACEHOLDER. It stays off
+// this indexed page until Jimmy supplies the cleared metric; flip to true then.
+const SHOW_PROOF_STRIP = false;
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
 const outerPad = "px-6 md:px-[60px]";
 const inner     = "max-w-[900px] mx-auto";
-const innerNarrow = "max-w-[720px] mx-auto";
 const innerWide = "max-w-[1100px] mx-auto";
 
 
-// ─── Inline SVGs for trust bar ────────────────────────────────────────────────
-
-function IconSearch() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconShield() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M10 2L3 5v5c0 4.418 3.134 7.5 7 8 3.866-.5 7-3.582 7-8V5L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconStar() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
+// ─── Trust strip rows (COPY-DECK §2) ───────────────────────────────────────────
+// `confirmed: false` rows are [CONFIRM] items: they do not render until the
+// fact is confirmed. Row 3 was downgraded to [CONFIRM] in CHANGE-MAP §4(b)-7:
+// the privacy policy does not yet list the site's cross-border processors.
+const TRUST_ROWS: { text: string; confirmed: boolean }[] = [
+  { text: "Maru's Information Officer is registered with the Information Regulator.", confirmed: false },
+  { text: "Our PAIA manual is published.", confirmed: false }, // needs a link to the manual when confirmed
+  { text: "We host on South African infrastructure where possible, and document every cross-border transfer.", confirmed: false },
+  { text: "Maru is not a law firm. We design for POPIA requirements, and we tell you when you need a legal opinion.", confirmed: true },
+];
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -76,33 +72,16 @@ export default function Home() {
           fill="rgba(61, 184, 198, 0.101)"
           className="pointer-events-none"
         />
-        {/* Maru "M" — dimensional brand object (Warm Stone depth system) */}
-        <div
-          aria-hidden="true"
-          className="hidden sm:block"
-          style={{
-            position: "absolute",
-            top: "0px",
-            right: "-140px",
-            width: "500px",
-            height: "500px",
-            pointerEvents: "none",
-            filter: "drop-shadow(0 48px 96px rgba(6, 14, 21, 0.5))",
-            opacity: 0.5,
-          }}
-        >
-          <MaruM className="w-full h-full" />
-        </div>
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>AI Implementation Consultancy</span>
+            <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>POPIA-safe AI for South African businesses</span>
           </FadeUp>
 
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">AI-Powered Workflows That</span>
+              <span className="maru-headline-split-light">Your team already uses AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Cut Your Operating Costs</span>
+              <span className="maru-headline-split-strong">Is it within POPIA?</span>
             </h1>
           </FadeUp>
 
@@ -118,7 +97,7 @@ export default function Home() {
                 marginBottom: "2rem",
               }}
             >
-              We find the manual tasks eating your team&apos;s time and replace them with AI workflows that actually work.
+              We map where client data goes through your AI tools, spreadsheets and WhatsApp, then rebuild those workflows to save time and stay within POPIA.
             </p>
           </FadeUp>
 
@@ -134,7 +113,7 @@ export default function Home() {
                 marginBottom: "3rem",
               }}
             >
-              Most businesses buy AI tools that never talk to each other. We connect them, automate what matters, and show you the savings.
+              Most businesses don&apos;t have an AI problem. They have an integration problem. In South Africa, that makes it a POPIA problem.
             </p>
           </FadeUp>
 
@@ -148,10 +127,10 @@ export default function Home() {
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
             >
               <Button href="/booking" variant="primary" className="w-full sm:w-auto justify-center">
-                Book a discovery call
+                Book a POPIA-safe AI call
               </Button>
-              <Button href="/operations-assessment" variant="secondary" className="w-full sm:w-auto justify-center">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="secondary" className="w-full sm:w-auto justify-center">
+                Start the free check
               </Button>
             </div>
           </FadeUp>
@@ -169,12 +148,18 @@ export default function Home() {
       >
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>The operational gap</span>
+            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>The hidden risk</span>
             <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <span style={{ fontWeight: 700 }}>Your tools work.</span>
+              <span style={{ fontWeight: 700 }}>Your team is using AI.</span>
               <br />
-              <span style={{ fontWeight: 300 }}>Your workflows don&apos;t.</span>
+              <span style={{ fontWeight: 300 }}>Nobody&apos;s tracking the data.</span>
             </h2>
+            <p
+              className="body-muted"
+              style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}
+            >
+              Free AI tools, offshore apps and WhatsApp groups are how SA businesses get work done. They are also where client information slips outside the law.
+            </p>
           </FadeUp>
 
           {/* The picture of the problem — and the fix — before the words for it */}
@@ -188,24 +173,24 @@ export default function Home() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ marginBottom: "var(--space-section-header-mb)" }}>
             {[
               {
+                icon: "shield" as const,
+                heading: "Client data is leaving the country.",
+                body: "Most AI and automation tools store data offshore. POPIA section 72 restricts that.",
+              },
+              {
+                icon: "search" as const,
+                heading: "Staff paste client records into free AI tools.",
+                body: "No policy, no record, and no answer when a client asks where their data went.",
+              },
+              {
                 icon: "unlink" as const,
                 heading: "Your tools don’t talk to each other.",
-                body: "CRM, email, accounting — all working, all separate.",
+                body: "So people copy client data by hand, into more places than you know.",
               },
               {
                 icon: "hourglass" as const,
                 heading: "Admin is eating your week.",
                 body: "Re-entering data quietly costs days every month.",
-              },
-              {
-                icon: "stale" as const,
-                heading: "You’re deciding on old numbers.",
-                body: "Five systems means you’re reading last month’s export.",
-              },
-              {
-                icon: "shield" as const,
-                heading: "Manual data handling is a POPIA risk.",
-                body: "Loose consent and scattered storage are exposure.",
               },
             ].map((col) => (
               <StaggerChild key={col.heading}>
@@ -255,7 +240,7 @@ export default function Home() {
                 lineHeight: "var(--leading-body)",
               }}
             >
-              None of this needs new software. We fix it with the systems you already have.
+              None of this needs new software. We fix it with the systems you already have, and bring them within POPIA.
             </p>
           </FadeUp>
         </div>
@@ -289,13 +274,13 @@ export default function Home() {
             <h2>
               <span style={{ fontWeight: 300 }}>Pick the problem.</span>
               <br />
-              <span style={{ fontWeight: 700 }}>We’ll fix it.</span>
+              <span style={{ fontWeight: 700 }}>We’ll bring it within POPIA.</span>
             </h2>
             <p
               className="body-muted"
               style={{ maxWidth: "640px", marginBottom: "var(--space-section-header-mb)" }}
             >
-              Every engagement starts the same way: a free assessment that shows you where the money is leaking.
+              Every engagement starts with a POPIA-Safe AI Audit: where your data goes, what it costs you, and what to fix first.
             </p>
           </FadeUp>
 
@@ -305,178 +290,13 @@ export default function Home() {
               services choice, so the question "can they actually do it" is
               answered at the point it gets asked. Contains a marked placeholder
               until Jimmy supplies a shareable GrowthIQ metric. */}
-          <div style={{ marginTop: "3rem" }}>
-            <FadeUp>
-              <CaseStudyProofStrip />
-            </FadeUp>
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 05 — FOUNDATION SERVICES (flush 3-col grid)
-          bg: secondary — the grid cells were white on white before
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-secondary)" }}
-      >
-        <div className={innerWide}>
-          <FadeUp>
-            <h2>
-              <span style={{ fontWeight: 300 }}>Need more than workflows?</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>We build the rest too.</span>
-            </h2>
-            <p
-              className="body-muted"
-              style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}
-            >
-              Strategy, websites, and marketing — the foundations that make everything else work.
-            </p>
-          </FadeUp>
-
-          {/* Three discrete cards. Previously a flush grid whose 1px gaps were
-              the dividers — stacked on mobile that read as one undifferentiated
-              slab, so the cards now stand apart and each carries its own edge
-              and elevation via .card-lift. Entrance is staggered so the set
-              arrives as three things, not one. */}
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {[
-              {
-                ghost: "01",
-                icon: "compass" as const,
-                name: "Strategy & Consultation",
-                description: "We map the ground before anything gets built.",
-                deliverables: [
-                  "Market and audience research",
-                  "Digital roadmap and architecture",
-                  "Go-to-market strategy",
-                ],
-              },
-              {
-                ghost: "02",
-                icon: "browser" as const,
-                name: "Design & Development",
-                description: "Products built for integration from day one.",
-                deliverables: [
-                  "Websites, web apps and e-commerce",
-                  "Built for AI integration from day one",
-                  "Performance and conversion optimised",
-                ],
-              },
-              {
-                ghost: "03",
-                icon: "signal" as const,
-                name: "Digital Marketing Support",
-                description: "Insights from your data, then campaigns that act on them.",
-                deliverables: [
-                  "Analytics and insights",
-                  "Campaign strategy and execution",
-                  "Online visibility",
-                ],
-              },
-            ].map((col) => (
-              <StaggerChild key={col.ghost} className="h-full">
-              <div
-                className="card-lift h-full rounded-[10px]"
-                style={{ padding: "1.75rem 1.5rem" }}
-              >
-                {/* Glyph carries the category; the ghost number stays as a
-                    faint ordinal so the three columns still read as a set. */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
-                  <span className="glyph-chip glyph-chip-gold glyph-chip-lg">
-                    <Glyph name={col.icon} size={28} />
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "26px",
-                      fontWeight: 100,
-                      color: "rgba(205, 170, 83, 0.32)",
-                      lineHeight: 1,
-                      fontFamily: "var(--font-display)",
-                    }}
-                  >
-                    {col.ghost}
-                  </span>
-                </div>
-
-                {/* Service name + gold underline */}
-                <p
-                  style={{
-                    fontSize: "var(--text-h3-sans)",
-                    fontWeight: 600,
-                    color: "var(--color-ink-primary)",
-                    lineHeight: 1.3,
-                    marginBottom: "0.75rem",
-                    borderBottom: "2px solid var(--color-gold)",
-                    paddingBottom: "0.75rem",
-                    fontFamily: "var(--font-body)",
-                  }}
-                >
-                  {col.name}
-                </p>
-
-                {/* Description */}
-                <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                  {col.description}
-                </p>
-
-                {/* Deliverables label */}
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontSize: "10px",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    color: "var(--color-cyan)",
-                    background: "rgba(61, 184, 198, 0.10)",
-                    border: "1px solid rgba(61, 184, 198, 0.25)",
-                    borderRadius: "4px",
-                    padding: "3px 8px",
-                    marginBottom: "0.75rem",
-                    fontFamily: "var(--font-body)",
-                  }}
-                >
-                  Deliverables
-                </span>
-
-                {/* Deliverables list */}
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {col.deliverables.map((item) => (
-                    <li
-                      key={item}
-                      style={{
-                        fontSize: "var(--text-body-sm)",
-                        color: "var(--color-ink-secondary)",
-                        padding: "4px 0",
-                        lineHeight: "var(--leading-body)",
-                        display: "flex",
-                        gap: "8px",
-                        alignItems: "flex-start",
-                        fontFamily: "var(--font-body)",
-                        fontWeight: 300,
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "var(--color-gold)",
-                          fontSize: "var(--text-body-sm)",
-                          flexShrink: 0,
-                          lineHeight: "var(--leading-body)",
-                        }}
-                      >
-                        →
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
+          {SHOW_PROOF_STRIP && (
+            <div style={{ marginTop: "3rem" }}>
+              <FadeUp>
+                <CaseStudyProofStrip />
+              </FadeUp>
+            </div>
+          )}
         </div>
       </section>
 
@@ -492,13 +312,13 @@ export default function Home() {
         <div className={inner}>
           <FadeUp>
             <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <span style={{ fontWeight: 300 }}>From first look to live savings</span>
+              <span style={{ fontWeight: 300 }}>From audit to POPIA-safe, live workflows</span>
               <br />
               <span style={{ fontWeight: 700 }}>in about 30 days.</span>
             </h2>
           </FadeUp>
 
-          {/* The four-phase detail lives on /process — the homepage only needs
+          {/* The four-phase detail lives on /services#how-it-works — the homepage only needs
               the promise, not the method. */}
           <FadeUp delay={0.08}>
             <div
@@ -513,10 +333,10 @@ export default function Home() {
                 Four steps. Fixed price. Measured outcome.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Button href="/operations-assessment" variant="primary" className="w-full sm:w-auto justify-center">
+                <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
                   Start the assessment
                 </Button>
-                <Button href="/process" variant="tertiary">
+                <Button href="/services#how-it-works" variant="tertiary">
                   See how it works
                 </Button>
               </div>
@@ -525,14 +345,67 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ════════════════════════════════════════════════════════════════════
+          TRUST STRIP — "How we practise it" (COPY-DECK §2)
+          Reuses the eyebrow-free h2 + cyan-rule statement pattern from the
+          problem section. Rows marked `confirmed: false` are gated [CONFIRM]
+          items in the copy deck and stay hidden until Jimmy confirms them.
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        className={`${outerPad} py-24`}
+        style={{ backgroundColor: "var(--color-bg-primary)" }}
+      >
+        <div className={innerWide}>
+          <FadeUp>
+            <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
+              <span style={{ fontWeight: 700 }}>We hold ourselves to the same standard.</span>
+            </h2>
+          </FadeUp>
+          <StaggerParent className="flex flex-col gap-6">
+            {TRUST_ROWS.filter((row) => row.confirmed).map((row) => (
+              <StaggerChild key={row.text}>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "var(--text-body-sm)",
+                    fontWeight: 500,
+                    color: "var(--color-ink-primary)",
+                    borderLeft: "4px solid var(--color-cyan)",
+                    paddingLeft: "1.25rem",
+                    margin: 0,
+                    lineHeight: "var(--leading-body)",
+                  }}
+                >
+                  {row.text}
+                </p>
+              </StaggerChild>
+            ))}
+          </StaggerParent>
+        </div>
+      </section>
+
       {/* ── IMAGE BAND — between process and assessment form ────────────── */}
       <ImageBand
-        src="/images/people/replace-team.png"
-        alt="Two professionals celebrating a win together in the office"
+        src="/images/people/home-practice-reception.jpg"
+        alt="A dentist and her receptionist sharing a laugh at the practice reception desk"
+        objectPosition="center 40%"
         overlayText={
           <>
-            <span style={{ display: 'block', fontWeight: 300 }}>We don&apos;t replace your team.</span>
-            <span style={{ display: 'block', fontWeight: 700 }}>We give them their time back.</span>
+            <span style={{ display: 'block', fontWeight: 300 }}>Your clients trust you with their information.</span>
+            <span style={{ display: 'block', fontWeight: 700 }}>Keep that trust as your team uses AI.</span>
+            <span
+              style={{
+                display: 'block',
+                marginTop: '1rem',
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--text-body)',
+                fontWeight: 300,
+                color: 'var(--color-ink-inverted-muted)',
+                letterSpacing: 'normal',
+              }}
+            >
+              We check where client data goes and design every workflow for POPIA’s requirements.
+            </span>
           </>
         }
         height={420}

@@ -4,7 +4,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   ...seo('/privacy-policy'),
-  title: "Privacy Policy | Maru AI - PAIA Compliant | South Africa",
+  title: "Privacy Policy | Maru Online",
   description:
     "Review Maru's privacy policy outlining how we collect, use, and protect personal information in line with POPIA and GDPR.",
 };
@@ -147,7 +147,7 @@ export default function PrivacyPolicyPage() {
         <ul className="text-ink-secondary mb-4">
           <li>Grade multiple-choice quizzes immediately upon submission.</li>
           <li>Award automated badges and certificates based on completion criteria.</li>
-          <li>Assess Operations Diagnostic scores based on form inputs.</li>
+          <li>Assess POPIA-Safe AI Audit scores based on form inputs.</li>
         </ul>
         <p className="text-ink-secondary">
           These automated decisions do not have legal or similarly significant effects on you. However, if you believe an automated grading or scoring error has occurred, you have the right to request manual review by contacting our support team.
