@@ -100,9 +100,9 @@ export default function Home() {
 
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">AI-Powered Workflows That</span>
+              <span className="maru-headline-split-light">Your team already uses AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Cut Your Operating Costs</span>
+              <span className="maru-headline-split-strong">Is it within POPIA?</span>
             </h1>
           </FadeUp>
 
