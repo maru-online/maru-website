@@ -115,26 +115,10 @@ export default function Home() {
                 color: "var(--color-ink-inverted-muted)",
                 lineHeight: "var(--leading-body-relaxed)",
                 maxWidth: "640px",
-                marginBottom: "2rem",
-              }}
-            >
-              We find the manual tasks eating your team&apos;s time and replace them with AI workflows that actually work.
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.19}>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: "var(--text-body-sm)",
-                color: "var(--color-ink-inverted-muted)",
-                lineHeight: "var(--leading-body-relaxed)",
-                maxWidth: "560px",
                 marginBottom: "3rem",
               }}
             >
-              Most businesses buy AI tools that never talk to each other. We connect them, automate what matters, and show you the savings.
+              Your clients trust you with their information. Your staff are probably pasting it into free AI tools to save time, with no contract, no safeguards, and no idea where it ends up. Under POPIA, that&apos;s your responsibility. We build AI workflows your team can use safely, so you keep the productivity and avoid the exposure.
             </p>
           </FadeUp>
 
@@ -147,11 +131,14 @@ export default function Home() {
               data-maru-primary-cta
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
             >
-              <Button href="/booking" variant="primary" className="w-full sm:w-auto justify-center">
-                Book a discovery call
+              <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
+                Check your exposure: free 10-minute assessment
               </Button>
-              <Button href="/operations-assessment" variant="secondary" className="w-full sm:w-auto justify-center">
-                Start the assessment
+              {/* Demoted to a text link (copy handover entry 01). tertiary's
+                  default cyan-ink is a light-ground colour; on the navy hero it
+                  needs --color-cyan, which is the dark-ground cyan. */}
+              <Button href="/booking" variant="tertiary" className="!text-cyan hover:!text-white self-center sm:self-auto">
+                Book a discovery call
               </Button>
             </div>
           </FadeUp>
@@ -513,7 +500,7 @@ export default function Home() {
                 Four steps. Fixed price. Measured outcome.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Button href="/operations-assessment" variant="primary" className="w-full sm:w-auto justify-center">
+                <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
                   Start the assessment
                 </Button>
                 <Button href="/process" variant="tertiary">
