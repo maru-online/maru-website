@@ -145,7 +145,7 @@ export default function AssessmentFormSection() {
             </div>
 
             <Button
-              href="/operations-assessment"
+              href="/popia-ai-check"
               variant="primary"
               className="w-full justify-center"
             >

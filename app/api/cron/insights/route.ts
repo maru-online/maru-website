@@ -34,7 +34,7 @@ export async function GET(req: Request) {
   if (!authorized(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-  // Paused 26 Sep 2026: the writer's prompt predates the POPIA-safe positioning.
+  // Paused 26 Sep 2026: the writer's prompt predates the POPIA-conscious positioning.
   // Nothing publishes until the prompt is rewritten and INSIGHTS_CRON_ENABLED=true is set.
   if (process.env.INSIGHTS_CRON_ENABLED !== 'true') {
     return NextResponse.json({ skipped: 'Insights writer paused (INSIGHTS_CRON_ENABLED is not "true")' })

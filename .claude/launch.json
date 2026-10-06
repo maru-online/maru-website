@@ -9,6 +9,12 @@
       "autoPort": true
     },
     {
+      "name": "Next.js prod",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "start", "-p", "3100"],
+      "port": 3100
+    },
+    {
       "name": "Drizzle Studio — website DB",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "db:studio:website"],

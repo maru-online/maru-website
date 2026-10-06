@@ -5,12 +5,12 @@ import { seo } from '@/lib/seo'
 // canonical and OG live here. Without this the root layout's canonical applied
 // and told Google this page was a duplicate of the homepage. (T1)
 export const metadata: Metadata = {
-  title:       'Free Operations Assessment | Maru Online',
-  description: 'Fifteen minutes to find where manual work is costing your business time and money. Free, and your report is emailed to you.',
-  ...seo('/operations-assessment'),
+  title:       'Free POPIA AI Check | Maru Online',
+  description: 'Ten questions, about three minutes. See where client information goes through your AI tools, apps and WhatsApp, and what to fix first. Free, emailed to you.',
+  ...seo('/popia-ai-check'),
 }
 
-export default function OperationsAssessmentLayout({
+export default function PopiaAiCheckLayout({
   children,
 }: {
   children: React.ReactNode
