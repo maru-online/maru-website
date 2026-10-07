@@ -28,21 +28,19 @@ export function OrganizationJsonLd() {
         name: siteConfig.name,
         url: siteConfig.url,
         email: siteConfig.contact.email,
-        telephone: siteConfig.contact.phone,
         description:
           'AI implementation consultancy for South African SMEs. We find where manual processes cost time and money, then build AI-powered workflows that cut those costs.',
         areaServed: { '@type': 'Country', name: 'South Africa' },
-        address: siteConfig.contact.locations.map((l) => ({
+        // Region and country only: no street address and no telephone in
+        // public structured data (copy handover entry 18; footer shows
+        // "Gauteng, South Africa" and no home-office address, entry 07).
+        address: {
           '@type': 'PostalAddress',
-          streetAddress: l.address,
+          addressRegion: 'Gauteng',
           addressCountry: 'ZA',
-        })),
-        sameAs: [
-          siteConfig.links.linkedin,
-          siteConfig.links.x,
-          siteConfig.links.facebook,
-          siteConfig.links.instagram,
-        ],
+        },
+        // Must match the footer: the Maru Online LinkedIn company page only.
+        sameAs: ['https://www.linkedin.com/company/108867700/'],
         knowsAbout: [
           'AI implementation',
           'Workflow automation',
