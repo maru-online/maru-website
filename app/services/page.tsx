@@ -24,21 +24,36 @@ const innerNarrow = "max-w-[720px] mx-auto";
 
 // ─── Service data ─────────────────────────────────────────────────────────────
 
-const services = [
+// No published price figures (Jimmy, 6 Oct 2026); see /process#how-we-price.
+type Service = {
+  id: string
+  label: string
+  title: string
+  tagline: string
+  description: string
+  bullets: { leader: string; body?: string }[]
+  pricing: string
+  note: string
+  href: string
+  bg: string
+}
+
+const services: Service[] = [
   {
     id:          "diagnostic",
     label:       "01",
-    title:       "Operations Diagnostic",
-    tagline:     "Map where your operation has gaps — before configuring anything.",
-    description: "A structured audit of your current workflows, tools, and data connections. You receive a written report — delivered within 48 hours — that maps where information isn't flowing, quantifies what that's costing, and tells you exactly what to configure first. This is where every engagement starts.",
+    // The paid Operations Diagnostic is retired; the free Operations
+    // Assessment replaced it. Approved handover wording only (entries 04, 09, 13).
+    title:       "Operations Assessment",
+    tagline:     "We find where your time, money and client data leak. Free.",
+    description: "Start with the free assessment. Your first report arrives within 2 business days.",
     bullets: [
-      { leader: "Sector-specific intake",   body: "A structured brief tailored to your industry — medico legal, HR & recruitment, or conference & events." },
-      { leader: "Verification call",         body: "A 30–45 minute call to clarify the brief, ask the right questions, and confirm scope." },
-      { leader: "Written gap report",        body: "A clear document mapping where your workflows aren't connected, the cost of each gap, and the configuration priority order." },
-      { leader: "90-day roadmap",            body: "A sequenced action plan so you know exactly what to configure and in what order." },
+      { leader: "See your score live as you go" },
+      { leader: "A structured report within 2 business days" },
+      { leader: "No sign-up required to begin" },
     ],
-    pricing:     "R4,500",
-    note:        "If you proceed to a full engagement, this fee offsets against the project cost.",
+    pricing:     "Free",
+    note:        "No obligation. If there's no clear opportunity, we'll tell you.",
     href:        "/services/operations-diagnostic",
     bg:          "var(--color-bg-primary)",
   },
@@ -47,15 +62,15 @@ const services = [
     label:       "02",
     title:       "Workflow Integration",
     tagline:     "Connect your existing tools. Configure the workflows between them.",
-    description: "Fixed-scope implementation built around what the diagnostic found. We configure the connections between your tools, extend what's already working, and build the automation layer on top. Vendor-agnostic. Your stack stays — we connect it.",
+    description: "Fixed-scope implementation built around what the assessment found. We configure the connections between your tools, extend what's already working, and build the automation layer on top. Vendor-agnostic. Your stack stays — we connect it.",
     bullets: [
       { leader: "Custom integration build",  body: "Connecting your existing tools — CRM, calendar, email, forms — so they pass information correctly." },
       { leader: "Automation layer",          body: "The workflows that run without human intervention: follow-ups, confirmations, handoffs, notifications." },
       { leader: "Brand voice training",      body: "AI outputs calibrated to sound like your business, not like a generic chatbot." },
-      { leader: "POPIA compliance built in", body: "Every data touchpoint designed for compliance before a line of code is written." },
+      { leader: "Built with POPIA in mind",  body: "Every data touchpoint designed with POPIA in mind before a line of code is written." },
     ],
-    pricing:     "From R35,000",
-    note:        "Fixed price. Scoped after the diagnostic — no surprises.",
+    pricing:     "Fixed price",
+    note:        "Scoped after the assessment — no surprises.",
     href:        "/services/workflow-integration",
     bg:          "var(--color-bg-canvas)",
   },
@@ -71,7 +86,7 @@ const services = [
       { leader: "Workflow adoption",        body: "Getting the new workflows embedded in how the team actually works — not just documented." },
       { leader: "30-day follow-up support", body: "A structured support window after training to catch issues before they become habits." },
     ],
-    pricing:     "From R15,000",
+    pricing:     "Fixed price",
     note:        "Scoped per engagement. Can be standalone or follow a build.",
     href:        "/services/team-training-handover",
     bg:          "var(--color-bg-primary)",
@@ -88,10 +103,35 @@ const services = [
       { leader: "Compliance review",           body: "Ongoing POPIA review as your data flows and tool stack evolve." },
       { leader: "Updated results baseline",    body: "A new measurement baseline set after the optimisation sprint completes." },
     ],
-    pricing:     "From R8,500",
+    pricing:     "Fixed price",
     note:        "Available to clients who have completed a build engagement.",
     href:        "/services/results-optimisation",
     bg:          "var(--color-bg-canvas)",
+  },
+];
+
+// Foundation services, moved verbatim from the homepage (entry 10).
+const foundations = [
+  {
+    ghost: "01",
+    icon: "compass" as const,
+    name: "Strategy & Consultation",
+    description: "We map the ground before anything gets built.",
+    deliverables: ["Market and audience research", "Digital roadmap and architecture", "Go-to-market strategy"],
+  },
+  {
+    ghost: "02",
+    icon: "browser" as const,
+    name: "Design & Development",
+    description: "Products built for integration from day one.",
+    deliverables: ["Websites, web apps and e-commerce", "Built for AI integration from day one", "Performance and conversion optimised"],
+  },
+  {
+    ghost: "03",
+    icon: "signal" as const,
+    name: "Digital Marketing Support",
+    description: "Insights from your data, then campaigns that act on them.",
+    deliverables: ["Analytics and insights", "Campaign strategy and execution", "Online visibility"],
   },
 ];
 
@@ -307,6 +347,79 @@ export default function ServicesPage() {
       ))}
 
       {/* ════════════════════════════════════════════════════════════════════
+          FOUNDATIONS — moved from the homepage (copy handover entry 10) so
+          the content is not lost when the homepage drops to one link line.
+          The homepage line links here (#foundations). Copy unchanged.
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        id="foundations"
+        className={`${outerPad} py-24 scroll-mt-24`}
+        style={{ backgroundColor: "var(--color-bg-secondary)" }}
+      >
+        <div className={innerWide}>
+          <FadeUp>
+            <h2>
+              <span style={{ fontWeight: 300 }}>Need more than workflows?</span>
+              <br />
+              <span style={{ fontWeight: 700 }}>We build the rest too.</span>
+            </h2>
+            <p
+              className="body-muted"
+              style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}
+            >
+              Strategy, websites, and marketing — the foundations that make everything else work.
+            </p>
+          </FadeUp>
+
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+            {foundations.map((col) => (
+              <StaggerChild key={col.ghost} className="h-full">
+                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
+                    <span className="glyph-chip glyph-chip-gold glyph-chip-lg">
+                      <Glyph name={col.icon} size={28} />
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "26px",
+                        fontWeight: 100,
+                        color: "rgba(205, 170, 83, 0.32)",
+                        lineHeight: 1,
+                        fontFamily: "var(--font-display)",
+                      }}
+                    >
+                      {col.ghost}
+                    </span>
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "var(--text-h3-sans)",
+                      fontWeight: 600,
+                      color: "var(--color-ink-primary)",
+                      lineHeight: 1.3,
+                      marginBottom: "0.75rem",
+                      borderBottom: "2px solid var(--color-gold)",
+                      paddingBottom: "0.75rem",
+                      fontFamily: "var(--font-body)",
+                    }}
+                  >
+                    {col.name}
+                  </h3>
+                  <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
+                    {col.description}
+                  </p>
+                  <ListGroup>
+                    {col.deliverables.map((item) => (
+                      <ListItem key={item} leader={item} />
+                    ))}
+                  </ListGroup>
+                </div>
+              </StaggerChild>
+            ))}
+          </StaggerParent>
+        </div>
+      </section>
+
       {/* ── IMAGE BAND — before final CTA ────────────────────────────────── */}
       <ImageBand
         src="/images/people/vendor-agnostic.png"
@@ -360,9 +473,8 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              The Operations Diagnostic is where every engagement starts — a
-              structured audit of your current setup, a clear picture of what to configure first,
-              and a written report delivered within 48 hours.
+              The free Operations Assessment is where every engagement starts. Your first
+              report arrives within 2 business days.
             </p>
             <hr
               className="rule"
