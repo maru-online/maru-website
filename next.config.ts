@@ -124,6 +124,19 @@ const nextConfig: NextConfig = {
         destination: '/popia-ai-check',
         permanent: true,
       },
+      // /pricing retired 7 Oct 2026 (copy handover entry 13): its content is now
+      // the "How we price" section on /process. Listed above the .html
+      // catch-all so /pricing.html is one hop too.
+      {
+        source: '/pricing',
+        destination: '/process#how-we-price',
+        permanent: true,
+      },
+      {
+        source: '/pricing.html',
+        destination: '/process#how-we-price',
+        permanent: true,
+      },
       {
         source: '/:path(.+)\\.html',
         destination: '/:path',

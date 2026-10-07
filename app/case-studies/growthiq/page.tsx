@@ -181,7 +181,7 @@ export default function GrowthIqCaseStudy() {
                 <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
                   Start the assessment
                 </Button>
-                <Button href="/pricing" variant="tertiary">
+                <Button href="/process#how-we-price" variant="tertiary">
                   See pricing
                 </Button>
               </div>

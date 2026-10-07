@@ -32,8 +32,6 @@ export const WHATSAPP_OPENERS: Record<string, string> = {
     "I'd like to find out more about your AI workflow services.",
   '/popia-ai-check':
     "I'd like to book my free operations assessment.",
-  '/pricing':
-    "I'd like to understand your pricing for workflow integration.",
   '/services/workflow-integration':
     "I'm interested in Workflow Integration for my business.",
   '/services/team-training-handover':

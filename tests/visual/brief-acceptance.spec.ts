@@ -119,41 +119,24 @@ test.describe('item 03 — floating bubble never covers the primary CTA', () => 
   })
 })
 
-// ─── Item 10 — pricing ───────────────────────────────────────────────────────
+// ─── Item 10 — pricing (superseded) ──────────────────────────────────────────
+// The tiered /pricing page was retired 7 Oct 2026 (copy handover entry 13). It
+// now redirects to the "How we price" section on /process, which publishes no
+// figure until Jimmy confirms one.
 
-test.describe('item 10 — pricing page', () => {
-  test('summary strip lists all three tiers and jumps to each card', async ({ page }) => {
-    await withConsentGiven(page)
-    await page.goto('/pricing')
-
-    const rows = page.locator('a[href^="#"]', { hasText: /Operations Diagnostic|Workflow Integration|Team Training/ })
-    await expect(rows).toHaveCount(3)
-
-    for (const id of ['diagnostic', 'build', 'training']) {
-      const row = page.locator(`a[href="#${id}"]`)
-      await expect(row).toHaveCount(1)
-      // Every tier shows a price in the strip itself.
-      await expect(row).toContainText(/R[\d,]+/)
-      await expect(page.locator(`#${id}`)).toHaveCount(1)
-    }
+test.describe('item 10 — pricing now lives on /process', () => {
+  test('/pricing redirects to the How we price section', async ({ request }) => {
+    const res = await request.get('/pricing', { maxRedirects: 0 })
+    expect(res.status()).toBe(308)
+    expect(res.headers()['location']).toMatch(/\/process#how-we-price$/)
   })
 
-  test('each card reads title → duration → price, not price first', async ({ page }) => {
+  test('How we price shows no price figure', async ({ page }) => {
     await withConsentGiven(page)
-    await page.goto('/pricing')
-
-    // Source order inside the card header, which is what a screen reader follows.
-    const order = await page.locator('#diagnostic').evaluate((card) => {
-      const text = (card.textContent || '').replace(/\s+/g, ' ')
-      return {
-        title: text.indexOf('Operations Diagnostic'),
-        duration: text.indexOf('48 hours'),
-        price: text.indexOf('R4,500'),
-      }
-    })
-    expect(order.title).toBeGreaterThanOrEqual(0)
-    expect(order.duration).toBeGreaterThan(order.title)
-    expect(order.price).toBeGreaterThan(order.duration)
+    await page.goto('/process')
+    const section = page.locator('#how-we-price')
+    await expect(section).toContainText('How we price')
+    await expect(section).not.toContainText(/R\s?[\d,]{3,}/)
   })
 })
 
@@ -162,7 +145,6 @@ test.describe('item 10 — pricing page', () => {
 test.describe('item 01 — WhatsApp number and openers', () => {
   const cases: [string, string][] = [
     ['/', 'find out more about your AI workflow services'],
-    ['/pricing', 'understand your pricing for workflow integration'],
     ['/contact', "question about Maru Online's services"],
     ['/careers', 'opportunities at Maru Online'],
     ['/popia-ai-check', 'book my free operations assessment'],
