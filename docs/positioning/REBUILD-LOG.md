@@ -14,7 +14,7 @@ fixes). Each change is decided by Jimmy, one at a time, after the drift review
 | 6 | 7 Oct | `/process`, `/pricing` | Entry 13: four trimmed steps, "How we price" (no figure); `/pricing` 308 → `/process#how-we-price`; rest of `/process` kept with the entry's substitutions only | Copy handover entry 13 | Done `01fb25a` |
 | 7 | 7 Oct | `/about` | Entry 16 approved sections (1–6, 8). Focus Over Volume shows a marked placeholder (open item 1), so `/about` is `noindex` until Jimmy gives the line. 7 Oct additions + entry 17 not built (PROPOSED) | Copy handover entry 16 | Done `2538bf8` |
 | 8 | 7 Oct | `/services` + service pages | Not covered by an entry; Jimmy chose "fix what's false": Operations Assessment rename, marked Free, retired deliverables and all price figures removed, approved sentences only | Jimmy, 7 Oct | Done `89e2325` |
-| 9 | 7 Oct | Homepage background lines | Entry 05 lines (extends the DisconnectDiagram's line language). Story variant not built | Copy handover entry 05 | Done `fcea7e7` |
+| 9 | 7 Oct | Homepage background lines | Entry 05 lines (extends the DisconnectDiagram's line language). Story variant not built | Copy handover entry 05 | Removed: rendered as solid black shapes on the preview; Jimmy asked for them to go entirely (reverted) |
 
 **Open after #2–#4 (Jimmy to decide):**
 - The hero button promises a **10-minute** assessment; the check page says **about 3 minutes** for 10 questions. One of them must change (handover backlog 7).
