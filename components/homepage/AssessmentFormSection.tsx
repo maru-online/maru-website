@@ -3,6 +3,11 @@ import Button from "@/components/ui/Button";
 const outerPad = "px-6 md:px-[60px]";
 const inner    = "max-w-[900px] mx-auto";
 
+// Copy handover entry 09 (approved 5 Oct 2026), verbatim except the question
+// count: the approved "12 questions" depended on entry 08, which was superseded
+// by the 10-question POPIA AI check, so per entry 09 open item 1 the current
+// count is used. No minutes are stated here on purpose (time is still open).
+// The removed "3-5 gaps" and "12-18 hours" figures had no evidence behind them.
 export default function AssessmentFormSection() {
   return (
     <section
@@ -15,18 +20,18 @@ export default function AssessmentFormSection() {
 
           {/* ── Left: copy ─────────────────────────────────────────── */}
           <div>
-            <span className="label-eyebrow">Free Business Diagnostic</span>
+            <span className="label-eyebrow">Free assessment</span>
 
             <h2
               className="h2-cta"
               style={{ marginBottom: "var(--space-heading-body)" }}
             >
-              <span style={{ display: "block", fontWeight: 300 }}>What&apos;s Costing You</span>
-              <span style={{ display: "block", fontWeight: 700 }}>Time and Money</span>
+              <span style={{ display: "block", fontWeight: 300 }}>Find out where your time, money</span>
+              <span style={{ display: "block", fontWeight: 700 }}>and client data are exposed.</span>
             </h2>
 
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              Our free assessment shows you exactly where your processes are losing capacity. Ten minutes. Results within 48 hours.
+              Our free assessment shows where your processes lose time, and where client data may be exposed through the AI tools your team already uses. Your report arrives within 2 business days.
             </p>
 
             <p
@@ -46,8 +51,8 @@ export default function AssessmentFormSection() {
             {/* Proof stats */}
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.5rem" }}>
               {[
-                "Average 3–5 critical gaps identified per assessment",
-                "Average 12–18 hours per week recoverable through integration",
+                "Free, with no obligation",
+                "Report within 2 business days",
               ].map((stat) => (
                 <div key={stat} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
                   <span className="bullet-cyan" style={{ marginTop: "9px" }} />
@@ -76,7 +81,7 @@ export default function AssessmentFormSection() {
                 letterSpacing: "0.02em",
               }}
             >
-              POPIA compliant. No opt-in to marketing — just your results.
+              Handled with POPIA in mind. No marketing opt-in, just your results.
             </p>
           </div>
 
@@ -102,7 +107,7 @@ export default function AssessmentFormSection() {
                 paddingBottom: 0,
               }}
             >
-              Get Your Free Assessment
+              Get your free assessment
             </h3>
 
             <p
@@ -115,13 +120,13 @@ export default function AssessmentFormSection() {
                 marginBottom: "1.5rem",
               }}
             >
-              Answer 10 questions about your operations. Takes about 10 minutes. We pinpoint exactly where your business is leaking time and money — and what to do about it.
+              Answer 10 questions about how your business runs and how your team uses AI. We show you where time, money and client data are exposed, and what to fix first.
             </p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "2rem" }}>
               {[
                 "See your score live as you go",
-                "Detailed report delivered within 48 hours",
+                "A structured report within 2 business days",
                 "No sign-up required to begin",
               ].map((point) => (
                 <div key={point} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
@@ -164,7 +169,7 @@ export default function AssessmentFormSection() {
                 lineHeight: 1.5,
               }}
             >
-              Free. No obligation. Results within 48 hours.
+              Free. No obligation. Report within 2 business days.
             </p>
           </div>
           </div>

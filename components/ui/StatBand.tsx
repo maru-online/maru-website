@@ -11,10 +11,12 @@
 import { useEffect, useRef, useState } from 'react';
 import StatFigure, { type Stat } from './StatFigure';
 
+// Copy handover entry 03 (approved 5 Oct 2026). "2 business days", not
+// "48hr": a Friday-evening submission makes 48 hours fall on a weekend.
 const STATS: Stat[] = [
-  { icon: 'gift',   suffix: 'Free',   label: 'Assessment — see where you stand' },
-  { icon: 'clock',  count: 48, suffix: 'hr',   label: 'Turnaround on your diagnostic report' },
-  { icon: 'rocket', count: 30, suffix: 'days', label: 'To your first workflow running live' },
+  { icon: 'gift',   suffix: 'Free',   label: 'Assessment: see where you\'re exposed' },
+  { icon: 'clock',  count: 2,  suffix: 'business days', label: 'Turnaround on your assessment report' },
+  { icon: 'rocket', count: 30, suffix: 'days', label: 'From kick-off to your first workflow running live' },
   { icon: 'tag',    suffix: 'Fixed',  label: 'Price agreed before work starts' },
 ];
 

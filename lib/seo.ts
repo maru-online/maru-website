@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-export const OG_ALT = 'Maru Online — AI-powered workflows that cut operating costs'
+export const OG_ALT = 'Maru Online: POPIA-conscious AI implementation for South African SMEs'
 
 /**
  * Per-page canonical, Open Graph and Twitter card.

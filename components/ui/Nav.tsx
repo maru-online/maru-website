@@ -13,7 +13,7 @@ const allLinks = [
   { label: 'About',        href: '/about' },
   { label: 'Services',     href: '/services' },
   { label: 'Process',      href: '/process' },
-  { label: 'Pricing',      href: '/pricing' },
+  { label: 'Pricing',      href: '/process#how-we-price' }, // entry 13: /pricing retired
   // Insights is hidden until there is something behind it. The section renders
   // "New insights are on the way" with zero articles, and a nav item that leads
   // to an empty room costs credibility with exactly the buyer this site is for.
