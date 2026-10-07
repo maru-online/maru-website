@@ -184,7 +184,7 @@ export default function Home() {
             {[
               {
                 icon: "unlink" as const,
-                heading: "Your tools don’t talk to each other.",
+                heading: "Your tools don't talk to each other.",
                 body: "CRM, email and accounting all work, but none of them share data. Your people are the glue.",
               },
               {
@@ -194,13 +194,13 @@ export default function Home() {
               },
               {
                 icon: "stale" as const,
-                heading: "You’re deciding on old numbers.",
-                body: "Five systems means you’re working from last month’s export.",
+                heading: "You're deciding on old numbers.",
+                body: "Five systems means you're working from last month's export.",
               },
               {
                 icon: "shield" as const,
                 heading: "Every manual copy is a POPIA risk.",
-                body: "Each one is another place client data can end up where it shouldn’t. Under POPIA, you answer for that.",
+                body: "Each one is another place client data can end up where it shouldn't. Under POPIA, you answer for that.",
               },
             ].map((col) => (
               <StaggerChild key={col.heading}>
