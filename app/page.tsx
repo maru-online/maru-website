@@ -11,6 +11,7 @@ import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import MaruM from "@/components/ui/MaruM";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
+import BackgroundLines from "@/components/ui/BackgroundLines";
 import StatBand from "@/components/ui/StatBand";
 import Glyph from "@/components/ui/Glyph";
 import { seo } from '@/lib/seo'
@@ -154,10 +155,11 @@ export default function Home() {
           bg: canvas (#FAFAF8)
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`${outerPad} py-24`}
+        className={`relative overflow-hidden ${outerPad} py-24`}
         style={{ background: "var(--gradient-surface)" }}
       >
-        <div className={innerWide}>
+        <BackgroundLines density="light" />
+        <div className={`relative ${innerWide}`}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Why it&apos;s happening</span>
             <h2 style={{ marginBottom: "var(--space-heading-body)" }}>
@@ -274,10 +276,11 @@ export default function Home() {
           ════════════════════════════════════════════════════════════════════ */}
       <section
         id="services"
-        className={`${outerPad} py-24`}
+        className={`relative overflow-hidden ${outerPad} py-24`}
         style={{ backgroundColor: "var(--color-bg-secondary)" }}
       >
-        <div className={innerWide}>
+        <BackgroundLines density="dense" />
+        <div className={`relative ${innerWide}`}>
           <FadeUp>
             <h2>
               <span style={{ fontWeight: 300 }}>Start with the assessment.</span>
@@ -328,10 +331,11 @@ export default function Home() {
           ════════════════════════════════════════════════════════════════════ */}
       <section
         id="process"
-        className={`${outerPad} py-24`}
+        className={`relative overflow-hidden ${outerPad} py-24`}
         style={{ background: "var(--gradient-surface)" }}
       >
-        <div className={inner}>
+        <BackgroundLines density="light" />
+        <div className={`relative ${inner}`}>
           <FadeUp>
             <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
               <span style={{ fontWeight: 300 }}>From signed plan to your first live workflow</span>
