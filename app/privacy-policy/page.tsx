@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
       title="Privacy Policy"
       description="What personal information we collect through this website, why, who receives it, and your rights."
       lastUpdated="October 8, 2026"
-      effectiveDate="October 8, 2026"
+      effectiveDate="October 12, 2026"
     >
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">1. Who we are</h2>
@@ -80,8 +80,10 @@ export default function PrivacyPolicyPage() {
         </p>
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Guide requests</strong> are deleted after 12 months unless you confirmed you want our notes, have become a client, or have used the Exposure Check. If you confirmed the notes, we keep your details until you unsubscribe.</li>
-          <li><strong className="text-ink-primary">Exposure Check results and reports</strong> are kept while the report link is in use and for as long as we need them to follow up with you, and are deleted on request.</li>
-          <li><strong className="text-ink-primary">Enquiries and proposals</strong> are kept for as long as we are talking to you and for as long afterwards as the law or good record-keeping requires.</li>
+          <li><strong className="text-ink-primary">Exposure Check results and reports</strong> are kept for 12 months after you submit your answers and are then deleted, unless you have become a client or you have asked us to keep them. When they are deleted, your report link stops working.</li>
+          <li><strong className="text-ink-primary">Enquiries and proposals</strong> are kept for 12 months after our last contact with you and are then deleted, unless you have become a client.</li>
+          <li><strong className="text-ink-primary">Client records</strong> are kept for as long as the law requires us to keep them, and then deleted.</li>
+          <li><strong className="text-ink-primary">On request,</strong> we delete your personal information sooner, unless the law requires us to keep it.</li>
         </ul>
       </section>
 
@@ -111,7 +113,10 @@ export default function PrivacyPolicyPage() {
         <p className="text-ink-secondary mb-4">
           Under POPIA you can ask us to confirm whether we hold personal information about you and to give you a copy; ask us to correct or delete it; object to our processing of it; and withdraw consent you have given, which does not affect what we did before. To exercise a right, email hello@maruonline.com. We may need to confirm who you are first.
         </p>
-              </section>
+        <p className="text-ink-secondary mb-4">
+          Our <a href="/paia-manual" className="text-cyan-ink hover:underline">PAIA manual</a> explains how to request access to records under the Promotion of Access to Information Act.
+        </p>
+      </section>
 
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">10. Information Officer and contact</h2>
@@ -131,8 +136,7 @@ export default function PrivacyPolicyPage() {
         </p>
         <div className="card-lift rounded-lg p-6 text-ink-secondary">
           <p className="font-medium text-ink-primary mb-2">Information Regulator:</p>
-          <p>Email: complaints.IR@justice.gov.za</p>
-          <p>Website: www.justice.gov.za/inforeg/</p>
+          <p>Website: inforegulator.org.za</p>
         </div>
       </section>
     </LegalLayout>
