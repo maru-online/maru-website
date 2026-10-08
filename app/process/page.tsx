@@ -13,7 +13,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'How We Work | Maru Online',
-  description: 'Four steps. Fixed price. Measured outcome. From the free assessment through to 30 days of measurement after launch.',
+  description: 'Four steps. Clear proposal. Measured outcome. From the free assessment through to 30 days of measurement after launch.',
   ...seo('/process'),
 }
 
@@ -38,7 +38,7 @@ const steps = [
     number: '02',
     label:  'Plan.',
     body:   [
-      'We talk it through on a short, free call, then send you a fixed-price proposal.',
+      'We talk it through on a short, free call, then send you a proposal.',
       "You never need to share your clients' personal information to scope a build, and we ask before recording or transcribing any call.",
     ],
   },
@@ -100,8 +100,8 @@ export default function ProcessPage() {
                 lineHeight:   'var(--leading-body)',
               }}
             >
-              A free assessment shows you where the money leaks. A fixed price
-              fixes it. Then we measure what changed — in hours and rands.
+              A free assessment shows you where the money leaks. A proposal
+              sets out how to fix it. Then we measure what changed — in hours and rands.
             </p>
           </FadeUp>
           <FadeUp delay={0.22}>
@@ -190,7 +190,7 @@ export default function ProcessPage() {
         <div className={inner}>
           <FadeUp>
             <p className="body-muted" style={{ marginBottom: 'var(--space-section-header-mb)', maxWidth: '560px' }}>
-              Four steps. Fixed price. Measured outcome.
+              Four steps. Clear proposal. Measured outcome.
             </p>
           </FadeUp>
           <StaggerParent className="flex flex-col gap-5">
@@ -238,7 +238,7 @@ export default function ProcessPage() {
             </FadeUp>
             <FadeUp delay={0.08}>
               <p className="body-muted" style={{ marginBottom: 'var(--space-para-section)' }}>
-                After your free assessment and a call, we send a fixed-price proposal. You know the full cost before we start, and it only changes if the scope does. We don&apos;t bill by the hour.
+                After your free assessment and a call, we send a proposal that sets out the scope and the cost. You see it before we start. We don&apos;t bill by the hour.
               </p>
               <ListGroup>
                 <li className="flex gap-6 py-5 border-b border-[var(--color-border-default)]">

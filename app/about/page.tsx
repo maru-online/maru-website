@@ -146,7 +146,7 @@ export default function AboutPage() {
             </StaggerChild>
             <StaggerChild>
               <CardNavy title="Clear terms.">
-                Fixed price, agreed up front. No hourly billing.
+                Pricing agreed up front, in your proposal. No hourly billing.
               </CardNavy>
             </StaggerChild>
             <StaggerChild>

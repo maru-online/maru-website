@@ -28,7 +28,7 @@ export const HOME_FAQ: { q: string; a: string; guideLink?: boolean }[] = [
   },
   {
     q: 'How much does it cost?',
-    a: 'A fixed price, agreed before we start. No hourly billing.',
+    a: 'Priced per project, in a proposal you see before we start. No hourly billing.',
   },
   {
     q: 'How long does it take?',
