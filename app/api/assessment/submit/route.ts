@@ -89,9 +89,16 @@ export async function POST(req: NextRequest) {
     // The row is written WITHOUT observations so the token — and therefore the
     // report link — exists before we answer. Observations are added in the
     // background pass below.
+    // The report link goes into an email, so on production it must be the public
+    // domain. VERCEL_URL is the per-deployment address (vercel.app), which may sit
+    // behind deployment protection and changes with every deploy.
     const baseUrl =
       process.env.NEXT_PUBLIC_BASE_URL ??
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://maruonline.com");
+      (process.env.VERCEL_ENV === "production"
+        ? "https://maruonline.com"
+        : process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : "https://maruonline.com");
 
     let reportUrl = `${baseUrl}/operations-assessment`;
     let reportId: string | null = null;
