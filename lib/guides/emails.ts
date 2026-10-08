@@ -36,7 +36,7 @@ export function buildDeliveryEmail(params: { email: string; firstName: string; d
 <p style="margin:0 0 20px;">Here is your copy of AI and POPIA: A Guide for South African Business Owners.</p>
 <p style="margin:0 0 20px;"><a href="${params.downloadUrl}" style="display:inline-block;background:#0069A0;color:#ffffff;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:6px;">Download the guide (PDF)</a></p>
 <p style="margin:0 0 16px;">It takes about ten minutes to read and ends with a one-page self-check.</p>
-<p style="margin:0 0 16px;">If you want to see where your business stands, the free POPIA AI check asks questions across the same five areas and sends you a report: <a href="${checkUrl}" style="color:#0069A0;">maruonline.com/popia-ai-check</a></p>
+<p style="margin:0 0 16px;">If you want to see where your business stands, the free Exposure Check asks questions across the same five areas and sends you a report: <a href="${checkUrl}" style="color:#0069A0;">maruonline.com/popia-ai-check</a></p>
 <p style="margin:0 0 16px;">This guide is general information, not legal advice.</p>
 ${signature}`);
 
@@ -49,7 +49,7 @@ ${signature}`);
     "",
     "It takes about ten minutes to read and ends with a one-page self-check.",
     "",
-    "If you want to see where your business stands, the free POPIA AI check asks questions across the same five areas and sends you a report: maruonline.com/popia-ai-check",
+    "If you want to see where your business stands, the free Exposure Check asks questions across the same five areas and sends you a report: maruonline.com/popia-ai-check",
     "",
     "This guide is general information, not legal advice.",
     "",

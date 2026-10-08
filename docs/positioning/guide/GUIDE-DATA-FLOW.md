@@ -41,7 +41,7 @@ Not involved in this flow: Anthropic, Google reCAPTCHA, Calendly, HubSpot, Whats
 ## Retention
 
 - `GUIDE_RETENTION_MONTHS = 12` (`lib/guides/config.ts`, entry 19 default (b)).
-- Applies to people who requested the guide, never confirmed notes, and never took the POPIA AI check. The
+- Applies to people who requested the guide, never confirmed notes, and never took the Exposure Check. The
   "became a customer" exemption cannot be checked by code (there is no customer record); Jimmy applies it by hand.
 - `GET /api/cron/guide-retention`: **not scheduled**, needs `CRON_SECRET` (not set, so it refuses every call), dry
   run unless `?apply=1`. Deletes the Neon rows and, on Production only, the Brevo contacts.
