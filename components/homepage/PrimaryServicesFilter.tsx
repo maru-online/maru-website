@@ -41,7 +41,7 @@ const services: Service[] = [
     tagColor: 'cyan',
     icon: 'connect',
     name: 'Workflow Integration',
-    body: 'Your tools connected, so nobody copies and pastes. Fixed price.',
+    body: 'Your tools connected, so nobody copies and pastes.',
   },
   {
     id: 'training',

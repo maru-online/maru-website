@@ -203,8 +203,8 @@ export default function OperationsAssessmentPage() {
                   How it connects
                 </span>
                 <p className="body-muted" style={{ margin: 0 }}>
-                  We talk it through on a short, free call, then send you a fixed-price proposal.
-                  You know the full cost before we start, and it only changes if the scope does.
+                  We talk it through on a short, free call, then send you a proposal.
+                  You see the scope and the cost in the proposal before we start.
                 </p>
               </FadeUp>
             </div>

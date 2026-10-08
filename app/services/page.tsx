@@ -68,7 +68,7 @@ const services: Service[] = [
       { leader: "Brand voice training",      body: "AI outputs calibrated to sound like your business, not like a generic chatbot." },
       { leader: "Built with POPIA in mind",  body: "Every data touchpoint designed with POPIA in mind before a line of code is written." },
     ],
-    pricing:     "Fixed price",
+    pricing:     "Priced in your proposal",
     note:        "Scoped after the assessment — no surprises.",
     href:        "/services/workflow-integration",
     bg:          "var(--color-bg-canvas)",
@@ -85,7 +85,7 @@ const services: Service[] = [
       { leader: "Workflow adoption",        body: "Getting the new workflows embedded in how the team actually works — not just documented." },
       { leader: "30-day follow-up support", body: "A structured support window after training to catch issues before they become habits." },
     ],
-    pricing:     "Fixed price",
+    pricing:     "Priced in your proposal",
     note:        "Scoped per engagement. Can be standalone or follow a build.",
     href:        "/services/team-training-handover",
     bg:          "var(--color-bg-primary)",
@@ -102,7 +102,7 @@ const services: Service[] = [
       { leader: "Compliance review",           body: "Ongoing POPIA review as your data flows and tool stack evolve." },
       { leader: "Updated results baseline",    body: "A new measurement baseline set after the optimisation sprint completes." },
     ],
-    pricing:     "Fixed price",
+    pricing:     "Priced in your proposal",
     note:        "Available to clients who have completed a build engagement.",
     href:        "/services/results-optimisation",
     bg:          "var(--color-bg-canvas)",
@@ -181,7 +181,7 @@ export default function ServicesPage() {
               }}
             >
               We connect the tools you already have, automate the busywork, and
-              show you the savings. Price agreed before any work starts.
+              show you the savings. Scope and price are set out in your proposal before any work starts.
             </p>
           </FadeUp>
           <FadeUp delay={0.24}>
@@ -467,7 +467,7 @@ export default function ServicesPage() {
             >
               <span style={{ fontWeight: 300 }}>Not sure where to start?</span>
               <br />
-              <span style={{ fontWeight: 700 }}>Twenty minutes will tell you.</span>
+              <span style={{ fontWeight: 700 }}>A few minutes will tell you.</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>

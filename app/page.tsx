@@ -354,7 +354,7 @@ export default function Home() {
               }}
             >
               <p className="body-muted" style={{ marginBottom: 0, maxWidth: "560px" }}>
-                Four steps. Fixed price. Measured outcome.
+                Four steps. Clear proposal. Measured outcome.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
