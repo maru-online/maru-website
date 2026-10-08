@@ -43,7 +43,7 @@ export async function middleware(request: NextRequest) {
   // error-codes ['browser-error'] — which surfaces to the visitor as a generic
   // "Something went wrong". Every assessment submission failed this way, on
   // every browser and device, until 4 Aug 2026.
-  response.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https://www.google.com https://recaptcha.google.com https://calendly.com https://assets.calendly.com; frame-ancestors 'none';");
+  response.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'self' https://www.google.com https://recaptcha.google.com; frame-ancestors 'none';");
 
   if (process.env.NODE_ENV === 'production') {
     response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');

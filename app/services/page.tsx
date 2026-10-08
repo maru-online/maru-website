@@ -487,8 +487,8 @@ export default function ServicesPage() {
               <Button href="/popia-ai-check" variant="primary">
                 Start the assessment
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

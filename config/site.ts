@@ -31,16 +31,6 @@ export const siteConfig = {
             },
         ],
     },
-    calendly: {
-        baseUrl: 'https://calendly.com/hello-maruonline',
-        discoveryCall: 'https://calendly.com/hello-maruonline',
-        widgetOptions: {
-            hideGdprBanner: true,
-            backgroundColor: 'ffffff',
-            textColor: '1a1a1a',
-            primaryColor: '22d3ee', // Maru Cyan
-        },
-    },
 }
 
 export type SiteConfig = typeof siteConfig
