@@ -30,3 +30,9 @@ fixes). Each change is decided by Jimmy, one at a time, after the drift review
 - Still saying an unmeasured time: `/services` final CTA "Twenty minutes will tell you."; hero/meta "10-minute"; check page "About 3 minutes".
 - Untouched and still off-message: legal pages (Terms lists R4,999/R9,999 packages and "Operations Diagnostic"; privacy policy redraft is a release gate), hidden `/insights` (R4,500 diagnostic CTA), `lib/assessment/reportTemplates.ts` (v2 templates naming the Operations Diagnostic).
 - Entry 18 (PROPOSED): site-wide JSON-LD still lists two street addresses, a phone number, the personal LinkedIn and X/Facebook/Instagram in `sameAs`.
+
+**Branch housekeeping:**
+- 8 Oct: **PR #12 (`positioning/popia-safe` → `main`) closed without merging**, on Jimmy's instruction ("the rebuild
+  replaces it"). The branch stays on GitHub at `5b1b761` (checkpoint `3bd931b` plus a merge of `main` with #17) as
+  a parts bin: port from it with `git checkout origin/positioning/popia-safe -- <paths>`, then sweep for its
+  "POPIA-safe" wording. It is no longer kept in sync with `main`.
