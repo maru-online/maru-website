@@ -12,7 +12,6 @@ const legalLinks = [
   { name: "Privacy Policy", href: "/privacy-policy" },
   { name: "Terms & Conditions", href: "/terms-conditions" },
   { name: "Cookie Policy", href: "/cookie-policy" },
-  { name: "PAIA Manual", href: "/paia-manual" },
 ];
 
 export function LegalLayout({

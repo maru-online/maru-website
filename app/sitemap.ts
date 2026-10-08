@@ -34,7 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/privacy-policy`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms-conditions`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/cookie-policy`, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/paia-manual`, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   return [...corePages, ...servicePages, ...resourcePages, ...legalPages].map((entry) => ({

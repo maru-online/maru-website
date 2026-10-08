@@ -113,9 +113,6 @@ export default function PrivacyPolicyPage() {
         <p className="text-ink-secondary mb-4">
           Under POPIA you can ask us to confirm whether we hold personal information about you and to give you a copy; ask us to correct or delete it; object to our processing of it; and withdraw consent you have given, which does not affect what we did before. To exercise a right, email hello@maruonline.com. We may need to confirm who you are first.
         </p>
-        <p className="text-ink-secondary mb-4">
-          Our <a href="/paia-manual" className="text-cyan-ink hover:underline">PAIA manual</a> explains how to request access to records under the Promotion of Access to Information Act.
-        </p>
       </section>
 
       <section className="mb-12">

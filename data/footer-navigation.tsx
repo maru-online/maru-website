@@ -14,7 +14,6 @@ export const footerNavigation = {
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms and Conditions", href: "/terms-conditions" },
     { name: "Cookie Policy", href: "/cookie-policy" },
-    { name: "PAIA Manual", href: "/paia-manual" },
   ],
   // Entry 07 (approved 5 Oct 2026): LinkedIn only, and the Maru Online
   // company page, never Jimmy's personal profile and never the /admin/ URL
