@@ -3,7 +3,7 @@
  * (copy handover entry 19 §8, default (b) decided 8 Oct 2026).
  *
  * Deletes guide requesters older than GUIDE_RETENTION_MONTHS who never
- * confirmed the notes subscription and never took the POPIA AI check.
+ * confirmed the notes subscription and never took the Exposure Check.
  * Entry 19 also exempts people who "have become a customer"; the site holds
  * no customer record, so that exemption is Jimmy's to apply by hand.
  *

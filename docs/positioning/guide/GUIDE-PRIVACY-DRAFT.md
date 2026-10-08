@@ -24,7 +24,7 @@ the United States and India. [Name the safeguard relied on under section 72: for
 agreement and the standard contractual protections in it.]
 
 **How long we keep it.** If you asked for the guide and did not sign up for our notes, we delete your details after
-12 months, unless you have since become a client or used our free POPIA AI check. If you signed up for our notes,
+12 months, unless you have since become a client or used our free Exposure Check. If you signed up for our notes,
 we keep your details until you unsubscribe.
 
 **Your choices.** Every notes email has a link to unsubscribe, and you can also email hello@maruonline.com. You can

@@ -30,7 +30,7 @@ export const GUIDE_SECONDARY_LINKS = false;
 /**
  * Entry 19 §12 default (b), decided by Jimmy 8 Oct: contacts who downloaded
  * the guide and did not subscribe are deleted after this many months, unless
- * they became a customer or took the POPIA AI check.
+ * they became a customer or took the Exposure Check.
  */
 export const GUIDE_RETENTION_MONTHS = 12;
 
