@@ -68,6 +68,13 @@ const nextConfig: NextConfig = {
         destination: 'https://maruonline.com/:path*',
         permanent: true,
       },
+      // Calendly booking retired 8 Oct 2026: prospects now request a proposal
+      // through the contact form and we arrange the call around their diary.
+      {
+        source: '/booking',
+        destination: '/contact',
+        permanent: true,
+      },
       // Legacy static-site pages (~42% of recorded GA views were bot-hammered
       // .html URLs from the retired site) — permanent redirect to real routes
       {

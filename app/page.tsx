@@ -140,8 +140,8 @@ export default function Home() {
               {/* Demoted to a text link (copy handover entry 01). tertiary's
                   default cyan-ink is a light-ground colour; on the navy hero it
                   needs --color-cyan, which is the dark-ground cyan. */}
-              <Button href="/booking" variant="tertiary" className="!text-cyan hover:!text-white self-center sm:self-auto">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary" className="!text-cyan hover:!text-white self-center sm:self-auto">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

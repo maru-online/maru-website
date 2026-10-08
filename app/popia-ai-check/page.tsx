@@ -396,7 +396,7 @@ function AssessmentWizard() {
                 While you wait:
               </p>
               <p className="body-muted text-base leading-relaxed">
-                The report will invite you to book a free 30-minute discovery call. That is where we review your assessment together and go deeper on what we find. If there&apos;s no clear opportunity, we&apos;ll tell you.
+                The report will invite you to request a proposal. We then contact you to arrange a short call at a time that suits you, where we go through your assessment together and go deeper on what we find. If there&apos;s no clear opportunity, we&apos;ll tell you.
               </p>
             </div>
 
