@@ -394,14 +394,13 @@ export default async function InsightsPage() {
         <div className={innerNarrow}>
           <div className="card-lift p-8 md:p-12">
             <FadeUp>
-              <span className="label-eyebrow-ochre">Monthly Best Practices for AI Integration</span>
+              <span className="label-eyebrow-ochre">Best practices for AI integration</span>
               <h2 style={{ border: "none" }}>
                 <span style={{ fontWeight: 300 }}>The Business </span><span style={{ fontWeight: 700 }}>AI Journal</span>
               </h2>
               <p className="body-muted" style={{ marginBottom: "var(--space-para-section)" }}>
-                Unlock practical strategies to optimize your AI integration. Each
-                month, we deliver actionable insights from real-world
-                engagements—covering common pitfalls, effective fixes, and proven
+                Practical strategies for your AI integration, drawn from real-world
+                engagements: common pitfalls, effective fixes and proven
                 frameworks. Written in plain language for business owners.
               </p>
 

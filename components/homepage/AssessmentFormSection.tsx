@@ -31,7 +31,7 @@ export default function AssessmentFormSection() {
             </h2>
 
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              Our free assessment shows where your processes lose time, and where client data may be exposed through the AI tools your team already uses. Your report arrives within 2 business days.
+              Our free assessment shows where your processes lose time, and where client data may be exposed through the AI tools your team already uses.
             </p>
 
             <p
@@ -52,7 +52,7 @@ export default function AssessmentFormSection() {
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.5rem" }}>
               {[
                 "Free, with no obligation",
-                "Report within 2 business days",
+                "Handled with POPIA in mind. No marketing opt-in, just your results.",
               ].map((stat) => (
                 <div key={stat} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
                   <span className="bullet-cyan" style={{ marginTop: "9px" }} />
@@ -126,7 +126,6 @@ export default function AssessmentFormSection() {
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "2rem" }}>
               {[
                 "See your score live as you go",
-                "A structured report within 2 business days",
                 "No sign-up required to begin",
               ].map((point) => (
                 <div key={point} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
@@ -169,7 +168,7 @@ export default function AssessmentFormSection() {
                 lineHeight: 1.5,
               }}
             >
-              Free. No obligation. Report within 2 business days.
+              Free. No obligation.
             </p>
           </div>
           </div>

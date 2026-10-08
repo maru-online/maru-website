@@ -32,7 +32,7 @@ const steps = [
   {
     number: '01',
     label:  'Assess.',
-    body:   ['Start with the free assessment. Your first report arrives within 2 business days.'],
+    body:   ['Start with a free assessment.'],
   },
   {
     number: '02',
@@ -301,7 +301,7 @@ export default function ProcessPage() {
             <AccordionFAQ items={[
               {
                 q: 'How long does the whole process take?',
-                a: 'Your first report arrives within 2 business days. Your first workflow is live in about 30 days from kick-off. For 30 days after launch we measure results against where you started.',
+                a: 'Your first workflow is live in about 30 days from kick-off. For 30 days after launch we measure results against where you started.',
               },
               {
                 q: 'Do I need to be technical to work with you?',
@@ -375,8 +375,7 @@ export default function ProcessPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: 'var(--space-para-section)' }}>
-              Start with the free assessment. Your first report arrives within 2
-              business days.
+              Start with a free assessment.
             </p>
             <hr
               className="rule"

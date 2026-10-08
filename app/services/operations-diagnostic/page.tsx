@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   ...seo('/services/operations-diagnostic'),
   title: "Operations Assessment | Maru Online",
   description:
-    "A free assessment that shows where your time, money and client data are exposed, and what to fix first. Report within 2 business days.",
+    "A free assessment that shows where your time, money and client data are exposed, and what to fix first.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
@@ -26,7 +26,6 @@ const innerNarrow = "max-w-[720px] mx-auto";
 // entry. The route keeps its old path so existing links still resolve.
 const bullets: { leader: string; body?: string }[] = [
   { leader: "See your score live as you go" },
-  { leader: "A structured report within 2 business days" },
   { leader: "No sign-up required to begin" },
 ];
 
@@ -35,7 +34,7 @@ export default function OperationsAssessmentPage() {
     <>
       <ServiceJsonLd
         name="Operations Assessment"
-        description="A free assessment that shows where your time, money and client data are exposed, and what to fix first. Report within 2 business days."
+        description="A free assessment that shows where your time, money and client data are exposed, and what to fix first."
         path="/services/operations-diagnostic"
         price="0"
       />
@@ -133,7 +132,7 @@ export default function OperationsAssessmentPage() {
                   marginBottom: "0.375rem",
                 }}
               >
-                No obligation · Report within 2 business days
+                No obligation
               </p>
               <p
                 style={{
@@ -181,7 +180,7 @@ export default function OperationsAssessmentPage() {
                 </span>
                 <p className="body-muted" style={{ marginBottom: "2.5rem" }}>
                   A free assessment that shows where your time, money and client data are
-                  exposed, and what to fix first. Your first report arrives within 2 business days.
+                  exposed, and what to fix first.
                 </p>
               </FadeUp>
               <FadeUp delay={0.08}>
