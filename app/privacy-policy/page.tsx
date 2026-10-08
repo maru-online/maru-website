@@ -51,7 +51,7 @@ export default function PrivacyPolicyPage() {
           Your Exposure Check result and report are produced automatically from your answers, using fixed rules that score each area. The report is a general operational indicator. It is not legal advice and not a POPIA audit, and it has no legal or similarly significant effect on you. If you think it is wrong, tell us and we will review it and correct it.
         </p>
         <p className="text-ink-secondary mb-4">
-          We also use an AI model, provided by Anthropic, to help us prepare internal notes for us from your answers. Those notes are for our preparation and are not shown to you as a decision about you. Anthropic processes this information in the United States. We do not send Anthropic your name, email address or website.
+          We also use an AI model, provided by Anthropic, to help us prepare internal notes from your answers. Those notes are for our preparation and are not shown to you as a decision about you. Anthropic processes this information in the United States. We do not send Anthropic your name, email address or website.
         </p>
       </section>
 

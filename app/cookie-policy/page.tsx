@@ -195,7 +195,7 @@ export default function CookiePolicyPage() {
           5. POPIA Compliance
         </h2>
         <p className="text-ink-secondary mb-4">
-          Our use of cookies complies with the Protection of Personal Information Act (POPIA) No. 4 of 2013. 
+          We handle cookies with the Protection of Personal Information Act (POPIA) No. 4 of 2013 in mind. 
           Under POPIA, we are required to:
         </p>
         <ul className="text-ink-secondary">
