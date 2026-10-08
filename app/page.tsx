@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   // Copy handover entry 02 (approved 5 Oct 2026): title 55 chars, description 149.
   title: "POPIA-Conscious AI for South African SMEs | Maru Online",
   description:
-    "Your team is already using AI. We connect your tools and build AI workflows your staff can use safely, with POPIA in mind. Free 10-minute assessment.",
+    "Your team is already using AI. We connect your tools and build AI workflows your staff can use safely, with POPIA in mind. Free 5-minute assessment.",
 };
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
@@ -135,7 +135,7 @@ export default function Home() {
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
             >
               <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
-                Check your exposure: free 10-minute assessment
+                Check your exposure: free 5-minute assessment
               </Button>
               {/* Demoted to a text link (copy handover entry 01). tertiary's
                   default cyan-ink is a light-ground colour; on the navy hero it

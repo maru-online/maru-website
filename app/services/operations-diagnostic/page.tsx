@@ -10,9 +10,9 @@ import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
   ...seo('/services/operations-diagnostic'),
-  title: "Operations Assessment | Maru Online",
+  title: "Exposure Check | Maru Online",
   description:
-    "A free assessment that shows where your time, money and client data are exposed, and what to fix first. Report within 2 business days.",
+    "A free assessment that shows where your time, money and client data are exposed, and what to fix first.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
@@ -26,7 +26,6 @@ const innerNarrow = "max-w-[720px] mx-auto";
 // entry. The route keeps its old path so existing links still resolve.
 const bullets: { leader: string; body?: string }[] = [
   { leader: "See your score live as you go" },
-  { leader: "A structured report within 2 business days" },
   { leader: "No sign-up required to begin" },
 ];
 
@@ -34,8 +33,8 @@ export default function OperationsAssessmentPage() {
   return (
     <>
       <ServiceJsonLd
-        name="Operations Assessment"
-        description="A free assessment that shows where your time, money and client data are exposed, and what to fix first. Report within 2 business days."
+        name="Exposure Check"
+        description="A free assessment that shows where your time, money and client data are exposed, and what to fix first."
         path="/services/operations-diagnostic"
         price="0"
       />
@@ -70,15 +69,15 @@ export default function OperationsAssessmentPage() {
                   </Link>
                 </li>
                 <li aria-hidden="true">→</li>
-                <li style={{ color: "var(--color-cyan)" }}>Operations Assessment</li>
+                <li style={{ color: "var(--color-cyan)" }}>Exposure Check</li>
               </ol>
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">01 — Operations Assessment</span>
+            <span className="label-eyebrow-ochre">01 — Exposure Check</span>
           </FadeUp>
           <FadeUp delay={0.12}>
-            <h1 style={{ color: "var(--color-ink-inverted)" }}>Operations Assessment</h1>
+            <h1 style={{ color: "var(--color-ink-inverted)" }}>Exposure Check</h1>
           </FadeUp>
           <FadeUp delay={0.18}>
             <p
@@ -133,7 +132,7 @@ export default function OperationsAssessmentPage() {
                   marginBottom: "0.375rem",
                 }}
               >
-                No obligation · Report within 2 business days
+                No obligation
               </p>
               <p
                 style={{
@@ -181,7 +180,7 @@ export default function OperationsAssessmentPage() {
                 </span>
                 <p className="body-muted" style={{ marginBottom: "2.5rem" }}>
                   A free assessment that shows where your time, money and client data are
-                  exposed, and what to fix first. Your first report arrives within 2 business days.
+                  exposed, and what to fix first.
                 </p>
               </FadeUp>
               <FadeUp delay={0.08}>

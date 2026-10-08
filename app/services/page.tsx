@@ -44,12 +44,11 @@ const services: Service[] = [
     label:       "01",
     // The paid Operations Diagnostic is retired; the free Operations
     // Assessment replaced it. Approved handover wording only (entries 04, 09, 13).
-    title:       "Operations Assessment",
+    title:       "Exposure Check",
     tagline:     "We find where your time, money and client data leak. Free.",
-    description: "Start with the free assessment. Your first report arrives within 2 business days.",
+    description: "Start with a free assessment.",
     bullets: [
       { leader: "See your score live as you go" },
-      { leader: "A structured report within 2 business days" },
       { leader: "No sign-up required to begin" },
     ],
     pricing:     "Free",
@@ -473,8 +472,7 @@ export default function ServicesPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              The free Operations Assessment is where every engagement starts. Your first
-              report arrives within 2 business days.
+              The Exposure Check is where every engagement starts.
             </p>
             <hr
               className="rule"

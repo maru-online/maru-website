@@ -186,12 +186,12 @@ function AssessmentWizard() {
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">POPIA AI check</span>
+            <span className="label-eyebrow">Exposure Check</span>
             <h1 className="text-3xl font-semibold text-navy leading-tight mb-4 border-none">
               Find out where your client information goes when your team uses AI.
             </h1>
             <p className="body-muted text-lg mb-8 leading-relaxed">
-              10 questions across 5 areas. About 3 minutes.
+              10 questions across 5 areas. About 5 minutes.
             </p>
 
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-6">

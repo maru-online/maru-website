@@ -268,7 +268,7 @@ export default function AboutPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <Button href="/popia-ai-check" variant="primary">
-              Start Your Free Assessment
+              Free Exposure Check
             </Button>
           </FadeUp>
         </div>

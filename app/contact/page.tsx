@@ -9,7 +9,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Two ways to start — the Operations Assessment or a 20-minute discovery call. You speak directly with Jimmy.",
+  description: "Two ways to start — the Exposure Check or a 20-minute discovery call. You speak directly with Jimmy.",
   ...seo('/contact'),
 }
 
