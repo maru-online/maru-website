@@ -10,7 +10,7 @@ import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
   ...seo('/services/operations-diagnostic'),
-  title: "Free Assessment | Maru Online",
+  title: "Exposure Check | Maru Online",
   description:
     "A free assessment that shows where your time, money and client data are exposed, and what to fix first.",
 };
@@ -33,7 +33,7 @@ export default function OperationsAssessmentPage() {
   return (
     <>
       <ServiceJsonLd
-        name="Free Assessment"
+        name="Exposure Check"
         description="A free assessment that shows where your time, money and client data are exposed, and what to fix first."
         path="/services/operations-diagnostic"
         price="0"
@@ -69,15 +69,15 @@ export default function OperationsAssessmentPage() {
                   </Link>
                 </li>
                 <li aria-hidden="true">→</li>
-                <li style={{ color: "var(--color-cyan)" }}>Free Assessment</li>
+                <li style={{ color: "var(--color-cyan)" }}>Exposure Check</li>
               </ol>
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">01 — Free Assessment</span>
+            <span className="label-eyebrow-ochre">01 — Exposure Check</span>
           </FadeUp>
           <FadeUp delay={0.12}>
-            <h1 style={{ color: "var(--color-ink-inverted)" }}>Free Assessment</h1>
+            <h1 style={{ color: "var(--color-ink-inverted)" }}>Exposure Check</h1>
           </FadeUp>
           <FadeUp delay={0.18}>
             <p
