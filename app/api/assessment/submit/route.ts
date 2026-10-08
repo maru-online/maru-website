@@ -399,7 +399,8 @@ async function sendProspectEmail(params: BrevoEmailParams) {
       to: [{ email, name }],
       templateId: templateIds[level],
       params: {
-        FIRSTNAME: name,
+        // First name only: the template greets with it ("Your report is ready, Jimmy.")
+        FIRSTNAME: name.trim().split(/\s+/)[0] || name,
         LEVEL_LABEL: levelLabel,
         REPORT_URL: reportUrl,
         PAIN_TAG: painTag,

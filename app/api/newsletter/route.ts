@@ -3,7 +3,8 @@ import { z } from 'zod'
 
 const BREVO_API    = 'https://api.brevo.com/v3'
 const LIST_ID      = 22
-const TEMPLATE_ID  = 5
+// Brevo template 10 = welcome email in the Maru design system. Override with the env var if it is ever replaced.
+const TEMPLATE_ID  = parseInt(process.env.BREVO_TEMPLATE_NEWSLETTER_WELCOME ?? '10', 10) || 10
 
 const schema = z.object({
   email:     z.string().trim().email().max(255),
@@ -49,7 +50,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. Send welcome email via transactional template #5
+    // 2. Send welcome email via transactional welcome template
     const emailRes = await fetch(`${BREVO_API}/smtp/email`, {
       method:  'POST',
       headers,
