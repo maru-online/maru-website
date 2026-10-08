@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
-import Script from 'next/script'
 import Nav from '@/components/ui/Nav'
 import Footer from '@/components/ui/Footer'
 import CookieConsent from '@/components/CookieConsent'
@@ -76,12 +75,6 @@ export default function RootLayout({
 
         {/* Meta Pixel: loads only after the visitor accepts cookies */}
         {META_PIXEL_ID && <MetaPixel pixelId={META_PIXEL_ID} />}
-
-        {/* Calendly — loaded site-wide so it's pre-cached before /booking */}
-        <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
-        />
 
         <Nav />
         <main id="main-content">

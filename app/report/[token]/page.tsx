@@ -34,12 +34,12 @@ export async function generateMetadata({
   // Addendum 03 A7: v3 reports only; v2 reports keep their original title.
   if (getReportVersion(data.template) === "assessment_v3") {
     return {
-      title: "Your POPIA AI Check Report | Maru Online",
+      title: "Your Exposure Check Report | Maru Online",
       robots: { index: false, follow: false },
     };
   }
   return {
-    title: `Operations Assessment Report — Maru Online`,
+    title: `Exposure Check Report — Maru Online`,
     description: `Your personalised operations assessment from Maru Online.`,
     robots: { index: false, follow: false },
   };
@@ -117,7 +117,6 @@ const scoreBarWidth: Record<AreaStatus, string> = {
   strong:      "100%",
 };
 
-const calendlyUrl = "https://calendly.com/hello-maruonline/discovery-call";
 
 // ── Page ───────────────────────────────────────────────────────────────────
 
@@ -160,7 +159,7 @@ export default async function ReportPage({
             <span>aru Online</span>
           </Link>
           <span style={{ fontSize: 11, fontFamily: "monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            {isV3 ? "POPIA AI check" : "Operations Assessment"}
+            Exposure Check
           </span>
         </div>
       </header>
@@ -323,27 +322,25 @@ export default async function ReportPage({
             Next step
           </p>
           <h2 style={{ fontSize: 22, fontWeight: 600, color: "white", margin: "0 0 16px", lineHeight: 1.3 }}>
-            Book a free 30-minute discovery call.
+            Request a proposal.
           </h2>
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 12px" }}>
             {isV3
-              ? "We review your answers before the call. On the day, we go deeper: which tools see client information, where it's stored, and who can reach it."
-              : "We review your assessment before the call. On the day, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated."}
+              ? "We review your answers first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper: which tools see client information, where it's stored, and who can reach it."
+              : "We review your assessment first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated."}
           </p>
           <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 28px" }}>
             If there&apos;s no clear opportunity, we&apos;ll tell you.
           </p>
           <a
-            href={calendlyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/contact#contact-form"
             style={{
               display: "inline-block", backgroundColor: "var(--color-cyan)",
               color: "var(--color-ink-primary)", fontWeight: 700, padding: "14px 28px",
               borderRadius: 8, textDecoration: "none", fontSize: 15,
             }}
           >
-            Book a discovery call
+            Request a proposal
           </a>
         </div>
 
@@ -353,7 +350,7 @@ export default async function ReportPage({
           borderRadius: 8, padding: "20px 24px", marginBottom: 48,
         }}>
           <p style={{ fontWeight: 600, color: "var(--color-ink-primary)", fontSize: 14, margin: "0 0 8px" }}>
-            Not ready to book yet?
+            Not ready to request a proposal yet?
           </p>
           <p style={{ color: "#2D4A60", fontSize: 14, lineHeight: 1.6, margin: "0 0 12px" }}>
             Reply to your report email and tell us what is happening in the business. We will take it from there.

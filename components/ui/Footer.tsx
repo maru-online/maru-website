@@ -148,10 +148,10 @@ export default function Footer() {
                 <ul className="flex flex-col list-none m-0 p-0">
                   {/* Same order and names as the homepage services grid (entry
                       07). AI Use Safeguards is added here only when its grid
-                      card comes off hold. The Operations Assessment keeps the
+                      card comes off hold. The Exposure Check keeps the
                       existing /services/operations-diagnostic route. */}
                   {[
-                    { name: 'Operations Assessment',    href: '/services/operations-diagnostic' },
+                    { name: 'Exposure Check',    href: '/services/operations-diagnostic' },
                     { name: 'Workflow Integration',     href: '/services/workflow-integration' },
                     { name: 'Team Training & Handover', href: '/services/team-training-handover' },
                     { name: 'Results Optimisation',     href: '/services/results-optimisation' },

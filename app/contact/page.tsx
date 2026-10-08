@@ -9,7 +9,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Two ways to start — the Operations Assessment or a 20-minute discovery call. You speak directly with Jimmy.",
+  description: "Start with the free Exposure Check, or request a proposal and we will contact you to arrange a call at a time that suits you.",
   ...seo('/contact'),
 }
 
@@ -89,27 +89,23 @@ export default function ContactPage() {
             <div className="md:grid md:grid-cols-[1fr_360px] md:gap-24">
             <FadeUp>
               <div style={{ marginBottom: 'var(--space-section-header-mb)' }}>
-                <Button href="/booking" variant="primary">
-                  Book a discovery call
-                </Button>
                 <p
                   style={{
                     fontFamily:  'var(--font-body)',
-                    fontSize:    'var(--text-meta)',
+                    fontSize:    'var(--text-body-sm)',
                     fontWeight:  300,
-                    color:       'var(--color-ink-tertiary)',
-                    marginTop:   '0.75rem',
+                    color:       'var(--color-ink-secondary)',
                     marginBottom: 0,
                   }}
                 >
-                  Twenty minutes, straight to the point.
+                  Tell us what you need and we will contact you to arrange a short call at a time that suits you. We then send you a proposal.
                 </p>
               </div>
 
               <h2 style={{ marginBottom: '1.5rem' }}>
-                <span style={{ fontWeight: 300 }}>Or send a</span>
+                <span style={{ fontWeight: 300 }}>Request</span>
                 <br />
-                <span style={{ fontWeight: 700 }}>message directly</span>
+                <span style={{ fontWeight: 700 }}>a proposal</span>
               </h2>
             </FadeUp>
             </div>

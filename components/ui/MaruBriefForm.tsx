@@ -12,6 +12,8 @@ export function MaruBriefForm() {
 
   const inputStyle: React.CSSProperties = {
     flex:          1,
+    minWidth:      0,
+    width:         "100%",
     height:        "48px",
     padding:       "0 1rem",
     borderRadius:  "6px",
@@ -68,7 +70,7 @@ export function MaruBriefForm() {
             margin:     0,
           }}
         >
-          You&apos;re in. First issue lands in your inbox within a fortnight.
+          You&apos;re in. Check your inbox for a welcome email.
         </p>
       </div>
     );
@@ -97,6 +99,25 @@ export function MaruBriefForm() {
           {loading ? "Subscribing…" : "Subscribe"}
         </Button>
       </form>
+
+      <p
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize:   "var(--text-meta)",
+          fontWeight: 300,
+          color:      "var(--color-ink-tertiary)",
+          marginTop:  "0.75rem",
+          marginBottom: 0,
+          lineHeight: 1.5,
+        }}
+      >
+        We use your email only to send The Business AI Journal. Unsubscribe any
+        time. See our{" "}
+        <a href="/privacy-policy" style={{ textDecoration: "underline", textUnderlineOffset: "2px" }}>
+          privacy policy
+        </a>
+        .
+      </p>
 
       {error && (
         <p
