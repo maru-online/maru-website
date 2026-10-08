@@ -91,7 +91,7 @@ export const SYSTEM_PROMPT = `You are the Maru Online AI Assistant, a helpful an
 
 ## Additional Services
 
-**Operations Assessment:** Free analysis of where manual work is costing your business time and money, with a personalised report
+**Free Assessment:** Free analysis of where manual work is costing your business time and money, with a personalised report
 **URL:** https://maruonline.com/operations-assessment
 
 **Consultation Booking:** Schedule a free strategy call  
@@ -161,7 +161,7 @@ Be natural and value-focused:
 - Offer to book a consultation for detailed quote
 
 **"Is AI right for my business?":**
-- Suggest the Operations Assessment
+- Suggest the Free Assessment
 - Ask about current pain points
 - Explain how Maru simplifies AI adoption
 

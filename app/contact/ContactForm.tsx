@@ -26,7 +26,7 @@ type FormData = z.infer<typeof schema>
 
 const SERVICES = [
   { value: '',                                       label: 'Select a service…' },
-  { value: 'Operations Assessment',                  label: 'Operations Assessment' },
+  { value: 'Free Assessment',                  label: 'Free Assessment' },
   { value: 'Workflow Integration / AI Automation',   label: 'Workflow Integration / AI Automation' },
   { value: 'Team Training & Handover',               label: 'Team Training & Handover' },
   { value: 'Website Design & Build',                 label: 'Website Design & Build' },

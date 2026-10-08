@@ -588,7 +588,7 @@ function buildJimmyBriefHtml(params: {
 
   return `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:680px;margin:0 auto;padding:32px 24px;color:#1a1a1a;">
-      <h1 style="font-size:20px;margin:0 0 4px;">New POPIA AI check: ${name}</h1>
+      <h1 style="font-size:20px;margin:0 0 4px;">New Free Assessment: ${name}</h1>
       <p style="color:#666;font-size:14px;margin:0 0 24px;">${levelLabel} · ${ASSESSMENT_VERSION} · ${new Date().toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
 
       ${flagBanner}
@@ -609,7 +609,7 @@ function buildJimmyBriefHtml(params: {
         ${answerRows}
       </table>
 
-      <p style="margin-top:32px;font-size:12px;color:#999;">This email was generated automatically by the Maru Online POPIA AI check. Reply to this email to contact ${name} directly.</p>
+      <p style="margin-top:32px;font-size:12px;color:#999;">This email was generated automatically by the Maru Online Free Assessment. Reply to this email to contact ${name} directly.</p>
     </div>
   `;
 }

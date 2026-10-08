@@ -20,7 +20,7 @@ const services: Service[] = [
     tag: 'Start here',
     tagColor: 'cyan',
     icon: 'search',
-    name: 'Operations Assessment',
+    name: 'Free Assessment',
     body: 'We find where your time, money and client data leak. Free.',
   },
   {
@@ -129,7 +129,7 @@ function ServiceCard({ svc, featured = false }: { svc: Service; featured?: boole
 }
 
 /**
- * Services grid. The free Operations Assessment is the entry point and the
+ * Services grid. The Free Assessment is the entry point and the
  * primary CTA's destination, so it gets a full-width featured card (entry 05);
  * the rest sit beneath it: 2x2 with four cards, one row of three while AI Use
  * Safeguards is on hold. Single column on mobile.

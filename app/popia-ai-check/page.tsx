@@ -186,7 +186,7 @@ function AssessmentWizard() {
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">POPIA AI check</span>
+            <span className="label-eyebrow">Free Assessment</span>
             <h1 className="text-3xl font-semibold text-navy leading-tight mb-4 border-none">
               Find out where your client information goes when your team uses AI.
             </h1>

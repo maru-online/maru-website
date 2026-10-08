@@ -32,12 +32,12 @@ export async function generateMetadata({
   // Addendum 03 A7: v3 reports only; v2 reports keep their original title.
   if (getReportVersion(data.template) === "assessment_v3") {
     return {
-      title: "Your POPIA AI Check Report | Maru Online",
+      title: "Your Free Assessment Report | Maru Online",
       robots: { index: false, follow: false },
     };
   }
   return {
-    title: `Operations Assessment Report — Maru Online`,
+    title: `Free Assessment Report — Maru Online`,
     description: `Your personalised operations assessment from Maru Online.`,
     robots: { index: false, follow: false },
   };
@@ -158,7 +158,7 @@ export default async function ReportPage({
             <span>aru Online</span>
           </Link>
           <span style={{ fontSize: 11, fontFamily: "monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            {isV3 ? "POPIA AI check" : "Operations Assessment"}
+            Free Assessment
           </span>
         </div>
       </header>
