@@ -1,13 +1,8 @@
-import { Metadata } from "next";
-import { seo } from "@/lib/seo";
-import POPIAChecklistPageClient from "./POPIAChecklistPageClient";
+import { notFound } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Free POPIA-Compliant AI Checklist | Maru Online",
-  description: "Download your free checklist to ensure your AI implementations comply with South African POPIA regulations. Avoid R10 million penalties and build customer trust.",
-  ...seo('/resources/popia-ai-checklist'),
-};
-
+// Retired: this page collected name, email and consent but sent nothing, and
+// carried unsourced claims. It returns 404 until a working, consented version
+// is built inside the Resources hub.
 export default function POPIAChecklistPage() {
-  return <POPIAChecklistPageClient />;
+  notFound();
 }
