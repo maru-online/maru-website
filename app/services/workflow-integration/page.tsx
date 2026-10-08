@@ -134,7 +134,7 @@ export default function WorkflowIntegrationPage() {
                 }}
               >
                 {/* No published price figure (Jimmy, 6 Oct 2026); see /process#how-we-price. */}
-                Fixed price
+                Priced in your proposal
               </p>
               <p
                 style={{
@@ -156,7 +156,7 @@ export default function WorkflowIntegrationPage() {
                   margin: 0,
                 }}
               >
-                Fixed price scoped after the assessment — no surprises.
+                Scoped and priced in your proposal, after the Exposure Check.
               </p>
             </div>
           </FadeUp>
