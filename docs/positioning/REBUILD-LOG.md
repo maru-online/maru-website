@@ -15,6 +15,7 @@ fixes). Each change is decided by Jimmy, one at a time, after the drift review
 | 7 | 7 Oct | `/about` | Entry 16 approved sections (1–6, 8). Focus Over Volume shows a marked placeholder (open item 1), so `/about` is `noindex` until Jimmy gives the line. 7 Oct additions + entry 17 not built (PROPOSED) | Copy handover entry 16 | Done `2538bf8` |
 | 8 | 7 Oct | `/services` + service pages | Not covered by an entry; Jimmy chose "fix what's false": Operations Assessment rename, marked Free, retired deliverables and all price figures removed, approved sentences only | Jimmy, 7 Oct | Done `89e2325` |
 | 9 | 7 Oct | Homepage background lines | Entry 05 lines (extends the DisconnectDiagram's line language). Story variant not built | Copy handover entry 05 | Removed: rendered as solid black shapes on the preview; Jimmy asked for them to go entirely (reverted) |
+| 11 | 8 Oct | Site-wide cookie banner, `/cookie-policy` §4 | Cookie consent ported from `positioning/popia-safe`: the Meta Pixel loads only after Accept, GA4 starts in Consent Mode with all storage denied, Decline (including a later change of mind) clears `_ga*` and `_fbp`, both "Cookie Preferences" buttons reopen the banner. §4 now describes the real accept/decline banner. Fixes release gate 4 (failing in #10). Verified on a production build in real Chrome: no Meta request or cookie before a choice; GA4 `gcs=G100`, no cookies; Accept sets `_fbp` and `_ga`; Decline clears both. (GA4 skips automated browsers, so the GA test needed a normal user agent.) #10 is on `preview/lead-magnet-guide` | Fix `daacf3b` (28 Sep) and §4 `c96998b` (approved 2 Oct), on popia-safe | Done `e04392e` |
 
 **Open after #2–#4 (Jimmy to decide):**
 - The hero button promises a **10-minute** assessment; the check page says **about 3 minutes** for 10 questions. One of them must change (handover backlog 7).
@@ -30,6 +31,12 @@ fixes). Each change is decided by Jimmy, one at a time, after the drift review
 - Still saying an unmeasured time: `/services` final CTA "Twenty minutes will tell you."; hero/meta "10-minute"; check page "About 3 minutes".
 - Untouched and still off-message: legal pages (Terms lists R4,999/R9,999 packages and "Operations Diagnostic"; privacy policy redraft is a release gate), hidden `/insights` (R4,500 diagnostic CTA), `lib/assessment/reportTemplates.ts` (v2 templates naming the Operations Diagnostic).
 - Entry 18 (PROPOSED): site-wide JSON-LD still lists two street addresses, a phone number, the personal LinkedIn and X/Facebook/Instagram in `sameAs`.
+
+**Branch housekeeping:**
+- 8 Oct: **PR #12 (`positioning/popia-safe` → `main`) closed without merging**, on Jimmy's instruction ("the rebuild
+  replaces it"). The branch stays on GitHub at `5b1b761` (checkpoint `3bd931b` plus a merge of `main` with #17) as
+  a parts bin: port from it with `git checkout origin/positioning/popia-safe -- <paths>`, then sweep for its
+  "POPIA-safe" wording. It is no longer kept in sync with `main`.
 
 ---
 
@@ -124,6 +131,7 @@ Authorised IPs → turn off IP blocking for the API key (or deactivate the allow
 3. Approve the DRAFT confirmation email and confirm-page wording, the entry 09/15 rewording (§9), and the
    report-email template line above.
 4. Fix the Meta Pixel consent gap (port the popia-safe consent fix), then re-run the consent test (gate 4).
+   Port done in #11 (`e04392e`) and merged into this preview branch on 8 Oct.
 5. Tick `lead-magnet-verification-v1.md`; refresh the PDF date if needed (gate 1).
 6. Swap the PDF: copy `AI-and-POPIA-guide_clean.pdf` into `content/guides/` as `ai-and-popia-guide.pdf`, set
    `GUIDE_PDF_FILE` to that name in `lib/guides/config.ts`, and delete the DRAFT file.

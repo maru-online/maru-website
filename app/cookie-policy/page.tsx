@@ -122,9 +122,38 @@ export default function CookiePolicyPage() {
         <h2 className="text-2xl font-medium text-ink-primary mb-6">
           4. How to Control Cookies
         </h2>
+        {/* Approved by Jimmy 2 Oct 2026 (docs/positioning/COOKIE-POLICY-S4-DRAFT.md).
+            Replaces a promised "preference center" with per-category toggles that never
+            existed: the banner is one Accept/Decline choice. Keep in step with
+            components/CookieConsent.tsx, AnalyticsTracker.tsx and analytics/MetaPixel.tsx. */}
+        <p className="text-ink-secondary mb-4">
+          When you first visit our website, a banner asks whether you accept analytics and marketing
+          cookies. It is one choice, and it covers both.
+        </p>
+        <ul className="text-ink-secondary mb-4">
+          <li>
+            <strong className="text-ink-primary">Accept:</strong> Google Analytics may set its cookies, and
+            the Meta Pixel loads.
+          </li>
+          <li>
+            <strong className="text-ink-primary">Decline, or no choice yet:</strong> Google Analytics runs
+            without cookies and sends Google only basic measurements that don&apos;t identify your browser, and
+            the Meta Pixel does not load at all.
+          </li>
+        </ul>
+        <p className="text-ink-secondary mb-4">
+          You can change your choice at any time. Click the button below or in the footer of any page to
+          bring the banner back. If you change from Accept to Decline, we delete the Google Analytics and
+          Meta Pixel cookies from your browser.
+        </p>
+        <p className="text-ink-secondary mb-4">
+          We save your choice in your browser&apos;s local storage, not in a cookie. It stays until you change
+          it or clear your browser data.
+        </p>
         <p className="text-ink-secondary mb-6">
-          You can change your cookie preferences at any time by clicking the button below. This will open our 
-          preference center where you can enable or disable specific categories of cookies.
+          Some features use third-party services that this choice does not switch off, because the feature
+          can&apos;t work without them: Google reCAPTCHA on our forms, which helps tell people from automated
+          spam, and Calendly when you open our booking page.
         </p>
 
         <button
