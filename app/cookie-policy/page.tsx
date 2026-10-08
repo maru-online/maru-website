@@ -157,7 +157,7 @@ export default function CookiePolicyPage() {
         <p className="text-ink-secondary mb-6">
           Some features use third-party services that this choice does not switch off, because the feature
           can&apos;t work without them: Google reCAPTCHA on our forms, which helps tell people from automated
-          spam, and Calendly when you open our booking page.
+          spam.
         </p>
 
         <button
