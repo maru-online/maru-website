@@ -85,27 +85,6 @@ export default function CookiePolicyPage() {
           </p>
         </div>
 
-        <div className="card-lift rounded-lg p-6 mb-4">
-          <h4 className="text-ink-primary font-medium mb-2">HubSpot</h4>
-          <p className="text-ink-secondary text-sm">
-            Our CRM and marketing automation platform uses cookies to track user interactions with our forms 
-            and content, helping us provide personalized communication.
-          </p>
-          <p className="text-ink-secondary text-sm mt-2">
-            Learn more: <a href="https://legal.hubspot.com/privacy-policy" className="text-cyan-ink hover:underline" target="_blank" rel="noopener noreferrer">HubSpot Privacy Policy</a>
-          </p>
-          <div
-            className="mt-3 p-3 rounded text-xs"
-            style={{
-              backgroundColor: "var(--color-ochre-tint)",
-              border: "1px solid var(--color-ochre-border)",
-              color: "var(--color-ochre-ink)",
-            }}
-          >
-            <strong>Note:</strong> HubSpot may process data in the United States. We rely on their Data Processing Agreement (DPA) and Standard Contractual Clauses (SCCs) to ensure appropriate safeguards for international transfers.
-          </div>
-        </div>
-
         <div className="card-lift rounded-lg p-6">
           <h4 className="text-ink-primary font-medium mb-2">Meta Pixel (Facebook)</h4>
           <p className="text-ink-secondary text-sm">

@@ -63,7 +63,7 @@ export default function PrivacyPolicyPage() {
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Vercel</strong> hosts the website and keeps server logs, in the United States.</li>
           <li><strong className="text-ink-primary">Neon</strong> hosts the database that holds Exposure Check results, reports and guide requests, in London, United Kingdom.</li>
-          <li><strong className="text-ink-primary">Brevo</strong> sends our emails (reports, replies, the newsletter and the guide) and holds contact records. Brevo may process data outside South Africa, including in the European Union, the United States and India.</li>
+          <li><strong className="text-ink-primary">Brevo</strong> sends our emails (reports, replies, the newsletter and the guide) and holds contact records. Brevo stores data in the European Union (France, Germany and Belgium) and may also process it elsewhere, including the United States and India.</li>
           <li><strong className="text-ink-primary">Anthropic</strong> as described in section 3.</li>
           <li><strong className="text-ink-primary">Google</strong> provides reCAPTCHA and Google Analytics. Google acts for its own purposes for analytics cookies.</li>
           <li><strong className="text-ink-primary">Meta</strong> provides the Meta Pixel for measuring our advertising.</li>
@@ -111,10 +111,7 @@ export default function PrivacyPolicyPage() {
         <p className="text-ink-secondary mb-4">
           Under POPIA you can ask us to confirm whether we hold personal information about you and to give you a copy; ask us to correct or delete it; object to our processing of it; and withdraw consent you have given, which does not affect what we did before. To exercise a right, email hello@maruonline.com. We may need to confirm who you are first.
         </p>
-        <p className="text-ink-secondary mb-4">
-          Our PAIA manual, which sets out how to request access to records under the Promotion of Access to Information Act, is available on request from the same address.
-        </p>
-      </section>
+              </section>
 
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">10. Information Officer and contact</h2>
