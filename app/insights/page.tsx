@@ -151,7 +151,7 @@ export default async function InsightsPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative min-h-[50vh] flex items-center ${outerPad} pt-48 pb-32`}
+        className={`relative overflow-x-clip min-h-[50vh] flex items-center ${outerPad} pt-48 pb-32`}
         style={{ backgroundColor: "var(--color-bg-navy)" }}
       >
         <BGPattern variant="grid" mask="none" size={40} fill="rgba(61, 184, 198, 0.12)" className="z-0" />
@@ -418,7 +418,7 @@ export default async function InsightsPage() {
           FINAL CTA — navy
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`${outerPad} py-24`}
+        className={`relative overflow-x-clip ${outerPad} py-24`}
         style={{ backgroundColor: "var(--color-bg-navy)" }}
       >
         <div
