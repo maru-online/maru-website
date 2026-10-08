@@ -125,7 +125,10 @@ export default function CookiePolicyPage() {
         {/* Approved by Jimmy 2 Oct 2026 (docs/positioning/COOKIE-POLICY-S4-DRAFT.md).
             Replaces a promised "preference center" with per-category toggles that never
             existed: the banner is one Accept/Decline choice. Keep in step with
-            components/CookieConsent.tsx, AnalyticsTracker.tsx and analytics/MetaPixel.tsx. */}
+            components/CookieConsent.tsx, AnalyticsTracker.tsx and analytics/MetaPixel.tsx.
+            8 Oct 2026, approved by Jimmy: the Decline sentence no longer promises to delete every
+            Meta cookie. Tested on the preview: Meta's own `fr` cookie lives on facebook.com and no
+            website can delete it; nothing is sent to Meta after Decline. */}
         <p className="text-ink-secondary mb-4">
           When you first visit our website, a banner asks whether you accept analytics and marketing
           cookies. It is one choice, and it covers both.
@@ -144,7 +147,8 @@ export default function CookiePolicyPage() {
         <p className="text-ink-secondary mb-4">
           You can change your choice at any time. Click the button below or in the footer of any page to
           bring the banner back. If you change from Accept to Decline, we delete the Google Analytics and
-          Meta Pixel cookies from your browser.
+          Meta Pixel cookies our website set. Meta may also have set its own cookie on facebook.com, which
+          only your browser settings can remove.
         </p>
         <p className="text-ink-secondary mb-4">
           We save your choice in your browser&apos;s local storage, not in a cookie. It stays until you change
