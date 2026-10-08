@@ -42,6 +42,18 @@ interface SubmissionBody {
   recaptchaToken?: string;
 }
 
+// Upper bound on the Claude call. Typical is ~24s; past this we send Jimmy's
+// brief without observations rather than wait on a hung request.
+const SYNTHESIS_TIMEOUT_MS = 45_000;
+
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
+
 // ── Main handler ───────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
@@ -130,19 +142,53 @@ export async function POST(req: NextRequest) {
     }
 
     // ── 4. Everything slow, after the response ────────────────────────────
-    // Synthesis measured ~24s of a ~25s request. The visitor does not need it:
-    // the page promises the report by email, and nothing on screen depends on
-    // the observations. waitUntil keeps the function alive past the response so
-    // the order is unchanged — synthesis, then the row update, then the emails
-    // (Jimmy's brief is built from the synthesis, so it must not run before).
+    // The prospect's report does not depend on the AI synthesis: the report page
+    // is built from the scores, and the synthesis only feeds Jimmy's internal
+    // brief. So the prospect email goes first, and the synthesis runs after it
+    // under a hard timeout. A slow or failed Claude call can delay or thin
+    // Jimmy's brief; it can never stop the prospect's email.
+    // waitUntil keeps the function alive past the response.
     waitUntil(
       (async () => {
+        const emailParams: BrevoEmailParams = {
+          name: body.name,
+          email: body.email,
+          website: body.website,
+          level: scoreResult.level,
+          levelLabel: scoreResult.label,
+          reportUrl,
+          painTag,
+          segmentB: scoreResult.segmentB,
+          jimmyBrief: null,
+          answers: body.answers,
+        };
+
+        // 1. Prospect email first. Independent of everything below.
+        await sendProspectEmail(emailParams).catch((err) =>
+          console.error("Brevo prospect email failed:", err),
+        );
+
+        // 2. Contact upsert (no dependency on the synthesis either).
+        await upsertBrevoContact({
+          name: body.name,
+          email: body.email,
+          level: scoreResult.level,
+          levelLabel: scoreResult.label,
+          painTag,
+          reportUrl,
+        }).catch((err) => console.error("Brevo contact upsert failed:", err));
+
+        // 3. Synthesis, bounded. Typical run is ~24s; give up at 45s.
         const tSynthStart = Date.now();
         try {
-          synthesis = await runSynthesis(body.answers, scoreResult.level);
+          synthesis = await withTimeout(
+            runSynthesis(body.answers, scoreResult.level),
+            SYNTHESIS_TIMEOUT_MS,
+            "Claude synthesis",
+          );
         } catch (err) {
           console.error("Claude synthesis failed:", err);
-          // Report stays template-only — no observations block
+          // Report stays template-only; Jimmy's brief goes out without observations.
         }
         tSynthesis = Date.now() - tSynthStart;
 
@@ -157,27 +203,11 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        await upsertBrevoContact({
-          name: body.name,
-          email: body.email,
-          level: scoreResult.level,
-          levelLabel: scoreResult.label,
-          painTag,
-          reportUrl,
-        }).catch((err) => console.error("Brevo contact upsert failed:", err));
-
-        await fireBrevoEmails({
-          name: body.name,
-          email: body.email,
-          website: body.website,
-          level: scoreResult.level,
-          levelLabel: scoreResult.label,
-          reportUrl,
-          painTag,
-          segmentB: scoreResult.segmentB,
+        // 4. Jimmy's brief, with or without the synthesis.
+        await sendJimmyBriefEmail({
+          ...emailParams,
           jimmyBrief: synthesis?.objectB ?? null,
-          answers: body.answers,
-        }).catch((err) => console.error("Brevo send failed:", err));
+        }).catch((err) => console.error("Brevo Jimmy brief email failed:", err));
 
         console.log("assessment background finished", {
           synthesisMs: tSynthesis,
@@ -345,7 +375,10 @@ async function upsertBrevoContact(params: {
       },
     }),
   });
-  const body = await res.json();
+  // Brevo answers 204 with an empty body when it updates an existing contact,
+  // so parse defensively instead of calling res.json() on nothing.
+  const text = await res.text();
+  const body = text ? JSON.parse(text) : null;
   // A non-2xx from Brevo used to be console.log'd and otherwise ignored, so a
   // rejected request looked identical to a delivered one. Throwing puts it in
   // the caller's .catch, which logs at error level and shows up in an error
@@ -369,13 +402,6 @@ interface BrevoEmailParams {
   segmentB: boolean;
   jimmyBrief: SynthesisOutput["objectB"] | null;
   answers: SubmissionBody["answers"];
-}
-
-async function fireBrevoEmails(params: BrevoEmailParams) {
-  await Promise.allSettled([
-    sendProspectEmail(params),
-    sendJimmyBriefEmail(params),
-  ]);
 }
 
 async function sendProspectEmail(params: BrevoEmailParams) {
