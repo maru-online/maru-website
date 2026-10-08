@@ -81,7 +81,7 @@ export default function TermsConditionsPage() {
         </p>
         <ul className="text-ink-secondary">
           <li>We retain ownership of our proprietary frameworks, tools, and methodologies</li>
-          <li>Third-party software licenses (e.g., Zapier, Make, HubSpot) remain subject to their respective terms</li>
+          <li>Third-party software licenses (e.g., Zapier, Make) remain subject to their respective terms</li>
           <li>We may showcase anonymized case studies referencing your project unless you request otherwise</li>
         </ul>
       </section>
