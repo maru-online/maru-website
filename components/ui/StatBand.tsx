@@ -17,7 +17,7 @@ const STATS: Stat[] = [
   { icon: 'gift',   suffix: 'Free',   label: 'Assessment: see where you\'re exposed' },
   { icon: 'clock',  count: 1,  suffix: 'business day', label: 'Follow-up' },
   { icon: 'rocket', count: 30, suffix: 'days', label: 'From kick-off to your first workflow running live' },
-  { icon: 'tag',    suffix: 'Fixed',  label: 'Price agreed before work starts' },
+  { icon: 'tag',    suffix: 'Proposal',  label: 'In writing before work starts' },
 ];
 
 export default function StatBand() {
