@@ -134,7 +134,7 @@ export default function TeamTrainingHandoverPage() {
                 }}
               >
                 {/* No published price figure (Jimmy, 6 Oct 2026); see /process#how-we-price. */}
-                Fixed price
+                Priced in your proposal
               </p>
               <p
                 style={{

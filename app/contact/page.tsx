@@ -59,19 +59,6 @@ export default function ContactPage() {
               <span className="maru-headline-split-light">Let&apos;s talk about it.</span>
             </h1>
           </FadeUp>
-          <FadeUp delay={0.16}>
-            <p
-              className="font-body font-light"
-              style={{
-                color:      'var(--color-ink-inverted-muted)',
-                fontSize:   'var(--text-body-sm)',
-                lineHeight: 'var(--leading-body)',
-                marginBottom: 0,
-              }}
-            >
-              We respond within 24 hours.
-            </p>
-          </FadeUp>
         </div>
       </section>
 

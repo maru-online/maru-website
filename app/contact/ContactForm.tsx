@@ -187,7 +187,7 @@ export default function ContactForm() {
       </Field>
 
       {/* ── Message ── */}
-      <Field label="Briefly describe what you need" error={errors.message?.message}>
+      <Field label="Tell us more about what you're interested in" error={errors.message?.message}>
         <Textarea
           {...register('message')}
           placeholder="Tell us a bit about your business and what you're trying to solve…"
