@@ -58,7 +58,7 @@ export default function PrivacyPolicyPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">4. Who receives your information</h2>
         <p className="text-ink-secondary mb-4">
-          We use the following providers to run the site. Each processes personal information on our behalf as an operator, and not for its own purposes, except where stated.
+          We use the following providers to run the site. Each processes personal information for us, under its own data-processing terms, and not for its own purposes, except where stated.
         </p>
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Vercel</strong> hosts the website and keeps server logs, in the United States.</li>
@@ -66,10 +66,10 @@ export default function PrivacyPolicyPage() {
           <li><strong className="text-ink-primary">Brevo</strong> sends our emails (reports, replies, the newsletter and the guide) and holds contact records. Brevo stores data in the European Union (France, Germany and Belgium) and may also process it elsewhere, including the United States and India.</li>
           <li><strong className="text-ink-primary">Anthropic</strong> as described in section 3.</li>
           <li><strong className="text-ink-primary">Google</strong> provides reCAPTCHA and Google Analytics. Google acts for its own purposes for analytics cookies.</li>
-          <li><strong className="text-ink-primary">Meta</strong> provides the Meta Pixel for measuring our advertising.</li>
+          <li><strong className="text-ink-primary">Meta</strong> provides the Meta Pixel for measuring our advertising, and acts for its own purposes under its own terms. Meta also provides WhatsApp. If you message us on WhatsApp, Meta handles the messages and related information, such as your number, under WhatsApp&apos;s own terms and privacy policy and not on our behalf, and may process them outside South Africa. If you would rather not use WhatsApp, email us instead.</li>
         </ul>
         <p className="text-ink-secondary mb-4">
-          Where information goes outside South Africa, we rely on the safeguards allowed by section 72 of POPIA, such as a written agreement with the provider that requires protection equivalent to POPIA. We may also share information where the law requires it.
+          Where information goes outside South Africa, we rely on the safeguards that section 72 of POPIA allows, such as the provider's data-processing terms and transfer safeguards, which should give protection equivalent to POPIA. We may also share information where the law requires it.
         </p>
       </section>
 
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Guide requests</strong> are deleted after 12 months unless you confirmed you want our notes, have become a client, or have used the Exposure Check. If you confirmed the notes, we keep your details until you unsubscribe.</li>
           <li><strong className="text-ink-primary">Exposure Check results and reports</strong> are kept for 12 months after you submit your answers and are then deleted, unless you have become a client or you have asked us to keep them. When they are deleted, your report link stops working.</li>
-          <li><strong className="text-ink-primary">Enquiries and proposals</strong> are kept for 12 months after our last contact with you and are then deleted, unless you have become a client.</li>
+          <li><strong className="text-ink-primary">Enquiries and proposals</strong> are kept only while we need them to reply to you or prepare a proposal. We review them at least once a year and delete or de-identify those we no longer need, unless you have become a client.</li>
           <li><strong className="text-ink-primary">Client records</strong> are kept for as long as the law requires us to keep them, and then deleted.</li>
           <li><strong className="text-ink-primary">On request,</strong> we delete your personal information sooner, unless the law requires us to keep it.</li>
         </ul>
