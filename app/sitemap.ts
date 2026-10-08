@@ -28,17 +28,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/services/results-optimisation`, changeFrequency: 'monthly', priority: 0.7 },
   ];
 
-  const resourcePages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/resources/popia-ai-checklist`, changeFrequency: 'yearly', priority: 0.5 },
-  ];
-
   const legalPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/privacy-policy`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms-conditions`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/cookie-policy`, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
-  return [...corePages, ...servicePages, ...resourcePages, ...legalPages].map((entry) => ({
+  return [...corePages, ...servicePages, ...legalPages].map((entry) => ({
     ...entry,
     lastModified: now,
   }));
