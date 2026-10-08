@@ -30,3 +30,104 @@ fixes). Each change is decided by Jimmy, one at a time, after the drift review
 - Still saying an unmeasured time: `/services` final CTA "Twenty minutes will tell you."; hero/meta "10-minute"; check page "About 3 minutes".
 - Untouched and still off-message: legal pages (Terms lists R4,999/R9,999 packages and "Operations Diagnostic"; privacy policy redraft is a release gate), hidden `/insights` (R4,500 diagnostic CTA), `lib/assessment/reportTemplates.ts` (v2 templates naming the Operations Diagnostic).
 - Entry 18 (PROPOSED): site-wide JSON-LD still lists two street addresses, a phone number, the personal LinkedIn and X/Facebook/Instagram in `sameAs`.
+
+---
+
+## #10 — 8 Oct: entry 19, the "AI and POPIA" guide (PREVIEW ONLY)
+
+Built overnight from copy handover entry 19 §12 on branch **`preview/lead-magnet-guide`** (cut from this branch at
+`44b9a7d`). Not merged here, not on `main`, noindex. Preview (stable branch link):
+https://maru-website-git-preview-lead-magnet-guide-maru-online.vercel.app/guides/ai-and-popia
+
+### What was built (commit `8a3d006` + follow-up)
+
+| §12 item | Built | Where |
+|---|---|---|
+| 1 Landing page, form, thank-you, failure states | §2–§4 verbatim; noindex; honeypot + rate limits, no CAPTCHA | `app/guides/ai-and-popia/` |
+| 1 PDF route | `/downloads/ai-and-popia-guide.pdf`, inline, `X-Robots-Tag: noindex`, serves the **DRAFT** PDF | `app/downloads/…/route.ts`, `content/guides/` |
+| 2 Brevo | Lists "Guide Downloads" + "AI and POPIA Notes" and the 5 attributes, created by the code on first use; double opt-in only when ticked; retry 3× with backoff; outcome on the row | `lib/guides/brevo.ts` |
+| 3 Consent log | New table `guide_requests` in `maru_lead_engine` (additive SQL, applied by hand 8 Oct): exact wording, version, timestamps, IP hash, delivery/Brevo status | `lib/db/manual/2026-10-08_guide_requests.sql` |
+| 4 Delivery email | §5 verbatim, code-built (no Brevo template created or edited) | `lib/guides/emails.ts` |
+| 5 Assessment ↔ guide | "Want the basics…? Read the guide." on the check's results step and the v3 report, hidden once requested. Report email: params `SHOW_GUIDE_LINK` / `GUIDE_URL` passed to its template. Homepage strip built, **flag OFF** | `app/popia-ai-check`, `app/report/[token]`, `components/homepage/GuideStrip.tsx` |
+| 6 Data flow + privacy draft | Separate files, not published | `docs/positioning/guide/` |
+| 7 Consent test | Run on the preview: **FAILS** (below) | — |
+
+Verbatim check: every quoted string in §2–§5 and §11 found in the source by script (33/33), plus the H1 and two
+link lines confirmed in the rendered page.
+
+### Test results on the preview (8 Oct, ~05:30)
+
+- Validation: bad email → 400; empty submit shows both approved messages. Failure path shows the approved message.
+- Honeypot: fake success, nothing stored.
+- Preview guard: `stub-test@example.com` → consent row written (`environment=preview`, wording version, IP hash only),
+  Brevo and email **stubbed**, thank-you page and download work.
+- Double opt-in: opening the email link alone confirms nothing (mail scanners); pressing the button set
+  `marketing_confirmed_at`; a bad token is refused.
+- PDF served from the preview is byte-for-byte the DRAFT.
+- Homepage strip, FAQ ending and sitemap entry: all absent (flags off).
+- **Real send to hello@ (unticked): FAILED, correctly recorded.** Brevo's authorised-IP allowlist rejected Vercel's
+  server (`34.228.70.169`, AWS us-east-1) with 401 — the same block that refuses the Mac. No lists or attributes
+  could be created, no email went out, so the ticked live path (jimmym@) was not attempted. The on-page download
+  link is unaffected.
+- **Consent test (release gate 4): FAILS, site-wide, not caused by this build.** A fresh visitor who has not
+  touched the cookie banner already loads the Meta Pixel (`connect.facebook.net/…/fbevents.js`) and gets the
+  `_fbp` cookie. GA did not load. The consent fix exists on `positioning/popia-safe` and was never ported here.
+
+### ⚠️ Found: Brevo blocks every Vercel call, so the live assessment's Brevo steps likely fail too
+
+The assessment route uses the same key from the same Vercel IPs. Read-only checks through the Brevo connector
+(8 Oct) agree: **none** of the attributes the assessment sends exist in Brevo (`ASSESSMENT_LEVEL`, `REPORT_URL`,
+`MARKETING_CONSENT`, …), list 21 has 1 contact, and `operations_reports` has had no row since 5 Aug. Vercel
+functions have no fixed IP on Hobby, so allow-listing addresses will not hold. **Jimmy's fix:** Brevo → Security →
+Authorised IPs → turn off IP blocking for the API key (or deactivate the allowlist), then re-run the hello@ test.
+
+### Defaults and assumptions (§12: "pick the more conservative reading")
+
+1. §12 defaults as decided: no email frequency stated; `GUIDE_RETENTION_MONTHS = 12`; no tracking. **But** Brevo
+   transactional open/click tracking is an account setting, not a per-email switch: check it is off in Brevo.
+2. **Preview guard (not in the brief):** off production, Brevo writes and sends happen only for jimmym@ and hello@.
+   The brief forbids real email to real addresses; a shared preview link would otherwise break that.
+3. **Notes list name:** "AI and POPIA Notes" (entry 19 says "the notes list" without naming it).
+4. **Confirmation email and confirm page wording are DRAFT** (entry 19 has no copy for them). Marked in
+   `lib/guides/emails.ts` and `confirm/ConfirmNotes.tsx`. Needs Jimmy's approval or replacement.
+5. Confirm is a **button on a page**, not the email link itself: link scanners would otherwise subscribe people.
+6. **WhatsApp floating button hidden on `/guides/*`** ("No WhatsApp anywhere in this flow"). The footer WhatsApp
+   link stays: it is site chrome approved in entry 07.
+7. The **sitemap entry** follows `GUIDE_INDEXABLE` (§1 says list it, and also not index it before the gates).
+8. **Consent log in the production database:** preview rows are written there, tagged `environment = preview`.
+   Clean them before launch: `DELETE FROM guide_requests WHERE environment <> 'production';`
+9. Retention purge route `/api/cron/guide-retention` is **not scheduled**, needs `CRON_SECRET` (not set), dry
+   run by default. The "became a customer" exemption cannot be checked by code.
+10. The thank-you page sets `localStorage maru-guide-requested` to hide the check's guide line (§11). Disclose it
+    in the cookie policy as functional storage.
+
+### Did not match entry 19
+
+- **No footer "resources list" exists.** Adding one would change approved entry 07 and needs a label: not done.
+- **Report email line:** the level emails are Brevo templates (off limits), so the line is not in them. Proposed
+  for the template, after `REPORT_URL`, for Jimmy to approve before anyone edits Brevo:
+  `{% if params.SHOW_GUIDE_LINK %}Want the basics behind these questions? <a href="{{ params.GUIDE_URL }}">Read the guide.</a>{% endif %}`
+  (wording is §11's, verbatim; only the template syntax is new).
+- **Brevo templates 2, 3, 4 and 6 ("Diagnostic" wording):** not read or edited (IP block + §12). Proposed new
+  wording needs to start from their current text, which Claude cannot read; Jimmy to paste them into a session.
+- **Rate limiting:** the in-memory middleware limit is per instance, so the route also limits from its own table
+  (5 per IP per hour, 3 per email per hour).
+- `npm run lint` fails on this branch **before** this work: 17 warnings in untouched files, plus 12 errors from
+  another session's `.claude/worktrees/vigilant-cannon-d7db43/.next/` build output. Not changed here.
+
+### Go-live steps for Jimmy (in this order)
+
+1. **Brevo:** turn off the authorised-IP block for the API key; sign the DPA and read its sub-processors; confirm
+   DKIM and DMARC for maruonline.com; switch off transactional open/click tracking.
+2. Re-test on the preview: hello@ unticked, jimmym@ ticked → delivery email, confirmation email, confirm button,
+   contact on "AI and POPIA Notes" only, unsubscribe link in a test campaign (release gate 6).
+3. Approve the DRAFT confirmation email and confirm-page wording, the entry 09/15 rewording (§9), and the
+   report-email template line above.
+4. Fix the Meta Pixel consent gap (port the popia-safe consent fix), then re-run the consent test (gate 4).
+5. Tick `lead-magnet-verification-v1.md`; refresh the PDF date if needed (gate 1).
+6. Swap the PDF: copy `AI-and-POPIA-guide_clean.pdf` into `content/guides/` as `ai-and-popia-guide.pdf`, set
+   `GUIDE_PDF_FILE` to that name in `lib/guides/config.ts`, and delete the DRAFT file.
+7. Publish the redrafted privacy policy (gate 2; draft section in `docs/positioning/guide/GUIDE-PRIVACY-DRAFT.md`).
+8. Delete preview rows from `guide_requests` (item 8 above).
+9. Lift noindex: `GUIDE_INDEXABLE = true` (also adds the sitemap entry).
+10. Last: `GUIDE_HOMEPAGE_STRIP = true` and, if wanted, `GUIDE_SECONDARY_LINKS = true` (FAQ ending).
