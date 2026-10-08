@@ -153,7 +153,7 @@ export default function AssessmentFormSection() {
               variant="primary"
               className="w-full justify-center"
             >
-              Start Your Free Assessment
+              Free Exposure Check
             </Button>
 
             <p
