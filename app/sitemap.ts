@@ -27,8 +27,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/services/results-optimisation`, changeFrequency: 'monthly', priority: 0.7 },
   ];
 
+  // The fake POPIA checklist page is retired (404); only the guide is listed.
   const resourcePages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/resources/popia-ai-checklist`, changeFrequency: 'yearly', priority: 0.5 },
     // Entry 19 §1: listed only once the guide page is indexable (release gates).
     ...(GUIDE_INDEXABLE
       ? [{ url: `${baseUrl}${GUIDE_PATH}`, changeFrequency: 'monthly' as const, priority: 0.6 }]
