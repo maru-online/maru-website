@@ -19,6 +19,12 @@ const nextConfig: NextConfig = {
     ],
   },
   
+  // The guide PDF is read from disk at request time, so it must be traced into
+  // the function bundle explicitly (lib/guides/config.ts GUIDE_PDF_FILE).
+  outputFileTracingIncludes: {
+    '/downloads/ai-and-popia-guide.pdf': ['./content/guides/**'],
+  },
+
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],

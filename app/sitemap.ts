@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { GUIDE_INDEXABLE, GUIDE_PATH } from '@/lib/guides/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://maruonline.com';
@@ -29,6 +30,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const resourcePages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/resources/popia-ai-checklist`, changeFrequency: 'yearly', priority: 0.5 },
+    // Entry 19 §1: listed only once the guide page is indexable (release gates).
+    ...(GUIDE_INDEXABLE
+      ? [{ url: `${baseUrl}${GUIDE_PATH}`, changeFrequency: 'monthly' as const, priority: 0.6 }]
+      : []),
   ];
 
   const legalPages: MetadataRoute.Sitemap = [

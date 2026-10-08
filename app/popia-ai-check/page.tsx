@@ -19,6 +19,7 @@ import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questio
 import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
+import { GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guides/config";
 
 // ── Questions ──────────────────────────────────────────────────────────────
 // Approved copy (Addendum 02 item B) lives in lib/assessment/questions.ts so
@@ -63,6 +64,15 @@ function AssessmentWizard() {
   const [submitting, setSubmitting]   = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [progress, setProgress]       = useState(0);
+  // Entry 19 §11: hide the guide line on a device that already requested it.
+  const [hasGuide, setHasGuide]       = useState(false);
+  useEffect(() => {
+    try {
+      setHasGuide(localStorage.getItem(GUIDE_REQUESTED_STORAGE_KEY) === "1");
+    } catch {
+      /* storage blocked: keep showing the line */
+    }
+  }, []);
 
   useEffect(() => {
     if (step === "intro")          setProgress(0);
@@ -284,6 +294,16 @@ function AssessmentWizard() {
             >
               Get my free detailed report
             </Button>
+
+            {/* Copy handover entry 19 §11 (approved 8 Oct), verbatim. */}
+            {!hasGuide && (
+              <p className="body-muted text-sm leading-relaxed mt-6 mb-0 text-center">
+                Want the basics behind these questions?{" "}
+                <Link href={GUIDE_PATH} className="text-cyan-ink underline hover:no-underline">
+                  Read the guide.
+                </Link>
+              </p>
+            )}
           </div>
         )}
 

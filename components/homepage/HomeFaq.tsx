@@ -1,5 +1,7 @@
 import { FaqJsonLd } from '@/components/seo/JsonLd'
+import Link from 'next/link'
 import { FadeUp } from '@/components/ui/Animate'
+import { GUIDE_PATH, GUIDE_SECONDARY_LINKS } from '@/lib/guides/config'
 
 /**
  * Homepage FAQ, copy handover entry 14 (approved 6 Oct 2026), verbatim.
@@ -15,7 +17,7 @@ import { FadeUp } from '@/components/ui/Animate'
  * TODO (entry 14): link "Our privacy policy" in the second answer once the
  * redrafted, adviser-reviewed privacy policy exists.
  */
-export const HOME_FAQ: { q: string; a: string }[] = [
+export const HOME_FAQ: { q: string; a: string; guideLink?: boolean }[] = [
   {
     q: 'Is the assessment really free?',
     a: "Yes. No obligation. If there's no clear opportunity, we'll tell you.",
@@ -39,6 +41,9 @@ export const HOME_FAQ: { q: string; a: string }[] = [
   {
     q: 'Can you make us POPIA compliant?',
     a: "No supplier can promise that, because the responsibility stays with your business. We build with POPIA in mind, and for legal advice we'd point you to your own adviser.",
+    // Entry 19 §11 "other placements" (approved 8 Oct): may end with
+    // "Start with our free guide". Shown only when GUIDE_SECONDARY_LINKS is on.
+    guideLink: true,
   },
 ]
 
@@ -69,7 +74,17 @@ export default function HomeFaq() {
                   </svg>
                 </span>
               </summary>
-              <p className="body-muted faq-a">{item.a}</p>
+              <p className="body-muted faq-a">
+                {item.a}
+                {item.guideLink && GUIDE_SECONDARY_LINKS && (
+                  <>
+                    {' '}
+                    <Link href={GUIDE_PATH} className="text-cyan-ink underline hover:no-underline">
+                      Start with our free guide
+                    </Link>
+                  </>
+                )}
+              </p>
             </details>
           ))}
         </div>

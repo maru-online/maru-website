@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAreaFinding, getReportSummary, getReportVersion, type AreaStatus } from "@/lib/assessment/reportTemplates";
 import { LEVEL_RESULTS, REPORT_CLOSING_LINE, type AreaResult } from "@/lib/assessment/scoring";
+import { GUIDE_PATH } from "@/lib/guides/config";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -16,6 +17,7 @@ interface ReportData {
   areas: AreaResult[];
   template: unknown;      // v3 rows carry { version: "assessment_v3", … }
   overallScore: number;
+  guideRequested?: boolean;
   createdAt: string;
 }
 
@@ -301,6 +303,17 @@ export default async function ReportPage({
 
         <Divider />
         </>}
+
+        {/* ── GUIDE LINE — copy handover entry 19 §11 (approved 8 Oct), verbatim.
+            After the report, v3 only, hidden once this visitor has the guide. */}
+        {isV3 && !data.guideRequested && (
+          <p style={{ fontSize: 14, color: "#2D3748", lineHeight: 1.7, margin: "0 0 32px" }}>
+            Want the basics behind these questions?{" "}
+            <Link href={GUIDE_PATH} style={{ color: "#0069A0", fontWeight: 600 }}>
+              Read the guide.
+            </Link>
+          </p>
+        )}
 
         {/* ── NEXT STEP CTA ──────────────────────────────────────────────── */}
         <div style={{

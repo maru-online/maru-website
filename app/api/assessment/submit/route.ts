@@ -32,7 +32,8 @@ import { ASSESSMENT_AREAS } from "@/lib/assessment/questions";
 import { buildSynthesisPrompt, SynthesisOutput } from "@/lib/assessment/synthesisPrompt";
 import type { V3StoredTemplate } from "@/lib/assessment/reportTemplates";
 import { dbLeadEngine } from "@/lib/db";
-import { operationsReports } from "@/lib/db/schema/lead-engine";
+import { guideRequests, operationsReports } from "@/lib/db/schema/lead-engine";
+import { GUIDE_PATH } from "@/lib/guides/config";
 import { verifyRecaptcha } from "@/lib/recaptcha";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -473,6 +474,24 @@ async function sendProspectEmail(params: BrevoEmailParams) {
     3: templateId3,
   };
 
+  // Copy handover entry 19 §11: the report email gets "Want the basics behind
+  // these questions? Read the guide." unless this address already requested
+  // the guide. The level templates live in Brevo and may not be edited without
+  // Jimmy's approval (§12), so the line is not in them yet: these two params
+  // are what the template will use once he approves the wording proposed in
+  // docs/positioning/REBUILD-LOG.md #10.
+  let showGuideLink = true;
+  try {
+    const g = await dbLeadEngine
+      .select({ id: guideRequests.id })
+      .from(guideRequests)
+      .where(eq(guideRequests.email, email.trim().toLowerCase()))
+      .limit(1);
+    showGuideLink = g.length === 0;
+  } catch (err) {
+    console.error("Guide lookup for report email failed:", err);
+  }
+
   const brevoRes = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
@@ -488,6 +507,8 @@ async function sendProspectEmail(params: BrevoEmailParams) {
         LEVEL_LABEL: levelLabel,
         REPORT_URL: reportUrl,
         PAIN_TAG: painTag,
+        SHOW_GUIDE_LINK: showGuideLink,
+        GUIDE_URL: `https://maruonline.com${GUIDE_PATH}`,
       },
       tags: [ASSESSMENT_VERSION, `level-${level}`, painTag, segmentB ? "segment-b" : "segment-standard"],
     }),

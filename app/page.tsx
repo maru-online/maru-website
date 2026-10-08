@@ -4,6 +4,8 @@ import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
 import HomeFaq from "@/components/homepage/HomeFaq";
+import GuideStrip from "@/components/homepage/GuideStrip";
+import { GUIDE_HOMEPAGE_STRIP } from "@/lib/guides/config";
 import PrimaryServicesFilter from "@/components/homepage/PrimaryServicesFilter";
 import { CaseStudyProofStrip } from "@/components/homepage/CaseStudyProofStrip";
 import ImageSplit from "@/components/ui/ImageSplit";
@@ -389,6 +391,10 @@ export default function Home() {
           bg: navy (#1A3A5C)
           ════════════════════════════════════════════════════════════════════ */}
       <AssessmentFormSection />
+
+      {/* Entry 19 §11: guide strip below the final assessment section. OFF
+          until GUIDE_HOMEPAGE_STRIP is flipped at go-live. */}
+      {GUIDE_HOMEPAGE_STRIP && <GuideStrip />}
 
     </>
   );
