@@ -41,7 +41,7 @@ export async function generateMetadata({
   }
   return {
     title: `Exposure Check Report — Maru Online`,
-    description: `Your personalised operations assessment from Maru Online.`,
+    description: `Your personalised Exposure Check report from Maru Online.`,
     robots: { index: false, follow: false },
   };
 }

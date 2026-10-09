@@ -124,7 +124,7 @@ export default function AiInActionPage() {
               }}
             >
               <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
-                In the meantime, the operations assessment is the fastest way to
+                In the meantime, the Exposure Check is the fastest way to
                 see what we would actually change in your business.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">

@@ -174,7 +174,7 @@ export default function GrowthIqCaseStudy() {
                 <span style={{ fontWeight: 300 }}>Got a similar problem?</span>
               </h2>
               <p className="body-muted" style={{ marginBottom: "1.5rem", maxWidth: "560px" }}>
-                Start with the free operations assessment. It takes a few minutes
+                Start with the free Exposure Check. It takes a few minutes
                 and tells you where your workflows are leaking time.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
