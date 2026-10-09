@@ -567,7 +567,7 @@ async function sendJimmyBriefEmail(params: BrevoEmailParams) {
     body: JSON.stringify({
       sender: { name: "Maru Online", email: "hello@maruonline.com" },
       to: [{ email: "hello@maruonline.com", name: "Maru Online" }],
-      subject: `New POPIA check: ${name} — ${levelLabel}${segmentB ? " ⚠️ Segment B" : ""}`,
+      subject: `New Exposure Check: ${name} — ${levelLabel}${segmentB ? " ⚠️ Segment B" : ""}`,
       htmlContent: briefHtml,
       replyTo: { email, name },
       tags: [ASSESSMENT_VERSION],

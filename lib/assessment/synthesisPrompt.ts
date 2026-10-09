@@ -49,7 +49,7 @@ ${siteMarkdown.slice(0, 3000)}
 
   return `You are producing structured output for Maru Online, a POPIA-conscious AI implementation consultancy for South African businesses. Maru maps where client personal information goes through a business's AI tools, apps, spreadsheets and WhatsApp, fixes the risks, and builds workflows that save time. Your output feeds two destinations: observations stored with the report the prospect receives, and an internal brief the founder reads before a discovery call.
 
-The prospect just completed a 10-question POPIA AI check. Each answer is shown with its score: 4 is best practice, 0 is no practice at all.
+The prospect just completed a 10-question Exposure Check. Each answer is shown with its score: 4 is best practice, 0 is no practice at all.
 
 PROSPECT RESULT:
 Level: ${level}, ${LEVEL_RESULTS[level].label}
