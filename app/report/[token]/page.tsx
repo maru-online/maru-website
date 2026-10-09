@@ -298,9 +298,9 @@ export default async function ReportPage({
           <p className={styles.ctaText}>
             If there&apos;s no clear opportunity, we&apos;ll tell you.
           </p>
-          <a href="/contact#contact-form" className={styles.button}>
+          <Link href="/contact#contact-form" className={styles.button}>
             Request a proposal
-          </a>
+          </Link>
         </section>
 
         {/* Secondary CTA */}
