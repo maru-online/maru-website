@@ -104,6 +104,15 @@ export const LEVEL_RESULTS: Record<ReadinessLevel, { label: string; summary: str
   },
 };
 
+/**
+ * "How this is scored" note, shown under the result on the result screen and
+ * in the report. Wording approved by Jimmy 9 Oct 2026 (option A), verbatim.
+ * The "at least one area above a significant gap" rule holds because Level 1
+ * (Exposed) covers an average up to 2.0.
+ */
+export const SCORING_NOTE =
+  "How this is scored: each answer is rated from strong to weak. We average your two answers in each area, then average the five areas to place you at one of three levels. The level can't be better than your areas: to be 'Partly protected', at least one area has to be above a significant gap. It's a structured indicator based on your own answers, not an audit.";
+
 /** Addendum 02: "Every report ends:" The rebuild has no paid audit (copy handover entry 13), so the audit sentence is dropped. 6 Oct 2026. */
 export const REPORT_CLOSING_LINE =
   "This check is a starting point, not legal advice.";
