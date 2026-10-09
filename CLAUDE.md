@@ -1,5 +1,9 @@
 # CLAUDE.md — Frontend Website Rules
 
+## Session Start
+- **Read `MODES.md` in the project root at the start of every session.** Its standing rules are always on. Its modes (Reconcile, Verbatim, Checkpoint) switch on when Jimmy says the trigger word.
+- If `MODES.md` is missing, say so before starting work. Do not recreate it from memory.
+
 ## Always Do First
 - **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
 
