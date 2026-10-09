@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { GUIDE_LIVE } from "@/lib/guides/config";
 import ConfirmNotes from "./ConfirmNotes";
 
 /**
@@ -14,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ConfirmPage({ searchParams }: { searchParams: Promise<{ token?: string }> }) {
+  if (!GUIDE_LIVE) notFound();
   const { token } = await searchParams;
   return (
     <section className="px-6 md:px-[60px] pt-48 pb-32" style={{ background: "var(--gradient-surface)" }}>

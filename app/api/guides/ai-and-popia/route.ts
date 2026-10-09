@@ -23,6 +23,7 @@ import { guideRequests } from "@/lib/db/schema/lead-engine";
 import {
   GUIDE_CONSENT_SOURCE,
   GUIDE_CONSENT_TEXT_VERSION,
+  GUIDE_LIVE,
   GUIDE_PDF_ROUTE,
   MARKETING_CONSENT_TEXT,
   PRIVACY_LINE_AFTER,
@@ -46,6 +47,7 @@ const MAX_PER_IP_PER_HOUR = 5;
 const MAX_PER_EMAIL_PER_HOUR = 3;
 
 export async function POST(req: NextRequest) {
+  if (!GUIDE_LIVE) return NextResponse.json({ error: "Not found" }, { status: 404 });
   let body: z.infer<typeof schema>;
   try {
     const parsed = schema.safeParse(await req.json());

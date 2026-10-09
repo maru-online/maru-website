@@ -10,6 +10,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
+import { GUIDE_LIVE } from "@/lib/guides/config";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { dbLeadEngine } from "@/lib/db";
@@ -19,6 +20,7 @@ import { getGuideBrevo, withRetry } from "@/lib/guides/brevo";
 const schema = z.object({ token: z.string().uuid() });
 
 export async function POST(req: NextRequest) {
+  if (!GUIDE_LIVE) return NextResponse.json({ error: "Not found" }, { status: 404 });
   const parsed = schema.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ status: "invalid" }, { status: 400 });
 
