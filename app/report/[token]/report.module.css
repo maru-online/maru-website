@@ -627,6 +627,12 @@
   outline-offset: 2px;
   border-radius: 4px;
 }
+.scoringNote {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-ink-secondary);
+}
 .closing {
   margin: 0 0 16px;
   text-align: center;

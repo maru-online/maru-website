@@ -14,7 +14,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import { calculateScore, type AssessmentAnswers, type ScoreResult } from "@/lib/assessment/scoring";
+import { calculateScore, SCORING_NOTE, type AssessmentAnswers, type ScoreResult } from "@/lib/assessment/scoring";
 import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questions";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
@@ -277,6 +277,8 @@ function AssessmentWizard() {
                 );
               })}
             </div>
+
+            <p className="body-muted text-sm leading-relaxed mb-8">{SCORING_NOTE}</p>
 
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-8">
               <p className="text-ink-primary font-semibold mb-2">

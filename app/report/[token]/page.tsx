@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getAreaFinding, getReportSummary, getReportVersion, type AreaStatus } from "@/lib/assessment/reportTemplates";
-import { LEVEL_RESULTS, REPORT_CLOSING_LINE, type AreaResult } from "@/lib/assessment/scoring";
+import { LEVEL_RESULTS, REPORT_CLOSING_LINE, SCORING_NOTE, type AreaResult } from "@/lib/assessment/scoring";
 import { GUIDE_PATH } from "@/lib/guides/config";
 import styles from "./report.module.css";
 
@@ -220,6 +220,7 @@ export default async function ReportPage({
                   "Your business has operational maturity. The opportunity now is in the precision gaps: reporting that still requires manual effort, approval flows tied to specific people, or data that lives in one system but needs to reach another."}
               </p>
             </div>
+            {isV3 && <p className={styles.scoringNote}>{SCORING_NOTE}</p>}
           </section>
         )}
 
