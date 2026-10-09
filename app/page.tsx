@@ -8,7 +8,6 @@ import GuideStrip from "@/components/homepage/GuideStrip";
 import { GUIDE_HOMEPAGE_STRIP } from "@/lib/guides/config";
 import PrimaryServicesFilter from "@/components/homepage/PrimaryServicesFilter";
 import { CaseStudyProofStrip } from "@/components/homepage/CaseStudyProofStrip";
-import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
@@ -27,38 +26,7 @@ export const metadata: Metadata = {
 // ─── Layout constants ─────────────────────────────────────────────────────────
 const outerPad = "px-6 md:px-[60px]";
 const inner     = "max-w-[900px] mx-auto";
-const innerNarrow = "max-w-[720px] mx-auto";
 const innerWide = "max-w-[1100px] mx-auto";
-
-
-// ─── Inline SVGs for trust bar ────────────────────────────────────────────────
-
-function IconSearch() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconShield() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M10 2L3 5v5c0 4.418 3.134 7.5 7 8 3.866-.5 7-3.582 7-8V5L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconStar() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 // ── Local presentational helpers (page-scoped, not exported) ────────────────
 
-function Swatch({ name, value, varName, ink = 'light' }: { name: string; value: string; varName: string; ink?: 'light' | 'dark' }) {
+function Swatch({ name, value, varName }: { name: string; value: string; varName: string; ink?: 'light' | 'dark' }) {
   return (
     <div className="border border-[var(--color-border-default)] rounded-[8px] overflow-hidden">
       <div className="h-16" style={{ background: value }} />
