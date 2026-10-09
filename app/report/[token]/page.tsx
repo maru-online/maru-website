@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { getAreaFinding, getReportSummary, getReportVersion, type AreaStatus } from "@/lib/assessment/reportTemplates";
 import { LEVEL_RESULTS, REPORT_CLOSING_LINE, type AreaResult } from "@/lib/assessment/scoring";
 import { GUIDE_PATH } from "@/lib/guides/config";
+import styles from "./report.module.css";
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -62,61 +63,25 @@ async function fetchReport(token: string): Promise<ReportData | null> {
 }
 
 // ── Status display config ──────────────────────────────────────────────────
+// Colours live in report.module.css (data-status). Here: wording and meter fill.
 
-const statusConfig: Record<AreaStatus, {
-  label: string;
-  dot: string;
-  pill: string;
-  pillBorder: string;
-  pillText: string;
-  bar: string;
-  barBg: string;
-}> = {
-  critical: {
-    label:      "Critical gap",
-    dot:        "#E53E3E",
-    pill:       "#FFF5F5",
-    pillBorder: "#FC8181",
-    pillText:   "#C53030",
-    bar:        "#E53E3E",
-    barBg:      "#FED7D7",
-  },
-  significant: {
-    label:      "Significant gap",
-    dot:        "#C05621",
-    pill:       "#FFFAF0",
-    pillBorder: "#F6AD55",
-    pillText:   "#C05621",
-    bar:        "#DD6B20",
-    barBg:      "#FEEBC8",
-  },
-  partial: {
-    label:      "Partial",
-    dot:        "#2F855A",
-    pill:       "#F0FFF4",
-    pillBorder: "#68D391",
-    pillText:   "#276749",
-    bar:        "#38A169",
-    barBg:      "#C6F6D5",
-  },
-  strong: {
-    label:      "Strong",
-    dot:        "#2B6CB0",
-    pill:       "#EBF8FF",
-    pillBorder: "#63B3ED",
-    pillText:   "#2C5282",
-    bar:        "#3182CE",
-    barBg:      "#BEE3F8",
-  },
+const statusLabel: Record<AreaStatus, string> = {
+  critical:    "Critical gap",
+  significant: "Significant gap",
+  partial:     "Partial",
+  strong:      "Strong",
 };
 
-const scoreBarWidth: Record<AreaStatus, string> = {
-  critical:    "25%",
-  significant: "50%",
-  partial:     "75%",
-  strong:      "100%",
+// Segments filled out of 4 (same scale as before: 25 / 50 / 75 / 100%).
+const meterFill: Record<AreaStatus, number> = {
+  critical:    1,
+  significant: 2,
+  partial:     3,
+  strong:      4,
 };
 
+// How many bullets show before "Show N more".
+const ISSUES_SHOWN = 3;
 
 // ── Page ───────────────────────────────────────────────────────────────────
 
@@ -148,234 +113,218 @@ export default async function ReportPage({
   const significantCount = areas.filter(a => a.status === "significant").length;
   const gapCount         = criticalCount + significantCount;
 
+  // Priority order: lowest score first; ties keep the order of the assessment.
+  // Only areas that have a finding card are ranked, so every "Start here" link
+  // has somewhere to jump to.
+  const ranked = findings
+    .map(({ area, finding }, index) => ({ area, finding, index }))
+    .sort((x, y) => x.area.score - y.area.score || x.index - y.index);
+  const gaps = ranked.filter(({ area }) => area.status === "critical" || area.status === "significant");
+  const hasGaps = gaps.length > 0;
+  const priorities = (hasGaps ? gaps : ranked).slice(0, hasGaps ? 3 : 2);
+  const tied = priorities.length > 1 && priorities.every(({ area }) => area.status === priorities[0].area.status);
+
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#F7F8FA", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div className={styles.page}>
 
-      {/* ── Header ──────────────────────────────────────────────────────── */}
-      <header style={{ backgroundColor: "var(--color-ink-primary)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-        <div style={{ maxWidth: 760, margin: "0 auto", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Link href="/" style={{ color: "white", fontWeight: 600, fontSize: 18, textDecoration: "none", letterSpacing: "-0.02em" }}>
-            <span style={{ color: "var(--color-cyan)" }}>M</span>
-            <span>aru Online</span>
-          </Link>
-          <span style={{ fontSize: 11, fontFamily: "monospace", color: "rgba(255,255,255,0.35)", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            Exposure Check
-          </span>
-        </div>
-      </header>
-
-      {/* ── Report banner ───────────────────────────────────────────────── */}
-      <div style={{ backgroundColor: "var(--color-ink-primary)", borderBottom: "1px solid rgba(255,255,255,0.07)", paddingBottom: 32 }}>
-        <div style={{ maxWidth: 760, margin: "0 auto", padding: "32px 24px 0" }}>
-          <p style={{ fontSize: 11, fontFamily: "monospace", color: "var(--color-cyan)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 12 }}>
-            Your report
-          </p>
-          <h1 style={{ fontSize: 26, fontWeight: 600, color: "white", margin: "0 0 12px", lineHeight: 1.3 }}>
+      {/* ── Hero ────────────────────────────────────────────────────────── */}
+      <header className={styles.hero}>
+        <div className={styles.wrap}>
+          <p className={styles.eyebrow}>Exposure Check · Your report</p>
+          <h1 className={styles.h1}>
             {firstName}, here&apos;s what your assessment reveals.
           </h1>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-            <span style={{
-              fontSize: 11, fontFamily: "monospace", padding: "4px 12px",
-              borderRadius: 20, border: "1px solid rgba(61,184,198,0.4)",
-              background: "rgba(61,184,198,0.1)", color: "var(--color-cyan)",
-              letterSpacing: "0.1em", textTransform: "uppercase",
-            }}>
-              {levelLabel}
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.35)", fontSize: 13 }}>
+          <div className={styles.heroMeta}>
+            <span className={styles.levelPill}>{levelLabel}</span>
+            <span className={styles.heroNote}>
               {gapCount} area{gapCount !== 1 ? "s" : ""} flagged · Prepared by Maru Online
             </span>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* ── Body ────────────────────────────────────────────────────────── */}
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "40px 24px 80px" }}>
+      <main className={`${styles.wrap} ${styles.main}`}>
+
+        {/* ── START HERE ─────────────────────────────────────────────────── */}
+        {priorities.length > 0 && (
+          <section className={styles.section} aria-labelledby="start-here">
+            <div className={styles.start}>
+              <h2 id="start-here" className={styles.startTitle}>
+                {hasGaps ? "Start here" : "Where to build next"}
+              </h2>
+              <p className={styles.startSub}>
+                {hasGaps
+                  ? "Your weakest areas first. Tap one to jump to it."
+                  : "Your lowest-scoring areas. Tap one to jump to it."}
+              </p>
+              <ol className={styles.startList}>
+                {priorities.map(({ area, finding }) => {
+                  const firstSentence = finding.observation.split(/(?<=\.)\s/)[0];
+                  return (
+                    <li key={area.areaKey} className={styles.startItem}>
+                      <a href={`#area-${area.areaKey}`} className={styles.startLink}>
+                        <span>
+                          <span className={styles.startName}>
+                            {area.area}
+                            <span className={styles.chip} data-status={area.status}>
+                              {statusLabel[area.status]}
+                            </span>
+                          </span>
+                          <span className={styles.startLine}>{firstSentence}</span>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ol>
+              {tied && (
+                <p className={styles.startNote}>
+                  These areas scored the same, so they appear in the order of the assessment.
+                </p>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* ── OVERVIEW SCORECARD ─────────────────────────────────────────── */}
-        {areas.length > 0 && <div style={{ marginBottom: 40 }}>
-          <SectionLabel>Overview</SectionLabel>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
-            {areas.map((area) => {
-              const cfg = statusConfig[area.status];
-              return (
-                <div key={area.areaKey} style={{
-                  background: "white", border: `1px solid #E2E8F0`, borderRadius: 8,
-                  padding: "12px 10px", textAlign: "center",
-                }}>
-                  <div style={{
-                    width: 10, height: 10, borderRadius: "50%",
-                    background: cfg.dot, margin: "0 auto 8px",
-                  }} />
-                  <div style={{ fontSize: 11, color: "#4A5568", lineHeight: 1.3, fontWeight: 500 }}>
-                    {area.area}
-                  </div>
-                  <div style={{
-                    marginTop: 8, fontSize: 10, fontFamily: "monospace",
-                    color: cfg.pillText, fontWeight: 600, textTransform: "uppercase",
-                  }}>
-                    {cfg.label}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {areas.length > 0 && (
+          <section className={styles.section} aria-labelledby="overview">
+            <h2 id="overview" className={styles.label}>Overview</h2>
+            <div className={`${styles.card}`} style={{ marginBottom: 16 }}>
+              <ul className={styles.overviewList} style={{ marginBottom: 0 }}>
+                {areas.map((area) => (
+                  <li key={area.areaKey} className={styles.item} data-status={area.status}>
+                    <span className={styles.itemName}>{area.area}</span>
+                    <span className={styles.meter} role="img" aria-label={`${statusLabel[area.status]}: ${meterFill[area.status]} of 4`}>
+                      {[1, 2, 3, 4].map((n) => (
+                        <i key={n} data-on={n <= meterFill[area.status]} />
+                      ))}
+                    </span>
+                    <span className={styles.chip} data-status={area.status}>
+                      {statusLabel[area.status]}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div style={{ background: "white", border: "1px solid #E2E8F0", borderRadius: 8, padding: 20 }}>
-            <p style={{ fontSize: 14, color: "#2D3748", lineHeight: 1.7, margin: 0 }}>
-              {isV3 && LEVEL_RESULTS[level]?.summary}
-              {!isV3 && data.levelLabel === "Early Stage" &&
-                "Your assessment points to a business running largely on effort and institutional knowledge. Most processes are informal — they work because the right people know what to do, not because systems make it automatic. The opportunity across your five areas is significant."}
-              {!isV3 && data.levelLabel === "Building" &&
-                "Your business has real processes in place — but they still depend on manual steps and disconnected systems at key points. Targeted integration at those handoff points is where the return is fastest."}
-              {!isV3 && data.levelLabel === "Primed" &&
-                "Your business has operational maturity. The opportunity now is in the precision gaps: reporting that still requires manual effort, approval flows tied to specific people, or data that lives in one system but needs to reach another."}
-            </p>
-          </div>
-        </div>}
-
-        {findings.length > 0 && <><Divider />
+            <div className={`${styles.card} ${styles.cardPad}`}>
+              <p className={styles.prose}>
+                {isV3 && LEVEL_RESULTS[level]?.summary}
+                {!isV3 && data.levelLabel === "Early Stage" &&
+                  "Your assessment points to a business running largely on effort and institutional knowledge. Most processes are informal — they work because the right people know what to do, not because systems make it automatic. The opportunity across your five areas is significant."}
+                {!isV3 && data.levelLabel === "Building" &&
+                  "Your business has real processes in place — but they still depend on manual steps and disconnected systems at key points. Targeted integration at those handoff points is where the return is fastest."}
+                {!isV3 && data.levelLabel === "Primed" &&
+                  "Your business has operational maturity. The opportunity now is in the precision gaps: reporting that still requires manual effort, approval flows tied to specific people, or data that lives in one system but needs to reach another."}
+              </p>
+            </div>
+          </section>
+        )}
 
         {/* ── AREA FINDINGS ─────────────────────────────────────────────── */}
-        <div style={{ marginBottom: 40 }}>
-          <SectionLabel>Area findings</SectionLabel>
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {findings.map(({ area, finding }, i) => {
-              const cfg = statusConfig[area.status];
-              return (
+        {findings.length > 0 && (
+          <section className={styles.section} aria-labelledby="findings">
+            <h2 id="findings" className={styles.label}>Area findings</h2>
+            <div className={styles.areas}>
+              {findings.map(({ area, finding }, i) => (
                 <AreaCard
                   key={area.areaKey}
+                  id={`area-${area.areaKey}`}
                   number={i + 1}
                   area={area.area}
                   status={area.status}
-                  cfg={cfg}
                   finding={finding}
-                  barWidth={scoreBarWidth[area.status]}
                 />
-              );
-            })}
-          </div>
-        </div></>}
-
-        <Divider />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ── SEGMENT B NOTE ─────────────────────────────────────────────── */}
         {segmentB && summary?.segmentBNote && (
-          <>
-            <div style={{ marginBottom: 40 }}>
-              <SectionLabel>A note on prior attempts</SectionLabel>
-              <div style={{
-                background: "#FFFAF0", border: "1px solid #F6AD55",
-                borderRadius: 8, padding: "20px 24px",
-              }}>
-                <p style={{ fontSize: 14, color: "#7B341E", lineHeight: 1.7, margin: 0 }}>
-                  {summary.segmentBNote}
-                </p>
-              </div>
+          <section className={styles.section} aria-labelledby="prior">
+            <h2 id="prior" className={styles.label}>A note on prior attempts</h2>
+            <div className={`${styles.card} ${styles.cardPad}`}>
+              <p className={styles.prose}>{summary.segmentBNote}</p>
             </div>
-            <Divider />
-          </>
+          </section>
         )}
 
-        {summary && <>
-        {/* ── RECOMMENDED APPROACH ──────────────────────────────────────── */}
-        <div style={{ marginBottom: 40 }}>
-          <SectionLabel>{summary.approachHeading}</SectionLabel>
-          <div style={{ background: "white", border: "1px solid #E2E8F0", borderRadius: 8, padding: 24 }}>
-            <p style={{ fontSize: 14, color: "#2D3748", lineHeight: 1.75, margin: 0 }}>
-              {summary.approach}
-            </p>
-          </div>
-        </div>
+        {summary && (
+          <>
+            {/* ── RECOMMENDED APPROACH ────────────────────────────────────── */}
+            <section className={styles.section} aria-labelledby="approach">
+              <h2 id="approach" className={styles.label}>{summary.approachHeading}</h2>
+              <div className={`${styles.card} ${styles.cardPad}`}>
+                <p className={styles.prose}>{summary.approach}</p>
+              </div>
+            </section>
 
-        <Divider />
-
-        {/* ── WHAT A SUCCESSFUL ENGAGEMENT LOOKS LIKE ───────────────────── */}
-        <div style={{ marginBottom: 40 }}>
-          <SectionLabel>{summary.outcomeHeading}</SectionLabel>
-          <div style={{ background: "white", border: "1px solid #E2E8F0", borderRadius: 8, padding: 24 }}>
-            <p style={{ fontSize: 14, color: "#2D3748", lineHeight: 1.75, margin: 0 }}>
-              {summary.outcome}
-            </p>
-          </div>
-        </div>
-
-        <Divider />
-        </>}
+            {/* ── WHAT A SUCCESSFUL ENGAGEMENT LOOKS LIKE ─────────────────── */}
+            <section className={styles.section} aria-labelledby="outcome">
+              <h2 id="outcome" className={styles.label}>{summary.outcomeHeading}</h2>
+              <div className={`${styles.card} ${styles.cardPad}`}>
+                <p className={styles.prose}>{summary.outcome}</p>
+              </div>
+            </section>
+          </>
+        )}
 
         {/* ── GUIDE LINE — copy handover entry 19 §11 (approved 8 Oct), verbatim.
             After the report, v3 only, hidden once this visitor has the guide. */}
         {isV3 && !data.guideRequested && (
-          <p style={{ fontSize: 14, color: "#2D3748", lineHeight: 1.7, margin: "0 0 32px" }}>
+          <p className={styles.guideLine}>
             Want the basics behind these questions?{" "}
-            <Link href={GUIDE_PATH} style={{ color: "#0069A0", fontWeight: 600 }}>
+            <Link href={GUIDE_PATH} className={styles.guideLink}>
               Read the guide.
             </Link>
           </p>
         )}
 
         {/* ── NEXT STEP CTA ──────────────────────────────────────────────── */}
-        <div style={{
-          backgroundColor: "var(--color-ink-primary)", borderRadius: 12, padding: "40px 36px", marginBottom: 32,
-        }}>
-          <p style={{ fontSize: 11, fontFamily: "monospace", color: "var(--color-cyan)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 16 }}>
-            Next step
-          </p>
-          <h2 style={{ fontSize: 22, fontWeight: 600, color: "white", margin: "0 0 16px", lineHeight: 1.3 }}>
+        <section className={styles.cta} aria-labelledby="next-step">
+          <p className={styles.eyebrow}>Next step</p>
+          <h2 id="next-step" className={styles.ctaTitle}>
             Request a proposal.
           </h2>
-          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 12px" }}>
+          <p className={styles.ctaText}>
             {isV3
               ? "We review your answers first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper: which tools see client information, where it's stored, and who can reach it."
               : "We review your assessment first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated."}
           </p>
-          <p style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, margin: "0 0 28px" }}>
+          <p className={styles.ctaText}>
             If there&apos;s no clear opportunity, we&apos;ll tell you.
           </p>
-          <a
-            href="/contact#contact-form"
-            style={{
-              display: "inline-block", backgroundColor: "var(--color-cyan)",
-              color: "var(--color-ink-primary)", fontWeight: 700, padding: "14px 28px",
-              borderRadius: 8, textDecoration: "none", fontSize: 15,
-            }}
-          >
+          <a href="/contact#contact-form" className={styles.button}>
             Request a proposal
           </a>
-        </div>
+        </section>
 
         {/* Secondary CTA */}
-        <div style={{
-          background: "#EBF8FF", border: "1px solid #63B3ED",
-          borderRadius: 8, padding: "20px 24px", marginBottom: 48,
-        }}>
-          <p style={{ fontWeight: 600, color: "var(--color-ink-primary)", fontSize: 14, margin: "0 0 8px" }}>
-            Not ready to request a proposal yet?
-          </p>
-          <p style={{ color: "#2D4A60", fontSize: 14, lineHeight: 1.6, margin: "0 0 12px" }}>
+        <aside className={styles.second}>
+          <p className={styles.secondTitle}>Not ready to request a proposal yet?</p>
+          <p className={styles.secondText}>
             Reply to your report email and tell us what is happening in the business. We will take it from there.
           </p>
-          <a href="mailto:hello@maruonline.com" style={{ color: "#2B6CB0", fontSize: 13, fontWeight: 600 }}>
+          <a href="mailto:hello@maruonline.com" className={styles.textLink}>
             Email hello@maruonline.com →
           </a>
-        </div>
+        </aside>
 
         {/* Addendum 02: every v3 report ends with this line. */}
-        {isV3 && (
-          <p style={{ color: "#4A5568", fontSize: 13, textAlign: "center", lineHeight: 1.6, margin: "0 0 16px" }}>
-            {REPORT_CLOSING_LINE}
-          </p>
-        )}
+        {isV3 && <p className={styles.closing}>{REPORT_CLOSING_LINE}</p>}
 
         {/* Footer */}
-        <p style={{ color: "#A0AEC0", fontSize: 12, textAlign: "center", lineHeight: 1.6 }}>
+        <p className={styles.foot}>
           This report was prepared by Maru Online.{" "}
-          <a href="mailto:hello@maruonline.com" style={{ color: "#A0AEC0" }}>hello@maruonline.com</a>
+          <a href="mailto:hello@maruonline.com">hello@maruonline.com</a>
           {" "}·{" "}
-          <Link href="/" style={{ color: "#A0AEC0" }}>maruonline.com</Link>
+          <Link href="/">maruonline.com</Link>
         </p>
 
-      </div>
+      </main>
     </div>
   );
 }
@@ -383,127 +332,65 @@ export default async function ReportPage({
 // ── Area Card ─────────────────────────────────────────────────────────────
 
 function AreaCard({
+  id,
   number,
   area,
   status,
-  cfg,
   finding,
-  barWidth,
 }: {
+  id: string;
   number: number;
   area: string;
   status: AreaStatus;
-  cfg: typeof statusConfig[AreaStatus];
   finding: { observation: string; issues: string[] };
-  barWidth: string;
 }) {
+  const shown = finding.issues.slice(0, ISSUES_SHOWN);
+  const rest = finding.issues.slice(ISSUES_SHOWN);
+  const listLabel = status !== "strong" ? "Potential issues identified" : "To maintain and build on";
+
   return (
-    <div style={{
-      background: "white", border: "1px solid #E2E8F0",
-      borderRadius: 10, overflow: "hidden",
-    }}>
-      {/* Card header */}
-      <div style={{
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "16px 20px", borderBottom: "1px solid #EDF2F7",
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{
-            width: 24, height: 24, borderRadius: "50%",
-            background: "#F7F8FA", border: "1px solid #E2E8F0",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 11, fontFamily: "monospace", color: "#718096", fontWeight: 700,
-            flexShrink: 0,
-          }}>
-            {number}
-          </span>
-          <span style={{ fontWeight: 600, fontSize: 15, color: "#1A202C" }}>
-            {area}
-          </span>
-        </div>
-        <span style={{
-          fontSize: 11, fontFamily: "monospace", padding: "4px 10px",
-          borderRadius: 20, border: `1px solid ${cfg.pillBorder}`,
-          background: cfg.pill, color: cfg.pillText,
-          letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 600,
-          whiteSpace: "nowrap",
-        }}>
-          {cfg.label}
+    <article id={id} className={`${styles.card} ${styles.area}`} data-status={status}>
+      <div className={styles.areaHead}>
+        <span className={styles.areaNum} aria-hidden="true">{number}</span>
+        <h3 className={styles.areaName}>{area}</h3>
+        <span className={styles.chip} data-status={status}>{statusLabel[status]}</span>
+      </div>
+
+      <div className={styles.areaMeter}>
+        <span
+          className={styles.meter}
+          role="img"
+          aria-label={`${statusLabel[status]}: ${meterFill[status]} of 4`}
+        >
+          {[1, 2, 3, 4].map((n) => (
+            <i key={n} data-on={n <= meterFill[status]} />
+          ))}
         </span>
       </div>
 
-      {/* Score bar */}
-      <div style={{ height: 4, background: cfg.barBg }}>
-        <div style={{ height: "100%", width: barWidth, background: cfg.bar, transition: "width 0.5s ease" }} />
-      </div>
+      <div className={styles.areaBody}>
+        <p className={styles.observation}>{finding.observation}</p>
 
-      {/* Card body */}
-      <div style={{ padding: "20px 20px 24px" }}>
+        <p className={styles.issuesLabel}>{listLabel}</p>
+        <ul className={styles.issues}>
+          {shown.map((issue, i) => (
+            <li key={i}>{issue}</li>
+          ))}
+        </ul>
 
-        {/* Observation */}
-        <p style={{ fontSize: 14, color: "#2D3748", lineHeight: 1.7, margin: "0 0 16px", fontStyle: "italic" }}>
-          {finding.observation}
-        </p>
-
-        {/* Issues list */}
-        {status !== "strong" ? (
-          <>
-            <p style={{ fontSize: 11, fontFamily: "monospace", color: "#718096", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 10px", fontWeight: 600 }}>
-              Potential issues identified
-            </p>
-            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-              {finding.issues.map((issue, i) => (
-                <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                  <span style={{
-                    width: 6, height: 6, borderRadius: "50%", background: cfg.dot,
-                    flexShrink: 0, marginTop: 7,
-                  }} />
-                  <span style={{ fontSize: 13, color: "#4A5568", lineHeight: 1.6 }}>
-                    {issue}
-                  </span>
-                </li>
+        {rest.length > 0 && (
+          <details className={styles.more}>
+            <summary>
+              Show {rest.length} more
+            </summary>
+            <ul className={styles.issues}>
+              {rest.map((issue, i) => (
+                <li key={i}>{issue}</li>
               ))}
             </ul>
-          </>
-        ) : (
-          <>
-            <p style={{ fontSize: 11, fontFamily: "monospace", color: "#718096", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 10px", fontWeight: 600 }}>
-              To maintain and build on
-            </p>
-            <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-              {finding.issues.map((issue, i) => (
-                <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                  <span style={{
-                    width: 6, height: 6, borderRadius: "50%", background: cfg.dot,
-                    flexShrink: 0, marginTop: 7,
-                  }} />
-                  <span style={{ fontSize: 13, color: "#4A5568", lineHeight: 1.6 }}>
-                    {issue}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </>
+          </details>
         )}
       </div>
-    </div>
+    </article>
   );
-}
-
-// ── Helpers ────────────────────────────────────────────────────────────────
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p style={{
-      fontSize: 11, fontFamily: "monospace", color: "var(--color-cyan)",
-      letterSpacing: "0.12em", textTransform: "uppercase",
-      marginBottom: 16, fontWeight: 600,
-    }}>
-      {children}
-    </p>
-  );
-}
-
-function Divider() {
-  return <hr style={{ border: "none", borderTop: "1px solid #E2E8F0", marginBottom: 40 }} />;
 }
