@@ -11,7 +11,6 @@ import { CaseStudyProofStrip } from "@/components/homepage/CaseStudyProofStrip";
 import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
-import MaruM from "@/components/ui/MaruM";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import StatBand from "@/components/ui/StatBand";
 import Glyph from "@/components/ui/Glyph";
@@ -85,23 +84,6 @@ export default function Home() {
           fill="rgba(61, 184, 198, 0.101)"
           className="pointer-events-none"
         />
-        {/* Maru "M" — dimensional brand object (Warm Stone depth system) */}
-        <div
-          aria-hidden="true"
-          className="hidden sm:block"
-          style={{
-            position: "absolute",
-            top: "0px",
-            right: "-140px",
-            width: "500px",
-            height: "500px",
-            pointerEvents: "none",
-            filter: "drop-shadow(0 48px 96px rgba(6, 14, 21, 0.5))",
-            opacity: 0.5,
-          }}
-        >
-          <MaruM className="w-full h-full" />
-        </div>
         <div className={innerWide}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>AI Implementation Consultancy</span>
