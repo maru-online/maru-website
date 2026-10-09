@@ -63,6 +63,10 @@ function IconStar() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+// The GrowthIQ proof strip still carries a visible PLACEHOLDER. It stays off
+// this indexed page until Jimmy supplies the cleared metric; flip to true then.
+const SHOW_PROOF_STRIP = false;
+
 export default function Home() {
   return (
     <>
@@ -300,11 +304,13 @@ export default function Home() {
               services choice, so the question "can they actually do it" is
               answered at the point it gets asked. Contains a marked placeholder
               until Jimmy supplies a shareable GrowthIQ metric. */}
-          <div style={{ marginTop: "3rem" }}>
-            <FadeUp>
-              <CaseStudyProofStrip />
-            </FadeUp>
-          </div>
+          {SHOW_PROOF_STRIP && (
+            <div style={{ marginTop: "3rem" }}>
+              <FadeUp>
+                <CaseStudyProofStrip />
+              </FadeUp>
+            </div>
+          )}
 
           {/* Entry 10: the three foundation-service cards (strategy, design &
               development, marketing) moved to /services; one secondary line
