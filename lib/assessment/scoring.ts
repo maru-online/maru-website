@@ -13,11 +13,15 @@
  *   3   = Partial
  *   4   = Strong
  *
- * Overall level (1–3) from the average area score — thresholds unchanged
- * from v2:
- *   ≤ 1.5 = Level 1 — Exposed
+ * Overall level (1–3) from the average area score. The Level 1 ceiling moved
+ * from 1.5 to 2.0 on 9 Oct 2026: with the old ceiling, a profile where every
+ * area was a "Significant gap" (average 2.0) was headlined "Partly protected",
+ * which contradicted its own area labels. Now "Partly protected" needs at
+ * least one area above a significant gap. Stored reports are not re-scored.
+ *   ≤ 2.0 = Level 1 — Exposed
  *   ≤ 2.8 = Level 2 — Partly protected
  *   > 2.8 = Level 3 — Well protected
+ * Addendum 02 still lists the old threshold: update it to match.
  *
  * v2 (the operations assessment) is retired. Its reports are stored with their
  * computed areas and label, so nothing re-scores them; reportTemplates.ts keeps
@@ -133,7 +137,7 @@ export function calculateScore(answers: AssessmentAnswers): ScoreResult {
   const overallScore = Math.round((avgScore / 4) * 10);
 
   let level: ReadinessLevel;
-  if (avgScore <= 1.5) level = 1;
+  if (avgScore <= 2.0) level = 1;
   else if (avgScore <= 2.8) level = 2;
   else level = 3;
 
