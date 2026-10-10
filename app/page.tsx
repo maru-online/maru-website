@@ -61,7 +61,7 @@ export default function Home() {
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
               <span className="maru-headline-split-light">Your team already uses AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Is it within POPIA?</span>
+              <span className="maru-headline-split-strong">Where is your client data going?</span>
             </h1>
           </FadeUp>
 

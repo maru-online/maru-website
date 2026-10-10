@@ -59,7 +59,7 @@ export default async function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            Your team already uses AI. Is it within POPIA?
+            Your team already uses AI. Where is your client data going?
           </div>
           <div
             style={{
