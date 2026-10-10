@@ -13,7 +13,7 @@ const allLinks = [
   { label: 'About',        href: '/about' },
   { label: 'Services',     href: '/services' },
   { label: 'Process',      href: '/process' },
-  { label: 'Pricing',      href: '/pricing' },
+  { label: 'Pricing',      href: '/process#how-we-price' }, // entry 13: /pricing retired
   // Insights is hidden until there is something behind it. The section renders
   // "New insights are on the way" with zero articles, and a nav item that leads
   // to an empty room costs credibility with exactly the buyer this site is for.
@@ -136,8 +136,8 @@ export default function Nav() {
 
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="primary" href="/operations-assessment" className="!px-5 !py-2 !text-[11px]">
-              Start the assessment
+            <Button variant="primary" href="/popia-ai-check" className="!px-5 !py-2 !text-[11px]">
+              Free Exposure Check
             </Button>
           </div>
 
@@ -215,8 +215,8 @@ export default function Nav() {
 
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
-              <Button variant="primary" href="/operations-assessment" className="w-full !justify-center">
-                Start the assessment
+              <Button variant="primary" href="/popia-ai-check" className="w-full !justify-center">
+                Free Exposure Check
               </Button>
             </div>
           </motion.div>

@@ -77,6 +77,10 @@ export default function WhatsAppWidget() {
     // component, so it is a different node (or absent) after a route change.
   }, [pathname])
 
+  // Copy handover entry 19: "No WhatsApp anywhere in this flow" (the guide).
+  // After the hooks, so the hook order never changes between routes.
+  if (pathname?.startsWith('/guides')) return null
+
   const hidden = bannerVisible || ctaCollision
 
   return (

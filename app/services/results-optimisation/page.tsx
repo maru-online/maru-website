@@ -45,7 +45,6 @@ export default function ResultsOptimisationPage() {
         name="Results Optimisation"
         description="A second sprint when the first one shows what's next. Fixed-scope, data-led, available after a completed build."
         path="/services/results-optimisation"
-        price="8500"
       />
       {/* ── Hero ── */}
       <section
@@ -130,7 +129,8 @@ export default function ResultsOptimisationPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R8,500
+                {/* No published price figure (Jimmy, 6 Oct 2026); see /process#how-we-price. */}
+                Priced in your proposal
               </p>
               <p
                 style={{
@@ -217,7 +217,7 @@ export default function ResultsOptimisationPage() {
                   This engagement is only available after a completed Workflow Integration build. The
                   30-day measurement data from Phase 4 is the input. If measurement surfaces a clear
                   next intervention, we scope it here. Not all clients will need this — some builds
-                  deliver everything the diagnostic identified and no further sprint is required.
+                  deliver everything the assessment identified and no further sprint is required.
                 </p>
               </FadeUp>
             </div>
@@ -282,18 +282,18 @@ export default function ResultsOptimisationPage() {
                 marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Every engagement starts with the diagnostic.</span>
+              <span style={{ fontWeight: 300 }}>Every engagement starts with the assessment.</span>
               <br />
               <span style={{ fontWeight: 700 }}>The data tells us what comes next.</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="primary">
+                Free Exposure Check
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

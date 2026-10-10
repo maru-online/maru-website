@@ -85,27 +85,6 @@ export default function CookiePolicyPage() {
           </p>
         </div>
 
-        <div className="card-lift rounded-lg p-6 mb-4">
-          <h4 className="text-ink-primary font-medium mb-2">HubSpot</h4>
-          <p className="text-ink-secondary text-sm">
-            Our CRM and marketing automation platform uses cookies to track user interactions with our forms 
-            and content, helping us provide personalized communication.
-          </p>
-          <p className="text-ink-secondary text-sm mt-2">
-            Learn more: <a href="https://legal.hubspot.com/privacy-policy" className="text-cyan-ink hover:underline" target="_blank" rel="noopener noreferrer">HubSpot Privacy Policy</a>
-          </p>
-          <div
-            className="mt-3 p-3 rounded text-xs"
-            style={{
-              backgroundColor: "var(--color-ochre-tint)",
-              border: "1px solid var(--color-ochre-border)",
-              color: "var(--color-ochre-ink)",
-            }}
-          >
-            <strong>Note:</strong> HubSpot may process data in the United States. We rely on their Data Processing Agreement (DPA) and Standard Contractual Clauses (SCCs) to ensure appropriate safeguards for international transfers.
-          </div>
-        </div>
-
         <div className="card-lift rounded-lg p-6">
           <h4 className="text-ink-primary font-medium mb-2">Meta Pixel (Facebook)</h4>
           <p className="text-ink-secondary text-sm">
@@ -122,9 +101,42 @@ export default function CookiePolicyPage() {
         <h2 className="text-2xl font-medium text-ink-primary mb-6">
           4. How to Control Cookies
         </h2>
+        {/* Approved by Jimmy 2 Oct 2026 (COOKIE-POLICY-S4-DRAFT.md (kept outside the repo)).
+            Replaces a promised "preference center" with per-category toggles that never
+            existed: the banner is one Accept/Decline choice. Keep in step with
+            components/CookieConsent.tsx, AnalyticsTracker.tsx and analytics/MetaPixel.tsx.
+            8 Oct 2026, approved by Jimmy: the Decline sentence no longer promises to delete every
+            Meta cookie. Tested on the preview: Meta's own `fr` cookie lives on facebook.com and no
+            website can delete it; nothing is sent to Meta after Decline. */}
+        <p className="text-ink-secondary mb-4">
+          When you first visit our website, a banner asks whether you accept analytics and marketing
+          cookies. It is one choice, and it covers both.
+        </p>
+        <ul className="text-ink-secondary mb-4">
+          <li>
+            <strong className="text-ink-primary">Accept:</strong> Google Analytics may set its cookies, and
+            the Meta Pixel loads.
+          </li>
+          <li>
+            <strong className="text-ink-primary">Decline, or no choice yet:</strong> Google Analytics runs
+            without cookies and sends Google only basic measurements that don&apos;t identify your browser, and
+            the Meta Pixel does not load at all.
+          </li>
+        </ul>
+        <p className="text-ink-secondary mb-4">
+          You can change your choice at any time. Click the button below or in the footer of any page to
+          bring the banner back. If you change from Accept to Decline, we delete the Google Analytics and
+          Meta Pixel cookies our website set. Meta may also have set its own cookie on facebook.com, which
+          only your browser settings can remove.
+        </p>
+        <p className="text-ink-secondary mb-4">
+          We save your choice in your browser&apos;s local storage, not in a cookie. It stays until you change
+          it or clear your browser data.
+        </p>
         <p className="text-ink-secondary mb-6">
-          You can change your cookie preferences at any time by clicking the button below. This will open our 
-          preference center where you can enable or disable specific categories of cookies.
+          Some features use third-party services that this choice does not switch off, because the feature
+          can&apos;t work without them: Google reCAPTCHA on our forms, which helps tell people from automated
+          spam.
         </p>
 
         <button
@@ -183,7 +195,7 @@ export default function CookiePolicyPage() {
           5. POPIA Compliance
         </h2>
         <p className="text-ink-secondary mb-4">
-          Our use of cookies complies with the Protection of Personal Information Act (POPIA) No. 4 of 2013. 
+          We handle cookies with the Protection of Personal Information Act (POPIA) No. 4 of 2013 in mind. 
           Under POPIA, we are required to:
         </p>
         <ul className="text-ink-secondary">

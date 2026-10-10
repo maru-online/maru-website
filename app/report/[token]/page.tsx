@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAreaFinding, getReportSummary, type AreaStatus } from "@/lib/assessment/reportTemplates";
-import type { AreaResult } from "@/lib/assessment/scoring";
+import { getAreaFinding, getReportSummary, getReportVersion, type AreaStatus } from "@/lib/assessment/reportTemplates";
+import { LEVEL_RESULTS, REPORT_CLOSING_LINE, SCORING_NOTE, type AreaResult } from "@/lib/assessment/scoring";
+import { GUIDE_LIVE, GUIDE_PATH } from "@/lib/guides/config";
 import styles from "./report.module.css";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -15,7 +16,9 @@ interface ReportData {
   segmentB: boolean;
   answers: Record<string, string>;
   areas: AreaResult[];
+  template: unknown;      // v3 rows carry { version: "assessment_v3", … }
   overallScore: number;
+  guideRequested?: boolean;
   createdAt: string;
 }
 
@@ -29,9 +32,16 @@ export async function generateMetadata({
   const { token } = await params;
   const data = await fetchReport(token);
   if (!data) return { title: "Report Not Found — Maru Online" };
+  // Addendum 03 A7: v3 reports only; v2 reports keep their original title.
+  if (getReportVersion(data.template) === "assessment_v3") {
+    return {
+      title: "Your Exposure Check Report | Maru Online",
+      robots: { index: false, follow: false },
+    };
+  }
   return {
-    title: `Operations Assessment Report — Maru Online`,
-    description: `Your personalised operations assessment from Maru Online.`,
+    title: `Exposure Check Report — Maru Online`,
+    description: `Your personalised Exposure Check report from Maru Online.`,
     robots: { index: false, follow: false },
   };
 }
@@ -70,8 +80,6 @@ const meterFill: Record<AreaStatus, number> = {
   strong:      4,
 };
 
-const calendlyUrl = "https://calendly.com/hello-maruonline/discovery-call";
-
 // How many bullets show before "Show N more".
 const ISSUES_SHOWN = 3;
 
@@ -90,7 +98,15 @@ export default async function ReportPage({
   const { name, level, levelLabel, segmentB } = data;
   const areas: AreaResult[] = Array.isArray(data.areas) ? (data.areas as unknown as AreaResult[]) : [];
   const firstName = name.trim().split(" ")[0];
-  const summary = getReportSummary(level, segmentB);
+  // Reports emailed before 26 Sep 2026 are the operations assessment (v2) and
+  // keep rendering with their original copy. v3 sections without approved copy
+  // (COPY-DECK-ADDENDUM-03) are hidden rather than filled.
+  const version = getReportVersion(data.template);
+  const isV3 = version === "assessment_v3";
+  const summary = getReportSummary(level, segmentB, version);
+  const findings = areas
+    .map((area) => ({ area, finding: getAreaFinding(area.areaKey, area.status, version) }))
+    .filter((f): f is { area: AreaResult; finding: NonNullable<typeof f.finding> } => f.finding !== null);
 
   // Count gaps
   const criticalCount    = areas.filter(a => a.status === "critical").length;
@@ -98,14 +114,15 @@ export default async function ReportPage({
   const gapCount         = criticalCount + significantCount;
 
   // Priority order: lowest score first; ties keep the order of the assessment.
-  const ranked = areas
-    .map((area, index) => ({ area, index }))
-    .sort((x, y) => x.area.score - y.area.score || x.index - y.index)
-    .map(({ area }) => area);
-  const gaps = ranked.filter(a => a.status === "critical" || a.status === "significant");
+  // Only areas that have a finding card are ranked, so every "Start here" link
+  // has somewhere to jump to.
+  const ranked = findings
+    .map(({ area, finding }, index) => ({ area, finding, index }))
+    .sort((x, y) => x.area.score - y.area.score || x.index - y.index);
+  const gaps = ranked.filter(({ area }) => area.status === "critical" || area.status === "significant");
   const hasGaps = gaps.length > 0;
   const priorities = (hasGaps ? gaps : ranked).slice(0, hasGaps ? 3 : 2);
-  const tied = priorities.length > 1 && priorities.every(a => a.status === priorities[0].status);
+  const tied = priorities.length > 1 && priorities.every(({ area }) => area.status === priorities[0].area.status);
 
   return (
     <div className={styles.page}>
@@ -113,7 +130,7 @@ export default async function ReportPage({
       {/* ── Hero ────────────────────────────────────────────────────────── */}
       <header className={styles.hero}>
         <div className={styles.wrap}>
-          <p className={styles.eyebrow}>Operations Assessment · Your report</p>
+          <p className={styles.eyebrow}>Exposure Check · Your report</p>
           <h1 className={styles.h1}>
             {firstName}, here&apos;s what your assessment reveals.
           </h1>
@@ -142,8 +159,7 @@ export default async function ReportPage({
                   : "Your lowest-scoring areas. Tap one to jump to it."}
               </p>
               <ol className={styles.startList}>
-                {priorities.map((area) => {
-                  const finding = getAreaFinding(area.areaKey, area.status);
+                {priorities.map(({ area, finding }) => {
                   const firstSentence = finding.observation.split(/(?<=\.)\s/)[0];
                   return (
                     <li key={area.areaKey} className={styles.startItem}>
@@ -195,30 +211,32 @@ export default async function ReportPage({
 
             <div className={`${styles.card} ${styles.cardPad}`}>
               <p className={styles.prose}>
-                {data.levelLabel === "Early Stage" &&
+                {isV3 && LEVEL_RESULTS[level]?.summary}
+                {!isV3 && data.levelLabel === "Early Stage" &&
                   "Your assessment points to a business running largely on effort and institutional knowledge. Most processes are informal — they work because the right people know what to do, not because systems make it automatic. The opportunity across your five areas is significant."}
-                {data.levelLabel === "Building" &&
+                {!isV3 && data.levelLabel === "Building" &&
                   "Your business has real processes in place — but they still depend on manual steps and disconnected systems at key points. Targeted integration at those handoff points is where the return is fastest."}
-                {data.levelLabel === "Primed" &&
+                {!isV3 && data.levelLabel === "Primed" &&
                   "Your business has operational maturity. The opportunity now is in the precision gaps: reporting that still requires manual effort, approval flows tied to specific people, or data that lives in one system but needs to reach another."}
               </p>
             </div>
+            {isV3 && <p className={styles.scoringNote}>{SCORING_NOTE}</p>}
           </section>
         )}
 
         {/* ── AREA FINDINGS ─────────────────────────────────────────────── */}
-        {areas.length > 0 && (
+        {findings.length > 0 && (
           <section className={styles.section} aria-labelledby="findings">
             <h2 id="findings" className={styles.label}>Area findings</h2>
             <div className={styles.areas}>
-              {areas.map((area, i) => (
+              {findings.map(({ area, finding }, i) => (
                 <AreaCard
                   key={area.areaKey}
                   id={`area-${area.areaKey}`}
                   number={i + 1}
                   area={area.area}
                   status={area.status}
-                  finding={getAreaFinding(area.areaKey, area.status)}
+                  finding={finding}
                 />
               ))}
             </div>
@@ -226,7 +244,7 @@ export default async function ReportPage({
         )}
 
         {/* ── SEGMENT B NOTE ─────────────────────────────────────────────── */}
-        {segmentB && summary.segmentBNote && (
+        {segmentB && summary?.segmentBNote && (
           <section className={styles.section} aria-labelledby="prior">
             <h2 id="prior" className={styles.label}>A note on prior attempts</h2>
             <div className={`${styles.card} ${styles.cardPad}`}>
@@ -235,47 +253,59 @@ export default async function ReportPage({
           </section>
         )}
 
-        {/* ── RECOMMENDED APPROACH ──────────────────────────────────────── */}
-        <section className={styles.section} aria-labelledby="approach">
-          <h2 id="approach" className={styles.label}>{summary.approachHeading}</h2>
-          <div className={`${styles.card} ${styles.cardPad}`}>
-            <p className={styles.prose}>{summary.approach}</p>
-          </div>
-        </section>
+        {summary && (
+          <>
+            {/* ── RECOMMENDED APPROACH ────────────────────────────────────── */}
+            <section className={styles.section} aria-labelledby="approach">
+              <h2 id="approach" className={styles.label}>{summary.approachHeading}</h2>
+              <div className={`${styles.card} ${styles.cardPad}`}>
+                <p className={styles.prose}>{summary.approach}</p>
+              </div>
+            </section>
 
-        {/* ── WHAT A SUCCESSFUL ENGAGEMENT LOOKS LIKE ───────────────────── */}
-        <section className={styles.section} aria-labelledby="outcome">
-          <h2 id="outcome" className={styles.label}>{summary.outcomeHeading}</h2>
-          <div className={`${styles.card} ${styles.cardPad}`}>
-            <p className={styles.prose}>{summary.outcome}</p>
-          </div>
-        </section>
+            {/* ── WHAT A SUCCESSFUL ENGAGEMENT LOOKS LIKE ─────────────────── */}
+            <section className={styles.section} aria-labelledby="outcome">
+              <h2 id="outcome" className={styles.label}>{summary.outcomeHeading}</h2>
+              <div className={`${styles.card} ${styles.cardPad}`}>
+                <p className={styles.prose}>{summary.outcome}</p>
+              </div>
+            </section>
+          </>
+        )}
+
+        {/* ── GUIDE LINE — copy handover entry 19 §11 (approved 8 Oct), verbatim.
+            After the report, v3 only, hidden once this visitor has the guide. */}
+        {GUIDE_LIVE && isV3 && !data.guideRequested && (
+          <p className={styles.guideLine}>
+            Want the basics behind these questions?{" "}
+            <Link href={GUIDE_PATH} className={styles.guideLink}>
+              Read the guide.
+            </Link>
+          </p>
+        )}
 
         {/* ── NEXT STEP CTA ──────────────────────────────────────────────── */}
         <section className={styles.cta} aria-labelledby="next-step">
           <p className={styles.eyebrow}>Next step</p>
           <h2 id="next-step" className={styles.ctaTitle}>
-            Book a free 30-minute discovery call.
+            Request a proposal.
           </h2>
           <p className={styles.ctaText}>
-            We review your assessment before the call. On the day, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated.
+            {isV3
+              ? "We review your answers first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper: which tools see client information, where it's stored, and who can reach it."
+              : "We review your assessment first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated."}
           </p>
           <p className={styles.ctaText}>
-            We will tell you honestly whether an Operations Diagnostic makes sense for your business right now. If it does not, we will say so directly.
+            If there&apos;s no clear opportunity, we&apos;ll tell you.
           </p>
-          <a
-            href={calendlyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.button}
-          >
-            Book a discovery call
-          </a>
+          <Link href="/contact#contact-form" className={styles.button}>
+            Request a proposal
+          </Link>
         </section>
 
         {/* Secondary CTA */}
         <aside className={styles.second}>
-          <p className={styles.secondTitle}>Not ready to book yet?</p>
+          <p className={styles.secondTitle}>Not ready to request a proposal yet?</p>
           <p className={styles.secondText}>
             Reply to your report email and tell us what is happening in the business. We will take it from there.
           </p>
@@ -283,6 +313,9 @@ export default async function ReportPage({
             Email hello@maruonline.com →
           </a>
         </aside>
+
+        {/* Addendum 02: every v3 report ends with this line. */}
+        {isV3 && <p className={styles.closing}>{REPORT_CLOSING_LINE}</p>}
 
         {/* Footer */}
         <p className={styles.foot}>

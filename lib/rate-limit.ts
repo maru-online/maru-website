@@ -22,6 +22,9 @@ interface RateLimitConfig {
 const rateLimits: Record<string, RateLimitConfig> = {
   // Assessment APIs - more restrictive
   '/api/assessment/submit': { windowMs: 60 * 1000, maxRequests: 5 }, // 5 per minute
+  // Guide form (entry 19 §3). Per instance only; the route also limits from its own table.
+  '/api/guides/ai-and-popia': { windowMs: 60 * 1000, maxRequests: 5 },
+  '/api/guides/confirm': { windowMs: 60 * 1000, maxRequests: 10 },
   
   // Admin APIs - less restrictive for authenticated users
   '/api/analytics/dashboard': { windowMs: 60 * 1000, maxRequests: 30 }, // 30 per minute

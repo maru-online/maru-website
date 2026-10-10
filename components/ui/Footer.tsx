@@ -78,7 +78,8 @@ export default function Footer() {
                   className="font-body font-light text-[13px] leading-relaxed mb-6"
                   style={{ color: 'var(--color-ink-inverted-muted)' }}
                 >
-                  Building AI-powered workflows for growing SMEs.
+                  {/* Strapline, copy handover entry 06: a label, no full stop. */}
+                  POPIA-conscious AI implementation
                 </p>
                 {/* Social icons */}
                 <div className="flex items-center gap-3">
@@ -145,11 +146,15 @@ export default function Footer() {
                   Services
                 </h4>
                 <ul className="flex flex-col list-none m-0 p-0">
+                  {/* Same order and names as the homepage services grid (entry
+                      07). AI Use Safeguards is added here only when its grid
+                      card comes off hold. The Exposure Check keeps the
+                      existing /services/operations-diagnostic route. */}
                   {[
-                    { name: 'Operations Diagnostic',      href: '/services/operations-diagnostic' },
-                    { name: 'Workflow Integration',    href: '/services/workflow-integration' },
-                    { name: 'Team Training & Handover',    href: '/services/team-training-handover' },
-                    { name: 'Results Optimisation',          href: '/services/results-optimisation' },
+                    { name: 'Exposure Check',    href: '/services/operations-diagnostic' },
+                    { name: 'Workflow Integration',     href: '/services/workflow-integration' },
+                    { name: 'Team Training & Handover', href: '/services/team-training-handover' },
+                    { name: 'Results Optimisation',     href: '/services/results-optimisation' },
                   ].map((item) => (
                     <li key={item.name}>
                       <Link
@@ -207,7 +212,7 @@ export default function Footer() {
                     className="font-body text-[13px] font-light py-2"
                     style={{ color: 'var(--color-ink-inverted-muted)' }}
                   >
-                    Mon–Fri, 9am–6pm SAST
+                    Mon–Fri, 8am–6pm SAST
                   </li>
                 </ul>
               </motion.div>
@@ -227,7 +232,7 @@ export default function Footer() {
                   className="font-body text-[12px] font-light"
                   style={{ color: 'rgba(250,250,248,0.35)' }}
                 >
-                  © {new Date().getFullYear()} Maru Online. All Rights Reserved.
+                  © {new Date().getFullYear()} Maru Online (Pty) Ltd. Registration number 2002/013801/07.
                 </p>
 
                 {/* Legal links */}

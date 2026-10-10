@@ -610,6 +610,37 @@
   opacity: 0.75;
 }
 
+/* Guide line (v3 reports) and the closing line that ends every v3 report. */
+.guideLine {
+  margin: 0 0 40px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-ink-primary);
+}
+.guideLink {
+  font-weight: 600;
+  color: var(--color-cyan-ink);
+  text-underline-offset: 3px;
+}
+.guideLink:focus-visible {
+  outline: 2px solid var(--color-cyan-ink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.scoringNote {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-ink-secondary);
+}
+.closing {
+  margin: 0 0 16px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-ink-secondary);
+}
+
 .foot {
   margin: 0;
   text-align: center;

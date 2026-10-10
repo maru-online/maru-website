@@ -48,7 +48,7 @@ export function ConversionTracking() {
 
 // Assessment-specific tracking hooks
 export const useAssessmentTracking = (assessmentType: string) => {
-  const trackStep = (step: string, data?: Record<string, any>) => {
+  const trackStep = (step: string, data?: Record<string, unknown>) => {
     if (typeof window !== 'undefined' && window.trackConversion) {
       window.trackConversion('assessment_step', {
         assessment_type: assessmentType,

@@ -124,19 +124,19 @@ export default function AiInActionPage() {
               }}
             >
               <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
-                In the meantime, the operations assessment is the fastest way to
+                In the meantime, the Exposure Check is the fastest way to
                 see what we would actually change in your business.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button
-                  href="/operations-assessment"
+                  href="/popia-ai-check"
                   variant="primary"
                   className="w-full sm:w-auto justify-center"
                 >
-                  Start the assessment
+                  Free Exposure Check
                 </Button>
-                <Button href="/booking" variant="tertiary">
-                  Book a discovery call
+                <Button href="/contact#contact-form" variant="tertiary">
+                  Request a proposal
                 </Button>
               </div>
             </div>

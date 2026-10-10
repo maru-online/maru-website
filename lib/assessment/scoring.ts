@@ -1,18 +1,36 @@
 /**
- * Maru Online — Operations Assessment Scoring Logic (v2)
+ * Maru Online — POPIA AI check: scoring logic (assessment_v3)
  *
- * 10 questions across 5 operational areas (2 per area).
- * Each area scores 0–4. Score bands:
+ * The questions, answers and scores live in questions.ts (COPY-DECK-ADDENDUM-02
+ * item B, approved as written 26 Sep 2026). The level labels and summaries
+ * below are from the same addendum. Do not reword here; change the addendum
+ * first.
+ *
+ * 10 questions across 5 areas (2 per area). Each answer scores 4 / 2 / 1 / 0
+ * from best to worst, and each area is the rounded mean of its two answers:
  *   0–1 = Critical gap
  *   2   = Significant gap
- *   3   = Partial — some structure, clear gaps
- *   4   = Strong foundations
+ *   3   = Partial
+ *   4   = Strong
  *
- * Overall level (1–3) derived from average area score:
- *   ≤ 1.5 = Level 1 — Early Stage
- *   ≤ 2.8 = Level 2 — Building
- *   > 2.8 = Level 3 — Primed
+ * Overall level (1–3) from the average area score. The Level 1 ceiling moved
+ * from 1.5 to 2.0 on 9 Oct 2026: with the old ceiling, a profile where every
+ * area was a "Significant gap" (average 2.0) was headlined "Partly protected",
+ * which contradicted its own area labels. Now "Partly protected" needs at
+ * least one area above a significant gap. Stored reports are not re-scored.
+ *   ≤ 2.0 = Level 1 — Exposed
+ *   ≤ 2.8 = Level 2 — Partly protected
+ *   > 2.8 = Level 3 — Well protected
+ * Addendum 02 still lists the old threshold: update it to match.
+ *
+ * v2 (the operations assessment) is retired. Its reports are stored with their
+ * computed areas and label, so nothing re-scores them; reportTemplates.ts keeps
+ * the v2 copy so those links still render.
  */
+
+import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS, type QuestionId } from "./questions";
+
+export const ASSESSMENT_VERSION = "assessment_v3" as const;
 
 export type ReadinessLevel = 1 | 2 | 3;
 export type AreaStatus = "critical" | "significant" | "partial" | "strong";
@@ -36,161 +54,68 @@ export interface ScoreResult {
   painTag: string;
 }
 
+export type AssessmentAnswers = Record<QuestionId, string>;
+
 // ── Area definitions ───────────────────────────────────────────────────────
 
-export const AREAS = [
-  { key: "process",    label: "Process & Workflow",       questions: ["q1", "q2"] },
-  { key: "data",       label: "Data & Information Flow",  questions: ["q3", "q4"] },
-  { key: "client",     label: "Client & Lead Management", questions: ["q5", "q6"] },
-  { key: "visibility", label: "Visibility & Reporting",   questions: ["q7", "q8"] },
-  { key: "people",     label: "People & Dependency",      questions: ["q9", "q10"] },
-] as const;
+export const AREAS = ASSESSMENT_AREAS.map((a) => ({
+  key: a.key,
+  label: a.label,
+  questions: a.questions.map((q) => q.id),
+}));
 
-// ── Scoring maps ───────────────────────────────────────────────────────────
+// ── Scoring maps (derived, so a question can't drift from its score) ──────
 
-// Q1: Process & Workflow — How does work move through the business?
-// A: Documented steps, team follows them consistently
-// B: Processes exist but vary by person/situation
-// C: Things get done but same problems keep repeating
-// D: It's ad hoc — whoever is available figures it out
-const q1: Record<string, number> = {
-  "documented-consistent":  4,
-  "exist-vary":             2,
-  "recurring-problems":     1,
-  "ad-hoc":                 0,
+const SCORE_MAPS = Object.fromEntries(
+  ASSESSMENT_QUESTIONS.map((q) => [
+    q.id,
+    Object.fromEntries(q.options.map((o) => [o.value, o.score])),
+  ]),
+) as Record<QuestionId, Record<string, number>>;
+
+/**
+ * True only when every question has an answer this version recognises. The
+ * submit route rejects anything else rather than silently scoring unknown
+ * values — a stale tab still holding v2 answers would otherwise score every
+ * area as a critical gap and email that as the result.
+ */
+export function isValidAnswerSet(answers: unknown): answers is AssessmentAnswers {
+  if (!answers || typeof answers !== "object") return false;
+  const a = answers as Record<string, unknown>;
+  return ASSESSMENT_QUESTIONS.every(
+    (q) => typeof a[q.id] === "string" && Object.hasOwn(SCORE_MAPS[q.id], a[q.id] as string),
+  );
+}
+
+// ── Level copy (Addendum 02, "Result levels") ─────────────────────────────
+
+export const LEVEL_RESULTS: Record<ReadinessLevel, { label: string; summary: string }> = {
+  1: {
+    label: "Exposed",
+    summary: "Client information is moving through tools and people with no guard rails yet. The first fixes are quick and cheap.",
+  },
+  2: {
+    label: "Partly protected",
+    summary: "You have some good habits, with gaps where AI tools, WhatsApp and old logins meet client data.",
+  },
+  3: {
+    label: "Well protected",
+    summary: "Your foundations are sound. The work now is keeping them sound as you add AI.",
+  },
 };
 
-// Q2: Process & Workflow — What happens when a key team member is unavailable?
-// A: Someone else picks it up without skipping a beat — it's documented
-// B: It usually gets covered but there's scrambling
-// C: Things slow down significantly until they're back
-// D: It stalls — only they know how to handle it
-const q2: Record<string, number> = {
-  "documented-covered":  4,
-  "scramble-covered":    2,
-  "significant-slowdown": 1,
-  "stalls-completely":   0,
-};
+/**
+ * "How this is scored" note, shown under the result on the result screen and
+ * in the report. Wording approved by Jimmy 9 Oct 2026 (option A), verbatim.
+ * The "at least one area above a significant gap" rule holds because Level 1
+ * (Exposed) covers an average up to 2.0.
+ */
+export const SCORING_NOTE =
+  "How this is scored: each answer is rated from strong to weak. We average your two answers in each area, then average the five areas to place you at one of three levels. The level can't be better than your areas: to be 'Partly protected', at least one area has to be above a significant gap. It's a structured indicator based on your own answers, not an audit.";
 
-// Q3: Data & Information Flow — Where does your business data live?
-// A: Mostly in one system — tools are connected and talk to each other
-// B: In a few tools that we move data between manually when needed
-// C: Spread across email, spreadsheets, and WhatsApp — no single source
-// D: Mostly in people's heads and informal notes
-const q3: Record<string, number> = {
-  "connected-central":  4,
-  "few-tools-manual":   2,
-  "scattered-no-source": 1,
-  "heads-and-notes":    0,
-};
-
-// Q4: Data & Information Flow — How often does information get lost, re-entered, or entered incorrectly?
-// A: Rarely — our systems catch it and we have checks in place
-// B: Occasionally — we usually catch it before it causes a problem
-// C: Regularly — it's a source of frustration and wasted time
-// D: All the time — it's one of our biggest operational issues
-const q4: Record<string, number> = {
-  "rarely-caught":       4,
-  "occasionally-caught": 2,
-  "regularly-frustrating": 1,
-  "constant-major-issue": 0,
-};
-
-// Q5: Client & Lead Management — When a new enquiry comes in, what happens?
-// A: It enters a defined process automatically — assigned, logged, and followed up
-// B: We have a process but it depends on who's available to action it
-// C: Someone handles it personally — varies based on capacity
-// D: It's reactive — we respond when we see it or someone flags it
-const q5: Record<string, number> = {
-  "defined-automatic":   4,
-  "process-person-dep":  2,
-  "personal-varies":     1,
-  "reactive":            0,
-};
-
-// Q6: Client & Lead Management — How confident are you that your business follows up with every lead consistently?
-// A: Very — it's systematic and we track it
-// B: Reasonably — most leads get followed up but some fall through
-// C: Not very — follow-up depends on memory or whoever has capacity
-// D: Not at all — we know we're losing leads but don't have a fix
-const q6: Record<string, number> = {
-  "systematic-tracked":   4,
-  "reasonably-some-gaps": 2,
-  "memory-based":         1,
-  "losing-leads-no-fix":  0,
-};
-
-// Q7: Visibility & Reporting — How do you get a current view of how your business is performing?
-// A: From a dashboard or tool that updates automatically
-// B: By pulling reports from our systems — takes some manual effort
-// C: By asking the team or checking in across different tools
-// D: I mostly go on instinct and experience
-const q7: Record<string, number> = {
-  "automatic-dashboard":  4,
-  "manual-reports":       2,
-  "asking-checking":      1,
-  "instinct-experience":  0,
-};
-
-// Q8: Visibility & Reporting — When something goes wrong in the business, how do you typically find out?
-// A: Our systems flag it before it becomes a real problem
-// B: It surfaces during a team check-in or review
-// C: A client or team member tells us — usually after the fact
-// D: We often only find out when the damage is already done
-const q8: Record<string, number> = {
-  "systems-flag-early":  4,
-  "checkin-review":      2,
-  "told-after-fact":     1,
-  "damage-done":         0,
-};
-
-// Q9: People & Dependency — How would you describe your business's reliance on specific individuals?
-// A: Low — most processes can be handled by any trained team member
-// B: Moderate — some roles are critical but most things can be covered
-// C: High — a few people hold most of the operational knowledge
-// D: Very high — if one or two people left, the business would struggle significantly
-const q9: Record<string, number> = {
-  "low-any-trained":     4,
-  "moderate-coverable":  2,
-  "high-few-hold-knowledge": 1,
-  "very-high-critical":  0,
-};
-
-// Q10: People & Dependency — Have you tried to systematise or improve operations before?
-// A: No — this hasn't been a priority until now
-// B: Yes — we've worked on it internally but haven't got far
-// C: Yes — we brought someone in to help but it didn't fully deliver
-// D: Yes — we have systems in place but they need to work better
-const q10: Record<string, number> = {
-  "no-not-priority":     1,
-  "internal-not-far":    2,
-  "external-fell-short": 1,   // Segment B — flags separately
-  "partial-needs-work":  3,
-};
-
-const q10SegmentB: Record<string, boolean> = {
-  "no-not-priority":     false,
-  "internal-not-far":    false,
-  "external-fell-short": true,
-  "partial-needs-work":  false,
-};
-
-// ── Pain tag (from Q6 — highest intent signal) ─────────────────────────────
-
-const q6PainTags: Record<string, string> = {
-  "systematic-tracked":   "pain:conversion",
-  "reasonably-some-gaps": "pain:conversion",
-  "memory-based":         "pain:conversion",
-  "losing-leads-no-fix":  "pain:conversion",
-};
-
-// Q4 informs secondary pain tag
-const q4PainTags: Record<string, string> = {
-  "rarely-caught":         "pain:efficiency",
-  "occasionally-caught":   "pain:efficiency",
-  "regularly-frustrating": "pain:efficiency",
-  "constant-major-issue":  "pain:efficiency",
-};
+/** Addendum 02: "Every report ends:" The rebuild has no paid audit (copy handover entry 13), so the audit sentence is dropped. 6 Oct 2026. */
+export const REPORT_CLOSING_LINE =
+  "This check is a starting point, not legal advice.";
 
 // ── Status thresholds ──────────────────────────────────────────────────────
 
@@ -203,67 +128,42 @@ function areaStatus(score: number): AreaStatus {
 
 // ── Main scoring function ──────────────────────────────────────────────────
 
-export function calculateScore(answers: {
-  q1: string;  q2: string;  q3: string;  q4: string;  q5: string;
-  q6: string;  q7: string;  q8: string;  q9: string;  q10: string;
-}): ScoreResult {
+export function calculateScore(answers: AssessmentAnswers): ScoreResult {
+  const areas: AreaResult[] = AREAS.map(({ key, label, questions: [qa, qb] }) => {
+    const score = Math.round(
+      ((SCORE_MAPS[qa][answers[qa]] ?? 1) + (SCORE_MAPS[qb][answers[qb]] ?? 1)) / 2,
+    );
+    return {
+      area: label,
+      areaKey: key,
+      score,
+      status: areaStatus(score),
+      answers: [answers[qa], answers[qb]],
+    };
+  });
 
-  const processScore    = Math.round(((q1[answers.q1] ?? 1) + (q2[answers.q2] ?? 1)) / 2);
-  const dataScore       = Math.round(((q3[answers.q3] ?? 1) + (q4[answers.q4] ?? 1)) / 2);
-  const clientScore     = Math.round(((q5[answers.q5] ?? 1) + (q6[answers.q6] ?? 1)) / 2);
-  const visibilityScore = Math.round(((q7[answers.q7] ?? 1) + (q8[answers.q8] ?? 1)) / 2);
-  const peopleScore     = Math.round(((q9[answers.q9] ?? 1) + (q10[answers.q10] ?? 1)) / 2);
-
-  const areas: AreaResult[] = [
-    { area: "Process & Workflow",       areaKey: "process",    score: processScore,    status: areaStatus(processScore),    answers: [answers.q1, answers.q2] },
-    { area: "Data & Information Flow",  areaKey: "data",       score: dataScore,       status: areaStatus(dataScore),       answers: [answers.q3, answers.q4] },
-    { area: "Client & Lead Management", areaKey: "client",     score: clientScore,     status: areaStatus(clientScore),     answers: [answers.q5, answers.q6] },
-    { area: "Visibility & Reporting",   areaKey: "visibility", score: visibilityScore, status: areaStatus(visibilityScore), answers: [answers.q7, answers.q8] },
-    { area: "People & Dependency",      areaKey: "people",     score: peopleScore,     status: areaStatus(peopleScore),     answers: [answers.q9, answers.q10] },
-  ];
-
-  const avgScore = (processScore + dataScore + clientScore + visibilityScore + peopleScore) / 5;
+  const avgScore = areas.reduce((sum, a) => sum + a.score, 0) / areas.length;
   const overallScore = Math.round((avgScore / 4) * 10);
 
   let level: ReadinessLevel;
-  if (avgScore <= 1.5) level = 1;
+  if (avgScore <= 2.0) level = 1;
   else if (avgScore <= 2.8) level = 2;
   else level = 3;
 
-  const segmentB = q10SegmentB[answers.q10] ?? false;
-
-  // Pain tag: lead management is highest intent, data is secondary
-  const painTag = q6PainTags[answers.q6] ?? q4PainTags[answers.q4] ?? "pain:efficiency";
-
-  const levelResults: Record<ReadinessLevel, { label: string; tagline: string; summary: string }> = {
-    1: {
-      label: "Early Stage",
-      tagline: "Your biggest opportunity is getting the right foundations in place.",
-      summary: "Your answers point to a business running largely on effort and institutional knowledge. Most processes are informal — they work because the right people know what to do, not because the systems make it automatic. This is where most SA businesses start. The opportunity is significant and the fixes are identifiable.",
-    },
-    2: {
-      label: "Building",
-      tagline: "You have structure. The opportunity is in closing the gaps.",
-      summary: "Your business has real processes in place — but they still depend on manual steps and disconnected systems at key points. Information moves by hand between tools. Specific people act as the connective tissue between steps that should be automatic. Targeted integration at those handoff points is where the return is fastest.",
-    },
-    3: {
-      label: "Primed",
-      tagline: "Your systems are ready. The question is what to optimise next.",
-      summary: "Your business has operational maturity — defined processes, connected systems, a team that mostly knows what to do. The opportunity now is in the precision gaps: reporting that still requires manual compilation, approval flows that depend on specific people, or data that lives in one system but needs to reach another. Targeted optimisation here compounds quickly.",
-    },
-  };
+  const { label, summary } = LEVEL_RESULTS[level];
 
   return {
     level,
-    ...levelResults[level],
+    label,
+    // Addendum 02 gives one line per level; it serves as both the on-screen
+    // tagline and the report summary.
+    tagline: summary,
+    summary,
     areas,
     overallScore,
-    segmentB,
-    painTag,
+    // v2's Segment B came from a "prior improvement attempt" question that v3
+    // does not ask. Kept on the type so stored v2 reports still type-check.
+    segmentB: false,
+    painTag: "pain:popia",
   };
-}
-
-// Legacy shim — used by existing API route
-export function getPainTag(q10Answer: string): string {
-  return q10SegmentB[q10Answer] ? "pain:conversion" : "pain:efficiency";
 }

@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import ContactFormWithRecaptcha from './ContactFormWithRecaptcha'
-import Button from '@/components/ui/Button'
 import { buildWhatsAppLink } from '@/lib/whatsapp'
 import { TrackedLink } from '@/components/analytics/TrackedLink'
 import { FadeUp } from '@/components/ui/Animate'
@@ -9,12 +8,11 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Two ways to start — the Operations Assessment or a 20-minute discovery call. You speak directly with Jimmy.",
+  description: "Start with the free Exposure Check, or request a proposal and we will contact you to arrange a call at a time that suits you.",
   ...seo('/contact'),
 }
 
 const outerPad    = 'px-6 md:px-[60px]'
-const inner       = 'max-w-[900px] mx-auto'
 const innerWide   = 'max-w-[1100px] mx-auto'
 const innerNarrow = 'max-w-[720px] mx-auto'
 
@@ -59,19 +57,6 @@ export default function ContactPage() {
               <span className="maru-headline-split-light">Let&apos;s talk about it.</span>
             </h1>
           </FadeUp>
-          <FadeUp delay={0.16}>
-            <p
-              className="font-body font-light"
-              style={{
-                color:      'var(--color-ink-inverted-muted)',
-                fontSize:   'var(--text-body-sm)',
-                lineHeight: 'var(--leading-body)',
-                marginBottom: 0,
-              }}
-            >
-              We respond within 24 hours.
-            </p>
-          </FadeUp>
         </div>
       </section>
 
@@ -89,27 +74,23 @@ export default function ContactPage() {
             <div className="md:grid md:grid-cols-[1fr_360px] md:gap-24">
             <FadeUp>
               <div style={{ marginBottom: 'var(--space-section-header-mb)' }}>
-                <Button href="/booking" variant="primary">
-                  Book a discovery call
-                </Button>
                 <p
                   style={{
                     fontFamily:  'var(--font-body)',
-                    fontSize:    'var(--text-meta)',
+                    fontSize:    'var(--text-body-sm)',
                     fontWeight:  300,
-                    color:       'var(--color-ink-tertiary)',
-                    marginTop:   '0.75rem',
+                    color:       'var(--color-ink-secondary)',
                     marginBottom: 0,
                   }}
                 >
-                  Twenty minutes, straight to the point.
+                  Tell us what you need and we will contact you to arrange a short call at a time that suits you. We then send you a proposal.
                 </p>
               </div>
 
               <h2 style={{ marginBottom: '1.5rem' }}>
-                <span style={{ fontWeight: 300 }}>Or send a</span>
+                <span style={{ fontWeight: 300 }}>Request</span>
                 <br />
-                <span style={{ fontWeight: 700 }}>message directly</span>
+                <span style={{ fontWeight: 700 }}>a proposal</span>
               </h2>
             </FadeUp>
             </div>

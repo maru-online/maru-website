@@ -151,7 +151,7 @@ export default async function InsightsPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative min-h-[50vh] flex items-center ${outerPad} pt-48 pb-32`}
+        className={`relative overflow-x-clip min-h-[50vh] flex items-center ${outerPad} pt-48 pb-32`}
         style={{ backgroundColor: "var(--color-bg-navy)" }}
       >
         <BGPattern variant="grid" mask="none" size={40} fill="rgba(61, 184, 198, 0.12)" className="z-0" />
@@ -394,14 +394,13 @@ export default async function InsightsPage() {
         <div className={innerNarrow}>
           <div className="card-lift p-8 md:p-12">
             <FadeUp>
-              <span className="label-eyebrow-ochre">Monthly Best Practices for AI Integration</span>
+              <span className="label-eyebrow-ochre">Best practices for AI integration</span>
               <h2 style={{ border: "none" }}>
                 <span style={{ fontWeight: 300 }}>The Business </span><span style={{ fontWeight: 700 }}>AI Journal</span>
               </h2>
               <p className="body-muted" style={{ marginBottom: "var(--space-para-section)" }}>
-                Unlock practical strategies to optimize your AI integration. Each
-                month, we deliver actionable insights from real-world
-                engagements—covering common pitfalls, effective fixes, and proven
+                Practical strategies for your AI integration, drawn from real-world
+                engagements: common pitfalls, effective fixes and proven
                 frameworks. Written in plain language for business owners.
               </p>
 
@@ -419,7 +418,7 @@ export default async function InsightsPage() {
           FINAL CTA — navy
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`${outerPad} py-24`}
+        className={`relative overflow-x-clip ${outerPad} py-24`}
         style={{ backgroundColor: "var(--color-bg-navy)" }}
       >
         <div
@@ -453,9 +452,7 @@ export default async function InsightsPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              The free assessment shows you where the gaps are, in about fifteen
-              minutes. The Operations Diagnostic goes further — your tools, your
-              workflows, your revenue gaps, written up within 48 hours. R4,500.
+              The free assessment shows you where the gaps are, in about five minutes.
             </p>
             <hr
               className="rule"
@@ -464,11 +461,11 @@ export default async function InsightsPage() {
           </FadeUp>
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="primary">
+                Free Exposure Check
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

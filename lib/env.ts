@@ -7,18 +7,6 @@ const requiredEnvVars = [
   'NEXT_PUBLIC_SITE_URL',
 ] as const;
 
-const _optionalEnvVars = [
-  'SUPABASE_URL',
-  'SUPABASE_ANON_KEY',
-  'GOOGLE_AI_API_KEY',
-  'HUBSPOT_API_KEY',
-  'SMTP_HOST',
-  'SMTP_USER',
-  'SMTP_PASS',
-  'ADMIN_EMAIL',
-  'ADMIN_PASSWORD',
-] as const;
-
 export function validateEnv() {
   const missing: string[] = [];
   

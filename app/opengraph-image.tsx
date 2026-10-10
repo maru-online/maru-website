@@ -6,8 +6,11 @@ import { ImageResponse } from 'next/og'
 // where a preview-less link reads as spam. (T2)
 //
 // Next wires this file automatically for every route that does not override it.
+//
+// Copy handover entry 02: regenerated 7 Oct 2026 to carry the hero H1 and the
+// approved strapline (entry 06) instead of the old cost-reduction message.
 
-export const alt = 'Maru Online — AI-powered workflows that cut operating costs'
+export const alt = 'Maru Online: POPIA-conscious AI implementation for South African SMEs'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -56,7 +59,7 @@ export default async function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            AI-powered workflows that cut your operating costs
+            Your team already uses AI. Where is your client data going?
           </div>
           <div
             style={{
@@ -66,7 +69,7 @@ export default async function OpengraphImage() {
               fontWeight: 400,
             }}
           >
-            AI implementation consultancy · Gauteng, South Africa
+            POPIA-conscious AI implementation · South Africa
           </div>
         </div>
 

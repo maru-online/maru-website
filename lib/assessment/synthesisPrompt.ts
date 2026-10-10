@@ -1,109 +1,93 @@
 /**
- * Maru Online — Claude Synthesis Prompt
- * 
- * This prompt receives three inputs:
- *   1. The prospect's five assessment answers
- *   2. Their calculated readiness level (1, 2, or 3)
- *   3. The Firecrawl site scrape (markdown) — optional, may be empty string
- * 
- * It produces a structured JSON object with two distinct outputs:
- *   - Object A: prospect-facing personalisation for the Notion report
- *   - Object B: Jimmy's pre-call brief for hello@maruonline.com
- * 
- * CRITICAL: Output must be valid JSON only. No markdown fences. No preamble.
- * CRITICAL: Never mention AI in Object A observations — use operational language only.
- * CRITICAL: Never reveal that the site was scraped. Frame as "based on what you've shared."
+ * Maru Online — Claude synthesis prompt (assessment_v3, POPIA AI check)
+ *
+ * Inputs:
+ *   1. The prospect's ten answers (option values from questions.ts), rendered
+ *      back to the question and answer wording the visitor saw
+ *   2. Their level (1 Exposed, 2 Partly protected, 3 Well protected)
+ *   3. An optional site scrape (markdown). The route currently passes "".
+ *
+ * Output (JSON, shape unchanged from v2 so the route's schema and Jimmy's
+ * brief email need no new plumbing):
+ *   - objectA: prospect-facing observations, stored on the report row
+ *   - objectB: Jimmy's pre-call brief, emailed to hello@maruonline.com.
+ *     `integration_gap` now carries the data-flow gap; the key name is kept
+ *     for schema stability.
+ *
+ * v2's rule "never mention AI in Object A" is gone (Addendum 02, item B): the
+ * check is about AI use, so the observations have to be able to name it. The
+ * positioning rules replace it — pain first, no legal advice, no banned claims.
  */
+
+import { ASSESSMENT_AREAS } from "./questions";
+import { LEVEL_RESULTS, type AssessmentAnswers } from "./scoring";
+
+export type { AssessmentAnswers };
 
 export function buildSynthesisPrompt(
   answers: AssessmentAnswers,
   level: 1 | 2 | 3,
   siteMarkdown: string
 ): string {
-  const levelLabels = {
-    1: "Early Stage",
-    2: "Building",
-    3: "Primed",
-  };
-
-  const levelDescriptions = {
-    1: "The business has identifiable operational friction but systems and processes are largely informal. The biggest opportunity is establishing the right foundations before automating anything.",
-    2: "The business has some structure in place but key processes still depend on manual steps or disconnected systems. The opportunity is targeted integration at the highest-friction points.",
-    3: "The business has operational maturity and connected systems. The opportunity is optimisation and scaling — automating at a higher level of sophistication across existing infrastructure.",
-  };
-
-  const answersFormatted = `
-AREA 1 — Process & Workflow
-Q1 — How would you describe the way work actually gets done day-to-day?
-Answer: ${answers.q1}
-Q2 — What happens when a key team member is unexpectedly unavailable for a week?
-Answer: ${answers.q2}
-
-AREA 2 — Data & Information Flow
-Q3 — Where does your business data live?
-Answer: ${answers.q3}
-Q4 — How often does information get lost, re-entered, or entered incorrectly?
-Answer: ${answers.q4}
-
-AREA 3 — Client & Lead Management
-Q5 — When a new enquiry or lead comes in, what actually happens next?
-Answer: ${answers.q5}
-Q6 — How confident are you that every lead gets followed up consistently?
-Answer: ${answers.q6 ?? "not provided"}
-
-AREA 4 — Visibility & Reporting
-Q7 — How do you get a current view of how the business is performing?
-Answer: ${answers.q7 ?? "not provided"}
-Q8 — When something goes wrong, how do you typically find out?
-Answer: ${answers.q8 ?? "not provided"}
-
-AREA 5 — People & Dependency
-Q9 — How reliant is the business on specific individuals?
-Answer: ${answers.q9 ?? "not provided"}
-Q10 — Have you made a deliberate attempt to improve operations before?
-Answer: ${answers.q10 ?? "not provided"}
-  `.trim();
+  // Question and answer as the visitor saw them, so the model reasons about
+  // the words rather than guessing what an option key like "main-only" means.
+  const answersFormatted = ASSESSMENT_AREAS.map((area, i) => {
+    const lines = area.questions.map((q) => {
+      const chosen = q.options.find((o) => o.value === answers[q.id]);
+      const answer = chosen ? `${chosen.label} (${chosen.score}/4)` : "not provided";
+      return `${q.id.toUpperCase()}: ${q.text}\nAnswer: ${answer}`;
+    });
+    return `AREA ${i + 1}: ${area.label}\n${lines.join("\n")}`;
+  }).join("\n\n");
 
   const siteContext = siteMarkdown
     ? `
-WEBSITE ANALYSIS (from site scrape — do not reveal this source):
+WEBSITE ANALYSIS (from site scrape; do not reveal this source):
 ${siteMarkdown.slice(0, 3000)}
     `.trim()
     : "WEBSITE ANALYSIS: No website provided or scrape unsuccessful. Base observations on assessment answers only.";
 
-  return `You are producing structured output for Maru Online, an AI implementation consultancy. Your output feeds two destinations: a Notion report the prospect receives, and an internal brief the founder reads before a discovery call.
+  return `You are producing structured output for Maru Online, a POPIA-conscious AI implementation consultancy for South African businesses. Maru maps where client personal information goes through a business's AI tools, apps, spreadsheets and WhatsApp, fixes the risks, and builds workflows that save time. Your output feeds two destinations: observations stored with the report the prospect receives, and an internal brief the founder reads before a discovery call.
 
-PROSPECT ASSESSMENT DATA:
-Readiness Level: ${level} — ${levelLabels[level]}
-Level meaning: ${levelDescriptions[level]}
+The prospect just completed a 10-question Exposure Check. Each answer is shown with its score: 4 is best practice, 0 is no practice at all.
+
+PROSPECT RESULT:
+Level: ${level}, ${LEVEL_RESULTS[level].label}
+Level meaning: ${LEVEL_RESULTS[level].summary}
 
 ASSESSMENT ANSWERS:
 ${answersFormatted}
 
 ${siteContext}
 
-INSTRUCTIONS FOR OBJECT A (prospect-facing — Notion report):
-Write 3 observations about this specific prospect's operational situation. Rules:
-- Each observation is 2-3 sentences maximum
-- Use operational language only — never mention AI, automation, or technology in the observations themselves
-- Frame as insight derived from their answers: "Based on what you've shared..." or "Businesses at this stage often find..."
-- Be specific enough to feel personalised, general enough to apply without naming their sector
-- Observation 1: Name the primary operational friction their answers reveal
-- Observation 2: Name the downstream cost of that friction (time, money, or dependency on specific people)
-- Observation 3: Name what becomes possible when that friction is removed — frame as a business outcome, not a technology outcome
-- If website data is available: incorporate ONE specific observation about what their site signals about their current systems maturity — frame as operational insight, not a website critique
-- Tone: direct, warm, credible. Consistent with a consultant who has seen this pattern before and is being honest about what they see. No hype. No flattery.
+RULES FOR ALL OUTPUT:
+- South African English (organisation, optimise, programme).
+- Maru is not a law firm. Never give legal advice, never state that the business is or is not compliant, and never interpret the law for them. Describe risks and habits, not legal conclusions.
+- Never use: "certified", "guaranteed", "100%", "fully compliant", "POPIA-safe", "POPIA-compliant", "approved by the Information Regulator", or any statistic.
+- You may mention POPIA by name. Do not cite section numbers in Object A.
 
-INSTRUCTIONS FOR OBJECT B (internal — Jimmy's pre-call brief):
-Write a structured pre-call brief for the founder. Be direct and specific. Include:
-- business_summary: 2-3 sentences on what the business appears to do and its approximate maturity based on site and answers
-- segment: which of the three audience segments this prospect maps to (Curious Operator / Frustrated Adopter / Infrastructure-Aware Business) and why in one sentence
-- primary_pain: the single highest-priority operational problem their answers reveal — named precisely
-- integration_gap: what specific systems or processes appear to be disconnected or manual based on answers and site data
-- tech_signals: what their website reveals about their current tech stack, systems maturity, and infrastructure health (CMS, analytics, booking systems, contact forms, page speed signals — extract from site markdown if available, otherwise state "no website data")
-- conversation_opener: one specific question Jimmy should open the discovery call with — based on their answers, not a generic opener. Should make the prospect feel heard immediately.
-- probes: 2 specific follow-up questions to explore during the call based on what their answers left unclear
-- flag: any disqualification signals present (e.g. prior freelancer engagement, unclear budget expectation, mismatch between ambition and operational maturity). State "none detected" if none present.
+INSTRUCTIONS FOR OBJECT A (prospect-facing):
+Write 3 observations about this prospect's situation. Rules:
+- Each observation is 2-3 sentences maximum.
+- Pain first: lead with what is at stake for their clients' information or their reputation. AI can be named, but never as the opening word or the hero of a sentence.
+- Frame as insight from their answers: "Based on what you've shared..." or "Businesses at this stage often find..."
+- Specific enough to feel personal, general enough to apply without naming their sector.
+- Observation 1: the biggest place client information is unguarded, according to their answers.
+- Observation 2: what that exposure could cost them in client trust, time, or dependence on one person.
+- Observation 3: what changes once it is fixed, framed as a business outcome (clients can be answered with confidence, the team uses AI without second-guessing), not a technology outcome.
+- If website data is available: add ONE observation about what the site signals about how they collect or handle personal information (forms, consent wording, privacy notice). Otherwise return null.
+- Tone: direct, warm, credible. A consultant who has seen this pattern before and is honest about it. No hype, no fear-mongering, no flattery.
+
+INSTRUCTIONS FOR OBJECT B (internal, Jimmy's pre-call brief):
+Be direct and specific. Include:
+- business_summary: 2-3 sentences on what the business appears to do and how mature its handling of client information seems.
+- segment: which audience this prospect most likely maps to (ESD programme beneficiary / financial adviser or FSP / medical, dental or allied-health practice / estate or managing agent / small law or accounting firm / other owner-led SME) and why, in one sentence. Say "unclear" if the answers and site give no signal.
+- primary_pain: the single highest-priority exposure the answers reveal, named precisely (e.g. "client records pasted into free AI tools with no rule against it").
+- integration_gap: the data-flow gap. Which systems, apps or channels client information moves through without control, based on answers and site data.
+- tech_signals: what the website reveals about their tools and their handling of personal information (CMS, forms, consent wording, privacy notice, booking and chat tools). If there is no site markdown, state "no website data".
+- conversation_opener: one specific question Jimmy should open the call with, drawn from their weakest answers. It should make the prospect feel heard immediately.
+- probes: exactly 2 follow-up questions on what their answers left unclear.
+- flag: disqualification or caution signals (e.g. answers suggest no client personal information is handled, a mismatch between their answers, or urgency that suggests a live incident needing legal help rather than Maru). State "none detected" if none.
 
 OUTPUT FORMAT:
 Return valid JSON only. No markdown code fences. No explanation before or after. No trailing commas. Exactly this structure:
@@ -111,7 +95,7 @@ Return valid JSON only. No markdown code fences. No explanation before or after.
 {
   "objectA": {
     "observation1": "string",
-    "observation2": "string", 
+    "observation2": "string",
     "observation3": "string",
     "siteObservation": "string or null"
   },
@@ -126,11 +110,6 @@ Return valid JSON only. No markdown code fences. No explanation before or after.
     "flag": "string"
   }
 }`;
-}
-
-export interface AssessmentAnswers {
-  q1: string;  q2: string;  q3: string;  q4: string;  q5: string;
-  q6?: string; q7?: string; q8?: string; q9?: string; q10?: string;
 }
 
 export interface SynthesisOutput {

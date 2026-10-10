@@ -1,6 +1,7 @@
 interface ListItemProps {
   leader: string
-  body: string
+  /** Optional: a leader-only row renders without the dash. */
+  body?: string
   className?: string
 }
 
@@ -10,7 +11,9 @@ export default function ListItem({ leader, body, className = '' }: ListItemProps
       <span aria-hidden="true" className="bullet-cyan" />
       <p style={{ margin: 0, fontSize: 'var(--text-body)', lineHeight: 'var(--leading-body)', letterSpacing: '0.01em' }}>
         <span style={{ fontWeight: 600, color: 'var(--color-navy)' }}>{leader}</span>
-        <span style={{ fontWeight: 300, color: 'var(--color-ink-secondary)' }}>{' — '}{body}</span>
+        {body && (
+          <span style={{ fontWeight: 300, color: 'var(--color-ink-secondary)' }}>{' — '}{body}</span>
+        )}
       </p>
     </li>
   )

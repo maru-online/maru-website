@@ -807,6 +807,49 @@
       grid-template-columns: 1fr 1fr;
     }
   }
+
+  /* Homepage FAQ (copy handover entry 14). Native <details>, so it opens
+     without JavaScript. Questions use navy ink: the older AccordionFAQ's cyan
+     question text is under 3:1 on light grounds. */
+  .faq-list { border-bottom: 1px solid var(--color-border-default); }
+  .faq-item { border-top: 1px solid var(--color-border-default); }
+  .faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    min-height: 44px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary:focus-visible {
+    outline: 2px solid var(--color-cyan-ink);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+  .faq-q {
+    font-family: var(--font-display);
+    font-size: var(--text-h3-serif);
+    font-weight: 600;
+    color: var(--color-ink-primary);
+    line-height: var(--leading-subheading);
+    transition: color 0.2s ease;
+  }
+  .faq-summary:hover .faq-q { color: var(--color-cyan-ink); }
+  .faq-summary:active .faq-q { color: var(--color-navy); }
+  .faq-icon {
+    flex-shrink: 0;
+    display: flex;
+    color: var(--color-cyan-ink);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); }
+  .faq-a { margin: 0; padding-bottom: 1.5rem; max-width: 640px; }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-icon { transition: none; }
+  }
 }
 
 /* Prevent Calendly's injected iframe from blocking page interactions */

@@ -4,8 +4,6 @@ import { BGPattern } from '@/components/ui/bg-pattern'
 import ImageSplit from '@/components/ui/ImageSplit'
 import ImageBand from '@/components/ui/ImageBand'
 import AccordionFAQ from '@/components/ui/AccordionFAQ'
-import CardProof from '@/components/ui/CardProof'
-import ListItem from '@/components/ui/ListItem'
 import ListGroup from '@/components/ui/ListGroup'
 import ToolsScroller from '@/components/ui/ToolsScroller'
 import { FadeUp, StaggerParent, StaggerChild } from '@/components/ui/Animate'
@@ -13,7 +11,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'How We Work | Maru Online',
-  description: 'A structured four-phase process. Fixed scope, fixed price, clear deliverables at every stage — from the initial diagnostic through to a 30-day measurement report.',
+  description: 'Four steps. Clear proposal. Measured outcome. From the free assessment through to 30 days of measurement after launch.',
   ...seo('/process'),
 }
 
@@ -22,78 +20,35 @@ const inner       = 'max-w-[900px] mx-auto'
 const innerWide   = 'max-w-[1100px] mx-auto'
 const innerNarrow = 'max-w-[720px] mx-auto'
 
-// ─── Phase data ───────────────────────────────────────────────────────────────
+// ─── Step data ────────────────────────────────────────────────────────────────
+// Copy handover entry 13 (approved 6 Oct 2026, trimmed form), verbatim. Show
+// the shape, hide the mechanics: the longer phase write-ups (intake brief,
+// verification call, gap report, 90-day roadmap, per-phase checklists) are
+// withdrawn and must not be restored. There is no paid diagnostic any more.
 
-const phases = [
+const steps = [
   {
-    number:  '01',
-    label:   'Diagnose',
-    title:   'We map the gaps before we configure anything.',
-    body: [
-      "You complete a sector-specific intake form. It takes fifteen minutes. We follow up with a short verification call. Within 48 hours, you receive your diagnostic report.",
-      "The report covers your workflows, tools, and site infrastructure. It includes a quantified revenue gap analysis. This is a live document, not a PDF. Whether you proceed or not, the report is yours.",
-    ],
-    items: [
-      { leader: 'Sector-specific intake brief', body: 'Fifteen questions tailored to your industry.' },
-      { leader: 'Verification call',             body: 'We clarify the brief and confirm scope before work begins.' },
-      { leader: 'Written gap report',            body: 'A snapshot of what is working and the cost of your current state.' },
-      { leader: '90-day roadmap',                body: 'A sequenced action plan so you know what to do next.' },
-    ],
-    note: 'The Operations Diagnostic. If you proceed to a full engagement, this fee offsets against the project cost.',
-    bg:   'var(--color-bg-primary)',
+    number: '01',
+    label:  'Assess.',
+    body:   ['Start with a free assessment.'],
   },
   {
-    number:  '02',
-    label:   'Design',
-    title:   'We scope the work before you commit.',
-    body: [
-      "We use the diagnostic findings to build a fixed-scope plan. Every item is specified. We define what we are building, what it connects to, and what it produces. Nothing is vague.",
-      "You review the plan and request adjustments. We do not proceed until you sign off on every element. If your site infrastructure needs work first, the plan addresses it upfront.",
+    number: '02',
+    label:  'Plan.',
+    body:   [
+      'We talk it through on a short, free call, then send you a proposal.',
+      "You never need to share your clients' personal information to scope a build, and we ask before recording or transcribing any call.",
     ],
-    items: [
-      { leader: 'Fixed-scope definition',    body: 'A clear written spec of what will be built and measured.' },
-      { leader: 'Fixed price',               body: 'Agreed before work begins. No hourly billing. No scope creep.' },
-      { leader: 'Baseline measurement',      body: 'We establish the “before” state so results are provable.' },
-      { leader: 'Stack decision',            body: 'We document exactly why we chose each tool or connection.' },
-    ],
-    note: null,
-    bg:   'var(--color-bg-canvas)',
   },
   {
-    number:  '03',
-    label:   'Build',
-    title:   'We configure on solid foundations.',
-    body: [
-      "We build exactly what the plan specifies. If your site needs remediation, that happens first. The automation layer follows once the foundation is sound. Every sprint has a defined output.",
-      "Everything we build is tested and documented. Your team receives instructions they can follow without a technical background.",
-      "**POPIA compliance is designed in from the start.**",
-    ],
-    items: [
-      { leader: 'Infrastructure first',        body: 'We resolve site and stack issues before adding automation.' },
-      { leader: 'Custom integration',          body: 'We connect your CRM, calendar, and email so data passes correctly.' },
-      { leader: 'Automation layer',            body: 'Workflows that run without human intervention.' },
-      { leader: 'Brand voice calibration',     body: 'AI outputs designed to use your defined business brand voice.' },
-      { leader: 'Compliance by design',        body: 'Every data touchpoint is reviewed for POPIA compliance.' },
-    ],
-    note: null,
-    bg:   'var(--color-bg-secondary)',
+    number: '03',
+    label:  'Build.',
+    body:   ['We build and test your workflows. Your first one is live in about 30 days from kick-off.'],
   },
   {
-    number:  '04',
-    label:   'Launch and Measure',
-    title:   'You own the system. We track the results.',
-    body: [
-      "We track results against your baseline for 30 days after launch. At the end of the period, you receive a results report. It shows what moved, what didn’t, and what to watch next.",
-      "This phase is built into every engagement. It is not an optional add-on. We make decisions about further optimisation based on data, not a sales conversation.",
-    ],
-    items: [
-      { leader: 'Full documentation',       body: 'Every connection and configuration is documented for your team.' },
-      { leader: 'Hands-on training',        body: 'We train the people who will actually use the system.' },
-      { leader: '30-day measurement',       body: 'We track results against the baseline and report changes.' },
-      { leader: 'Results report',           body: 'A written report of outcomes, not just a handover checklist.' },
-    ],
-    note: null,
-    bg:   'var(--color-bg-primary)',
+    number: '04',
+    label:  'Launch and measure.',
+    body:   ['We go live, train your team and hand it over, so you are not dependent on us. For 30 days after launch we measure results against where you started.'],
   },
 ]
 
@@ -143,14 +98,14 @@ export default function ProcessPage() {
                 lineHeight:   'var(--leading-body)',
               }}
             >
-              A free assessment shows you where the money leaks. A fixed price
-              fixes it. Then we measure what changed — in hours and rands.
+              A free assessment shows you where the money leaks. A proposal
+              sets out how to fix it. Then we measure what changed — in hours and rands.
             </p>
           </FadeUp>
           <FadeUp delay={0.22}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <Button href="/operations-assessment" variant="primary">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="primary">
+                Free Exposure Check
               </Button>
               <Button href="#phases" variant="tertiary">
                 See the process
@@ -171,7 +126,7 @@ export default function ProcessPage() {
           <div className="card-lift p-8 md:p-12">
             <FadeUp>
               <h3 style={{ marginBottom: 'var(--space-heading-body)', border: 'none' }}>
-                We start with a diagnostic of your current processes.
+                We start with an assessment of your current processes.
               </h3>
               <p className="body-muted" style={{ marginBottom: 0 }}>
                 &ldquo;Building the wrong thing faster is still building the wrong thing.&rdquo;
@@ -185,7 +140,7 @@ export default function ProcessPage() {
       <ImageSplit
         src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&q=80"
         alt="Team of professionals reviewing workflow diagrams on multiple screens"
-        eyebrow="Diagnostic first"
+        eyebrow="Assessment first"
         heading="We audit your workflows before we touch your tools."
         body="Building automation on top of broken infrastructure just breaks faster. We map how your business actually operates — the manual steps, the data handoffs, the gaps — before a single workflow is configured."
         imagePosition="left"
@@ -223,94 +178,89 @@ export default function ProcessPage() {
       </div>
 
       {/* ════════════════════════════════════════════════════════════════════
-          FOUR PHASES
+          FOUR STEPS — entry 13
           ════════════════════════════════════════════════════════════════════ */}
-      <div id="phases">
-        {phases.map((phase) => (
-          <section
-            key={phase.number}
-            className={`${outerPad} py-24`}
-            style={{ backgroundColor: phase.bg }}
-          >
-            <div className={inner}>
-              {/* Section header */}
-              <FadeUp>
-                <div style={{ marginBottom: 'var(--space-section-header-mb)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                    <span className="section-number">{phase.number}</span>
-                    <span className="label-eyebrow-ochre" style={{ margin: 0 }}>{phase.label}</span>
+      <section
+        id="phases"
+        className={`${outerPad} py-24`}
+        style={{ backgroundColor: 'var(--color-bg-primary)' }}
+      >
+        <div className={inner}>
+          <FadeUp>
+            <p className="body-muted" style={{ marginBottom: 'var(--space-section-header-mb)', maxWidth: '560px' }}>
+              Four steps. Clear proposal. Measured outcome.
+            </p>
+          </FadeUp>
+          <StaggerParent className="flex flex-col gap-5">
+            {steps.map((step) => (
+              <StaggerChild key={step.number}>
+                <div className="card-lift p-8 md:p-10 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-4 md:gap-10 items-start">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <span className="section-number">{step.number}</span>
+                    <h2 style={{ fontSize: 'var(--text-h3-serif)', margin: 0, border: 'none', padding: 0 }}>
+                      {step.label}
+                    </h2>
                   </div>
-                  <h2>{phase.title}</h2>
-                </div>
-              </FadeUp>
-
-              {/* 2-col: prose + list */}
-              <FadeUp delay={0.08}>
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-12 md:gap-16 items-start">
-                  {/* Left — description */}
                   <div>
-                    {phase.body.map((para, i) => {
-                      const isBold = para.startsWith('**') && para.endsWith('**');
-                      const text = isBold ? para.slice(2, -2) : para;
-                      return (
-                        <p
-                          key={i}
-                          className="body-muted"
-                          style={{
-                            marginBottom: i < phase.body.length - 1 ? 'var(--space-para-section)' : 0,
-                            fontWeight: isBold ? 700 : undefined,
-                            color: isBold ? 'var(--color-ink-primary)' : undefined,
-                          }}
-                        >
-                          {text}
-                        </p>
-                      );
-                    })}
-                    {phase.note && (
+                    {step.body.map((para, i) => (
                       <p
-                        style={{
-                          fontFamily:      'var(--font-body)',
-                          fontSize:        'var(--text-meta)',
-                          fontWeight:      300,
-                          color:           'var(--color-ink-tertiary)',
-                          marginTop:       '1.5rem',
-                          marginBottom:    0,
-                          paddingTop:      '1rem',
-                          borderTop:       '1px solid var(--color-border-default)',
-                        }}
+                        key={i}
+                        className="body-muted"
+                        style={{ marginBottom: i < step.body.length - 1 ? 'var(--space-para-section)' : 0 }}
                       >
-                        {phase.note}
+                        {para}
                       </p>
-                    )}
-                  </div>
-
-                  {/* Right — what's included */}
-                  <div>
-                    <p
-                      style={{
-                        fontFamily:    'var(--font-body)',
-                        fontSize:      'var(--text-label)',
-                        fontWeight:    500,
-                        letterSpacing: 'var(--tracking-eyebrow)',
-                        textTransform: 'uppercase',
-                        color:         'var(--color-ink-tertiary)',
-                        marginBottom:  '0.75rem',
-                      }}
-                    >
-                      What happens in this phase
-                    </p>
-                    <ListGroup>
-                      {phase.items.map((item) => (
-                        <ListItem key={item.leader} leader={item.leader} body={item.body} />
-                      ))}
-                    </ListGroup>
+                    ))}
                   </div>
                 </div>
-              </FadeUp>
-            </div>
-          </section>
-        ))}
-      </div>
+              </StaggerChild>
+            ))}
+          </StaggerParent>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          HOW WE PRICE — entry 13, replaces the /pricing page (which now
+          redirects here). No figure until Jimmy confirms one; when he does,
+          store it as a single constant, not inline.
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        id="how-we-price"
+        className={`${outerPad} py-24 scroll-mt-24`}
+        style={{ background: 'var(--gradient-surface)' }}
+      >
+        <div className={innerNarrow}>
+          <div className="card-lift p-8 md:p-12">
+            <FadeUp>
+              <h2 style={{ marginBottom: 'var(--space-heading-body)', border: 'none' }}>How we price</h2>
+            </FadeUp>
+            <FadeUp delay={0.08}>
+              <p className="body-muted" style={{ marginBottom: 'var(--space-para-section)' }}>
+                After your free assessment and a call, we send a proposal that sets out the scope and the cost. You see it before we start. We don&apos;t bill by the hour.
+              </p>
+              <ListGroup>
+                <li className="flex gap-6 py-5 border-b border-[var(--color-border-default)]">
+                  <span aria-hidden="true" className="bullet-cyan" />
+                  <p className="body-muted" style={{ margin: 0 }}>
+                    Included: build, testing, handover, training and 30 days of measurement.
+                  </p>
+                </li>
+                <li className="flex gap-6 py-5">
+                  <span aria-hidden="true" className="bullet-cyan" />
+                  <p className="body-muted" style={{ margin: 0 }}>
+                    Not included: subscriptions to the tools themselves, which you pay to the providers directly. We tell you what&apos;s needed, and why, before you commit.
+                  </p>
+                </li>
+              </ListGroup>
+              <div style={{ marginTop: '2rem' }}>
+                <Button href="/popia-ai-check" variant="primary">
+                  Start with the free assessment
+                </Button>
+              </div>
+            </FadeUp>
+          </div>
+        </div>
+      </section>
 
       {/* ── IMAGE BAND — between phases and principles ───────────────────── */}
       <ImageBand
@@ -349,7 +299,7 @@ export default function ProcessPage() {
             <AccordionFAQ items={[
               {
                 q: 'How long does the whole process take?',
-                a: 'The diagnostic takes 48 hours from intake form submission to report delivery. The core engagement — Phases 2 through 4 — typically runs four to eight weeks depending on complexity and whether site remediation is required. The 30-day measurement phase runs after launch.',
+                a: 'Your first workflow is live in about 30 days from kick-off. For 30 days after launch we measure results against where you started.',
               },
               {
                 q: 'Do I need to be technical to work with you?',
@@ -357,7 +307,7 @@ export default function ProcessPage() {
               },
               {
                 q: "What if my business isn't ready for AI implementation?",
-                a: "The diagnostic will tell you. If the honest answer is that your foundation needs work before AI automation makes sense, we'll say so — and we can scope the infrastructure work that needs to happen first, before any automation is layered on top. We'd rather give you a clear picture than sell you something you're not ready for.",
+                a: "The assessment will tell you. If the honest answer is that your foundation needs work before AI automation makes sense, we'll say so — and we can scope the infrastructure work that needs to happen first, before any automation is layered on top. We'd rather give you a clear picture than sell you something you're not ready for.",
               },
               {
                 q: 'I already have AI tools. Do I have to replace them?',
@@ -372,12 +322,12 @@ export default function ProcessPage() {
                 a: "The 30-day measurement phase is where this gets addressed honestly. If something didn't perform as expected, the results report says so and explains why. We don't disappear after handover — the 30-day check-in is built in specifically to catch this and course-correct where needed.",
               },
               {
-                q: 'Can I start with just the diagnostic and decide later?',
-                a: "Yes — that's exactly how it's designed. The diagnostic is a complete, standalone deliverable. There is no obligation to proceed to a full engagement. Many clients use the diagnostic report to make an internal case for the investment before committing.",
+                q: 'Can I start with just the assessment and decide later?',
+                a: "Yes — that's exactly how it's designed. The assessment is free, with no obligation to proceed to a full engagement.",
               },
               {
                 q: 'Do you work outside Gauteng, South Africa?',
-                a: "Yes, we do. The diagnostic and most of the engagement work is handled remotely. For clients in Gauteng we can meet in person at key stages. For clients elsewhere in South Africa the process works entirely via video call and shared documents — same quality, same process.",
+                a: "Yes, we do. The assessment and most of the engagement work is handled remotely. For clients in Gauteng we can meet in person at key stages. For clients elsewhere in South Africa the process works entirely via video call and shared documents — same quality, same process.",
               },
             ]} />
           </div>
@@ -407,7 +357,7 @@ export default function ProcessPage() {
         />
         <div className={innerNarrow}>
           <FadeUp>
-            <span className="label-eyebrow">The diagnostic</span>
+            <span className="label-eyebrow">Free assessment</span>
             <h2
               style={{
                 color:        'var(--color-ink-inverted)',
@@ -423,8 +373,7 @@ export default function ProcessPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: 'var(--space-para-section)' }}>
-              The assessment is free and takes about 15 minutes — your report is
-              emailed to you. The Operations Diagnostic that follows is R4,500.
+              Start with a free assessment.
             </p>
             <hr
               className="rule"
@@ -436,11 +385,11 @@ export default function ProcessPage() {
           </FadeUp>
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="primary">
+                Free Exposure Check
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

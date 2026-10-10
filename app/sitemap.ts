@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { GUIDE_INDEXABLE, GUIDE_PATH } from '@/lib/guides/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://maruonline.com';
@@ -8,13 +9,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: baseUrl, changeFrequency: 'weekly', priority: 1 },
     { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/services`, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/pricing`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/process`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/contact`, changeFrequency: 'monthly', priority: 0.8 },
     // /insights omitted while it has no articles — an empty section should not
     // be advertised to Google. Restore when the first article publishes.
-    { url: `${baseUrl}/operations-assessment`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/booking`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/popia-ai-check`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/careers`, changeFrequency: 'monthly', priority: 0.5 },
   ];
 
@@ -28,13 +27,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/services/results-optimisation`, changeFrequency: 'monthly', priority: 0.7 },
   ];
 
+  // The fake POPIA checklist page is retired (404); only the guide is listed.
+  const resourcePages: MetadataRoute.Sitemap = [
+    // Entry 19 §1: listed only once the guide page is indexable (release gates).
+    ...(GUIDE_INDEXABLE
+      ? [{ url: `${baseUrl}${GUIDE_PATH}`, changeFrequency: 'monthly' as const, priority: 0.6 }]
+      : []),
+  ];
+
   const legalPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/privacy-policy`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms-conditions`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/cookie-policy`, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
-  return [...corePages, ...servicePages, ...legalPages].map((entry) => ({
+  return [...corePages, ...servicePages, ...resourcePages, ...legalPages].map((entry) => ({
     ...entry,
     lastModified: now,
   }));

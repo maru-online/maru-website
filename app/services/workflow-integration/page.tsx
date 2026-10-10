@@ -33,8 +33,8 @@ const bullets = [
     body: "AI outputs calibrated to sound like your business, not a generic chatbot.",
   },
   {
-    leader: "POPIA compliance built in",
-    body: "Every data touchpoint designed for compliance before a line of code is written.",
+    leader: "Built with POPIA in mind",
+    body: "Every data touchpoint designed with POPIA in mind before a line of code is written.",
   },
   {
     leader: "30-day support window",
@@ -49,7 +49,6 @@ export default function WorkflowIntegrationPage() {
         name="Workflow Integration"
         description="Connect your existing tools. Configure the workflows between them. Fixed-scope, vendor-agnostic."
         path="/services/workflow-integration"
-        price="45000"
       />
       {/* ── Hero ── */}
       <section
@@ -134,7 +133,8 @@ export default function WorkflowIntegrationPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R35,000
+                {/* No published price figure (Jimmy, 6 Oct 2026); see /process#how-we-price. */}
+                Priced in your proposal
               </p>
               <p
                 style={{
@@ -156,7 +156,7 @@ export default function WorkflowIntegrationPage() {
                   margin: 0,
                 }}
               >
-                Fixed price scoped after the diagnostic — no surprises.
+                Scoped and priced in your proposal, after the Exposure Check.
               </p>
             </div>
           </FadeUp>
@@ -192,7 +192,7 @@ export default function WorkflowIntegrationPage() {
                   What it is
                 </span>
                 <p className="body-muted" style={{ marginBottom: "2.5rem" }}>
-                  Fixed-scope implementation built around what the diagnostic found. We configure the
+                  Fixed-scope implementation built around what the assessment found. We configure the
                   connections between your existing tools, extend what&apos;s already working, and
                   build the automation layer on top. Vendor-agnostic — your stack stays, we connect
                   it. Nothing is built until the scope and price are agreed.
@@ -218,7 +218,7 @@ export default function WorkflowIntegrationPage() {
                   How it connects
                 </span>
                 <p className="body-muted" style={{ margin: 0 }}>
-                  At day 30 we measure results against the baseline established in the diagnostic. If
+                  At day 30 we measure results against the baseline established in the assessment. If
                   the measurement surfaces further optimisation opportunities, that becomes the input
                   to a Results Optimisation sprint. Team Training & Handover runs alongside or
                   immediately after the build to ensure the capability stays in your business.
@@ -286,18 +286,18 @@ export default function WorkflowIntegrationPage() {
                 marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Every integration starts with the diagnostic.</span>
+              <span style={{ fontWeight: 300 }}>Every integration starts with the assessment.</span>
               <br />
               <span style={{ fontWeight: 700 }}>That&apos;s where the scope comes from.</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="primary">
+                Free Exposure Check
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

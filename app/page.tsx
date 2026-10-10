@@ -1,13 +1,15 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
+import HomeFaq from "@/components/homepage/HomeFaq";
+import GuideStrip from "@/components/homepage/GuideStrip";
+import { GUIDE_HOMEPAGE_STRIP } from "@/lib/guides/config";
 import PrimaryServicesFilter from "@/components/homepage/PrimaryServicesFilter";
 import { CaseStudyProofStrip } from "@/components/homepage/CaseStudyProofStrip";
-import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
-import MaruM from "@/components/ui/MaruM";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import StatBand from "@/components/ui/StatBand";
 import Glyph from "@/components/ui/Glyph";
@@ -15,46 +17,16 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   ...seo('/'),
-  title: "Cut Your Operating Costs With AI-Powered Workflows | Maru Online",
+  // Copy handover entry 02 (approved 5 Oct 2026): title 55 chars, description 149.
+  title: "POPIA-Conscious AI for South African SMEs | Maru Online",
   description:
-    "We help businesses cut operating costs by building AI-powered workflows where it matters most. Book a discovery call.",
+    "Your team is already using AI. We connect your tools and build AI workflows your staff can use safely, with POPIA in mind. Free 5-minute assessment.",
 };
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
 const outerPad = "px-6 md:px-[60px]";
 const inner     = "max-w-[900px] mx-auto";
-const innerNarrow = "max-w-[720px] mx-auto";
 const innerWide = "max-w-[1100px] mx-auto";
-
-
-// ─── Inline SVGs for trust bar ────────────────────────────────────────────────
-
-function IconSearch() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function IconShield() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M10 2L3 5v5c0 4.418 3.134 7.5 7 8 3.866-.5 7-3.582 7-8V5L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconStar() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -80,23 +52,6 @@ export default function Home() {
           fill="rgba(61, 184, 198, 0.101)"
           className="pointer-events-none"
         />
-        {/* Maru "M" — dimensional brand object (Warm Stone depth system) */}
-        <div
-          aria-hidden="true"
-          className="hidden sm:block"
-          style={{
-            position: "absolute",
-            top: "0px",
-            right: "-140px",
-            width: "500px",
-            height: "500px",
-            pointerEvents: "none",
-            filter: "drop-shadow(0 48px 96px rgba(6, 14, 21, 0.5))",
-            opacity: 0.5,
-          }}
-        >
-          <MaruM className="w-full h-full" />
-        </div>
         <div className={innerWide}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>AI Implementation Consultancy</span>
@@ -104,9 +59,9 @@ export default function Home() {
 
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">AI-Powered Workflows That</span>
+              <span className="maru-headline-split-light">Your team already uses AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Cut Your Operating Costs</span>
+              <span className="maru-headline-split-strong">Where is your client data going?</span>
             </h1>
           </FadeUp>
 
@@ -119,26 +74,10 @@ export default function Home() {
                 color: "var(--color-ink-inverted-muted)",
                 lineHeight: "var(--leading-body-relaxed)",
                 maxWidth: "640px",
-                marginBottom: "2rem",
-              }}
-            >
-              We find the manual tasks eating your team&apos;s time and replace them with AI workflows that actually work.
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.19}>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: "var(--text-body-sm)",
-                color: "var(--color-ink-inverted-muted)",
-                lineHeight: "var(--leading-body-relaxed)",
-                maxWidth: "560px",
                 marginBottom: "3rem",
               }}
             >
-              Most businesses buy AI tools that never talk to each other. We connect them, automate what matters, and show you the savings.
+              Your clients trust you with their information. Your staff are probably pasting it into free AI tools to save time, with no contract, no safeguards, and no idea where it ends up. Under POPIA, that&apos;s your responsibility. We build AI workflows your team can use safely, so you keep the productivity and avoid the exposure.
             </p>
           </FadeUp>
 
@@ -151,11 +90,14 @@ export default function Home() {
               data-maru-primary-cta
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
             >
-              <Button href="/booking" variant="primary" className="w-full sm:w-auto justify-center">
-                Book a discovery call
+              <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
+                Free Exposure Check
               </Button>
-              <Button href="/operations-assessment" variant="secondary" className="w-full sm:w-auto justify-center">
-                Start the assessment
+              {/* Demoted to a text link (copy handover entry 01). tertiary's
+                  default cyan-ink is a light-ground colour; on the navy hero it
+                  needs --color-cyan, which is the dark-ground cyan. */}
+              <Button href="/contact#contact-form" variant="tertiary" className="!text-cyan hover:!text-white self-center sm:self-auto">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>
@@ -173,12 +115,15 @@ export default function Home() {
       >
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>The operational gap</span>
-            <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <span style={{ fontWeight: 700 }}>Your tools work.</span>
+            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Why it&apos;s happening</span>
+            <h2 style={{ marginBottom: "var(--space-heading-body)" }}>
+              <span style={{ fontWeight: 700 }}>Your team isn&apos;t careless.</span>
               <br />
-              <span style={{ fontWeight: 300 }}>Your workflows don&apos;t.</span>
+              <span style={{ fontWeight: 300 }}>Your tools don&apos;t connect.</span>
             </h2>
+            <p className="body-muted" style={{ maxWidth: "640px", marginBottom: "var(--space-section-header-mb)" }}>
+              When your CRM, email and accounting don&apos;t share data, people copy and paste into whatever gets the job done. Now, that often means a free AI tool.
+            </p>
           </FadeUp>
 
           {/* The picture of the problem — and the fix — before the words for it */}
@@ -193,23 +138,23 @@ export default function Home() {
             {[
               {
                 icon: "unlink" as const,
-                heading: "Your tools don’t talk to each other.",
-                body: "CRM, email, accounting — all working, all separate.",
+                heading: "Your tools don't talk to each other.",
+                body: "CRM, email and accounting all work, but none of them share data. Your people are the glue.",
               },
               {
                 icon: "hourglass" as const,
                 heading: "Admin is eating your week.",
-                body: "Re-entering data quietly costs days every month.",
+                body: "Retyping the same details into several systems costs days every month. So people look for shortcuts.",
               },
               {
                 icon: "stale" as const,
-                heading: "You’re deciding on old numbers.",
-                body: "Five systems means you’re reading last month’s export.",
+                heading: "You're deciding on old numbers.",
+                body: "Five systems means you're working from last month's export.",
               },
               {
                 icon: "shield" as const,
-                heading: "Manual data handling is a POPIA risk.",
-                body: "Loose consent and scattered storage are exposure.",
+                heading: "Every manual copy is a POPIA risk.",
+                body: "Each one is another place client data can end up where it shouldn't. Under POPIA, you answer for that.",
               },
             ].map((col) => (
               <StaggerChild key={col.heading}>
@@ -259,7 +204,7 @@ export default function Home() {
                 lineHeight: "var(--leading-body)",
               }}
             >
-              None of this needs new software. We fix it with the systems you already have.
+              We connect the systems you already pay for. If something new is needed, we&apos;ll tell you what and why before you commit.
             </p>
           </FadeUp>
         </div>
@@ -291,15 +236,15 @@ export default function Home() {
         <div className={innerWide}>
           <FadeUp>
             <h2>
-              <span style={{ fontWeight: 300 }}>Pick the problem.</span>
+              <span style={{ fontWeight: 300 }}>Start with the assessment.</span>
               <br />
-              <span style={{ fontWeight: 700 }}>We’ll fix it.</span>
+              <span style={{ fontWeight: 700 }}>Fix what it finds.</span>
             </h2>
             <p
               className="body-muted"
               style={{ maxWidth: "640px", marginBottom: "var(--space-section-header-mb)" }}
             >
-              Every engagement starts the same way: a free assessment that shows you where the money is leaking.
+              Every engagement starts the same way: a free assessment that shows where your time, money and client data are exposed, and what to fix first.
             </p>
           </FadeUp>
 
@@ -316,173 +261,22 @@ export default function Home() {
               </FadeUp>
             </div>
           )}
-        </div>
-      </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 05 — FOUNDATION SERVICES (flush 3-col grid)
-          bg: secondary — the grid cells were white on white before
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-secondary)" }}
-      >
-        <div className={innerWide}>
-          <FadeUp>
-            <h2>
-              <span style={{ fontWeight: 300 }}>Need more than workflows?</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>We build the rest too.</span>
-            </h2>
-            <p
-              className="body-muted"
-              style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}
-            >
-              Strategy, websites, and marketing — the foundations that make everything else work.
+          {/* Entry 10: the three foundation-service cards (strategy, design &
+              development, marketing) moved to /services; one secondary line
+              keeps them discoverable without competing with the assessment. */}
+          <FadeUp delay={0.08}>
+            <p className="body-muted" style={{ marginTop: "2.5rem", marginBottom: 0, textAlign: "center" }}>
+              Need a website or marketing support alongside this?{" "}
+              <Link
+                href="/services#foundations"
+                className="underline-offset-4 hover:underline focus-visible:underline"
+                style={{ color: "var(--color-cyan-ink)", fontWeight: 500, textDecoration: "none" }}
+              >
+                See all services →
+              </Link>
             </p>
           </FadeUp>
-
-          {/* Three discrete cards. Previously a flush grid whose 1px gaps were
-              the dividers — stacked on mobile that read as one undifferentiated
-              slab, so the cards now stand apart and each carries its own edge
-              and elevation via .card-lift. Entrance is staggered so the set
-              arrives as three things, not one. */}
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {[
-              {
-                ghost: "01",
-                icon: "compass" as const,
-                name: "Strategy & Consultation",
-                description: "We map the ground before anything gets built.",
-                deliverables: [
-                  "Market and audience research",
-                  "Digital roadmap and architecture",
-                  "Go-to-market strategy",
-                ],
-              },
-              {
-                ghost: "02",
-                icon: "browser" as const,
-                name: "Design & Development",
-                description: "Products built for integration from day one.",
-                deliverables: [
-                  "Websites, web apps and e-commerce",
-                  "Built for AI integration from day one",
-                  "Performance and conversion optimised",
-                ],
-              },
-              {
-                ghost: "03",
-                icon: "signal" as const,
-                name: "Digital Marketing Support",
-                description: "Insights from your data, then campaigns that act on them.",
-                deliverables: [
-                  "Analytics and insights",
-                  "Campaign strategy and execution",
-                  "Online visibility",
-                ],
-              },
-            ].map((col) => (
-              <StaggerChild key={col.ghost} className="h-full">
-              <div
-                className="card-lift h-full rounded-[10px]"
-                style={{ padding: "1.75rem 1.5rem" }}
-              >
-                {/* Glyph carries the category; the ghost number stays as a
-                    faint ordinal so the three columns still read as a set. */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
-                  <span className="glyph-chip glyph-chip-gold glyph-chip-lg">
-                    <Glyph name={col.icon} size={28} />
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "26px",
-                      fontWeight: 100,
-                      color: "rgba(205, 170, 83, 0.32)",
-                      lineHeight: 1,
-                      fontFamily: "var(--font-display)",
-                    }}
-                  >
-                    {col.ghost}
-                  </span>
-                </div>
-
-                {/* Service name + gold underline */}
-                <p
-                  style={{
-                    fontSize: "var(--text-h3-sans)",
-                    fontWeight: 600,
-                    color: "var(--color-ink-primary)",
-                    lineHeight: 1.3,
-                    marginBottom: "0.75rem",
-                    borderBottom: "2px solid var(--color-gold)",
-                    paddingBottom: "0.75rem",
-                    fontFamily: "var(--font-body)",
-                  }}
-                >
-                  {col.name}
-                </p>
-
-                {/* Description */}
-                <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                  {col.description}
-                </p>
-
-                {/* Deliverables label */}
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontSize: "10px",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    color: "var(--color-cyan)",
-                    background: "rgba(61, 184, 198, 0.10)",
-                    border: "1px solid rgba(61, 184, 198, 0.25)",
-                    borderRadius: "4px",
-                    padding: "3px 8px",
-                    marginBottom: "0.75rem",
-                    fontFamily: "var(--font-body)",
-                  }}
-                >
-                  Deliverables
-                </span>
-
-                {/* Deliverables list */}
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {col.deliverables.map((item) => (
-                    <li
-                      key={item}
-                      style={{
-                        fontSize: "var(--text-body-sm)",
-                        color: "var(--color-ink-secondary)",
-                        padding: "4px 0",
-                        lineHeight: "var(--leading-body)",
-                        display: "flex",
-                        gap: "8px",
-                        alignItems: "flex-start",
-                        fontFamily: "var(--font-body)",
-                        fontWeight: 300,
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "var(--color-gold)",
-                          fontSize: "var(--text-body-sm)",
-                          flexShrink: 0,
-                          lineHeight: "var(--leading-body)",
-                        }}
-                      >
-                        →
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
         </div>
       </section>
 
@@ -498,7 +292,7 @@ export default function Home() {
         <div className={inner}>
           <FadeUp>
             <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <span style={{ fontWeight: 300 }}>From first look to live savings</span>
+              <span style={{ fontWeight: 300 }}>From signed plan to your first live workflow</span>
               <br />
               <span style={{ fontWeight: 700 }}>in about 30 days.</span>
             </h2>
@@ -516,11 +310,11 @@ export default function Home() {
               }}
             >
               <p className="body-muted" style={{ marginBottom: 0, maxWidth: "560px" }}>
-                Four steps. Fixed price. Measured outcome.
+                Four steps. Clear proposal. Measured outcome.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Button href="/operations-assessment" variant="primary" className="w-full sm:w-auto justify-center">
-                  Start the assessment
+                <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
+                  Free Exposure Check
                 </Button>
                 <Button href="/process" variant="tertiary">
                   See how it works
@@ -544,11 +338,19 @@ export default function Home() {
         height={420}
       />
 
+      {/* ── FAQ — entry 14: after the team image block, before the final
+          ask, so objections are handled right before it ─────────────────── */}
+      <HomeFaq />
+
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 07 — ASSESSMENT FORM (client component)
           bg: navy (#1A3A5C)
           ════════════════════════════════════════════════════════════════════ */}
       <AssessmentFormSection />
+
+      {/* Entry 19 §11: guide strip below the final assessment section. OFF
+          until GUIDE_HOMEPAGE_STRIP is flipped at go-live. */}
+      {GUIDE_HOMEPAGE_STRIP && <GuideStrip />}
 
     </>
   );

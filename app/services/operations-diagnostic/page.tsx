@@ -10,42 +10,33 @@ import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
   ...seo('/services/operations-diagnostic'),
-  title: "Operations Diagnostic | Maru Online",
+  title: "Exposure Check | Maru Online",
   description:
-    "Map where your operation has gaps — before configuring anything. A structured audit delivered within 48 hours.",
+    "A free assessment that shows where your time, money and client data are exposed, and what to fix first.",
 };
 
 const outerPad    = "px-6 md:px-[60px]";
 const inner       = "max-w-[900px] mx-auto";
 const innerNarrow = "max-w-[720px] mx-auto";
 
-const bullets = [
-  {
-    leader: "Sector-specific intake brief",
-    body: "Structured questions tailored to your industry (medico-legal, HR & recruitment, or conference & events).",
-  },
-  {
-    leader: "Verification call",
-    body: "A 30–45 minute call to clarify the brief, ask the right questions, and confirm scope.",
-  },
-  {
-    leader: "Written gap report",
-    body: "A clear document mapping where your workflows aren't connected, the cost of each gap, and the configuration priority order.",
-  },
-  {
-    leader: "90-day roadmap",
-    body: "A sequenced action plan so you know exactly what to configure and in what order.",
-  },
+// The paid Operations Diagnostic (R4,500: intake brief, verification call,
+// costed gap report, 90-day roadmap) is retired. The free Operations
+// Assessment replaced it (Jimmy, 5 Oct 2026). Copy on this page uses only
+// approved handover wording (entries 04, 09, 13) until it gets its own copy
+// entry. The route keeps its old path so existing links still resolve.
+const bullets: { leader: string; body?: string }[] = [
+  { leader: "See your score live as you go" },
+  { leader: "No sign-up required to begin" },
 ];
 
-export default function OperationsDiagnosticPage() {
+export default function OperationsAssessmentPage() {
   return (
     <>
       <ServiceJsonLd
-        name="Operations Diagnostic"
-        description="Map where your operation has gaps \u2014 before configuring anything. A structured audit delivered within 48 hours."
+        name="Exposure Check"
+        description="A free assessment that shows where your time, money and client data are exposed, and what to fix first."
         path="/services/operations-diagnostic"
-        price="4500"
+        price="0"
       />
       {/* ── Hero ── */}
       <section
@@ -78,15 +69,15 @@ export default function OperationsDiagnosticPage() {
                   </Link>
                 </li>
                 <li aria-hidden="true">→</li>
-                <li style={{ color: "var(--color-cyan)" }}>Operations Diagnostic</li>
+                <li style={{ color: "var(--color-cyan)" }}>Exposure Check</li>
               </ol>
             </nav>
           </FadeUp>
           <FadeUp delay={0.06}>
-            <span className="label-eyebrow-ochre">01 — Operations Diagnostic</span>
+            <span className="label-eyebrow-ochre">01 — Exposure Check</span>
           </FadeUp>
           <FadeUp delay={0.12}>
-            <h1 style={{ color: "var(--color-ink-inverted)" }}>Operations Diagnostic</h1>
+            <h1 style={{ color: "var(--color-ink-inverted)" }}>Exposure Check</h1>
           </FadeUp>
           <FadeUp delay={0.18}>
             <p
@@ -101,7 +92,7 @@ export default function OperationsDiagnosticPage() {
                 margin: 0,
               }}
             >
-              Map where your operation has gaps — before configuring anything.
+              We find where your time, money and client data leak. Free.
             </p>
           </FadeUp>
         </div>
@@ -130,7 +121,7 @@ export default function OperationsDiagnosticPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                R4,500
+                Free
               </p>
               <p
                 style={{
@@ -141,7 +132,7 @@ export default function OperationsDiagnosticPage() {
                   marginBottom: "0.375rem",
                 }}
               >
-                Fixed-scope · Delivered within 48 hours
+                No obligation
               </p>
               <p
                 style={{
@@ -152,7 +143,7 @@ export default function OperationsDiagnosticPage() {
                   margin: 0,
                 }}
               >
-                If you proceed to a full engagement, this fee offsets against the project cost.
+                If there&apos;s no clear opportunity, we&apos;ll tell you.
               </p>
             </div>
           </FadeUp>
@@ -188,10 +179,8 @@ export default function OperationsDiagnosticPage() {
                   What it is
                 </span>
                 <p className="body-muted" style={{ marginBottom: "2.5rem" }}>
-                  A structured audit of your current workflows, tools, and data connections. You
-                  receive a written report — delivered within 48 hours — that maps where information
-                  isn&apos;t flowing, quantifies what that&apos;s costing, and tells you exactly what
-                  to configure first. This is where every engagement starts.
+                  A free assessment that shows where your time, money and client data are
+                  exposed, and what to fix first.
                 </p>
               </FadeUp>
               <FadeUp delay={0.08}>
@@ -214,11 +203,8 @@ export default function OperationsDiagnosticPage() {
                   How it connects
                 </span>
                 <p className="body-muted" style={{ margin: 0 }}>
-                  The diagnostic report is the input to every other engagement. If we find a clear
-                  integration opportunity, we scope the Workflow Integration engagement directly from
-                  the report findings. If the diagnostic surfaces a site infrastructure problem first,
-                  we scope that. Either way, you know the full cost before committing to anything
-                  further.
+                  We talk it through on a short, free call, then send you a proposal.
+                  You see the scope and the cost in the proposal before we start.
                 </p>
               </FadeUp>
             </div>
@@ -290,11 +276,11 @@ export default function OperationsDiagnosticPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="primary">
+                Free Exposure Check
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

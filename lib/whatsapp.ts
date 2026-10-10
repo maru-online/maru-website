@@ -30,10 +30,8 @@ export const WHATSAPP_DISPLAY = '+27 67 890 4113'
 export const WHATSAPP_OPENERS: Record<string, string> = {
   default:
     "I'd like to find out more about your AI workflow services.",
-  '/operations-assessment':
+  '/popia-ai-check':
     "I'd like to book my free operations assessment.",
-  '/pricing':
-    "I'd like to understand your pricing for workflow integration.",
   '/services/workflow-integration':
     "I'm interested in Workflow Integration for my business.",
   '/services/team-training-handover':

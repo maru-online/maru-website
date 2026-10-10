@@ -49,7 +49,6 @@ export default function TeamTrainingHandoverPage() {
         name="Team Training & Handover"
         description="Your team runs the system. Not us. Hands-on training built around the specific workflows we've configured."
         path="/services/team-training-handover"
-        price="15000"
       />
       {/* ── Hero ── */}
       <section
@@ -134,7 +133,8 @@ export default function TeamTrainingHandoverPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R15,000
+                {/* No published price figure (Jimmy, 6 Oct 2026); see /process#how-we-price. */}
+                Priced in your proposal
               </p>
               <p
                 style={{
@@ -271,18 +271,18 @@ export default function TeamTrainingHandoverPage() {
                 marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Start with the diagnostic.</span>
+              <span style={{ fontWeight: 300 }}>Start with the assessment.</span>
               <br />
               <span style={{ fontWeight: 700 }}>Training is scoped from what we find.</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
-                Start the assessment
+              <Button href="/popia-ai-check" variant="primary">
+                Free Exposure Check
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
+              <Button href="/contact#contact-form" variant="tertiary">
+                Request a proposal
               </Button>
             </div>
           </FadeUp>

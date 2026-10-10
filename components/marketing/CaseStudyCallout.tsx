@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { caseStudyLink } from '@/lib/case-study'
+import { CASE_STUDY_LIVE, caseStudyLink } from '@/lib/case-study'
 
 /**
  * Contextual pointer to the GrowthIQ case study, for service and About pages.
@@ -45,12 +45,12 @@ export function CaseStudyCallout({
           fontSize:   'var(--text-body-sm)',
           fontWeight: 300,
           color:      'var(--color-ink-primary)',
-          margin:     '0.5rem 0 1rem',
+          margin:     CASE_STUDY_LIVE ? '0.5rem 0 1rem' : '0.5rem 0 0',
         }}
       >
         {line}
       </p>
-      <Link
+      {CASE_STUDY_LIVE && <Link
         href={caseStudyLink(source)}
         style={{
           fontFamily:     'var(--font-body)',
@@ -63,7 +63,7 @@ export function CaseStudyCallout({
         }}
       >
         Read the GrowthIQ build →
-      </Link>
+      </Link>}
     </aside>
   )
 }
