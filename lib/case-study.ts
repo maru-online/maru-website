@@ -32,11 +32,21 @@
 export const TAG_INTERNAL_LINKS = false
 
 /**
- * While false, /case-studies and /case-studies/growthiq return 404 and the
- * callouts and proof strip show no link to them. Turn on when the case study
- * has its final content.
+ * Set to true to publish the case study on production.
+ *
+ * While false, production returns 404 for /case-studies and
+ * /case-studies/growthiq and shows no link to them. Previews and local dev
+ * always show the case study (previews sit behind Vercel login), so it can be
+ * reviewed in place before it is published.
  */
-export const CASE_STUDY_LIVE = false
+export const CASE_STUDY_PUBLISHED = false
+
+/** Whether the case study and the links into it are shown in this environment. */
+export const CASE_STUDY_LIVE =
+  CASE_STUDY_PUBLISHED || process.env.VERCEL_ENV !== 'production'
+
+/** Set to true once City Seokane has approved the quote in writing. */
+export const CASE_STUDY_QUOTE_APPROVED = false
 
 export const CASE_STUDY_PATH = '/case-studies/growthiq'
 
