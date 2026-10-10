@@ -4,7 +4,7 @@
  * Copy handover entry 19 (approved for PREVIEW BUILD 8 Oct 2026). Nothing here
  * is approved for production: the release gates in entry 19 §10 must clear
  * first. Go-live is a set of one-line changes in this file, listed in
- * docs/positioning/REBUILD-LOG.md (#10):
+ * REBUILD-LOG.md (kept outside the repo) (#10):
  *
  *   1. GUIDE_PDF_FILE        → the clean PDF, after Jimmy ticks
  *                              lead-magnet-verification-v1.md
