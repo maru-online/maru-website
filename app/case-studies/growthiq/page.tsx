@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { CASE_STUDY_LIVE } from "@/lib/case-study";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { FadeUp } from "@/components/ui/Animate";
@@ -29,6 +31,7 @@ const outerPad = "px-6 md:px-[60px]";
 const inner = "max-w-[900px] mx-auto";
 
 export default function GrowthIqCaseStudy() {
+  if (!CASE_STUDY_LIVE) notFound();
   return (
     <>
       {/* ── Hero ── */}

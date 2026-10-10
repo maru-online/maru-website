@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { CASE_STUDY_LIVE } from "@/lib/case-study";
 import Link from "next/link";
 import { FadeUp } from "@/components/ui/Animate";
 import { ScaffoldPlaceholder } from "@/components/ui/ScaffoldPlaceholder";
@@ -30,6 +32,7 @@ const studies = [
 ];
 
 export default function CaseStudiesPage() {
+  if (!CASE_STUDY_LIVE) notFound();
   return (
     <>
       {/* ── Hero ── */}

@@ -31,6 +31,13 @@
 /** Off by design — see the note above before changing. */
 export const TAG_INTERNAL_LINKS = false
 
+/**
+ * While false, /case-studies and /case-studies/growthiq return 404 and the
+ * callouts and proof strip show no link to them. Turn on when the case study
+ * has its final content.
+ */
+export const CASE_STUDY_LIVE = false
+
 export const CASE_STUDY_PATH = '/case-studies/growthiq'
 
 /**
