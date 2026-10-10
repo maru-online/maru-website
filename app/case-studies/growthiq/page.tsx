@@ -234,18 +234,17 @@ export default function GrowthIqCaseStudy() {
               }}
             >
               <h2 style={{ marginBottom: "1rem" }}>
-                <span style={{ fontWeight: 300 }}>Got a similar problem?</span>
+                <span style={{ fontWeight: 300 }}>A system you can stand behind,</span>
+                <br />
+                <span style={{ fontWeight: 700 }}>built with POPIA in mind.</span>
               </h2>
               <p className="body-muted" style={{ marginBottom: "1.5rem", maxWidth: "560px" }}>
-                Start with the free Exposure Check. It takes a few minutes
-                and tells you where your workflows are leaking time.
+                Want the same for your business? Start with the free Exposure
+                Check. It takes about 5 minutes.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
-                  Start the assessment
-                </Button>
-                <Button href="/process#how-we-price" variant="tertiary">
-                  See pricing
+                  Free Exposure Check
                 </Button>
               </div>
             </div>
