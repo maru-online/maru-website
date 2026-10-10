@@ -6,7 +6,7 @@
  *     below). Kept verbatim so reports already emailed still render.
  *   - assessment_v3, the POPIA AI check (v3AreaTemplates /
  *     v3SummaryTemplates at the bottom), verbatim from
- *     docs/positioning/COPY-DECK-ADDENDUM-03.md (approved 28 Sep 2026). The
+ *     COPY-DECK-ADDENDUM-03.md (kept outside the repo) (approved 28 Sep 2026). The
  *     report page shows only the sections that have approved copy, so a
  *     missing template hides a section rather than filling it with
  *     improvised text.

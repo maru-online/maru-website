@@ -212,7 +212,7 @@ export default function Footer() {
                     className="font-body text-[13px] font-light py-2"
                     style={{ color: 'var(--color-ink-inverted-muted)' }}
                   >
-                    Mon–Fri, 9am–6pm
+                    Mon–Fri, 8am–6pm SAST
                   </li>
                 </ul>
               </motion.div>

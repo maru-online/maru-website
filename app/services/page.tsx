@@ -3,7 +3,6 @@ import Button from "@/components/ui/Button";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
-import CardNavy from "@/components/ui/CardNavy";
 import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import Glyph from "@/components/ui/Glyph";
@@ -187,7 +186,7 @@ export default function ServicesPage() {
           <FadeUp delay={0.24}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
               <Button href="/popia-ai-check" variant="primary">
-                Start the assessment
+                Free Exposure Check
               </Button>
               <Button href="#services" variant="tertiary">
                 See all services
@@ -485,7 +484,7 @@ export default function ServicesPage() {
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <Button href="/popia-ai-check" variant="primary">
-                Start the assessment
+                Free Exposure Check
               </Button>
               <Button href="/contact#contact-form" variant="tertiary">
                 Request a proposal

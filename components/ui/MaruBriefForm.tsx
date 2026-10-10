@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 
 export function MaruBriefForm() {
@@ -113,9 +114,9 @@ export function MaruBriefForm() {
       >
         We use your email only to send The Business AI Journal. Unsubscribe any
         time. See our{" "}
-        <a href="/privacy-policy" style={{ textDecoration: "underline", textUnderlineOffset: "2px" }}>
+        <Link href="/privacy-policy" style={{ textDecoration: "underline", textUnderlineOffset: "2px" }}>
           privacy policy
-        </a>
+        </Link>
         .
       </p>
 

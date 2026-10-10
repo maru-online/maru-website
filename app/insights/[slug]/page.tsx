@@ -442,7 +442,7 @@ export default async function InsightArticlePage(
               </p>
               <div className="article-cta-actions">
                 <Link href="/popia-ai-check" className="btn-cyan">
-                  Start the assessment
+                  Free Exposure Check
                 </Link>
                 <Link href="/insights" className="btn-ghost-white">
                   More articles →

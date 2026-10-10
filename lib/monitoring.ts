@@ -182,7 +182,7 @@ export class PerformanceMonitor {
   getSlowEndpoints(threshold = 1000): Array<{ endpoint: string; avgTime: number }> {
     const slowEndpoints: Array<{ endpoint: string; avgTime: number }> = [];
     
-    for (const [endpoint, _times] of this.metrics.entries()) {
+    for (const endpoint of this.metrics.keys()) {
       const avgTime = this.getAverageResponseTime(endpoint);
       if (avgTime > threshold) {
         slowEndpoints.push({ endpoint, avgTime });

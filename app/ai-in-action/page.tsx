@@ -133,7 +133,7 @@ export default function AiInActionPage() {
                   variant="primary"
                   className="w-full sm:w-auto justify-center"
                 >
-                  Start the assessment
+                  Free Exposure Check
                 </Button>
                 <Button href="/contact#contact-form" variant="tertiary">
                   Request a proposal

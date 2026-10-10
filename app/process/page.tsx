@@ -4,8 +4,6 @@ import { BGPattern } from '@/components/ui/bg-pattern'
 import ImageSplit from '@/components/ui/ImageSplit'
 import ImageBand from '@/components/ui/ImageBand'
 import AccordionFAQ from '@/components/ui/AccordionFAQ'
-import CardProof from '@/components/ui/CardProof'
-import ListItem from '@/components/ui/ListItem'
 import ListGroup from '@/components/ui/ListGroup'
 import ToolsScroller from '@/components/ui/ToolsScroller'
 import { FadeUp, StaggerParent, StaggerChild } from '@/components/ui/Animate'
@@ -107,7 +105,7 @@ export default function ProcessPage() {
           <FadeUp delay={0.22}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
               <Button href="/popia-ai-check" variant="primary">
-                Start the assessment
+                Free Exposure Check
               </Button>
               <Button href="#phases" variant="tertiary">
                 See the process
@@ -388,7 +386,7 @@ export default function ProcessPage() {
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <Button href="/popia-ai-check" variant="primary">
-                Start the assessment
+                Free Exposure Check
               </Button>
               <Button href="/contact#contact-form" variant="tertiary">
                 Request a proposal

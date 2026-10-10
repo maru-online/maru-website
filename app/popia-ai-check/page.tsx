@@ -19,7 +19,7 @@ import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questio
 import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
-import { GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guides/config";
+import { GUIDE_LIVE, GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guides/config";
 
 // ── Questions ──────────────────────────────────────────────────────────────
 // Approved copy (Addendum 02 item B) lives in lib/assessment/questions.ts so
@@ -298,7 +298,7 @@ function AssessmentWizard() {
             </Button>
 
             {/* Copy handover entry 19 §11 (approved 8 Oct), verbatim. */}
-            {!hasGuide && (
+            {GUIDE_LIVE && !hasGuide && (
               <p className="body-muted text-sm leading-relaxed mt-6 mb-0 text-center">
                 Want the basics behind these questions?{" "}
                 <Link href={GUIDE_PATH} className="text-cyan-ink underline hover:no-underline">

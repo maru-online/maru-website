@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { caseStudyLink } from '@/lib/case-study'
+import { CASE_STUDY_LIVE, caseStudyLink } from '@/lib/case-study'
 
 /**
  * Homepage proof block, placed after the services grid.
@@ -47,6 +47,7 @@ export function CaseStudyProofStrip() {
       </p>
 
       <div style={{ marginTop: '1.25rem' }}>
+        {CASE_STUDY_LIVE && (
         <Link
           href={caseStudyLink('homepage')}
           style={{
@@ -61,6 +62,7 @@ export function CaseStudyProofStrip() {
         >
           Read the GrowthIQ build →
         </Link>
+        )}
       </div>
     </div>
   )

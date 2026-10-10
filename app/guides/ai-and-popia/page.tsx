@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { FadeUp } from "@/components/ui/Animate";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import { seo } from "@/lib/seo";
-import { GUIDE_INDEXABLE, GUIDE_PATH } from "@/lib/guides/config";
+import { GUIDE_INDEXABLE, GUIDE_LIVE, GUIDE_PATH } from "@/lib/guides/config";
 import GuideForm from "./GuideForm";
 
 /**
@@ -31,6 +32,7 @@ const INSIDE = [
 ];
 
 export default function GuidePage() {
+  if (!GUIDE_LIVE) notFound();
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}

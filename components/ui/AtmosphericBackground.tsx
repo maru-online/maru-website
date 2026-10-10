@@ -10,7 +10,7 @@ interface AtmosphericBackgroundProps {
   theme?: "light" | "dark";
 }
 
-export function AtmosphericBackground({ variant = "hero", className, theme: _theme = "dark" }: AtmosphericBackgroundProps) {
+export function AtmosphericBackground({ variant = "hero", className }: AtmosphericBackgroundProps) {
   const strokeColor = "text-[var(--color-cyan-primary)]"; // Maru Brand Cyan
 
   if (variant === "overlay") {

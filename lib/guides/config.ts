@@ -4,7 +4,7 @@
  * Copy handover entry 19 (approved for PREVIEW BUILD 8 Oct 2026). Nothing here
  * is approved for production: the release gates in entry 19 §10 must clear
  * first. Go-live is a set of one-line changes in this file, listed in
- * docs/positioning/REBUILD-LOG.md (#10):
+ * REBUILD-LOG.md (kept outside the repo) (#10):
  *
  *   1. GUIDE_PDF_FILE        → the clean PDF, after Jimmy ticks
  *                              lead-magnet-verification-v1.md
@@ -13,15 +13,22 @@
  *   4. GUIDE_SECONDARY_LINKS → true (FAQ ending, §11 "other placements")
  */
 
+/**
+ * Master switch. While false, the guide page, its confirm page, the PDF route
+ * and the two guide API routes return 404, and no link to the guide is shown
+ * on the site or sent in the report email. Turn on together with
+ * GUIDE_PDF_FILE pointing at a file that exists in content/guides/.
+ */
+export const GUIDE_LIVE = false;
+
 export const GUIDE_PATH = "/guides/ai-and-popia";
 export const GUIDE_PDF_ROUTE = "/downloads/ai-and-popia-guide.pdf";
 
 /**
- * The file served at GUIDE_PDF_ROUTE, from content/guides/. The clean PDF is
- * deliberately NOT in the repo: copy `AI-and-POPIA-guide_clean.pdf` into
- * content/guides/ as `ai-and-popia-guide.pdf` and point this at it.
+ * The file served at GUIDE_PDF_ROUTE, from content/guides/. Only the final,
+ * verified PDF is committed, under this name.
  */
-export const GUIDE_PDF_FILE = "ai-and-popia-guide_DRAFT-unverified.pdf";
+export const GUIDE_PDF_FILE = "ai-and-popia-guide.pdf";
 
 export const GUIDE_INDEXABLE = false;
 export const GUIDE_HOMEPAGE_STRIP = false;

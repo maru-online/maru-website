@@ -14,10 +14,16 @@
  * example the guide notes, they are only removed from list 21. If list 21 is
  * their only list, the contact is deleted.
  *
+ * Order of work: Brevo first, then the database. A person's rows are deleted
+ * only once their Brevo step has succeeded (or Brevo is not in play). If Brevo
+ * fails, their rows are kept and the next monthly run retries them, so a Brevo
+ * outage can never leave a contact behind with no database row to find it by.
+ *
  * Safe by default:
  *   - Requires `Authorization: Bearer $CRON_SECRET`; with no secret set it
  *     refuses every call.
- *   - Dry run unless `?apply=1`: reports what it would delete.
+ *   - Dry run unless `?apply=1`: reports what it would delete, including the
+ *     addresses (dry run only), so they can be checked against the client list.
  *   - Brevo is touched only in production.
  *   - Scheduled monthly in vercel.json with `?apply=1`. Vercel sends
  *     CRON_SECRET as the bearer token, so nothing runs until Jimmy sets it.
@@ -40,6 +46,36 @@ async function brevo(path: string, init: RequestInit & { key: string }) {
     ...rest,
     headers: { "api-key": key, "content-type": "application/json", ...(rest.headers ?? {}) },
   });
+}
+
+type BrevoOutcome = "removed" | "deleted" | "none" | "failed";
+
+/** Takes one person out of Brevo: off list 21 only, or the whole contact if 21 is their only list. */
+async function clearBrevo(email: string, key: string): Promise<BrevoOutcome> {
+  const id = encodeURIComponent(email);
+  const info = await brevo(`/contacts/${id}?identifierType=email_id`, { key, method: "GET" });
+  if (info.status === 404) return "none";
+  if (!info.ok) {
+    console.error("assessment retention: Brevo lookup failed", { status: info.status });
+    return "failed";
+  }
+  const contact = (await info.json()) as { listIds?: number[] };
+  const lists = contact.listIds ?? [];
+  if (lists.filter((l) => l !== BREVO_ASSESSMENT_LIST_ID).length > 0) {
+    if (!lists.includes(BREVO_ASSESSMENT_LIST_ID)) return "none";
+    const res = await brevo(`/contacts/lists/${BREVO_ASSESSMENT_LIST_ID}/contacts/remove`, {
+      key,
+      method: "POST",
+      body: JSON.stringify({ emails: [email] }),
+    });
+    if (res.ok) return "removed";
+    console.error("assessment retention: Brevo list removal failed", { status: res.status });
+    return "failed";
+  }
+  const res = await brevo(`/contacts/${id}?identifierType=email_id`, { key, method: "DELETE" });
+  if (res.ok || res.status === 404) return "deleted";
+  console.error("assessment retention: Brevo delete failed", { status: res.status });
+  return "failed";
 }
 
 export async function GET(req: NextRequest) {
@@ -70,50 +106,56 @@ export async function GET(req: NextRequest) {
   const emails = rows.map((r) => r.email).filter((e) => !keep.has(e));
 
   if (!apply || emails.length === 0) {
-    return NextResponse.json({ dryRun: !apply, cutoff, count: emails.length, kept: keep.size });
+    return NextResponse.json({
+      dryRun: !apply,
+      cutoff,
+      count: emails.length,
+      kept: keep.size,
+      // Dry run only: who would be deleted, to check against the client list.
+      ...(!apply ? { wouldDelete: emails } : {}),
+    });
   }
 
-  await dbLeadEngine.delete(operationsReports).where(inArray(lowerEmail, emails));
-
   const key = (process.env.BREVO_API_KEY ?? "").trim();
+  const useBrevo = Boolean(key) && process.env.VERCEL_ENV === "production";
   let brevoRemoved = 0;
   let brevoDeleted = 0;
   let brevoFailed = 0;
-  if (key && process.env.VERCEL_ENV === "production") {
-    for (const email of emails) {
-      const id = encodeURIComponent(email);
-      const info = await brevo(`/contacts/${id}?identifierType=email_id`, { key, method: "GET" });
-      if (info.status === 404) continue;
-      if (!info.ok) {
-        brevoFailed++;
-        console.error("assessment retention: Brevo lookup failed", { status: info.status });
-        continue;
-      }
-      const contact = (await info.json()) as { listIds?: number[] };
-      const lists = contact.listIds ?? [];
-      if (lists.filter((l) => l !== BREVO_ASSESSMENT_LIST_ID).length > 0) {
-        if (!lists.includes(BREVO_ASSESSMENT_LIST_ID)) continue;
-        const res = await brevo(`/contacts/lists/${BREVO_ASSESSMENT_LIST_ID}/contacts/remove`, {
-          key,
-          method: "POST",
-          body: JSON.stringify({ emails: [email] }),
-        });
-        if (res.ok) brevoRemoved++;
-        else {
-          brevoFailed++;
-          console.error("assessment retention: Brevo list removal failed", { status: res.status });
-        }
-      } else {
-        const res = await brevo(`/contacts/${id}?identifierType=email_id`, { key, method: "DELETE" });
-        if (res.ok || res.status === 404) brevoDeleted++;
-        else {
-          brevoFailed++;
-          console.error("assessment retention: Brevo delete failed", { status: res.status });
-        }
-      }
+
+  // Brevo first. Only people whose Brevo step succeeded (or was not needed)
+  // have their rows deleted; failures are retried on the next run.
+  const deletable: string[] = [];
+  for (const email of emails) {
+    if (!useBrevo) {
+      deletable.push(email);
+      continue;
     }
+    const outcome = await clearBrevo(email, key);
+    if (outcome === "failed") {
+      brevoFailed++;
+      continue;
+    }
+    if (outcome === "removed") brevoRemoved++;
+    if (outcome === "deleted") brevoDeleted++;
+    deletable.push(email);
   }
 
-  console.log("assessment retention applied", { count: emails.length, brevoRemoved, brevoDeleted, brevoFailed });
-  return NextResponse.json({ dryRun: false, cutoff, count: emails.length, brevoRemoved, brevoDeleted, brevoFailed });
+  if (deletable.length > 0) {
+    await dbLeadEngine.delete(operationsReports).where(inArray(lowerEmail, deletable));
+  }
+
+  console.log("assessment retention applied", {
+    count: deletable.length,
+    retryNextRun: brevoFailed,
+    brevoRemoved,
+    brevoDeleted,
+  });
+  return NextResponse.json({
+    dryRun: false,
+    cutoff,
+    count: deletable.length,
+    retryNextRun: brevoFailed,
+    brevoRemoved,
+    brevoDeleted,
+  });
 }

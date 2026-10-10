@@ -101,7 +101,7 @@ export default function CookiePolicyPage() {
         <h2 className="text-2xl font-medium text-ink-primary mb-6">
           4. How to Control Cookies
         </h2>
-        {/* Approved by Jimmy 2 Oct 2026 (docs/positioning/COOKIE-POLICY-S4-DRAFT.md).
+        {/* Approved by Jimmy 2 Oct 2026 (COOKIE-POLICY-S4-DRAFT.md (kept outside the repo)).
             Replaces a promised "preference center" with per-category toggles that never
             existed: the banner is one Accept/Decline choice. Keep in step with
             components/CookieConsent.tsx, AnalyticsTracker.tsx and analytics/MetaPixel.tsx.
