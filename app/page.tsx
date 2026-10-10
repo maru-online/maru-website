@@ -314,7 +314,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
-                  Start the assessment
+                  Free Exposure Check
                 </Button>
                 <Button href="/process" variant="tertiary">
                   See how it works
