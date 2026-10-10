@@ -246,6 +246,9 @@ export default function GrowthIqCaseStudy() {
                 <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
                   Free Exposure Check
                 </Button>
+                <Button href="/contact#contact-form" variant="tertiary">
+                  Request a proposal
+                </Button>
               </div>
             </div>
           </FadeUp>

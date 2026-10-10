@@ -137,7 +137,7 @@ export default function Nav() {
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
             <Button variant="primary" href="/popia-ai-check" className="!px-5 !py-2 !text-[11px]">
-              Start the assessment
+              Free Exposure Check
             </Button>
           </div>
 
@@ -216,7 +216,7 @@ export default function Nav() {
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
               <Button variant="primary" href="/popia-ai-check" className="w-full !justify-center">
-                Start the assessment
+                Free Exposure Check
               </Button>
             </div>
           </motion.div>

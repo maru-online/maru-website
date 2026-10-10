@@ -91,7 +91,7 @@ export default function Home() {
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
             >
               <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
-                Check your exposure: free 5-minute assessment
+                Free Exposure Check
               </Button>
               {/* Demoted to a text link (copy handover entry 01). tertiary's
                   default cyan-ink is a light-ground colour; on the navy hero it
