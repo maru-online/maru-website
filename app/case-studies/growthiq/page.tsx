@@ -4,6 +4,7 @@ import { CASE_STUDY_LIVE, CASE_STUDY_QUOTE_APPROVED } from "@/lib/case-study";
 import ListGroup from "@/components/ui/ListGroup";
 import ListItem from "@/components/ui/ListItem";
 import Link from "next/link";
+import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { FadeUp } from "@/components/ui/Animate";
 import { ScaffoldPlaceholder } from "@/components/ui/ScaffoldPlaceholder";
@@ -11,8 +12,8 @@ import { seo } from "@/lib/seo";
 
 // Copy approved 10 Oct 2026 (draft v3). Still to supply before publishing:
 //   1. One shareable metric, cleared with Growth Firm.
-//   2. City Seokane's written approval of the quote (CASE_STUDY_QUOTE_APPROVED).
-//   3. Two real product screenshots with no client data visible.
+//   2. (Done 12 Oct 2026: City Seokane approved the quote in writing, as worded below.)
+//   3. (Done 12 Oct 2026: two screenshots from the sample-data programme.)
 //
 // Shown on previews only until CASE_STUDY_PUBLISHED is set in lib/case-study.ts.
 // noindex until published. On publish, remove `robots` below and add both
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   ...seo("/case-studies/growthiq"),
   title: "GrowthIQ | Case Study | Maru Online",
   description:
-    "How Maru Online built GrowthIQ: one place to run an Enterprise and Supplier Development programme, with AI guiding every step.",
+    "How Maru Online built GrowthIQ: one place to run an Enterprise and Supplier Development programme, with AI supporting every step.",
   robots: { index: false, follow: true },
 };
 
@@ -58,7 +59,7 @@ const RESULTS = [
 ];
 
 const QUOTE =
-  "GrowthIQ runs the whole programme in one place, across all five stages, with AI guiding every step. The record stays current as the work happens, so our reporting is audit-ready at each stage.";
+  "GrowthIQ supports our entire ESD programme. Our mentors now work from a single source of record that stays current as the work happens, which makes reporting easier and audit-ready at every stage.";
 
 export default function GrowthIqCaseStudy() {
   if (!CASE_STUDY_LIVE) notFound();
@@ -98,7 +99,7 @@ export default function GrowthIqCaseStudy() {
             >
               We built GrowthIQ for Growth Firm: one place to run an Enterprise
               and Supplier Development programme, from identifying beneficiaries
-              to verifying the evidence, with AI guiding every step.
+              to verifying the evidence, with AI supporting every step.
             </p>
           </FadeUp>
         </div>
@@ -142,26 +143,33 @@ export default function GrowthIqCaseStudy() {
                   ))}
                 </ListGroup>
 
-                <div style={{ marginTop: "1.5rem" }}>
-                  <ScaffoldPlaceholder
-                    label="Screenshot — GrowthIQ dashboard"
-                    blockedOn="Jimmy — real product screenshots, not stock imagery"
-                    minHeight="320px"
-                  >
-                    16:9. Alt text still to be written. Check for beneficiary
-                    names or figures needing redaction before publishing.
-                  </ScaffoldPlaceholder>
-                </div>
+                <figure style={{ margin: "1.5rem 0 0" }}>
+                  <Image
+                    src="/images/case-studies/growthiq-dashboard.webp"
+                    alt="GrowthIQ programme dashboard for a sample Enterprise and Supplier Development programme. It shows an ESD score of 81.9%, 49 days to the verification date, and seven sample beneficiaries with their status, score and spend target."
+                    width={1800}
+                    height={1012}
+                    sizes="(min-width: 960px) 900px, 100vw"
+                    style={{ width: "100%", height: "auto", borderRadius: "8px", border: "1px solid var(--color-border-default)" }}
+                  />
+                  <figcaption className="body-muted" style={{ marginTop: "0.75rem", marginBottom: 0, fontSize: "var(--text-meta)" }}>
+                    The programme dashboard, shown with sample data.
+                  </figcaption>
+                </figure>
 
-                <div style={{ marginTop: "1.5rem" }}>
-                  <ScaffoldPlaceholder
-                    label="Screenshot — assessment wizard or growth plan"
-                    blockedOn="Jimmy — real product screenshots"
-                    minHeight="320px"
-                  >
-                    16:9. Alt text still to be written.
-                  </ScaffoldPlaceholder>
-                </div>
+                <figure style={{ margin: "1.5rem 0 0" }}>
+                  <Image
+                    src="/images/case-studies/growthiq-assessment.webp"
+                    alt="GrowthIQ assessment screen showing category 3 of 7, Human Resources, with a progress bar, yes or no questions and a Saved indicator above the Back and Next buttons. Sample data."
+                    width={1800}
+                    height={1012}
+                    sizes="(min-width: 960px) 900px, 100vw"
+                    style={{ width: "100%", height: "auto", borderRadius: "8px", border: "1px solid var(--color-border-default)" }}
+                  />
+                  <figcaption className="body-muted" style={{ marginTop: "0.75rem", marginBottom: 0, fontSize: "var(--text-meta)" }}>
+                    The assessment, saved as the owner goes. Sample data.
+                  </figcaption>
+                </figure>
               </div>
             </FadeUp>
 
