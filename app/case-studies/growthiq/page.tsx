@@ -58,7 +58,7 @@ const RESULTS = [
 ];
 
 const QUOTE =
-  "GrowthIQ runs the whole programme in one place, across all five stages, with AI guiding every step. The record stays current as the work happens, so our reporting is audit-ready at each stage.";
+  "GrowthIQ supports our entire Enterprise and Supplier Development (ESD) programme. Our mentors now work from a single source of record that stays current as the work happens, which makes reporting easier and audit-ready at every stage.";
 
 export default function GrowthIqCaseStudy() {
   if (!CASE_STUDY_LIVE) notFound();
