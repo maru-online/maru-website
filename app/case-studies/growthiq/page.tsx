@@ -12,7 +12,7 @@ import { seo } from "@/lib/seo";
 
 // Copy approved 10 Oct 2026 (draft v3). Still to supply before publishing:
 //   1. One shareable metric, cleared with Growth Firm.
-//   2. City Seokane's written approval of the quote (CASE_STUDY_QUOTE_APPROVED).
+//   2. (Done 12 Oct 2026: City Seokane approved the quote in writing, as worded below.)
 //   3. (Done 12 Oct 2026: two screenshots from the sample-data programme.)
 //
 // Shown on previews only until CASE_STUDY_PUBLISHED is set in lib/case-study.ts.
@@ -59,7 +59,7 @@ const RESULTS = [
 ];
 
 const QUOTE =
-  "GrowthIQ supports our entire Enterprise and Supplier Development (ESD) programme. Our mentors now work from a single source of record that stays current as the work happens, which makes reporting easier and audit-ready at every stage.";
+  "GrowthIQ supports our entire ESD programme. Our mentors now work from a single source of record that stays current as the work happens, which makes reporting easier and audit-ready at every stage.";
 
 export default function GrowthIqCaseStudy() {
   if (!CASE_STUDY_LIVE) notFound();

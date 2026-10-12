@@ -45,8 +45,8 @@ export const CASE_STUDY_PUBLISHED = false
 export const CASE_STUDY_LIVE =
   CASE_STUDY_PUBLISHED || process.env.VERCEL_ENV !== 'production'
 
-/** Set to true once City Seokane has approved the quote in writing. */
-export const CASE_STUDY_QUOTE_APPROVED = false
+/** City Seokane approved the quote in writing on 12 Oct 2026. The quote text must match the approved wording. */
+export const CASE_STUDY_QUOTE_APPROVED = true
 
 export const CASE_STUDY_PATH = '/case-studies/growthiq'
 
