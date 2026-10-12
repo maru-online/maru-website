@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ...seo("/case-studies/growthiq"),
   title: "GrowthIQ | Case Study | Maru Online",
   description:
-    "How Maru Online built GrowthIQ: one place to run an Enterprise and Supplier Development programme, with AI guiding every step.",
+    "How Maru Online built GrowthIQ: one place to run an Enterprise and Supplier Development programme, with AI supporting every step.",
   robots: { index: false, follow: true },
 };
 
@@ -98,7 +98,7 @@ export default function GrowthIqCaseStudy() {
             >
               We built GrowthIQ for Growth Firm: one place to run an Enterprise
               and Supplier Development programme, from identifying beneficiaries
-              to verifying the evidence, with AI guiding every step.
+              to verifying the evidence, with AI supporting every step.
             </p>
           </FadeUp>
         </div>
