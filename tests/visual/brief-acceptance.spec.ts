@@ -146,7 +146,7 @@ test.describe('item 01 — WhatsApp number and openers', () => {
   const cases: [string, string][] = [
     ['/', 'find out more about your AI workflow services'],
     ['/contact', "question about Maru Online's services"],
-    ['/popia-ai-check', 'book my free operations assessment'],
+    ['/popia-ai-check', 'do the free Exposure Check'],
     ['/services/workflow-integration', 'interested in Workflow Integration'],
     ['/services/team-training-handover', 'Team Training & Handover'],
     ['/services/results-optimisation', 'know more about Results Optimisation'],
