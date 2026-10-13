@@ -3,7 +3,6 @@ import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import CardNavy from "@/components/ui/CardNavy";
 import CardProof from "@/components/ui/CardProof";
-import { ScaffoldPlaceholder } from "@/components/ui/ScaffoldPlaceholder";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from '@/lib/seo'
 
@@ -12,10 +11,8 @@ export const metadata: Metadata = {
   title: "Why Maru Online Exists — Our Mission, Approach & Values",
   description:
     "We built Maru Online to fix the specific problem of AI projects that get bought, never used, and quietly forgotten. Mission, approach, and values.",
-  // TEMPORARY: the Focus Over Volume card carries a ScaffoldPlaceholder until
-  // the owner supplies its replacement line (entry 16, open item 1). Placeholders
-  // and noindex ship together and are removed together.
-  robots: { index: false, follow: true },
+  // Focus Over Volume card removed (entry 16 (b)); no placeholders remain, so
+  // the page is indexable and listed in the sitemap.
 };
 
 // Copy handover entry 16 (approved 6 Oct 2026), rebuilt around the business,
@@ -159,7 +156,7 @@ export default function AboutPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          5 — VALUES (four existing cards; two edits from entry 16)
+          5 — VALUES (three cards; Focus Over Volume removed, entry 16 (b))
           ════════════════════════════════════════════════════════════════════ */}
       <section
         className={`${outerPad} py-24`}
@@ -174,7 +171,7 @@ export default function AboutPage() {
               <span style={{ fontWeight: 700 }}>Not on a wall.</span>
             </h2>
           </FadeUp>
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <StaggerChild className="h-full">
               <CardProof title="Truth Over Talk." className="h-full">
                 We don&apos;t just say it; we prove it. If we can&apos;t back it up, we won&apos;t say it. Our commitment to honesty means every claim about your results is grounded in fact, not fiction.
@@ -191,17 +188,6 @@ export default function AboutPage() {
             <StaggerChild className="h-full">
               <CardProof title="Impact Over Handover." className="h-full">
                 A tool no one uses is a failure. We don&apos;t measure success by what we deliver, but by what actually changes in your business.
-              </CardProof>
-            </StaggerChild>
-            <StaggerChild className="h-full">
-              {/* Entry 16 (b): the "limited to five active clients" claim is
-                  removed. Nothing sensible is left of the description, and the
-                  entry says not to invent one (open item 1). */}
-              <CardProof title="Focus Over Volume." className="h-full">
-                <ScaffoldPlaceholder
-                  label="Focus Over Volume description"
-                  blockedOn="Owner — replacement line (copy handover entry 16, open item 1)"
-                />
               </CardProof>
             </StaggerChild>
           </StaggerParent>

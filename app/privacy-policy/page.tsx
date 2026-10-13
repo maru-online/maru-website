@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">1. Who we are</h2>
         <p className="text-ink-secondary mb-4">
-          Maru Online (Pty) Ltd (registration number 2002/013801/07) is a South African company based in Gauteng. We are the responsible party for the personal information described in this policy. Our Information Officer is registered with the Information Regulator and is named in section 10.
+          Maru Online (Pty) Ltd (registration number 2002/013801/07) is a South African company based in Gauteng. We are the responsible party for the personal information described in this policy. Our Information Officer is registered with the Information Regulator and can be reached as set out in section 10.
         </p>
         <p className="text-ink-secondary mb-4">
           This policy explains what personal information we collect through maruonline.com, why, who receives it, where it may be processed, and how long we keep it. We build with POPIA in mind. This policy is general information about our own practices and is not legal advice.
@@ -118,7 +118,7 @@ export default function PrivacyPolicyPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">10. Information Officer and contact</h2>
         <p className="text-ink-secondary mb-4">
-          Our Information Officer is Jimmy Motsei, registered with the Information Regulator.
+          Our Information Officer is registered with the Information Regulator. To reach the Information Officer, email hello@maruonline.com.
         </p>
         <div className="card-lift rounded-lg p-6 text-ink-secondary mb-4">
           <p><strong className="text-ink-primary">Email:</strong> hello@maruonline.com</p>

@@ -91,7 +91,7 @@ export const articles: Article[] = [
       {
         type: "quote",
         text:  "Most businesses don't have an AI problem. They have an integration problem. That's exactly what we fix.",
-        label: "— Jimmy Motsei, Founder, Maru Online",
+        label: "— Maru Online",
       },
       {
         type: "heading",
