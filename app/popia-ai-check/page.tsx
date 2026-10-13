@@ -387,11 +387,11 @@ function AssessmentWizard() {
 
               {/* POPIA s18 notice at the point of collection (Addendum 01 D). */}
               <p className="text-ink-tertiary text-xs text-center leading-relaxed">
-                We use your name and email to send your report and to follow up about it. Nothing else. See our{" "}
+                We use your name and email to send your report and to follow up about it. Nothing else. Some of our providers process information outside South Africa, as our{" "}
                 <Link href="/privacy-policy" className="text-cyan-ink underline hover:no-underline">
                   Privacy Policy
-                </Link>
-                .
+                </Link>{" "}
+                explains. By sending your report request, you agree to this.
               </p>
             </form>
           </div>

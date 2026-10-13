@@ -240,7 +240,7 @@ export default function ContactPage() {
                           margin:     0,
                         }}
                       >
-                        Response within 1 business day.
+                        We'll reply as soon as we can.
                       </p>
                     </div>
 

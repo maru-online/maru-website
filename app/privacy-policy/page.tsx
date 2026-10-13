@@ -15,12 +15,12 @@ export default function PrivacyPolicyPage() {
       title="Privacy Policy"
       description="What personal information we collect through this website, why, who receives it, and your rights."
       lastUpdated="October 8, 2026"
-      effectiveDate="October 12, 2026"
+      effectiveDate="October 13, 2026"
     >
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">1. Who we are</h2>
         <p className="text-ink-secondary mb-4">
-          Maru Online (Pty) Ltd (registration number 2002/013801/07) is a South African company based in Gauteng. We are the responsible party for the personal information described in this policy. We are registered with the Information Regulator, and our Information Officer is named in section 10.
+          Maru Online (Pty) Ltd (registration number 2002/013801/07) is a South African company based in Gauteng. We are the responsible party for the personal information described in this policy. Our Information Officer is registered with the Information Regulator and is named in section 10.
         </p>
         <p className="text-ink-secondary mb-4">
           This policy explains what personal information we collect through maruonline.com, why, who receives it, where it may be processed, and how long we keep it. We build with POPIA in mind. This policy is general information about our own practices and is not legal advice.
@@ -69,7 +69,7 @@ export default function PrivacyPolicyPage() {
           <li><strong className="text-ink-primary">Meta</strong> provides the Meta Pixel for measuring our advertising, and acts for its own purposes under its own terms. Meta also provides WhatsApp. If you message us on WhatsApp, Meta handles the messages and related information, such as your number, under WhatsApp&apos;s own terms and privacy policy and not on our behalf, and may process them outside South Africa. If you would rather not use WhatsApp, email us instead.</li>
         </ul>
         <p className="text-ink-secondary mb-4">
-          Where information goes outside South Africa, we rely on the safeguards that section 72 of POPIA allows, such as the provider's data-processing terms and transfer safeguards, which should give protection equivalent to POPIA. We may also share information where the law requires it.
+          Where information goes outside South Africa, we rely on section 72 of POPIA, which allows a transfer where the recipient is bound by terms that give substantially similar protection, or where you consent. This applies to Vercel and Anthropic (United States) and to any processing by Brevo outside the European Union. We may also share information where the law requires it.
         </p>
       </section>
 

@@ -160,7 +160,7 @@ export async function POST(request: NextRequest) {
               <p style="font-size:15px;color:#4A5568;line-height:1.8;margin:0 0 16px">
                 Thanks for reaching out. We've received your enquiry about
                 <strong>${safeService}</strong> and someone from the Maru Online team
-                will be in touch within <strong>1 business day</strong>.
+                will be in touch shortly.
               </p>
               <p style="font-size:15px;color:#4A5568;line-height:1.8;margin:0 0 24px">
                 In the meantime, feel free to WhatsApp us directly on

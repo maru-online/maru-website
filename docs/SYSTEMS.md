@@ -40,6 +40,28 @@ Never put secrets, API keys, street addresses or telephone numbers here. Environ
 - **If it fails:** a Brevo failure keeps that person's rows and the job retries them next month (`retryNextRun` in the response and log). Failures are logged with the status code only, never the address.
 - **Run or test by hand:** call the route with `Authorization: Bearer <CRON_SECRET>` and no `apply` parameter for a dry run. The dry run lists the addresses it would delete (`wouldDelete`) and the size of the keep list. Add `?keep=a@x.com,b@y.com` to test the keep list without changing the environment. Add `?apply=1` only after checking the dry run.
 - **Jimmy's actions:** after release, run a dry run and check `wouldDelete` against the client list; put any client addresses in `RETENTION_KEEP_EMAILS` in Vercel (production) before the first scheduled run; do the yearly review of enquiries and proposals by hand.
-- **Privacy policy section:** section 5 (retention); effective 12 October 2026.
+- **Privacy policy section:** section 5 (retention); effective 13 October 2026.
+
+### Contact form and enquiry confirmation
+- **Status:** preview (on `claude/release-1-approved-strings`, then `preview/lead-magnet-guide`); live on main with the old wording
+- **Trigger:** a visitor submits the form at /contact
+- **What it does:** the API route stores the enquiry, emails the visitor a confirmation and emails hello@ a notification. The confirmation, the line under the form and the on-page confirmation make no response-time promise ("will be in touch shortly", "We'll reply as soon as we can.", "We'll be in touch soon.").
+- **Data touched:** enquiry details in the website database; Brevo for the emails
+- **Services and env vars:** `BREVO_API_KEY`
+- **If it fails:** the error is logged; the visitor sees the form error state
+- **Run or test by hand:** submit the form with a test address (jimmym@ or hello@ only) and check both emails and the on-page confirmation
+- **Jimmy's actions:** reply to enquiries by hand; no turnaround is promised anywhere
+- **Privacy policy section:** section 1 (who we are), sections 5 and 6 (sharing, retention)
+
+### Exposure Check consent notice
+- **Status:** preview (on `claude/release-1-approved-strings`, then `preview/lead-magnet-guide`)
+- **Trigger:** shown under the submit button at /popia-ai-check
+- **What it does:** tells the visitor how their name and email are used, that some providers process information outside South Africa, and that sending the request is their agreement. This is the consent ground (POPIA section 72(1)(b)) behind the cross-border sentence in the privacy policy.
+- **Data touched:** none (static text)
+- **Services and env vars:** none
+- **If it fails:** not applicable
+- **Run or test by hand:** open /popia-ai-check and read the line under the button; the Privacy Policy link must open /privacy-policy
+- **Jimmy's actions:** keep the wording and policy section 5 in step
+- **Privacy policy section:** section 5 (information outside South Africa)
 
 (Further entries to be added after the first inventory pass.)

@@ -114,7 +114,7 @@ export default function ContactForm() {
           color:      'var(--color-ink-secondary)',
           margin:     0,
         }}>
-          We'll be in touch within 1 business day.
+          We'll be in touch soon.
         </p>
       </div>
     )
