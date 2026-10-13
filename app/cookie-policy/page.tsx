@@ -101,11 +101,11 @@ export default function CookiePolicyPage() {
         <h2 className="text-2xl font-medium text-ink-primary mb-6">
           4. How to Control Cookies
         </h2>
-        {/* Approved by Jimmy 2 Oct 2026 (COOKIE-POLICY-S4-DRAFT.md (kept outside the repo)).
+        {/* Approved by the owner 2 Oct 2026 (COOKIE-POLICY-S4-DRAFT.md (kept outside the repo)).
             Replaces a promised "preference center" with per-category toggles that never
             existed: the banner is one Accept/Decline choice. Keep in step with
             components/CookieConsent.tsx, AnalyticsTracker.tsx and analytics/MetaPixel.tsx.
-            8 Oct 2026, approved by Jimmy: the Decline sentence no longer promises to delete every
+            8 Oct 2026, approved by the owner: the Decline sentence no longer promises to delete every
             Meta cookie. Tested on the preview: Meta's own `fr` cookie lives on facebook.com and no
             website can delete it; nothing is sent to Meta after Decline. */}
         <p className="text-ink-secondary mb-4">

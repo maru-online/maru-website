@@ -14,7 +14,7 @@ Never put secrets, API keys, street addresses or telephone numbers here. Environ
 - **Services and env vars:** names only
 - **If it fails:** what happens, and what is logged
 - **Run or test by hand:** exact steps
-- **Jimmy's actions:** anything only a person can do, and when
+- **Owner actions:** anything only a person can do, and when
 - **Privacy policy section:** the section it supports
 
 ## Register
@@ -28,7 +28,7 @@ Never put secrets, API keys, street addresses or telephone numbers here. Environ
 - **Services and env vars:** none (pure function in lib/assessment/scoring.ts; questions in questions.ts)
 - **If it fails:** the submit route rejects answer sets it does not recognise rather than scoring them
 - **Run or test by hand:** answer option 2 on every question: expect Exposed with five Significant gap areas
-- **Jimmy's actions:** update Addendum 02 to the new threshold
+- **Owner actions:** update Addendum 02 to the new threshold
 - **Privacy policy section:** how we handle assessment answers
 
 ### Exposure Check retention job
@@ -39,7 +39,7 @@ Never put secrets, API keys, street addresses or telephone numbers here. Environ
 - **Services and env vars:** `CRON_SECRET` (bearer token; with none set the job refuses every call), `RETENTION_KEEP_EMAILS` (comma-separated client addresses to skip; empty means nobody is skipped), `BREVO_API_KEY`, `VERCEL_ENV`.
 - **If it fails:** a Brevo failure keeps that person's rows and the job retries them next month (`retryNextRun` in the response and log). Failures are logged with the status code only, never the address.
 - **Run or test by hand:** call the route with `Authorization: Bearer <CRON_SECRET>` and no `apply` parameter for a dry run. The dry run lists the addresses it would delete (`wouldDelete`) and the size of the keep list. Add `?keep=a@x.com,b@y.com` to test the keep list without changing the environment. Add `?apply=1` only after checking the dry run.
-- **Jimmy's actions:** after release, run a dry run and check `wouldDelete` against the client list; put any client addresses in `RETENTION_KEEP_EMAILS` in Vercel (production) before the first scheduled run; do the yearly review of enquiries and proposals by hand.
+- **Owner actions:** after release, run a dry run and check `wouldDelete` against the client list; put any client addresses in `RETENTION_KEEP_EMAILS` in Vercel (production) before the first scheduled run; do the yearly review of enquiries and proposals by hand.
 - **Privacy policy section:** section 5 (retention); effective 13 October 2026.
 
 ### Contact form and enquiry confirmation
@@ -50,7 +50,7 @@ Never put secrets, API keys, street addresses or telephone numbers here. Environ
 - **Services and env vars:** `BREVO_API_KEY`
 - **If it fails:** the error is logged; the visitor sees the form error state
 - **Run or test by hand:** submit the form with a test address (jimmym@ or hello@ only) and check both emails and the on-page confirmation
-- **Jimmy's actions:** reply to enquiries by hand; no turnaround is promised anywhere
+- **Owner actions:** reply to enquiries by hand; no turnaround is promised anywhere
 - **Privacy policy section:** section 1 (who we are), sections 5 and 6 (sharing, retention)
 
 ### Exposure Check consent notice
@@ -61,7 +61,7 @@ Never put secrets, API keys, street addresses or telephone numbers here. Environ
 - **Services and env vars:** none
 - **If it fails:** not applicable
 - **Run or test by hand:** open /popia-ai-check and read the line under the button; the Privacy Policy link must open /privacy-policy
-- **Jimmy's actions:** keep the wording and policy section 5 in step
+- **Owner actions:** keep the wording and policy section 5 in step
 - **Privacy policy section:** section 5 (information outside South Africa)
 
 (Further entries to be added after the first inventory pass.)

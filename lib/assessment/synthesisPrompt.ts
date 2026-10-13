@@ -7,10 +7,10 @@
  *   2. Their level (1 Exposed, 2 Partly protected, 3 Well protected)
  *   3. An optional site scrape (markdown). The route currently passes "".
  *
- * Output (JSON, shape unchanged from v2 so the route's schema and Jimmy's
- * brief email need no new plumbing):
+ * Output (JSON, shape unchanged from v2 so the route's schema and the
+ * lead alert email need no new plumbing):
  *   - objectA: prospect-facing observations, stored on the report row
- *   - objectB: Jimmy's pre-call brief, emailed to hello@maruonline.com.
+ *   - objectB: the pre-call lead alert, emailed to hello@maruonline.com.
  *     `integration_gap` now carries the data-flow gap; the key name is kept
  *     for schema stability.
  *
@@ -47,7 +47,7 @@ ${siteMarkdown.slice(0, 3000)}
     `.trim()
     : "WEBSITE ANALYSIS: No website provided or scrape unsuccessful. Base observations on assessment answers only.";
 
-  return `You are producing structured output for Maru Online, a POPIA-conscious AI implementation consultancy for South African businesses. Maru maps where client personal information goes through a business's AI tools, apps, spreadsheets and WhatsApp, fixes the risks, and builds workflows that save time. Your output feeds two destinations: observations stored with the report the prospect receives, and an internal brief the founder reads before a discovery call.
+  return `You are producing structured output for Maru Online, a POPIA-conscious AI implementation consultancy for South African businesses. Maru maps where client personal information goes through a business's AI tools, apps, spreadsheets and WhatsApp, fixes the risks, and builds workflows that save time. Your output feeds two destinations: observations stored with the report the prospect receives, and an internal lead alert the team reads before a discovery call.
 
 The prospect just completed a 10-question Exposure Check. Each answer is shown with its score: 4 is best practice, 0 is no practice at all.
 
@@ -78,14 +78,14 @@ Write 3 observations about this prospect's situation. Rules:
 - If website data is available: add ONE observation about what the site signals about how they collect or handle personal information (forms, consent wording, privacy notice). Otherwise return null.
 - Tone: direct, warm, credible. A consultant who has seen this pattern before and is honest about it. No hype, no fear-mongering, no flattery.
 
-INSTRUCTIONS FOR OBJECT B (internal, Jimmy's pre-call brief):
+INSTRUCTIONS FOR OBJECT B (internal, the pre-call lead alert):
 Be direct and specific. Include:
 - business_summary: 2-3 sentences on what the business appears to do and how mature its handling of client information seems.
 - segment: which audience this prospect most likely maps to (ESD programme beneficiary / financial adviser or FSP / medical, dental or allied-health practice / estate or managing agent / small law or accounting firm / other owner-led SME) and why, in one sentence. Say "unclear" if the answers and site give no signal.
 - primary_pain: the single highest-priority exposure the answers reveal, named precisely (e.g. "client records pasted into free AI tools with no rule against it").
 - integration_gap: the data-flow gap. Which systems, apps or channels client information moves through without control, based on answers and site data.
 - tech_signals: what the website reveals about their tools and their handling of personal information (CMS, forms, consent wording, privacy notice, booking and chat tools). If there is no site markdown, state "no website data".
-- conversation_opener: one specific question Jimmy should open the call with, drawn from their weakest answers. It should make the prospect feel heard immediately.
+- conversation_opener: one specific question the consultant should open the call with, drawn from their weakest answers. It should make the prospect feel heard immediately.
 - probes: exactly 2 follow-up questions on what their answers left unclear.
 - flag: disqualification or caution signals (e.g. answers suggest no client personal information is handled, a mismatch between their answers, or urgency that suggests a live incident needing legal help rather than Maru). State "none detected" if none.
 

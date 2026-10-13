@@ -5,7 +5,7 @@
  * Deletes guide requesters older than GUIDE_RETENTION_MONTHS who never
  * confirmed the notes subscription and never took the Exposure Check.
  * Entry 19 also exempts people who "have become a customer"; the site holds
- * no customer record, so that exemption is Jimmy's to apply by hand.
+ * no customer record, so that exemption is the owner's to apply by hand.
  *
  * Safe by default:
  *   - NOT scheduled in vercel.json. Run it by hand, or schedule it once the

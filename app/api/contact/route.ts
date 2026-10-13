@@ -68,12 +68,14 @@ export async function POST(request: NextRequest) {
     const safeReferral = referral ? escapeHtml(referral) : ''
 
     const apiKey      = process.env.BREVO_API_KEY!
-    const senderEmail = process.env.BREVO_SENDER_EMAIL || 'jimmymotsei@gmail.com'
+    const senderEmail = process.env.BREVO_SENDER_EMAIL || 'hello@maruonline.com'
     const senderName  = process.env.BREVO_SENDER_NAME  || 'Maru Online'
     const notifyTo    = [
-      { email: process.env.NOTIFICATION_EMAIL   || 'jimmyM@maruonline.com', name: 'Jimmy Motsei' },
-      { email: process.env.NOTIFICATION_EMAIL_2 || 'hello@maruonline.com',  name: 'Maru Online' },
-    ]
+      { email: process.env.NOTIFICATION_EMAIL || 'hello@maruonline.com', name: 'Maru Online' },
+      ...(process.env.NOTIFICATION_EMAIL_2
+        ? [{ email: process.env.NOTIFICATION_EMAIL_2, name: 'Maru Online' }]
+        : []),
+    ].filter((r, i, all) => all.findIndex((x) => x.email === r.email) === i)
 
     // 1. Add / update contact in Brevo
     const listId = await getOrCreateListId('Maru Website Contacts', apiKey)
@@ -95,7 +97,7 @@ export async function POST(request: NextRequest) {
       body:    JSON.stringify(contactBody),
     })
 
-    // 2. Notification email to Jimmy
+    // 2. Notification email to the team
     const row = (label: string, value: string) => value ? `
       <tr style="border-bottom:1px solid #E2E8F0">
         <td style="padding:12px 0;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#718096;width:28%;vertical-align:top">${label}</td>

@@ -24,7 +24,7 @@ const services: Service[] = [
     body: 'We find where your time, money and client data leak. Free.',
   },
   {
-    // ON HOLD (entry 04, open item 1): none of this is delivered yet. Jimmy is
+    // ON HOLD (entry 04, open item 1): none of this is delivered yet. The owner is
     // building a v1 pack first. Flip `onHold` only once he confirms v1 exists,
     // and add the footer services link at the same time (entry 07).
     id: 'safeguards',

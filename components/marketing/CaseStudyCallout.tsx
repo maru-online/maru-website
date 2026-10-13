@@ -5,7 +5,7 @@ import { CASE_STUDY_LIVE, caseStudyLink } from '@/lib/case-study'
  * Contextual pointer to the GrowthIQ case study, for service and About pages.
  *
  * Structure is final; the copy is not — the one-line summary stays deliberately
- * factual and claim-free until Jimmy supplies a shareable metric (brief item
+ * factual and claim-free until the owner supplies a shareable metric (brief item
  * 08). It states what was built, which is verifiable, and no outcome, which is
  * not.
  */

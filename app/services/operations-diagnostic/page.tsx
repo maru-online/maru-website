@@ -21,7 +21,7 @@ const innerNarrow = "max-w-[720px] mx-auto";
 
 // The paid Operations Diagnostic (R4,500: intake brief, verification call,
 // costed gap report, 90-day roadmap) is retired. The free Operations
-// Assessment replaced it (Jimmy, 5 Oct 2026). Copy on this page uses only
+// Assessment replaced it (the owner, 5 Oct 2026). Copy on this page uses only
 // approved handover wording (entries 04, 09, 13) until it gets its own copy
 // entry. The route keeps its old path so existing links still resolve.
 const bullets: { leader: string; body?: string }[] = [

@@ -4,7 +4,7 @@ import type { TransactionalEmail } from "./brevo";
 
 /**
  * Emails for the guide flow. Code-built htmlContent, the same way the
- * assessment builds Jimmy's brief, so no Brevo template is created or edited
+ * assessment builds the lead alert, so no Brevo template is created or edited
  * (entry 19 §12: templates 2, 3, 4 and 6 are off limits).
  */
 
@@ -73,7 +73,7 @@ ${signature}`);
  *
  * DRAFT WORDING — NOT APPROVED. Entry 19 gives no copy for this email. Written
  * for the preview test only, to the voice rules; listed in rebuild log #10 for
- * Jimmy to approve or replace before go-live.
+ * the owner to approve or replace before go-live.
  */
 export function buildConfirmEmail(params: { email: string; firstName: string; confirmUrl: string }): TransactionalEmail {
   const name = escapeHtml(params.firstName);

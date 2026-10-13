@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "We built Maru Online to fix the specific problem of AI projects that get bought, never used, and quietly forgotten. Mission, approach, and values.",
   // TEMPORARY: the Focus Over Volume card carries a ScaffoldPlaceholder until
-  // Jimmy supplies its replacement line (entry 16, open item 1). Placeholders
+  // the owner supplies its replacement line (entry 16, open item 1). Placeholders
   // and noindex ship together and are removed together.
   robots: { index: false, follow: true },
 };
@@ -200,7 +200,7 @@ export default function AboutPage() {
               <CardProof title="Focus Over Volume." className="h-full">
                 <ScaffoldPlaceholder
                   label="Focus Over Volume description"
-                  blockedOn="Jimmy — replacement line (copy handover entry 16, open item 1)"
+                  blockedOn="Owner — replacement line (copy handover entry 16, open item 1)"
                 />
               </CardProof>
             </StaggerChild>

@@ -4,7 +4,7 @@
  * ─── Why internal links are NOT UTM-tagged ───────────────────────────────────
  *
  * The brief (Appendix A) asked for `utm_campaign=case_study` on *internal*
- * links into the case study. Jimmy overrode that on 3 Sep 2026, and this is why:
+ * links into the case study. The owner overrode that on 3 Sep 2026, and this is why:
  *
  * **UTM parameters on same-site links restart the GA4 session and overwrite its
  * traffic source.** A visitor who arrives from Google and then clicks a tagged

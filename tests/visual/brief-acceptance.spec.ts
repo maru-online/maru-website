@@ -122,7 +122,7 @@ test.describe('item 03 — floating bubble never covers the primary CTA', () => 
 // ─── Item 10 — pricing (superseded) ──────────────────────────────────────────
 // The tiered /pricing page was retired 7 Oct 2026 (copy handover entry 13). It
 // now redirects to the "How we price" section on /process, which publishes no
-// figure until Jimmy confirms one.
+// figure until the owner confirms one.
 
 test.describe('item 10 — pricing now lives on /process', () => {
   test('/pricing redirects to the How we price section', async ({ request }) => {

@@ -8,7 +8,7 @@ import { GUIDE_PATH, GUIDE_SECONDARY_LINKS } from '@/lib/guides/config'
  *
  * Rules from the entry:
  * - Answers state a commitment or a boundary, never Maru's method. No new
- *   figures, prices, tool names or extra questions without Jimmy's approval.
+ *   figures, prices, tool names or extra questions without the owner's approval.
  * - The FAQPage JSON-LD is generated from this same array, so the markup and
  *   the visible copy cannot drift apart.
  * - Native <details>/<summary>: keyboard operable, one question per control,

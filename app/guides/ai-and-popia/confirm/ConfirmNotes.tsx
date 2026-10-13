@@ -3,7 +3,7 @@
 /**
  * DRAFT WORDING — NOT APPROVED. Entry 19 gives no copy for the double opt-in
  * page. Written to the voice rules for the preview test only; listed in
- * rebuild log #10 for Jimmy to approve or replace before go-live.
+ * rebuild log #10 for the owner to approve or replace before go-live.
  */
 
 import { useState } from "react";

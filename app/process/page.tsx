@@ -221,7 +221,7 @@ export default function ProcessPage() {
 
       {/* ════════════════════════════════════════════════════════════════════
           HOW WE PRICE — entry 13, replaces the /pricing page (which now
-          redirects here). No figure until Jimmy confirms one; when he does,
+          redirects here). No figure until the owner confirms one; when they do,
           store it as a single constant, not inline.
           ════════════════════════════════════════════════════════════════════ */}
       <section

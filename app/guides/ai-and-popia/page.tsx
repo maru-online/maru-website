@@ -9,7 +9,7 @@ import GuideForm from "./GuideForm";
 /**
  * /guides/ai-and-popia — lead magnet landing page.
  * Copy handover entry 19 §1–§2, verbatim (approved for preview build 8 Oct
- * 2026). noindex until Jimmy flips GUIDE_INDEXABLE after the §10 release
+ * 2026). noindex until the owner flips GUIDE_INDEXABLE after the §10 release
  * gates. Not linked from the hero (§1); the homepage strip and FAQ link sit
  * behind flags in lib/guides/config.ts.
  */

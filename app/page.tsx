@@ -31,7 +31,7 @@ const innerWide = "max-w-[1100px] mx-auto";
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 // The GrowthIQ proof strip still carries a visible PLACEHOLDER. It stays off
-// this indexed page until Jimmy supplies the cleared metric; flip to true then.
+// this indexed page until the owner supplies the cleared metric; flip to true then.
 const SHOW_PROOF_STRIP = false;
 
 export default function Home() {
@@ -253,7 +253,7 @@ export default function Home() {
           {/* Proof strip (brief item 08) — placed here, immediately after the
               services choice, so the question "can they actually do it" is
               answered at the point it gets asked. Contains a marked placeholder
-              until Jimmy supplies a shareable GrowthIQ metric. */}
+              until the owner supplies a shareable GrowthIQ metric. */}
           {SHOW_PROOF_STRIP && (
             <div style={{ marginTop: "3rem" }}>
               <FadeUp>

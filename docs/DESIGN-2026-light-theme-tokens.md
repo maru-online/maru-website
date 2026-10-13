@@ -1,6 +1,6 @@
 # Warm Stone — Light-Theme Token Sheet (Direction 2, final)
 
-> Chosen 31 Jul 2026 (Jimmy). Implements PLAN-2026-08-LIGHT-REFRESH.md Phase B output.
+> Chosen 31 Jul 2026 (the owner). Implements PLAN-2026-08-LIGHT-REFRESH.md Phase B output.
 > Additions requested during review: gradient depth system, button shadows, isometric
 > prism background motif.
 

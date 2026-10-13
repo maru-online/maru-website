@@ -145,7 +145,7 @@ export default function GrowthIqCaseStudy() {
                 <div style={{ marginTop: "1.5rem" }}>
                   <ScaffoldPlaceholder
                     label="Screenshot — GrowthIQ dashboard"
-                    blockedOn="Jimmy — real product screenshots, not stock imagery"
+                    blockedOn="Owner — real product screenshots, not stock imagery"
                     minHeight="320px"
                   >
                     16:9. Alt text still to be written. Check for beneficiary
@@ -156,7 +156,7 @@ export default function GrowthIqCaseStudy() {
                 <div style={{ marginTop: "1.5rem" }}>
                   <ScaffoldPlaceholder
                     label="Screenshot — assessment wizard or growth plan"
-                    blockedOn="Jimmy — real product screenshots"
+                    blockedOn="Owner — real product screenshots"
                     minHeight="320px"
                   >
                     16:9. Alt text still to be written.
@@ -179,7 +179,7 @@ export default function GrowthIqCaseStudy() {
                 <div style={{ marginTop: "1.5rem" }}>
                 <ScaffoldPlaceholder
                   label="Before / after numbers"
-                  blockedOn="Jimmy — one shareable metric, cleared with the client"
+                  blockedOn="Owner — one shareable metric, cleared with the client"
                 >
                   Standing rule 5 requires documented before/after numbers per
                   engagement. One verified figure beats three vague ones — and

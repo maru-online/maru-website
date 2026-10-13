@@ -106,7 +106,7 @@ export const LEVEL_RESULTS: Record<ReadinessLevel, { label: string; summary: str
 
 /**
  * "How this is scored" note, shown under the result on the result screen and
- * in the report. Wording approved by Jimmy 9 Oct 2026 (option A), verbatim.
+ * in the report. Wording approved by the owner 9 Oct 2026 (option A), verbatim.
  * The "at least one area above a significant gap" rule holds because Level 1
  * (Exposed) covers an average up to 2.0.
  */

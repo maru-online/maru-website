@@ -23,7 +23,7 @@ const innerNarrow = "max-w-[720px] mx-auto";
 
 // ─── Service data ─────────────────────────────────────────────────────────────
 
-// No published price figures (Jimmy, 6 Oct 2026); see /process#how-we-price.
+// No published price figures (the owner, 6 Oct 2026); see /process#how-we-price.
 type Service = {
   id: string
   label: string

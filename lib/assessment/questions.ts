@@ -1,13 +1,13 @@
 /**
  * POPIA AI check (assessment_v3): the questions.
  *
- * COPY-DECK-ADDENDUM-02 item B, approved as written by Jimmy on 26 Sep 2026.
+ * COPY-DECK-ADDENDUM-02 item B, approved as written by the owner on 26 Sep 2026.
  * Verbatim: change the addendum first, then this file. Scoring, the wizard
  * and the synthesis prompt all read from here, so the wording a visitor sees
  * is the wording Claude reasons about.
  *
  * Option order is best → worst and each carries its score (4 / 2 / 1 / 0).
- * `value` is what gets posted, stored and shown in Jimmy's brief.
+ * `value` is what gets posted, stored and shown in the lead alert.
  */
 
 export type QuestionId = "q1" | "q2" | "q3" | "q4" | "q5" | "q6" | "q7" | "q8" | "q9" | "q10";

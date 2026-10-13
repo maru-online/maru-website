@@ -133,7 +133,7 @@ export default function TeamTrainingHandoverPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                {/* No published price figure (Jimmy, 6 Oct 2026); see /process#how-we-price. */}
+                {/* No published price figure (the owner, 6 Oct 2026); see /process#how-we-price. */}
                 Priced in your proposal
               </p>
               <p

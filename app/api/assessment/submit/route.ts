@@ -9,7 +9,7 @@
  * 4. Store report in DB → generate token → build report URL
  * 5. Brevo: contact upsert
  * 6. Brevo: Email A to prospect (report link)
- * 7. Brevo: Email B to hello@maruonline.com (Jimmy's brief)
+ * 7. Brevo: Email B to hello@maruonline.com (the lead alert)
  * 8. Return report URL to client
  *
  * Error handling: each step degrades gracefully.
@@ -54,7 +54,7 @@ interface SubmissionBody {
  */
 const CONSENT_TEXT_VERSION = "2026-09-v1";
 
-// Upper bound on the Claude call. Typical is ~24s; past this we send Jimmy's
+// Upper bound on the Claude call. Typical is ~24s; past this we send the lead alert
 // brief without observations rather than wait on a hung request.
 const SYNTHESIS_TIMEOUT_MS = 45_000;
 
@@ -177,10 +177,10 @@ export async function POST(req: NextRequest) {
 
     // ── 4. Everything slow, after the response ────────────────────────────
     // The prospect's report does not depend on the AI synthesis: the report page
-    // is built from the scores, and the synthesis only feeds Jimmy's internal
+    // is built from the scores, and the synthesis only feeds the internal
     // brief. So the prospect email goes first, and the synthesis runs after it
     // under a hard timeout. A slow or failed Claude call can delay or thin
-    // Jimmy's brief; it can never stop the prospect's email.
+    // the lead alert; it can never stop the prospect's email.
     // waitUntil keeps the function alive past the response.
     waitUntil(
       (async () => {
@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
           reportUrl,
           painTag,
           segmentB: scoreResult.segmentB,
-          jimmyBrief: null,
+          leadBrief: null,
           answers: body.answers,
           marketingConsent,
         };
@@ -225,7 +225,7 @@ export async function POST(req: NextRequest) {
           );
         } catch (err) {
           console.error("Claude synthesis failed:", err);
-          // Report stays template-only; Jimmy's brief goes out without observations.
+          // Report stays template-only; the lead alert goes out without observations.
         }
         tSynthesis = Date.now() - tSynthStart;
 
@@ -240,11 +240,11 @@ export async function POST(req: NextRequest) {
           }
         }
 
-        // 4. Jimmy's brief, with or without the synthesis.
-        await sendJimmyBriefEmail({
+        // 4. Lead alert, with or without the synthesis.
+        await sendLeadAlertEmail({
           ...emailParams,
-          jimmyBrief: synthesis?.objectB ?? null,
-        }).catch((err) => console.error("Brevo Jimmy brief email failed:", err));
+          leadBrief: synthesis?.objectB ?? null,
+        }).catch((err) => console.error("Brevo lead alert email failed:", err));
 
         console.log("assessment background finished", {
           synthesisMs: tSynthesis,
@@ -482,7 +482,7 @@ interface BrevoEmailParams {
   reportUrl: string;
   painTag: string;
   segmentB: boolean;
-  jimmyBrief: SynthesisOutput["objectB"] | null;
+  leadBrief: SynthesisOutput["objectB"] | null;
   answers: SubmissionBody["answers"];
   marketingConsent: boolean;
 }
@@ -507,7 +507,7 @@ async function sendProspectEmail(params: BrevoEmailParams) {
   // Copy handover entry 19 §11: the report email gets "Want the basics behind
   // these questions? Read the guide." unless this address already requested
   // the guide. The level templates live in Brevo and may not be edited without
-  // Jimmy's approval (§12), so the line is not in them yet: these two params
+  // owner approval (§12), so the line is not in them yet: these two params
   // are what the template will use once he approves the wording proposed in
   // REBUILD-LOG.md (kept outside the repo) #10.
   let showGuideLink = GUIDE_LIVE;
@@ -533,7 +533,7 @@ async function sendProspectEmail(params: BrevoEmailParams) {
       to: [{ email, name }],
       templateId: templateIds[level],
       params: {
-        // First name only: the template greets with it ("Your report is ready, Jimmy.")
+        // First name only: the template greets with it ("Your report is ready, Sam.")
         FIRSTNAME: name.trim().split(/\s+/)[0] || name,
         LEVEL_LABEL: levelLabel,
         REPORT_URL: reportUrl,
@@ -551,14 +551,14 @@ async function sendProspectEmail(params: BrevoEmailParams) {
   console.log("Brevo prospect email response:", brevoRes.status, JSON.stringify(brevoBody));
 }
 
-async function sendJimmyBriefEmail(params: BrevoEmailParams) {
-  const { name, email, website, level, levelLabel, reportUrl, segmentB, jimmyBrief, answers, marketingConsent } = params;
+async function sendLeadAlertEmail(params: BrevoEmailParams) {
+  const { name, email, website, level, levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent } = params;
 
-  const briefHtml = buildJimmyBriefHtml({
-    name, email, website, level, levelLabel, reportUrl, segmentB, jimmyBrief, answers, marketingConsent,
+  const briefHtml = buildLeadAlertHtml({
+    name, email, website, level, levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent,
   });
 
-  const jimmyRes = await fetch("https://api.brevo.com/v3/smtp/email", {
+  const alertRes = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -573,14 +573,14 @@ async function sendJimmyBriefEmail(params: BrevoEmailParams) {
       tags: [ASSESSMENT_VERSION],
     }),
   });
-  const jimmyBody = await jimmyRes.json();
-  if (!jimmyRes.ok) {
-    throw new Error(`Brevo Jimmy brief email ${jimmyRes.status}: ${JSON.stringify(jimmyBody)}`);
+  const alertBody = await alertRes.json();
+  if (!alertRes.ok) {
+    throw new Error(`Brevo lead alert email ${alertRes.status}: ${JSON.stringify(alertBody)}`);
   }
-  console.log("Brevo Jimmy brief email response:", jimmyRes.status, JSON.stringify(jimmyBody));
+  console.log("Brevo lead alert email response:", alertRes.status, JSON.stringify(alertBody));
 }
 
-function buildJimmyBriefHtml(params: {
+function buildLeadAlertHtml(params: {
   name: string;
   email: string;
   website?: string;
@@ -588,11 +588,11 @@ function buildJimmyBriefHtml(params: {
   levelLabel: string;
   reportUrl: string;
   segmentB: boolean;
-  jimmyBrief: SynthesisOutput["objectB"] | null;
+  leadBrief: SynthesisOutput["objectB"] | null;
   answers: SubmissionBody["answers"];
   marketingConsent: boolean;
 }): string {
-  const { levelLabel, reportUrl, segmentB, jimmyBrief, answers, marketingConsent } = params;
+  const { levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent } = params;
   // Visitor-typed fields go into HTML, so escape them.
   const name = escapeHtml(params.name);
   const email = escapeHtml(params.email);
@@ -609,19 +609,19 @@ function buildJimmyBriefHtml(params: {
        </div>`
     : "";
 
-  const briefSection = jimmyBrief
+  const briefSection = leadBrief
     ? `
       <h2 style="font-size:16px;margin:24px 0 8px;">AI-Generated Brief</h2>
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
-        ${row("Business", escapeHtml(jimmyBrief.business_summary), "width:30%;")}
-        ${row("Segment", escapeHtml(jimmyBrief.segment))}
-        ${row("Primary exposure", escapeHtml(jimmyBrief.primary_pain))}
-        ${row("Data-flow gap", escapeHtml(jimmyBrief.integration_gap))}
-        ${row("Tech signals", escapeHtml(jimmyBrief.tech_signals))}
-        <tr style="background:#e8f4fd;"><td style="${cell}font-weight:600;">Open with</td><td style="${cell}font-style:italic;">"${escapeHtml(jimmyBrief.conversation_opener)}"</td></tr>
-        ${row("Probe 1", escapeHtml(jimmyBrief.probes[0]))}
-        ${row("Probe 2", escapeHtml(jimmyBrief.probes[1]))}
-        ${row("Flag", escapeHtml(jimmyBrief.flag))}
+        ${row("Business", escapeHtml(leadBrief.business_summary), "width:30%;")}
+        ${row("Segment", escapeHtml(leadBrief.segment))}
+        ${row("Primary exposure", escapeHtml(leadBrief.primary_pain))}
+        ${row("Data-flow gap", escapeHtml(leadBrief.integration_gap))}
+        ${row("Tech signals", escapeHtml(leadBrief.tech_signals))}
+        <tr style="background:#e8f4fd;"><td style="${cell}font-weight:600;">Open with</td><td style="${cell}font-style:italic;">"${escapeHtml(leadBrief.conversation_opener)}"</td></tr>
+        ${row("Probe 1", escapeHtml(leadBrief.probes[0]))}
+        ${row("Probe 2", escapeHtml(leadBrief.probes[1]))}
+        ${row("Flag", escapeHtml(leadBrief.flag))}
       </table>
     `
     : `<p style="color:#666;font-size:14px;">AI brief unavailable for this submission — review assessment answers below.</p>`;

@@ -20,7 +20,7 @@ export function ScaffoldPlaceholder({
 }: {
   /** What this block will become, e.g. "Client quote". */
   label: string
-  /** Who or what it is waiting on, e.g. "Jimmy — shareable metric". */
+  /** Who or what it is waiting on, e.g. "Owner — shareable metric". */
   blockedOn: string
   /** Optional note about shape, length or source of the eventual content. */
   children?: ReactNode

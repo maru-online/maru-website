@@ -292,7 +292,7 @@ export const segmentBNote: Record<ReadinessLevel, string> = {
 
 // ── assessment_v3: POPIA AI check ──────────────────────────────────────────
 //
-// COPY-DECK-ADDENDUM-03.md sections B and C, approved by Jimmy 28 Sep 2026.
+// COPY-DECK-ADDENDUM-03.md sections B and C, approved by the owner 28 Sep 2026.
 // Verbatim: edit the addendum first, then this file. Keyed by the area keys in
 // scoring.ts AREAS (ai_use, data_location, access, permission, incident).
 

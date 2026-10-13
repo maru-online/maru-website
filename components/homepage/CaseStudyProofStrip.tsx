@@ -5,7 +5,7 @@ import { CASE_STUDY_LIVE, caseStudyLink } from '@/lib/case-study'
  * Homepage proof block, placed after the services grid.
  *
  * Copy handover entry 04 (approved 5 Oct 2026), verbatim. A build
- * description, not a figure: Jimmy has no client-cleared number. Do NOT add the
+ * description, not a figure: the owner has no client-cleared number. Do NOT add the
  * beneficiary results shown on growthiq.co.za (31% revenue growth, mentorship
  * sessions): those are the client's outcomes, not outcomes of Maru's build.
  * The AI guide is live at the gap assessment stage only, so the copy must not

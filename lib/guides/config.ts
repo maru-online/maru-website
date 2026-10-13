@@ -6,7 +6,7 @@
  * first. Go-live is a set of one-line changes in this file, listed in
  * REBUILD-LOG.md (kept outside the repo) (#10):
  *
- *   1. GUIDE_PDF_FILE        → the clean PDF, after Jimmy ticks
+ *   1. GUIDE_PDF_FILE        → the clean PDF, after the owner ticks
  *                              lead-magnet-verification-v1.md
  *   2. GUIDE_INDEXABLE       → true (lifts noindex, adds the sitemap entry)
  *   3. GUIDE_HOMEPAGE_STRIP  → true (homepage strip, built last per §11)
@@ -35,7 +35,7 @@ export const GUIDE_HOMEPAGE_STRIP = false;
 export const GUIDE_SECONDARY_LINKS = false;
 
 /**
- * Entry 19 §12 default (b), decided by Jimmy 8 Oct: contacts who downloaded
+ * Entry 19 §12 default (b), decided by the owner 8 Oct: contacts who downloaded
  * the guide and did not subscribe are deleted after this many months, unless
  * they became a customer or took the Exposure Check.
  */

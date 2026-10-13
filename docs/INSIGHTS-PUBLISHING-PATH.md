@@ -68,7 +68,7 @@ including using the article's own cover as the OG image when there is one.
 
 ---
 
-## Open gaps — these need Jimmy, not code
+## Open gaps — these need the owner, not code
 
 **A. `/insights` is deliberately hidden and must be un-hidden on first publish.**
 Two suppressions were added in Aug 2026 while the section was empty, both with

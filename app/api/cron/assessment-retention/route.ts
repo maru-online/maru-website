@@ -1,6 +1,6 @@
 /**
  * GET /api/cron/assessment-retention — the Exposure Check's 12-month rule
- * (privacy policy section 5, agreed by Jimmy 8 Oct 2026).
+ * (privacy policy section 5, agreed by the owner 8 Oct 2026).
  *
  * Deletes Exposure Check results (operations_reports rows, including the
  * generated report) once a person's most recent check is older than
@@ -26,7 +26,7 @@
  *     addresses (dry run only), so they can be checked against the client list.
  *   - Brevo is touched only in production.
  *   - Scheduled monthly in vercel.json with `?apply=1`. Vercel sends
- *     CRON_SECRET as the bearer token, so nothing runs until Jimmy sets it.
+ *     CRON_SECRET as the bearer token, so nothing runs until the owner sets it.
  *     Run a manual dry run (no `apply`) before setting it.
  */
 
