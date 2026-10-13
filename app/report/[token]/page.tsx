@@ -56,7 +56,7 @@ async function fetchReport(token: string): Promise<ReportData | null> {
   try {
     const res = await fetch(`${baseUrl}/api/report/${token}`, { cache: "no-store" });
     if (!res.ok) return null;
-    return res.json();
+    return await res.json();
   } catch {
     return null;
   }
