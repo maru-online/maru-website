@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
     <LegalLayout
       title="Privacy Policy"
       description="What personal information we collect through this website, why, who receives it, and your rights."
-      lastUpdated="October 8, 2026"
+      lastUpdated="October 13, 2026"
       effectiveDate="October 13, 2026"
     >
       <section className="mb-12">
