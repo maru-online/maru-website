@@ -40,8 +40,6 @@ export const WHATSAPP_OPENERS: Record<string, string> = {
     "I'd like to know more about Results Optimisation.",
   '/contact':
     "I have a question about Maru Online's services.",
-  '/careers':
-    "I'm interested in opportunities at Maru Online.",
   '/ai-in-action':
     'I just tried the Maru Chatbot demo and had a question.',
 }

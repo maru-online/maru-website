@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // /insights omitted while it has no articles — an empty section should not
     // be advertised to Google. Restore when the first article publishes.
     { url: `${baseUrl}/popia-ai-check`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/careers`, changeFrequency: 'monthly', priority: 0.5 },
   ];
 
   // The four rate-card services. Retired service URLs are 301'd in
