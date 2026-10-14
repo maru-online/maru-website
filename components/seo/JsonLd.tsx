@@ -29,7 +29,7 @@ export function OrganizationJsonLd() {
         url: siteConfig.url,
         email: siteConfig.contact.email,
         description:
-          'AI implementation consultancy for South African SMEs. We find where manual processes cost time and money, then build AI-powered workflows that cut those costs.',
+          'AI implementation consultancy for South African SMEs. We build POPIA-aware AI systems into your existing workflows, saving your team time and admin.',
         areaServed: { '@type': 'Country', name: 'South Africa' },
         // Region and country only: no street address and no telephone in
         // public structured data (copy handover entry 18; footer shows

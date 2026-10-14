@@ -180,7 +180,7 @@ export default function ServicesPage() {
               }}
             >
               We connect the tools you already have, automate the busywork, and
-              show you the savings. Scope and price are set out in your proposal before any work starts.
+              give your team their time back. Scope and price are set out in your proposal before any work starts.
             </p>
           </FadeUp>
           <FadeUp delay={0.24}>
