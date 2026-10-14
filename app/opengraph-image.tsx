@@ -59,7 +59,7 @@ export default async function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            Your team already uses AI. Where is your client data going?
+            Building POPIA-aware AI systems into your existing workflows.
           </div>
           <div
             style={{
@@ -69,7 +69,7 @@ export default async function OpengraphImage() {
               fontWeight: 400,
             }}
           >
-            POPIA-conscious AI implementation · South Africa
+            AI implementation for South African SMEs
           </div>
         </div>
 

@@ -17,10 +17,10 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   ...seo('/'),
-  // Copy handover entry 02 (approved 5 Oct 2026): title 55 chars, description 149.
-  title: "POPIA-Conscious AI for South African SMEs | Maru Online",
+  // Positioning line of 14 Oct 2026. Title 59 chars, description 158.
+  title: "POPIA-Aware AI Systems for South African SMEs | Maru Online",
   description:
-    "Your team is already using AI. We connect your tools and build AI workflows your staff can use safely, with POPIA in mind. Free 5-minute assessment.",
+    "We build POPIA-aware AI systems into your existing workflows, so your team saves time, does less admin and gets more done. Free 5-minute Exposure Check.",
 };
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
@@ -59,9 +59,9 @@ export default function Home() {
 
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">Your team already uses AI.</span>
+              <span className="maru-headline-split-light">Building POPIA-aware AI systems</span>
               <br />
-              <span className="maru-headline-split-strong">Where is your client data going?</span>
+              <span className="maru-headline-split-strong">into your existing workflows.</span>
             </h1>
           </FadeUp>
 
@@ -77,7 +77,7 @@ export default function Home() {
                 marginBottom: "3rem",
               }}
             >
-              Your clients trust you with their information. Your staff are probably pasting it into free AI tools to save time, with no contract, no safeguards, and no idea where it ends up. Under POPIA, that&apos;s your responsibility. We build AI workflows your team can use safely, so you keep the productivity and avoid the exposure.
+              We map how your team works today, build AI into the workflows you already run, train your people and review it a month later. You get time back, less admin and better productivity, with the way personal information is handled designed in from the start.
             </p>
           </FadeUp>
 

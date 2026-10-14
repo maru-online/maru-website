@@ -368,7 +368,7 @@ function AssessmentWizard() {
                   className="mt-0.5"
                 />
                 <span className="text-sm text-ink-secondary leading-relaxed">
-                  Also send me occasional notes on using AI safely under POPIA. Unsubscribe from any email.
+                  Also send me occasional notes on using AI with POPIA in mind. Unsubscribe from any email.
                 </span>
               </label>
 

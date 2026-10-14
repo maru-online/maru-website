@@ -32,22 +32,22 @@ const inter = localFont({
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL('https://maruonline.com'),
-  title: 'AI & Automation Consultants for Growing SMEs | Maru Online',
+  title: 'POPIA-Aware AI Systems for South African SMEs | Maru Online',
   description:
-    'We find where your processes are costing you time and money — then build AI-powered workflows that cut costs and free your team. Free assessment.',
+    'We build POPIA-aware AI systems into your existing workflows, so your team saves time, does less admin and gets more done. Free 5-minute Exposure Check.',
   openGraph: {
     type: 'website',
     siteName: 'Maru Online',
     locale: 'en_ZA',
-    title: 'AI That Actually Works for Your Business — Not Just Another Tool',
+    title: 'Building POPIA-aware AI systems into your existing workflows',
     description:
-      'We connect AI with your existing tools and workflows to automate the work your team shouldn\'t be doing manually. Free assessment for growing SMEs.',
+      'We connect AI with your existing tools and workflows to take manual work off your team. Free 5-minute Exposure Check for South African SMEs.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI That Actually Works for Your Business — Not Just Another Tool',
+    title: 'Building POPIA-aware AI systems into your existing workflows',
     description:
-      'We find where your processes are costing you time and money — then build AI-powered workflows that cut costs and free your team. Free assessment.',
+      'We connect AI with your existing tools and workflows to take manual work off your team. Free 5-minute Exposure Check for South African SMEs.',
   },
 }
 
