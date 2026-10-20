@@ -120,6 +120,7 @@ export default function TopicFilter({ articles }: { articles: InsightListItem[] 
             <Link href="/popia-ai-check" className="text-cyan-ink underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] rounded-sm">
               Take the assessment
             </Link>
+            .
           </p>
         </div>
       ) : (
