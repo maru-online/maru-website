@@ -25,13 +25,12 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 const SERVICES = [
-  { value: '',                                       label: 'Select a service…' },
-  { value: 'Operations Diagnostic',                  label: 'Operations Diagnostic' },
-  { value: 'Workflow Integration / AI Automation',   label: 'Workflow Integration / AI Automation' },
-  { value: 'Team Training & Handover',               label: 'Team Training & Handover' },
-  { value: 'Results Optimisation',                   label: 'Results Optimisation' },
-  { value: 'Invara demo',                            label: 'Invara (request a demo)' },
-  { value: 'Not sure yet — just exploring',          label: 'Not sure yet — just exploring' },
+  { value: '',                              label: 'Select a service…' },
+  { value: 'AI Automation',                 label: 'AI Automation' },
+  { value: 'AI Strategy Consulting',        label: 'AI Strategy Consulting' },
+  { value: 'AI Training',                   label: 'AI Training' },
+  { value: 'Invara',                        label: 'Invara' },
+  { value: 'Not sure yet — just exploring', label: 'Not sure yet — just exploring' },
 ]
 
 const REFERRALS = [
@@ -66,7 +65,7 @@ export default function ContactForm() {
   // Invara page. Read once on mount; only known options are accepted.
   useEffect(() => {
     const wanted = new URLSearchParams(window.location.search).get('service')
-    const preset: Record<string, string> = { invara: 'Invara demo' }
+    const preset: Record<string, string> = { invara: 'Invara' }
     if (wanted && preset[wanted]) setValue('service', preset[wanted])
   }, [setValue])
 
