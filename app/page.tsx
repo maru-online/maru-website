@@ -2,64 +2,106 @@ import { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
-import PrimaryServicesFilter from "@/components/homepage/PrimaryServicesFilter";
-import { CaseStudyProofStrip } from "@/components/homepage/CaseStudyProofStrip";
-import ImageSplit from "@/components/ui/ImageSplit";
 import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
-import StatBand from "@/components/ui/StatBand";
 import Glyph from "@/components/ui/Glyph";
 import { seo } from '@/lib/seo'
 
+// Homepage copy: "MaruOnline Website Copy, Sections 1–4", approved 20 Oct 2026.
+// Editorial rules that came with it:
+//  - The free POPIA Assessment is an informational summary of areas to review
+//    against POPIA. Never call it a certification or a compliance audit.
+//  - Every listed capability must be work Maru Online can deliver. Keep
+//    "Data-Driven Growth Systems" about customer data, revenue processes and
+//    AI-enabled growth, not standalone campaign management.
+
 export const metadata: Metadata = {
   ...seo('/'),
-  title: "Cut Your Operating Costs With AI-Powered Workflows | Maru Online",
+  title: "POPIA-Aware AI Systems for South African Businesses | Maru Online",
   description:
-    "We help businesses cut operating costs by building AI-powered workflows where it matters most. Book a discovery call.",
+    "We design AI systems around your business's challenges and integrate them into your existing workflows, with POPIA requirements in mind. Take the free POPIA Assessment.",
 };
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
 const outerPad = "px-6 md:px-[60px]";
-const inner     = "max-w-[900px] mx-auto";
-const innerNarrow = "max-w-[720px] mx-auto";
 const innerWide = "max-w-[1100px] mx-auto";
 
+// ─── Content ──────────────────────────────────────────────────────────────────
 
-// ─── Inline SVGs for trust bar ────────────────────────────────────────────────
+const problems = [
+  {
+    icon: "unlink" as const,
+    heading: "Disconnected Business Systems",
+    body: "Business processes often span multiple applications, data sources and operational stages. Without effective integration, information becomes fragmented, handoffs require manual intervention, and visibility across the business suffers.",
+  },
+  {
+    icon: "hourglass" as const,
+    heading: "Manual Data Processing",
+    body: "Repeated data entry and routine administrative tasks consume staff time, increase the risk of errors and drive up operating costs.",
+  },
+  {
+    icon: "shield" as const,
+    heading: "Data Governance and POPIA Risks",
+    body: "Scattered personal information and inconsistent handling processes make it harder to manage access, consent and data protection obligations.",
+  },
+];
 
-function IconSearch() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M13.5 13.5L17 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
+const steps = [
+  {
+    n: "1",
+    icon: "search" as const,
+    name: "Business & Workflow Assessment",
+    body: "Identify operational bottlenecks, repetitive tasks and opportunities for improvement. Establish where AI can deliver practical business value.",
+  },
+  {
+    n: "2",
+    icon: "connect" as const,
+    name: "AI System Design & Integration",
+    body: "We design AI systems around your specific business needs and integrate them into your existing workflows, systems and data sources, with data protection considered from the outset.",
+  },
+  {
+    n: "3",
+    icon: "chart" as const,
+    name: "Optimisation & Handover",
+    body: "Measure performance against an agreed baseline, refine the system and equip your team to use and manage it effectively.",
+  },
+];
 
-function IconShield() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M10 2L3 5v5c0 4.418 3.134 7.5 7 8 3.866-.5 7-3.582 7-8V5L10 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M7 10l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function IconStar() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
+const capabilities = [
+  {
+    icon: "compass" as const,
+    name: "Business & AI Strategy",
+    lead: "Understand the problem before building the solution.",
+    items: [
+      "Business and workflow analysis",
+      "AI opportunity identification and prioritisation",
+      "Systems architecture and implementation roadmaps",
+    ],
+  },
+  {
+    icon: "browser" as const,
+    name: "Digital Systems & Integration",
+    lead: "Build the digital foundations your business needs to grow.",
+    items: [
+      "Websites, web applications and e-commerce platforms",
+      "AI integration across business systems and data sources",
+      "Connected digital infrastructure designed to support evolving business needs",
+    ],
+  },
+  {
+    icon: "signal" as const,
+    name: "Data-Driven Growth Systems",
+    lead: "Turn business data into better decisions and more effective customer processes.",
+    items: [
+      "Customer journey and revenue process analysis",
+      "Data-informed marketing and growth strategy",
+      "AI-enabled lead management, customer engagement and follow-up",
+    ],
+  },
+];
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-
-// The GrowthIQ proof strip still carries a visible PLACEHOLDER. It stays off
-// this indexed page until Jimmy supplies the cleared metric; flip to true then.
-const SHOW_PROOF_STRIP = false;
 
 export default function Home() {
   return (
@@ -86,68 +128,88 @@ export default function Home() {
 
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">AI-Powered Workflows That</span>
+              <span className="maru-headline-split-light">Your Team Is Already Using AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Cut Your Operating Costs</span>
+              <span className="maru-headline-split-strong">Are Your Systems POPIA-Aware?</span>
             </h1>
           </FadeUp>
 
           <FadeUp delay={0.16}>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 300,
-                fontSize: "var(--text-body)",
-                color: "var(--color-ink-inverted-muted)",
-                lineHeight: "var(--leading-body-relaxed)",
-                maxWidth: "640px",
-                marginBottom: "2rem",
-              }}
-            >
-              We find the manual tasks eating your team&apos;s time and replace them with AI workflows that actually work.
-            </p>
+            <div style={{ maxWidth: "680px", marginBottom: "2rem" }}>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 300,
+                  fontSize: "var(--text-body)",
+                  color: "var(--color-ink-inverted-muted)",
+                  lineHeight: "var(--leading-body-relaxed)",
+                  marginBottom: "1.25rem",
+                }}
+              >
+                Your team may already be using AI tools. But are they being used in ways that account for your business&apos;s data protection responsibilities?
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 300,
+                  fontSize: "var(--text-body)",
+                  color: "var(--color-ink-inverted-muted)",
+                  lineHeight: "var(--leading-body-relaxed)",
+                  marginBottom: 0,
+                }}
+              >
+                Maru Online designs AI systems around your business&apos;s specific challenges and integrates them into your existing workflows, with South Africa&apos;s POPIA requirements in mind.
+              </p>
+            </div>
           </FadeUp>
 
           <FadeUp delay={0.19}>
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: "var(--text-body-sm)",
-                color: "var(--color-ink-inverted-muted)",
+                fontWeight: 500,
+                fontSize: "var(--text-body)",
+                color: "var(--color-cyan)",
                 lineHeight: "var(--leading-body-relaxed)",
-                maxWidth: "560px",
+                maxWidth: "680px",
                 marginBottom: "3rem",
               }}
             >
-              Most businesses buy AI tools that never talk to each other. We connect them, automate what matters, and show you the savings.
+              Reduce manual processing. Improve data accuracy. Give your team more time to focus on the work that matters.
             </p>
           </FadeUp>
 
           <FadeUp delay={0.22}>
             {/* data-maru-primary-cta: the floating WhatsApp bubble watches for this
-                and hides itself while these buttons are on screen. On a 375px
-                viewport the bubble sits 6px above this row and covers its right
-                end as soon as the page scrolls. See components/ui/WhatsAppWidget. */}
+                and hides itself while this button is on screen. See
+                components/ui/WhatsAppWidget. */}
             <div
               data-maru-primary-cta
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+              className="flex flex-col items-stretch sm:items-start gap-3"
             >
-              <Button href="/booking" variant="primary" className="w-full sm:w-auto justify-center">
-                Book a discovery call
+              <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
+                Take Your Free POPIA Assessment
               </Button>
-              <Button href="/operations-assessment" variant="secondary" className="w-full sm:w-auto justify-center">
-                Start the assessment
-              </Button>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 300,
+                  fontStyle: "italic",
+                  fontSize: "var(--text-meta)",
+                  color: "var(--color-ink-inverted-muted)",
+                  margin: 0,
+                }}
+              >
+                Free assessment · Report delivered by email
+              </p>
             </div>
           </FadeUp>
-
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 02 — OPERATIONAL GAP
-          bg: canvas (#FAFAF8)
+          SECTION 02 — THE PROBLEM
+          bg: canvas
           ════════════════════════════════════════════════════════════════════ */}
       <section
         className={`${outerPad} py-24`}
@@ -155,15 +217,21 @@ export default function Home() {
       >
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>The operational gap</span>
-            <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <span style={{ fontWeight: 700 }}>Your tools work.</span>
+            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>The problem</span>
+            <h2 style={{ marginBottom: "1.25rem" }}>
+              <span style={{ fontWeight: 700 }}>Disconnected Systems</span>
               <br />
-              <span style={{ fontWeight: 300 }}>Your workflows don&apos;t.</span>
+              <span style={{ fontWeight: 300 }}>Create Unnecessary Work.</span>
             </h2>
+            <p
+              className="body-muted"
+              style={{ maxWidth: "720px", marginBottom: "var(--space-section-header-mb)" }}
+            >
+              Your business tools may work well individually. But when systems don&apos;t share information effectively, manual work increases, data becomes fragmented and managing data protection becomes more difficult.
+            </p>
           </FadeUp>
 
-          {/* The picture of the problem — and the fix — before the words for it */}
+          {/* The picture of the problem — and the fix — before the cards */}
           <div
             className="mx-auto"
             style={{ maxWidth: "1000px", marginBottom: "var(--space-section-header-mb)" }}
@@ -171,349 +239,231 @@ export default function Home() {
             <DisconnectDiagram />
           </div>
 
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" style={{ marginBottom: "var(--space-section-header-mb)" }}>
-            {[
-              {
-                icon: "unlink" as const,
-                heading: "Your tools don’t talk to each other.",
-                body: "CRM, email, accounting — all working, all separate.",
-              },
-              {
-                icon: "hourglass" as const,
-                heading: "Admin is eating your week.",
-                body: "Re-entering data quietly costs days every month.",
-              },
-              {
-                icon: "stale" as const,
-                heading: "You’re deciding on old numbers.",
-                body: "Five systems means you’re reading last month’s export.",
-              },
-              {
-                icon: "shield" as const,
-                heading: "Manual data handling is a POPIA risk.",
-                body: "Loose consent and scattered storage are exposure.",
-              },
-            ].map((col) => (
-              <StaggerChild key={col.heading}>
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {problems.map((card) => (
+              <StaggerChild key={card.heading} className="h-full">
                 <div
-                  className="card-lift"
+                  className="card-lift h-full"
                   style={{
                     border: "0.5px solid var(--color-border-card)",
                     borderTop: "3px solid var(--color-cyan)",
                     borderRadius: "8px",
-                    padding: "1.5rem 1.25rem",
-                    height: "100%",
+                    padding: "1.75rem 1.5rem",
                   }}
                 >
                   <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={col.icon} size={22} />
+                    <Glyph name={card.icon} size={22} />
                   </span>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontWeight: 600,
+                      fontSize: "var(--text-h3-sans)",
+                      color: "var(--color-ink-primary)",
+                      marginBottom: "0.75rem",
+                      lineHeight: "var(--leading-subheading)",
+                    }}
+                  >
+                    {card.heading}
+                  </h3>
+                  <p className="body-muted" style={{ marginBottom: 0 }}>
+                    {card.body}
+                  </p>
+                </div>
+              </StaggerChild>
+            ))}
+          </StaggerParent>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 03 — HOW WE WORK
+          bg: secondary
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        id="how-we-work"
+        className={`${outerPad} py-24`}
+        style={{ backgroundColor: "var(--color-bg-secondary)" }}
+      >
+        <div className={innerWide}>
+          <FadeUp>
+            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>How we work</span>
+            <h2 style={{ marginBottom: "1.25rem" }}>
+              <span style={{ fontWeight: 300 }}>From Business Challenge</span>
+              <br />
+              <span style={{ fontWeight: 700 }}>to Working AI System.</span>
+            </h2>
+            <p
+              className="body-muted"
+              style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}
+            >
+              Every engagement starts with understanding your business, identifying the problems worth solving, and determining where AI can make a measurable difference. We then design, integrate and refine a solution around your existing operations, with POPIA requirements in mind.
+            </p>
+          </FadeUp>
+
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+            {steps.map((step) => (
+              <StaggerChild key={step.n} className="h-full">
+                <div
+                  className="card-lift h-full rounded-[10px]"
+                  style={{ padding: "1.75rem 1.5rem" }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
+                    <span className="glyph-chip glyph-chip-lg">
+                      <Glyph name={step.icon} size={28} />
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        fontSize: "26px",
+                        fontWeight: 100,
+                        color: "rgba(61, 184, 198, 0.45)",
+                        lineHeight: 1,
+                        fontFamily: "var(--font-display)",
+                      }}
+                    >
+                      0{step.n}
+                    </span>
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "var(--text-h3-sans)",
+                      fontWeight: 600,
+                      color: "var(--color-ink-primary)",
+                      lineHeight: 1.3,
+                      marginBottom: "0.75rem",
+                      borderBottom: "2px solid var(--color-cyan)",
+                      paddingBottom: "0.75rem",
+                      fontFamily: "var(--font-body)",
+                    }}
+                  >
+                    {step.n}. {step.name}
+                  </h3>
+                  <p className="body-muted" style={{ marginBottom: 0 }}>
+                    {step.body}
+                  </p>
+                </div>
+              </StaggerChild>
+            ))}
+          </StaggerParent>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 04 — SUPPORTING CAPABILITIES
+          bg: canvas
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        id="capabilities"
+        className={`${outerPad} py-24`}
+        style={{ background: "var(--gradient-surface)" }}
+      >
+        <div className={innerWide}>
+          <FadeUp>
+            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Supporting capabilities</span>
+            <h2 style={{ marginBottom: "1.25rem" }}>
+              <span style={{ fontWeight: 300 }}>Strategy, Digital Infrastructure</span>
+              <br />
+              <span style={{ fontWeight: 700 }}>&amp; Growth</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontWeight: 600,
+                fontSize: "var(--text-body)",
+                color: "var(--color-ink-primary)",
+                lineHeight: "var(--leading-body)",
+                maxWidth: "760px",
+                marginBottom: "0.75rem",
+              }}
+            >
+              The right systems start with the right business decisions.
+            </p>
+            <p
+              className="body-muted"
+              style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}
+            >
+              AI delivers more value when business strategy, digital infrastructure and operational processes work together. We bring these elements together to help South African businesses build connected, data-informed systems that support growth.
+            </p>
+          </FadeUp>
+
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+            {capabilities.map((col) => (
+              <StaggerChild key={col.name} className="h-full">
+                <div
+                  className="card-lift h-full rounded-[10px]"
+                  style={{ padding: "1.75rem 1.5rem" }}
+                >
+                  <span className="glyph-chip glyph-chip-lg" style={{ marginBottom: "1.25rem" }}>
+                    <Glyph name={col.icon} size={28} />
+                  </span>
+
+                  <h3
+                    style={{
+                      fontSize: "var(--text-h3-sans)",
+                      fontWeight: 600,
+                      color: "var(--color-ink-primary)",
+                      lineHeight: 1.3,
+                      marginBottom: "0.75rem",
+                      borderBottom: "2px solid var(--color-cyan)",
+                      paddingBottom: "0.75rem",
+                      fontFamily: "var(--font-body)",
+                    }}
+                  >
+                    {col.name}
+                  </h3>
+
                   <p
                     style={{
                       fontFamily: "var(--font-body)",
                       fontWeight: 600,
                       fontSize: "var(--text-body-sm)",
                       color: "var(--color-ink-primary)",
-                      marginBottom: "0.5rem",
-                      lineHeight: "var(--leading-subheading)",
+                      lineHeight: "var(--leading-body)",
+                      marginBottom: "1rem",
                     }}
                   >
-                    {col.heading}
+                    {col.lead}
                   </p>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>
-                    {col.body}
-                  </p>
-                </div>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
 
-          <FadeUp delay={0.16}>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "var(--text-body-sm)",
-                fontWeight: 500,
-                color: "var(--color-ink-primary)",
-                borderLeft: "4px solid var(--color-cyan)",
-                paddingLeft: "1.25rem",
-                margin: 0,
-                lineHeight: "var(--leading-body)",
-              }}
-            >
-              None of this needs new software. We fix it with the systems you already have.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
-
-
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 03 — METRICS BAR
-          bg: white (#FFFFFF)
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-16`}
-        style={{ backgroundColor: "var(--color-bg-primary)" }}
-      >
-        <div className={inner}>
-          <StatBand />
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 04 — PRIMARY SERVICES (filter layout)
-          bg: secondary (#F5F4F0)
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="services"
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-secondary)" }}
-      >
-        <div className={innerWide}>
-          <FadeUp>
-            <h2>
-              <span style={{ fontWeight: 300 }}>Pick the problem.</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>We’ll fix it.</span>
-            </h2>
-            <p
-              className="body-muted"
-              style={{ maxWidth: "640px", marginBottom: "var(--space-section-header-mb)" }}
-            >
-              Every engagement starts the same way: a free assessment that shows you where the money is leaking.
-            </p>
-          </FadeUp>
-
-          <PrimaryServicesFilter />
-
-          {/* Proof strip (brief item 08) — placed here, immediately after the
-              services choice, so the question "can they actually do it" is
-              answered at the point it gets asked. Contains a marked placeholder
-              until Jimmy supplies a shareable GrowthIQ metric. */}
-          {SHOW_PROOF_STRIP && (
-            <div style={{ marginTop: "3rem" }}>
-              <FadeUp>
-                <CaseStudyProofStrip />
-              </FadeUp>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 05 — FOUNDATION SERVICES (flush 3-col grid)
-          bg: secondary — the grid cells were white on white before
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-secondary)" }}
-      >
-        <div className={innerWide}>
-          <FadeUp>
-            <h2>
-              <span style={{ fontWeight: 300 }}>Need more than workflows?</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>We build the rest too.</span>
-            </h2>
-            <p
-              className="body-muted"
-              style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}
-            >
-              Strategy, websites, and marketing — the foundations that make everything else work.
-            </p>
-          </FadeUp>
-
-          {/* Three discrete cards. Previously a flush grid whose 1px gaps were
-              the dividers — stacked on mobile that read as one undifferentiated
-              slab, so the cards now stand apart and each carries its own edge
-              and elevation via .card-lift. Entrance is staggered so the set
-              arrives as three things, not one. */}
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {[
-              {
-                ghost: "01",
-                icon: "compass" as const,
-                name: "Strategy & Consultation",
-                description: "We map the ground before anything gets built.",
-                deliverables: [
-                  "Market and audience research",
-                  "Digital roadmap and architecture",
-                  "Go-to-market strategy",
-                ],
-              },
-              {
-                ghost: "02",
-                icon: "browser" as const,
-                name: "Design & Development",
-                description: "Products built for integration from day one.",
-                deliverables: [
-                  "Websites, web apps and e-commerce",
-                  "Built for AI integration from day one",
-                  "Performance and conversion optimised",
-                ],
-              },
-              {
-                ghost: "03",
-                icon: "signal" as const,
-                name: "Digital Marketing Support",
-                description: "Insights from your data, then campaigns that act on them.",
-                deliverables: [
-                  "Analytics and insights",
-                  "Campaign strategy and execution",
-                  "Online visibility",
-                ],
-              },
-            ].map((col) => (
-              <StaggerChild key={col.ghost} className="h-full">
-              <div
-                className="card-lift h-full rounded-[10px]"
-                style={{ padding: "1.75rem 1.5rem" }}
-              >
-                {/* Glyph carries the category; the ghost number stays as a
-                    faint ordinal so the three columns still read as a set. */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
-                  <span className="glyph-chip glyph-chip-gold glyph-chip-lg">
-                    <Glyph name={col.icon} size={28} />
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "26px",
-                      fontWeight: 100,
-                      color: "rgba(205, 170, 83, 0.32)",
-                      lineHeight: 1,
-                      fontFamily: "var(--font-display)",
-                    }}
-                  >
-                    {col.ghost}
-                  </span>
-                </div>
-
-                {/* Service name + gold underline */}
-                <p
-                  style={{
-                    fontSize: "var(--text-h3-sans)",
-                    fontWeight: 600,
-                    color: "var(--color-ink-primary)",
-                    lineHeight: 1.3,
-                    marginBottom: "0.75rem",
-                    borderBottom: "2px solid var(--color-gold)",
-                    paddingBottom: "0.75rem",
-                    fontFamily: "var(--font-body)",
-                  }}
-                >
-                  {col.name}
-                </p>
-
-                {/* Description */}
-                <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                  {col.description}
-                </p>
-
-                {/* Deliverables label */}
-                <span
-                  style={{
-                    display: "inline-block",
-                    fontSize: "10px",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
-                    color: "var(--color-cyan)",
-                    background: "rgba(61, 184, 198, 0.10)",
-                    border: "1px solid rgba(61, 184, 198, 0.25)",
-                    borderRadius: "4px",
-                    padding: "3px 8px",
-                    marginBottom: "0.75rem",
-                    fontFamily: "var(--font-body)",
-                  }}
-                >
-                  Deliverables
-                </span>
-
-                {/* Deliverables list */}
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                  {col.deliverables.map((item) => (
-                    <li
-                      key={item}
-                      style={{
-                        fontSize: "var(--text-body-sm)",
-                        color: "var(--color-ink-secondary)",
-                        padding: "4px 0",
-                        lineHeight: "var(--leading-body)",
-                        display: "flex",
-                        gap: "8px",
-                        alignItems: "flex-start",
-                        fontFamily: "var(--font-body)",
-                        fontWeight: 300,
-                      }}
-                    >
-                      <span
+                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                    {col.items.map((item) => (
+                      <li
+                        key={item}
                         style={{
-                          color: "var(--color-gold)",
                           fontSize: "var(--text-body-sm)",
-                          flexShrink: 0,
+                          color: "var(--color-ink-secondary)",
+                          padding: "4px 0",
                           lineHeight: "var(--leading-body)",
+                          display: "flex",
+                          gap: "8px",
+                          alignItems: "flex-start",
+                          fontFamily: "var(--font-body)",
+                          fontWeight: 300,
                         }}
                       >
-                        →
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                        <span
+                          aria-hidden="true"
+                          style={{
+                            color: "var(--color-cyan)",
+                            flexShrink: 0,
+                            lineHeight: "var(--leading-body)",
+                          }}
+                        >
+                          →
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </StaggerChild>
             ))}
           </StaggerParent>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 06 — FOUR-PHASE PROCESS
-          bg: canvas (#FAFAF8)
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="process"
-        className={`${outerPad} py-24`}
-        style={{ background: "var(--gradient-surface)" }}
-      >
-        <div className={inner}>
-          <FadeUp>
-            <h2 style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <span style={{ fontWeight: 300 }}>From first look to live savings</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>in about 30 days.</span>
-            </h2>
-          </FadeUp>
-
-          {/* The four-phase detail lives on /process — the homepage only needs
-              the promise, not the method. */}
-          <FadeUp delay={0.08}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                gap: "1rem",
-              }}
-            >
-              <p className="body-muted" style={{ marginBottom: 0, maxWidth: "560px" }}>
-                Four steps. Fixed price. Measured outcome.
-              </p>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Button href="/operations-assessment" variant="primary" className="w-full sm:w-auto justify-center">
-                  Start the assessment
-                </Button>
-                <Button href="/process" variant="tertiary">
-                  See how it works
-                </Button>
-              </div>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ── IMAGE BAND — between process and assessment form ────────────── */}
+      {/* ── IMAGE BAND — between capabilities and the assessment section ── */}
       <ImageBand
         src="/images/people/replace-team.png"
         alt="Two professionals celebrating a win together in the office"
@@ -527,8 +477,8 @@ export default function Home() {
       />
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 07 — ASSESSMENT FORM (client component)
-          bg: navy (#1A3A5C)
+          SECTION 05 — POPIA ASSESSMENT
+          bg: navy
           ════════════════════════════════════════════════════════════════════ */}
       <AssessmentFormSection />
 
