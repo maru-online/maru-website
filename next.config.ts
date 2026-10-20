@@ -266,6 +266,16 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: false,
       },
+      // Live-site cleanup, 20 Oct 2026: pages that were publicly reachable but
+      // unfinished, internal or out of date. Temporary (307) so each can come
+      // back when it has real content. The release line handles these its own
+      // way; drop these entries when it merges.
+      { source: '/careers', destination: '/about', permanent: false },
+      { source: '/ai-in-action', destination: '/', permanent: false },
+      { source: '/design-system', destination: '/', permanent: false },
+      { source: '/case-studies', destination: '/about', permanent: false },
+      { source: '/case-studies/:path*', destination: '/about', permanent: false },
+      { source: '/resources/popia-ai-checklist', destination: '/operations-assessment', permanent: false },
     ];
   },
 };

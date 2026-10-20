@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // be advertised to Google. Restore when the first article publishes.
     { url: `${baseUrl}/operations-assessment`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/booking`, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/careers`, changeFrequency: 'monthly', priority: 0.5 },
   ];
 
   // The four rate-card services. Retired service URLs are 301'd in
