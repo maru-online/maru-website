@@ -26,7 +26,7 @@ export default function AssessmentFormSection() {
             </h2>
 
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              Our free assessment shows you exactly where your processes are losing capacity. Ten minutes. Results within 48 hours.
+              Our free assessment shows you where your processes are losing capacity. It takes about ten minutes.
             </p>
 
             <p
@@ -43,28 +43,6 @@ export default function AssessmentFormSection() {
               Either way, you get clarity. That&apos;s the point.
             </p>
 
-            {/* Proof stats */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.5rem" }}>
-              {[
-                "Average 3–5 critical gaps identified per assessment",
-                "Average 12–18 hours per week recoverable through integration",
-              ].map((stat) => (
-                <div key={stat} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                  <span className="bullet-cyan" style={{ marginTop: "9px" }} />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-body-sm)",
-                      fontWeight: 500,
-                      color: "var(--color-ink-inverted)",
-                      lineHeight: "var(--leading-body)",
-                    }}
-                  >
-                    {stat}
-                  </span>
-                </div>
-              ))}
-            </div>
 
             <p
               style={{
@@ -76,7 +54,7 @@ export default function AssessmentFormSection() {
                 letterSpacing: "0.02em",
               }}
             >
-              POPIA compliant. No opt-in to marketing — just your results.
+              No opt-in to marketing — just your results.
             </p>
           </div>
 
@@ -121,7 +99,6 @@ export default function AssessmentFormSection() {
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "2rem" }}>
               {[
                 "See your score live as you go",
-                "Detailed report delivered within 48 hours",
                 "No sign-up required to begin",
               ].map((point) => (
                 <div key={point} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
@@ -164,7 +141,7 @@ export default function AssessmentFormSection() {
                 lineHeight: 1.5,
               }}
             >
-              Free. No obligation. Results within 48 hours.
+              Free. No obligation.
             </p>
           </div>
           </div>

@@ -4,7 +4,6 @@ import Button from "@/components/ui/Button";
 import CardNavy from "@/components/ui/CardNavy";
 import CardProof from "@/components/ui/CardProof";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
-import { CaseStudyCallout } from "@/components/marketing/CaseStudyCallout";
 import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
@@ -203,27 +202,13 @@ export default function AboutPage() {
             </StaggerChild>
             <StaggerChild className="h-full">
               <CardProof title="Focus Over Volume." className="h-full">
-                We limit ourselves to five active clients. This isn&apos;t a marketing tactic — it&apos;s how we ensure you get our full attention from start to finish.
+                We keep the number of clients we work with at any one time small, so you get our full attention from start to finish.
               </CardProof>
             </StaggerChild>
           </StaggerParent>
         </div>
       </section>
 
-      {/* ── Case study (brief item 08) ── */}
-      <section
-        className={`${outerPad} py-16`}
-        style={{ backgroundColor: "var(--color-bg-primary)" }}
-      >
-        <div className={innerNarrow}>
-          <FadeUp>
-            <CaseStudyCallout
-              source="about"
-              line="GrowthIQ — the most recent engagement, documented end to end."
-            />
-          </FadeUp>
-        </div>
-      </section>
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 6 — OUR FOUNDATION

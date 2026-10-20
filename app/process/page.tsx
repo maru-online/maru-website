@@ -364,10 +364,6 @@ export default function ProcessPage() {
                 a: "Almost certainly not. Our first obligation is to audit what you have and make it work better. We only recommend new tools when there is a genuine capability gap your existing stack cannot fill — and we explain exactly why when that happens.",
               },
               {
-                q: 'How many clients do you work with at once?',
-                a: "Maximum five. That's a hard limit, not a soft guideline. It's how we protect the quality of every engagement.",
-              },
-              {
                 q: "What happens if the results don't meet expectations?",
                 a: "The 30-day measurement phase is where this gets addressed honestly. If something didn't perform as expected, the results report says so and explains why. We don't disappear after handover — the 30-day check-in is built in specifically to catch this and course-correct where needed.",
               },

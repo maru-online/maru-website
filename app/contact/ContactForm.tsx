@@ -29,7 +29,6 @@ const SERVICES = [
   { value: 'Operations Diagnostic',                  label: 'Operations Diagnostic' },
   { value: 'Workflow Integration / AI Automation',   label: 'Workflow Integration / AI Automation' },
   { value: 'Team Training & Handover',               label: 'Team Training & Handover' },
-  { value: 'Website Design & Build',                 label: 'Website Design & Build' },
   { value: 'Results Optimisation',                   label: 'Results Optimisation' },
   { value: 'Not sure yet — just exploring',          label: 'Not sure yet — just exploring' },
 ]

@@ -4,7 +4,6 @@ import Button from "@/components/ui/Button";
 import ListItem from "@/components/ui/ListItem";
 import ListGroup from "@/components/ui/ListGroup";
 import { FadeUp } from "@/components/ui/Animate";
-import { CaseStudyCallout } from "@/components/marketing/CaseStudyCallout";
 import { seo } from '@/lib/seo'
 import { ServiceJsonLd } from '@/components/seo/JsonLd'
 
@@ -252,20 +251,6 @@ export default function ResultsOptimisationPage() {
         </div>
       </section>
 
-      {/* ── Case study (brief item 08) ── */}
-      <section
-        className={`${outerPad} py-16`}
-        style={{ backgroundColor: "var(--color-bg-primary)" }}
-      >
-        <div className={innerNarrow}>
-          <FadeUp>
-            <CaseStudyCallout
-              source="services_results_optimisation"
-              line="GrowthIQ — the brief, the build, and the result."
-            />
-          </FadeUp>
-        </div>
-      </section>
 
       {/* ── CTA ── */}
       <section
