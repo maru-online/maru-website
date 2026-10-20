@@ -166,8 +166,8 @@ export default async function InsightsPage() {
         <div className={innerWide}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem" }}>
-              <span style={{ fontWeight: 300 }}>Latest</span>{" "}
-              <span style={{ fontWeight: 700 }}>articles</span>
+              {/* "Latest articles" once there are enough articles for "latest" to mean something. */}
+              Articles
             </h2>
           </FadeUp>
           <TopicFilter articles={articles} />
