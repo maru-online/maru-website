@@ -273,8 +273,8 @@ const nextConfig: NextConfig = {
       { source: '/careers', destination: '/about', permanent: false },
       { source: '/ai-in-action', destination: '/', permanent: false },
       { source: '/design-system', destination: '/', permanent: false },
-      { source: '/case-studies', destination: '/about', permanent: false },
-      { source: '/case-studies/:path*', destination: '/about', permanent: false },
+      { source: '/case-studies', destination: '/about#growthiq', permanent: false },
+      { source: '/case-studies/:path*', destination: '/about#growthiq', permanent: false },
       { source: '/resources/popia-ai-checklist', destination: '/popia-ai-check', permanent: false },
       // The free assessment became the POPIA Assessment (20 Oct 2026). The old
       // path is linked from emails, Brevo and earlier reports, so it must keep
