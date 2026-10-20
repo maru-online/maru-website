@@ -464,7 +464,7 @@ export default async function InsightsPage() {
           </FadeUp>
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Button href="/operations-assessment" variant="primary">
+              <Button href="/popia-ai-check" variant="primary">
                 Start the assessment
               </Button>
               <Button href="/booking" variant="tertiary">

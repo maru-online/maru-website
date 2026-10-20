@@ -178,7 +178,7 @@ export default function GrowthIqCaseStudy() {
                 and tells you where your workflows are leaking time.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Button href="/operations-assessment" variant="primary" className="w-full sm:w-auto justify-center">
+                <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
                   Start the assessment
                 </Button>
                 <Button href="/pricing" variant="tertiary">

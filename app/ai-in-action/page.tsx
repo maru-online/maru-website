@@ -129,7 +129,7 @@ export default function AiInActionPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button
-                  href="/operations-assessment"
+                  href="/popia-ai-check"
                   variant="primary"
                   className="w-full sm:w-auto justify-center"
                 >
