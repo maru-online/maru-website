@@ -280,6 +280,11 @@ const nextConfig: NextConfig = {
       // path is linked from emails, Brevo and earlier reports, so it must keep
       // resolving.
       { source: '/operations-assessment', destination: '/popia-ai-check', permanent: true },
+      // Retired 20 Oct 2026 to stop repeating the homepage and About page:
+      // the process lives in the homepage's "How we work" section and pricing
+      // in the contact page's "How we price" section.
+      { source: '/process', destination: '/#how-we-work', permanent: true },
+      { source: '/pricing', destination: '/contact#how-we-price', permanent: true },
       { source: '/operations-assessment.html', destination: '/popia-ai-check', permanent: true },
     ];
   },

@@ -133,7 +133,7 @@ export default function TeamTrainingHandoverPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R15,000
+                Priced in your proposal
               </p>
               <p
                 style={{

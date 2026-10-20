@@ -455,7 +455,7 @@ export default async function InsightsPage() {
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
               The free assessment shows you where the gaps are, in about fifteen
               minutes. The Operations Diagnostic goes further — your tools, your
-              workflows, your revenue gaps, written up within 48 hours. R4,500.
+              workflows, your revenue gaps, written up within 48 hours.
             </p>
             <hr
               className="rule"

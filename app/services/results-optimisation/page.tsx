@@ -129,7 +129,7 @@ export default function ResultsOptimisationPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R8,500
+                Priced in your proposal
               </p>
               <p
                 style={{

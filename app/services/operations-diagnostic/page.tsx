@@ -129,7 +129,7 @@ export default function OperationsDiagnosticPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                R4,500
+                Priced in your proposal
               </p>
               <p
                 style={{

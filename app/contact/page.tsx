@@ -9,7 +9,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Two ways to start — the Operations Assessment or a 20-minute discovery call.",
+  description: "Two ways to start — the free POPIA Assessment or a 20-minute discovery call.",
   ...seo('/contact'),
 }
 
@@ -243,6 +243,40 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          HOW WE PRICE — replaces the retired /pricing page (308 → here).
+          No figures: pricing is set per engagement in a written proposal.
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        id="how-we-price"
+        className={`${outerPad} py-20`}
+        style={{ background: 'var(--gradient-surface)' }}
+      >
+        <div className={inner}>
+          <FadeUp>
+            <span className="label-eyebrow" style={{ marginBottom: '1.25rem' }}>How we price</span>
+            <h2 style={{ marginBottom: '1.25rem', border: 'none' }}>
+              <span style={{ fontWeight: 300 }}>A written proposal,</span>
+              <br />
+              <span style={{ fontWeight: 700 }}>before any work starts.</span>
+            </h2>
+            <p className="body-muted" style={{ maxWidth: '680px', marginBottom: '1.5rem' }}>
+              After your free POPIA Assessment and a conversation about what you need, we send a proposal that sets out the scope and the cost. You see it before we start, and we don&apos;t bill by the hour.
+            </p>
+          </FadeUp>
+          <FadeUp delay={0.08}>
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0, maxWidth: '680px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <li className="body-muted" style={{ margin: 0, borderLeft: '4px solid var(--color-cyan)', paddingLeft: '1.25rem' }}>
+                <strong style={{ fontWeight: 600, color: 'var(--color-ink-primary)' }}>Included:</strong> design, integration, testing, handover, training, and measurement against an agreed baseline.
+              </li>
+              <li className="body-muted" style={{ margin: 0, borderLeft: '4px solid var(--color-cyan)', paddingLeft: '1.25rem' }}>
+                <strong style={{ fontWeight: 600, color: 'var(--color-ink-primary)' }}>Not included:</strong> subscriptions to the tools themselves, which you pay to the providers directly. We tell you what&apos;s needed, and why, before you commit.
+              </li>
+            </ul>
+          </FadeUp>
         </div>
       </section>
 

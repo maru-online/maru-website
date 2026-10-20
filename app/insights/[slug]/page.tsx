@@ -440,7 +440,7 @@ export default async function InsightArticlePage(
               <p className="article-cta-body">
                 The free assessment shows you where the gaps are, in about fifteen
                 minutes. The Operations Diagnostic goes further — your tools, your
-                workflows, your revenue gaps, written up within 48 hours. R4,500.
+                workflows, your revenue gaps, written up within 48 hours.
               </p>
               <div className="article-cta-actions">
                 <Link href="/popia-ai-check" className="btn-cyan">

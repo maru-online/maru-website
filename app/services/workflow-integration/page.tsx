@@ -133,7 +133,7 @@ export default function WorkflowIntegrationPage() {
                   marginBottom: "0.5rem",
                 }}
               >
-                From R35,000
+                Priced in your proposal
               </p>
               <p
                 style={{
@@ -155,7 +155,7 @@ export default function WorkflowIntegrationPage() {
                   margin: 0,
                 }}
               >
-                Fixed price scoped after the diagnostic — no surprises.
+                Scoped after the diagnostic and agreed in writing before work starts.
               </p>
             </div>
           </FadeUp>

@@ -369,24 +369,11 @@ export const articles: Article[] = [
       },
       {
         type: "heading",
-        text: "The Maru engagement model",
+        text: "How we price",
       },
       {
         type: "paragraph",
-        text: "We use fixed-scope engagements for all implementation work. The diagnostic is fixed at R4,500 to R5,000 and offsets against the build cost if you proceed. The core engagement — Phases 2 through 4, covering design, build, and the first measurement cycle — is priced at R35,000 fixed. If a site remediation is required, that is scoped separately after the diagnostic, typically R8,000 to R15,000.",
-      },
-      {
-        type: "paragraph",
-        text: "After the build is complete and measured, we offer an optional Phase 5 Optimise sprint — a fixed 60-day engagement to improve the workflows based on 30 days of live data. This is the right time for ongoing engagement, not before the integration is built and proven.",
-      },
-      {
-        type: "list",
-        items: [
-          "Diagnostic: R4,500–R5,000 (offsets against the core engagement)",
-          "Core engagement (Phases 2–4): R35,000 fixed",
-          "Site remediation: R8,000–R15,000 (scoped after diagnostic)",
-          "Optimise sprint (Phase 5): R15,000–R25,000, fixed 60-day",
-        ],
+        text: "We use fixed-scope engagements for implementation work. After the free assessment and a call, we send a proposal that sets out the scope and the cost, and you see it before we start. We don't bill by the hour.",
       },
       {
         type: "paragraph",
