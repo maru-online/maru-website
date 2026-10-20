@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -30,6 +30,7 @@ const SERVICES = [
   { value: 'Workflow Integration / AI Automation',   label: 'Workflow Integration / AI Automation' },
   { value: 'Team Training & Handover',               label: 'Team Training & Handover' },
   { value: 'Results Optimisation',                   label: 'Results Optimisation' },
+  { value: 'Invara demo',                            label: 'Invara (request a demo)' },
   { value: 'Not sure yet — just exploring',          label: 'Not sure yet — just exploring' },
 ]
 
@@ -57,8 +58,17 @@ export default function ContactForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
+
+  // Links can preselect a service, e.g. /contact?service=invara from the
+  // Invara page. Read once on mount; only known options are accepted.
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get('service')
+    const preset: Record<string, string> = { invara: 'Invara demo' }
+    if (wanted && preset[wanted]) setValue('service', preset[wanted])
+  }, [setValue])
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
