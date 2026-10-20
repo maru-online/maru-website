@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
@@ -11,6 +12,16 @@ import { seo } from '@/lib/seo'
 // AI-guided, so that is the claim that can be shown. Do not soften it to
 // "AI-supported". The POPIA Assessment is an informational summary, never a
 // certification or compliance audit.
+//
+// Implementation notes (20 Oct 2026):
+//  - One H1 (the hero). H2 for sections, H3 for cards and case-study stages.
+//    Eyebrows are styled spans, not headings.
+//  - GrowthIQ visuals must be genuine product screens or brand assets.
+//  - No outcome metrics until measured (report-preparation time, record
+//    completeness, admin effort). The case study says so in its closing block.
+//  - Data protection is described as a design consideration. Never claim Maru
+//    Online or GrowthIQ is certified, or that a system is automatically
+//    POPIA-compliant.
 
 export const metadata: Metadata = {
   ...seo('/about'),
@@ -97,6 +108,19 @@ const caseBlocks: {
       "The research, positioning and brand system established a coherent foundation for GrowthIQ's digital experience.",
       "The resulting platform is designed to support ESD programmes across five stages: identifying beneficiaries, assessing businesses, developing capabilities, integrating suppliers and verifying evidence. Its AI-guided approach and live information capture are intended to help keep programme information current and reporting ready throughout the process.",
     ],
+  },
+];
+
+const screens = [
+  {
+    src: "/images/case-studies/growthiq-dashboard.webp",
+    alt: "GrowthIQ programme dashboard showing an ESD score, verification due date and a beneficiary list, using invented sample data",
+    caption: "GrowthIQ programme dashboard. Shown with invented sample data, not a client record.",
+  },
+  {
+    src: "/images/case-studies/growthiq-assessment.webp",
+    alt: "GrowthIQ business assessment step with yes or no questions and an Ask GrowthAI prompt, using invented sample data",
+    caption: "AI-guided business assessment, with help from GrowthAI at each question. Sample data.",
   },
 ];
 
@@ -352,6 +376,38 @@ export default function AboutPage() {
               </StaggerChild>
             ))}
           </StaggerParent>
+
+          {/* Genuine GrowthIQ screens, captured from the demo programme. The
+              in-app "SAMPLE DATA" banner stays visible on purpose: every name,
+              score and figure in them is invented. */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6" style={{ marginTop: "2rem" }}>
+            {screens.map((s) => (
+              <FadeUp key={s.src}>
+                <figure className="card-lift rounded-[10px] overflow-hidden" style={{ margin: 0 }}>
+                  <Image
+                    src={s.src}
+                    alt={s.alt}
+                    width={1800}
+                    height={1012}
+                    sizes="(min-width: 768px) 540px, 100vw"
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  />
+                  <figcaption
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "var(--text-meta)",
+                      fontWeight: 300,
+                      color: "var(--color-ink-tertiary)",
+                      padding: "0.875rem 1.25rem",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {s.caption}
+                  </figcaption>
+                </figure>
+              </FadeUp>
+            ))}
+          </div>
 
           <FadeUp delay={0.08}>
             <div
