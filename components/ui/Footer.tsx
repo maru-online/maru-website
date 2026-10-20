@@ -42,7 +42,7 @@ const legalLinkClass =
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function Footer() {
+export default function Footer({ showInsights = false }: { showInsights?: boolean }) {
   // Drives the footer WhatsApp link's pre-filled opener per route.
   const pathname = usePathname()
 
@@ -122,7 +122,7 @@ export default function Footer() {
                   Navigation
                 </h4>
                 <ul className="flex flex-col list-none m-0 p-0">
-                  {footerNavigation.main.map((item) => (
+                  {footerNavigation.main.filter((i) => showInsights || i.href !== '/insights').map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}

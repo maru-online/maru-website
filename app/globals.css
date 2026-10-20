@@ -434,6 +434,54 @@
   }
 
   /* Eyebrow / caps label — 11px / 500 / 0.2em / uppercase */
+  /* Insights hub — topic tag on cards and the filter chips (20 Oct 2026). */
+  .topic-tag {
+    font-family:     var(--font-body), sans-serif;
+    font-size:       var(--text-label);
+    font-weight:     500;
+    letter-spacing:  var(--tracking-eyebrow);
+    text-transform:  uppercase;
+    color:           var(--color-cyan-ink);
+  }
+  .topic-chip {
+    display:         inline-flex;
+    align-items:     center;
+    gap:             0.5rem;
+    font-family:     var(--font-body), sans-serif;
+    font-size:       var(--text-label);
+    font-weight:     500;
+    letter-spacing:  var(--tracking-label);
+    text-transform:  uppercase;
+    color:           var(--color-ink-secondary);
+    background:      transparent;
+    border:          1px solid var(--color-border-default);
+    border-radius:   999px;
+    padding:         0.5rem 0.9rem 0.5rem 1.1rem;
+    cursor:          pointer;
+    transition:      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+  }
+  .topic-chip:hover { transform: translateY(-1px); }
+  .topic-chip:active { transform: translateY(0) scale(0.98); }
+  .topic-chip:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
+  .topic-chip[data-active] {
+    color:           var(--color-bg-primary);
+    background:      var(--color-navy);
+    border-color:    var(--color-navy);
+  }
+  .topic-chip-count {
+    font-size:       0.7rem;
+    min-width:       1.4rem;
+    padding:         0.1rem 0.4rem;
+    border-radius:   999px;
+    text-align:      center;
+    background:      var(--color-cyan-light);
+    color:           var(--color-cyan-ink);
+  }
+  .topic-chip[data-active] .topic-chip-count {
+    background:      rgba(61, 184, 198, 0.22);
+    color:           var(--color-bg-primary);
+  }
+
   .label-eyebrow {
     font-family:     var(--font-body), sans-serif;
     font-size:       var(--text-label);

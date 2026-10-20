@@ -22,6 +22,17 @@
 export const GUIDE_LIVE = false;
 
 export const GUIDE_PATH = "/guides/ai-and-popia";
+
+/**
+ * Review switch (20 Oct 2026). Off production, the landing page renders even
+ * while GUIDE_LIVE is false so the owner can review it on the preview. The
+ * form stays locked (no DB write, no email) and the PDF and API routes still
+ * 404 until GUIDE_LIVE is on. Production is untouched by this.
+ */
+export const GUIDE_PREVIEWABLE = process.env.VERCEL_ENV !== "production";
+
+/** Whether the landing page and the Insights guide band should render. */
+export const GUIDE_PAGE_VISIBLE = GUIDE_LIVE || GUIDE_PREVIEWABLE;
 export const GUIDE_PDF_ROUTE = "/downloads/ai-and-popia-guide.pdf";
 
 /**

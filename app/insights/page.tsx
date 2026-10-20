@@ -1,479 +1,218 @@
-import { Metadata } from "next";
-import Image from "next/image";
-import { BGPattern } from "@/components/ui/bg-pattern";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
-import { MaruBriefForm } from "@/components/ui/MaruBriefForm";
-import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
-import { getInsightList, type InsightListItem } from "@/lib/insights/getInsights";
-import { seo } from '@/lib/seo'
+import { FadeUp } from "@/components/ui/Animate";
+import { getInsightList } from "@/lib/insights/getInsights";
+import { GUIDE_PAGE_VISIBLE, GUIDE_PATH } from "@/lib/guides/config";
+import { seo } from "@/lib/seo";
+import TopicFilter from "./TopicFilter";
 
-export const metadata: Metadata = {
-  ...seo('/insights'),
-  title: "Insights | Maru Online",
-  description:
-    "Practical AI integration thinking for South African SMEs — no vendor fluff, no hype. Real patterns from real engagements.",
-  // The section has no articles yet. It stays reachable so existing links do not
-  // 404, but it should not be indexed or advertised while it is empty.
-  // Remove this and restore the sitemap entry when the first article publishes.
-  robots: { index: false, follow: true },
-};
+/**
+ * /insights — the hub for everything we publish (20 Oct 2026).
+ *
+ * One page, two jobs: the free guide sits at the top as the featured item,
+ * articles sit below with a topic filter (AI in business / POPIA). Articles
+ * come from Sanity (lib/insights/getInsights.ts); the bi-weekly writer is
+ * paused (INSIGHTS_CRON_ENABLED), so nothing appears here unreviewed.
+ *
+ * Indexing follows the content: noindex while there are no articles, so an
+ * empty section is never advertised. The sitemap entry is restored by hand
+ * when the first article publishes.
+ */
 
-const outerPad    = "px-6 md:px-[60px]";
-const inner       = "max-w-[900px] mx-auto";
-const innerWide   = "max-w-[1100px] mx-auto";
+export async function generateMetadata(): Promise<Metadata> {
+  const articles = await getInsightList();
+  return {
+    ...seo("/insights"),
+    title: "Insights: AI and POPIA for South African Businesses | Maru Online",
+    description:
+      "Plain-language articles on using AI in a South African business and what POPIA expects of you, plus a free guide.",
+    ...(articles.length === 0 ? { robots: { index: false, follow: true } } : {}),
+  };
+}
+
+const outerPad = "px-6 md:px-[60px]";
+const innerWide = "max-w-[1100px] mx-auto";
 const innerNarrow = "max-w-[720px] mx-auto";
 
-// Articles are sourced from Sanity (see lib/insights/getInsights.ts).
-// New posts are added by the bi-weekly insights bot; editors can also publish
-// from the Studio at /studio.
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
-
-function CategoryBadge({ label }: { label: string }) {
-  return (
-    <span
-      style={{
-        display:         "inline-block",
-        fontFamily:      "var(--font-body)",
-        fontSize:        "var(--text-label)",
-        fontWeight:      500,
-        letterSpacing:   "var(--tracking-eyebrow)",
-        textTransform:   "uppercase" as const,
-        color:           "var(--color-cyan)",
-        backgroundColor: "var(--color-cyan-light)",
-        padding:         "3px 10px",
-        borderRadius:    "3px",
-      }}
-    >
-      {label}
-    </span>
-  );
-}
-
-function ArticleCard({
-  article,
-}: {
-  article: InsightListItem;
-}) {
-  return (
-    <Link
-      href={`/insights/${article.slug}`}
-      className="group block card-lift"
-      style={{
-        border:          "1px solid var(--color-border-card)",
-        borderRadius:    "8px",
-        overflow:        "hidden",
-      }}
-    >
-      {/* Image */}
-      <div style={{ aspectRatio: "16/9", overflow: "hidden", backgroundColor: "var(--color-bg-navy-deep)" }}>
-        <Image
-          src={article.image}
-          alt={article.title}
-          width={600}
-          height={338}
-          style={{
-            width:      "100%",
-            height:     "100%",
-            objectFit:  "cover",
-            transition: "transform 0.4s ease",
-          }}
-          className="group-hover:scale-[1.03]"
-        />
-      </div>
-
-      {/* Content */}
-      <div style={{ padding: "1.5rem" }}>
-        <div style={{ marginBottom: "0.75rem" }}>
-          <CategoryBadge label={article.category} />
-        </div>
-
-        <h3
-          style={{
-            fontFamily:    "var(--font-display)",
-            fontSize:      "var(--text-h3-serif)",
-            fontWeight:    600,
-            color:         "var(--color-navy)",
-            lineHeight:    "var(--leading-subheading)",
-            letterSpacing: "var(--tracking-tight)",
-            marginBottom:  "var(--space-para)",
-            border:        "none",
-            padding:       0,
-            transition:    "color 0.2s ease",
-          }}
-          className="group-hover:text-[var(--color-cyan)]"
-        >
-          {article.title}
-        </h3>
-
-        <p
-          style={{
-            fontFamily:   "var(--font-body)",
-            fontSize:     "var(--text-body-sm)",
-            fontWeight:   300,
-            color:        "var(--color-ink-secondary)",
-            lineHeight:   "var(--leading-body)",
-            marginBottom: "1rem",
-          }}
-        >
-          {article.excerpt}
-        </p>
-
-        <p
-          style={{
-            fontFamily:    "var(--font-body)",
-            fontSize:      "var(--text-meta)",
-            fontWeight:    400,
-            color:         "var(--color-ink-tertiary)",
-            letterSpacing: "0.04em",
-            margin:        0,
-          }}
-        >
-          {article.date}
-        </p>
-      </div>
-    </Link>
-  );
-}
-
-// ─── Page ────────────────────────────────────────────────────────────────────
+/** Same five lines as the guide page's "What's inside" (entry 19 §2). */
+const GUIDE_CONTENTS = [
+  "AI in your business",
+  "Where client information goes",
+  "Who can see it",
+  "Permission and trust",
+  "If something goes wrong",
+];
 
 export default async function InsightsPage() {
   const articles = await getInsightList();
-  const featured = articles[0];
-  const grid     = featured ? articles.slice(1) : [];
-  const categories = ["All", ...Array.from(new Set(articles.map((a) => a.category)))];
 
   return (
     <>
-      {/* ════════════════════════════════════════════════════════════════════
-          HERO
-          ════════════════════════════════════════════════════════════════════ */}
+      {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
-        className={`relative min-h-[50vh] flex items-center ${outerPad} pt-48 pb-32`}
+        className={`relative overflow-hidden flex items-center ${outerPad} pt-48 pb-24`}
         style={{ backgroundColor: "var(--color-bg-navy)" }}
       >
         <BGPattern variant="grid" mask="none" size={40} fill="rgba(61, 184, 198, 0.12)" className="z-0" />
-        <div
-          aria-hidden="true"
-          style={{
-            position:     "absolute",
-            top:          "-120px",
-            right:        "-120px",
-            width:        "480px",
-            height:       "480px",
-            borderRadius: "50%",
-            border:       "1px solid rgba(61,184,198,0.15)",
-            pointerEvents: "none",
-          }}
-        />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <span className="label-eyebrow">Insights</span>
           </FadeUp>
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split">
-              <span className="maru-headline-split-strong">Practical AI thinking</span>
+              <span className="maru-headline-split-strong">AI and POPIA,</span>
               <br />
-              <span className="maru-headline-split-light">for growing SMEs.</span>
+              <span className="maru-headline-split-light">in plain language.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.16}>
-            <p
-              className="font-body font-light text-lg max-w-[560px]"
-              style={{
-                color:         "var(--color-ink-inverted-muted)",
-                marginBottom:  0,
-                lineHeight:    "var(--leading-body)",
-              }}
-            >
-              No hype. Just practical strategies from real-world success, tailored for SMEs.
+            <p className="body-on-navy max-w-[600px]" style={{ marginBottom: 0 }}>
+              Articles on using AI in a South African business and what POPIA expects of you, written for owners
+              and managers rather than lawyers or engineers.
             </p>
           </FadeUp>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          FEATURED ARTICLE
-          ════════════════════════════════════════════════════════════════════ */}
-      {featured && (
-      <section
-        className={`${outerPad} py-16`}
-        style={{ background: "var(--gradient-surface)" }}
-      >
-        <div className={inner}>
-          <FadeUp>
-            <p
-              style={{
-                fontFamily:    "var(--font-body)",
-                fontSize:      "var(--text-label)",
-                fontWeight:    500,
-                letterSpacing: "var(--tracking-eyebrow)",
-                textTransform: "uppercase",
-                color:         "var(--color-ink-tertiary)",
-                marginBottom:  "1.25rem",
-              }}
-            >
-              Featured
-            </p>
-
-            <Link
-              href={`/insights/${featured.slug}`}
-              className="group grid grid-cols-1 md:grid-cols-2 gap-0 card-lift"
-              style={{
-                borderRadius:    "8px",
-                overflow:        "hidden",
-              }}
-            >
-              {/* Image */}
-              <div
-                style={{
-                  aspectRatio:     "4/3",
-                  overflow:        "hidden",
-                  backgroundColor: "var(--color-bg-navy-deep)",
-                }}
-              >
-                <Image
-                  src={featured.image}
-                  alt={featured.title}
-                  width={720}
-                  height={540}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.4s ease" }}
-                  className="group-hover:scale-[1.03]"
-                />
-              </div>
-
-              {/* Content */}
-              <div
-                style={{
-                  padding:        "2.5rem",
-                  display:        "flex",
-                  flexDirection:  "column",
-                  justifyContent: "center",
-                }}
-              >
-                <div style={{ marginBottom: "1rem" }}>
-                  <CategoryBadge label={featured.category} />
-                </div>
-
-                <h2
-                  style={{
-                    fontFamily:    "var(--font-display)",
-                    fontSize:      "1.625rem",
-                    fontWeight:    600,
-                    color:         "var(--color-navy)",
-                    lineHeight:    "var(--leading-subheading)",
-                    letterSpacing: "var(--tracking-tight)",
-                    marginBottom:  "1rem",
-                    border:        "none",
-                    padding:       0,
-                    transition:    "color 0.2s ease",
-                  }}
-                  className="group-hover:text-[var(--color-cyan)]"
-                >
-                  {featured.title}
-                </h2>
-
-                <p
-                  style={{
-                    fontFamily:   "var(--font-body)",
-                    fontSize:     "var(--text-body)",
-                    fontWeight:   300,
-                    color:        "var(--color-ink-secondary)",
-                    lineHeight:   "var(--leading-body)",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  {featured.excerpt}
-                </p>
-
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <p
-                    style={{
-                      fontFamily:    "var(--font-body)",
-                      fontSize:      "var(--text-meta)",
-                      fontWeight:    400,
-                      color:         "var(--color-ink-tertiary)",
-                      letterSpacing: "0.04em",
-                      margin:        0,
-                    }}
-                  >
-                    {featured.date}
-                  </p>
-                  <span
-                    style={{
-                      fontFamily:    "var(--font-body)",
-                      fontSize:      "var(--text-label)",
-                      fontWeight:    500,
-                      letterSpacing: "var(--tracking-label)",
-                      textTransform: "uppercase",
-                      color:         "var(--color-cyan)",
-                      transition:    "color 0.2s ease",
-                    }}
-                  >
-                    Read article →
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </FadeUp>
-        </div>
-      </section>
-      )}
-
-      {/* ════════════════════════════════════════════════════════════════════
-          ARTICLE GRID
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-primary)" }}
-      >
-        <div className={inner}>
-          <FadeUp>
-            <h2>
-              <span style={{ fontWeight: 300 }}>All</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>articles</span>
-            </h2>
-
-            {/* Category filter row */}
-            <div
-              style={{
-                display:       "flex",
-                flexWrap:      "wrap",
-                gap:           "0.5rem",
-                marginBottom:  "var(--space-section-header-mb)",
-              }}
-            >
-              {categories.map((cat) => (
-                <span
-                  key={cat}
-                  style={{
-                    fontFamily:      "var(--font-body)",
-                    fontSize:        "var(--text-label)",
-                    fontWeight:      cat === "All" ? 600 : 400,
-                    letterSpacing:   "var(--tracking-label)",
-                    textTransform:   "uppercase",
-                    color:           cat === "All" ? "var(--color-bg-primary)" : "var(--color-ink-secondary)",
-                    backgroundColor: cat === "All" ? "var(--color-navy)" : "transparent",
-                    border:          `1px solid ${cat === "All" ? "var(--color-navy)" : "var(--color-border-default)"}`,
-                    borderRadius:    "4px",
-                    padding:         "4px 12px",
-                    cursor:          "default",
-                  }}
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-          </FadeUp>
-
-          {/* Grid */}
-          {articles.length === 0 ? (
-            <p className="body-muted">New insights are on the way — check back soon.</p>
-          ) : (
-            <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {grid.map((article) => (
-                <StaggerChild key={article.slug}>
-                  <ArticleCard article={article} />
-                </StaggerChild>
-              ))}
-            </StaggerParent>
-          )}
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          THE MARU BRIEF — email capture
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ background: "var(--gradient-surface)" }}
-      >
-        <div className={innerNarrow}>
-          <div className="card-lift p-8 md:p-12">
+      {/* ── Featured: the guide ──────────────────────────────────────────── */}
+      {GUIDE_PAGE_VISIBLE && (
+        <section className={`${outerPad} pt-16 pb-4`} style={{ background: "var(--gradient-surface)" }}>
+          <div className={innerWide}>
             <FadeUp>
-              <span className="label-eyebrow-ochre">Monthly Best Practices for AI Integration</span>
-              <h2 style={{ border: "none" }}>
-                <span style={{ fontWeight: 300 }}>The Business </span><span style={{ fontWeight: 700 }}>AI Journal</span>
-              </h2>
-              <p className="body-muted" style={{ marginBottom: "var(--space-para-section)" }}>
-                Unlock practical strategies to optimize your AI integration. Each
-                month, we deliver actionable insights from real-world
-                engagements—covering common pitfalls, effective fixes, and proven
-                frameworks. Written in plain language for business owners.
-              </p>
+              <div
+                className="relative overflow-hidden rounded-2xl grid grid-cols-1 md:grid-cols-[1.15fr_1fr]"
+                style={{
+                  backgroundColor: "var(--color-bg-navy-deep)",
+                  boxShadow:
+                    "0 1px 2px rgba(13,27,42,0.08), 0 12px 32px -12px rgba(13,27,42,0.35), 0 32px 64px -32px rgba(61,184,198,0.25)",
+                }}
+              >
+                <div
+                  aria-hidden="true"
+                  className="absolute pointer-events-none"
+                  style={{
+                    inset: 0,
+                    background:
+                      "radial-gradient(60% 80% at 100% 0%, rgba(61,184,198,0.18), transparent 60%), radial-gradient(50% 60% at 0% 100%, rgba(61,184,198,0.08), transparent 70%)",
+                  }}
+                />
+                <div className="relative p-8 md:p-12">
+                  <span className="label-eyebrow" style={{ marginBottom: "1.25rem" }}>
+                    Free guide
+                  </span>
+                  <h2
+                    style={{
+                      color: "var(--color-ink-inverted)",
+                      border: "none",
+                      padding: 0,
+                      marginBottom: "var(--space-heading-body)",
+                    }}
+                  >
+                    <span style={{ fontWeight: 700 }}>AI and POPIA:</span>{" "}
+                    <span style={{ fontWeight: 300 }}>a guide for South African business owners</span>
+                  </h2>
+                  <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
+                    What your team&apos;s AI tools do with client information, and what POPIA expects of you. 16
+                    pages, about ten minutes to read, with a one-page self-check at the end.
+                  </p>
+                  <Button href={GUIDE_PATH} variant="primary">
+                    Get the free guide
+                  </Button>
+                </div>
 
-              <hr className="rule" style={{ marginBottom: "var(--space-para-section)" }} />
-            </FadeUp>
-
-            <FadeUp delay={0.08}>
-              <MaruBriefForm />
+                <div
+                  className="relative p-8 md:p-12 md:border-l"
+                  style={{ borderColor: "rgba(250,250,248,0.1)" }}
+                >
+                  <p
+                    className="text-xs uppercase mb-6"
+                    style={{ color: "var(--color-ink-inverted-muted)", letterSpacing: "var(--tracking-eyebrow)" }}
+                  >
+                    Inside
+                  </p>
+                  <ol className="list-none m-0 p-0">
+                    {GUIDE_CONTENTS.map((line, i) => (
+                      <li
+                        key={line}
+                        className="flex items-baseline gap-5 py-3"
+                        style={{ borderTop: i === 0 ? "none" : "1px solid rgba(250,250,248,0.08)" }}
+                      >
+                        <span
+                          aria-hidden="true"
+                          style={{
+                            fontFamily: "var(--font-display)",
+                            color: "var(--color-cyan)",
+                            fontSize: "1.125rem",
+                            minWidth: "1.75rem",
+                          }}
+                        >
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span style={{ color: "var(--color-ink-inverted)", fontSize: "var(--text-body)" }}>{line}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
             </FadeUp>
           </div>
+        </section>
+      )}
+
+      {/* ── Articles ─────────────────────────────────────────────────────── */}
+      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+        <div className={innerWide}>
+          <FadeUp>
+            <h2 style={{ marginBottom: "1.5rem" }}>
+              <span style={{ fontWeight: 300 }}>Latest</span>{" "}
+              <span style={{ fontWeight: 700 }}>articles</span>
+            </h2>
+          </FadeUp>
+          <TopicFilter articles={articles} />
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          FINAL CTA — navy
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-navy)" }}
-      >
-        <div
-          aria-hidden="true"
-          style={{
-            position:      "absolute",
-            bottom:        "-80px",
-            left:          "-80px",
-            width:         "320px",
-            height:        "320px",
-            borderRadius:  "50%",
-            border:        "1px solid rgba(61,184,198,0.12)",
-            pointerEvents: "none",
-          }}
-        />
+      {/* ── Final CTA ────────────────────────────────────────────────────── */}
+      <section className={`relative overflow-hidden ${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-navy)" }}>
         <div className={innerNarrow}>
           <FadeUp>
             <span className="label-eyebrow">Ready to act on it?</span>
             <h2
               style={{
-                color:         "var(--color-ink-inverted)",
-                border:        "none",
-                padding:       0,
-                marginBottom:  "var(--space-heading-body)",
+                color: "var(--color-ink-inverted)",
+                border: "none",
+                padding: 0,
+                marginBottom: "var(--space-heading-body)",
               }}
             >
-              <span style={{ fontWeight: 300 }}>Reading about integration gaps is one thing.</span>
+              <span style={{ fontWeight: 300 }}>Reading about POPIA is one thing.</span>
               <br />
-              <span style={{ fontWeight: 700 }}>Finding yours is another.</span>
+              <span style={{ fontWeight: 700 }}>Checking your own systems is another.</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              The free POPIA Assessment shows you where to look first, and the
-              report arrives by email.
+              The free POPIA Assessment shows where your business stands. The report arrives by email.
             </p>
-            <hr
-              className="rule"
-              style={{ background: "rgba(250,250,248,0.15)", marginBottom: "var(--space-para-section)" }}
-            />
           </FadeUp>
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <Button href="/popia-ai-check" variant="primary">
-                Start the assessment
+                Take Your Free POPIA Assessment
               </Button>
-              <Button href="/booking" variant="tertiary">
-                Book a discovery call
-              </Button>
+              <Link
+                href="/contact#contact-form"
+                className="text-sm underline underline-offset-4 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] rounded-sm active:opacity-70"
+                style={{ color: "var(--color-ink-inverted)" }}
+              >
+                Or talk to us
+              </Link>
             </div>
           </FadeUp>
         </div>
       </section>
-
     </>
   );
 }

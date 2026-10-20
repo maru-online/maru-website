@@ -3,6 +3,7 @@ export const footerNavigation = {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Invara", href: "/invara" },
+    { name: "Insights", href: "/insights" },
     // Insights hidden until it has articles — see components/ui/Nav.tsx
     { name: "Contact", href: "/contact" },
   ],
