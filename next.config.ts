@@ -202,47 +202,47 @@ const nextConfig: NextConfig = {
       // Consolidated services
       {
         source: '/services/ai-revenue-diagnostic',
-        destination: '/services/operations-diagnostic',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/ai-training-capability-building',
-        destination: '/services/team-training-handover',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/custom-ai-solution-build',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/customer-support-chatbots',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/lead-generation',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/office-automation',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/ongoing-ai-support-optimization',
-        destination: '/services/results-optimisation',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/sales-systems',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/whatsapp-solutions',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       // Consolidated briefing and admin
@@ -281,9 +281,12 @@ const nextConfig: NextConfig = {
       // resolving.
       { source: '/operations-assessment', destination: '/popia-ai-check', permanent: true },
       // Retired 20 Oct 2026 to stop repeating the homepage and About page:
-      // the process lives in the homepage's "How we work" section and pricing
+      // the services and process pages described stages of one engagement,
+      // which the homepage now covers; the process lives in the homepage's "How we work" section and pricing
       // in the contact page's "How we price" section.
       { source: '/process', destination: '/#how-we-work', permanent: true },
+      { source: '/services', destination: '/#how-we-work', permanent: true },
+      { source: '/services/:path*', destination: '/#how-we-work', permanent: true },
       { source: '/pricing', destination: '/contact#how-we-price', permanent: true },
       { source: '/operations-assessment.html', destination: '/popia-ai-check', permanent: true },
     ];

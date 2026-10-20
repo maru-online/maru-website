@@ -438,9 +438,8 @@ export default async function InsightArticlePage(
                 Reading about integration gaps is one thing. Finding yours is another.
               </p>
               <p className="article-cta-body">
-                The free assessment shows you where the gaps are, in about fifteen
-                minutes. The Operations Diagnostic goes further — your tools, your
-                workflows, your revenue gaps, written up within 48 hours.
+                The free POPIA Assessment shows you where to look first, and the
+                report arrives by email.
               </p>
               <div className="article-cta-actions">
                 <Link href="/popia-ai-check" className="btn-cyan">

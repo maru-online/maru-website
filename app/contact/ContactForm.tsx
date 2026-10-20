@@ -28,7 +28,6 @@ const SERVICES = [
   { value: '',                              label: 'Select a service…' },
   { value: 'AI Automation',                 label: 'AI Automation' },
   { value: 'AI Strategy Consulting',        label: 'AI Strategy Consulting' },
-  { value: 'AI Training',                   label: 'AI Training' },
   { value: 'Invara',                        label: 'Invara' },
   { value: 'Not sure yet — just exploring', label: 'Not sure yet — just exploring' },
 ]

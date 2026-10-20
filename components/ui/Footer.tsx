@@ -136,20 +136,20 @@ export default function Footer() {
                 </ul>
               </motion.div>
 
-              {/* Services column */}
+              {/* What we do column */}
               <motion.div variants={itemVariants}>
                 <h4
                   className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
                   style={{ color: 'var(--color-ink-inverted)' }}
                 >
-                  Services
+                  What we do
                 </h4>
                 <ul className="flex flex-col list-none m-0 p-0">
                   {[
-                    { name: 'Operations Diagnostic',      href: '/services/operations-diagnostic' },
-                    { name: 'Workflow Integration',    href: '/services/workflow-integration' },
-                    { name: 'Team Training & Handover',    href: '/services/team-training-handover' },
-                    { name: 'Results Optimisation',          href: '/services/results-optimisation' },
+                    { name: 'How we work',               href: '/#how-we-work' },
+                    { name: 'Supporting capabilities',   href: '/#capabilities' },
+                    { name: 'Free POPIA Assessment',     href: '/popia-ai-check' },
+                    { name: 'Invara',                    href: '/invara' },
                   ].map((item) => (
                     <li key={item.name}>
                       <Link

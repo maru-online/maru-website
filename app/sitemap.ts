@@ -7,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const corePages: MetadataRoute.Sitemap = [
     { url: baseUrl, changeFrequency: 'weekly', priority: 1 },
     { url: `${baseUrl}/about`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/contact`, changeFrequency: 'monthly', priority: 0.8 },
     // /insights omitted while it has no articles — an empty section should not
     // be advertised to Google. Restore when the first article publishes.
@@ -16,23 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/booking`, changeFrequency: 'monthly', priority: 0.7 },
   ];
 
-  // The four rate-card services. Retired service URLs are 301'd in
-  // next.config.ts and must NOT be listed here — a sitemap that advertises
-  // redirected URLs is what search consoles flag.
-  const servicePages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/services/operations-diagnostic`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services/workflow-integration`, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/services/team-training-handover`, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/services/results-optimisation`, changeFrequency: 'monthly', priority: 0.7 },
-  ];
-
   const legalPages: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/privacy-policy`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/terms-conditions`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/cookie-policy`, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
-  return [...corePages, ...servicePages, ...legalPages].map((entry) => ({
+  return [...corePages, ...legalPages].map((entry) => ({
     ...entry,
     lastModified: now,
   }));
