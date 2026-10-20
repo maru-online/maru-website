@@ -15,8 +15,8 @@ const services: Service[] = [
     tag: 'Free entry point',
     tagColor: 'cyan',
     icon: 'search',
-    name: 'Operations Diagnostic',
-    body: 'We find where the money leaks. Free.',
+    name: 'Operations Assessment',
+    body: 'See where your processes lose time. Free.',
   },
   {
     id: 'svc2',
@@ -31,7 +31,7 @@ const services: Service[] = [
     tag: 'Ongoing',
     tagColor: 'cyan',
     icon: 'chart',
-    name: 'Results Measurement',
+    name: 'Results Optimisation',
     body: 'Proof it worked, against your baseline.',
   },
   {
@@ -55,7 +55,7 @@ const services: Service[] = [
     tag: 'Support',
     tagColor: 'cyan',
     icon: 'team',
-    name: 'Team Training',
+    name: 'Team Training & Handover',
     body: 'Your team runs it. Not IT.',
   },
 ];

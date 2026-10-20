@@ -202,7 +202,7 @@ export default function AboutPage() {
             </StaggerChild>
             <StaggerChild className="h-full">
               <CardProof title="Focus Over Volume." className="h-full">
-                We limit ourselves to five active clients. This isn&apos;t a marketing tactic — it&apos;s how we ensure you get our full attention from start to finish.
+                We keep the number of clients we work with at any one time small, so you get our full attention from start to finish.
               </CardProof>
             </StaggerChild>
           </StaggerParent>

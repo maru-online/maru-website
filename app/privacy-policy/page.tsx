@@ -251,11 +251,11 @@ export default function PrivacyPolicyPage() {
         </p>
         <div className="card-lift rounded-lg p-6 text-ink-secondary">
           <p>
-            <strong className="text-ink-primary">Information Officer:</strong> Jimmy
-            Maru
+            <strong className="text-ink-primary">Information Officer:</strong> registered
+            with the Information Regulator
           </p>
           <p>
-            <strong className="text-ink-primary">Email:</strong> privacy@maruonline.com
+            <strong className="text-ink-primary">Email:</strong> hello@maruonline.com
           </p>
           <p>
             <strong className="text-ink-primary">Phone:</strong> +27(0)83 393 4864

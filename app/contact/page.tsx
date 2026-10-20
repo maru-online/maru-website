@@ -9,7 +9,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Two ways to start — the Operations Assessment or a 20-minute discovery call. You speak directly with Jimmy.",
+  description: "Two ways to start — the Operations Assessment or a 20-minute discovery call.",
   ...seo('/contact'),
 }
 
@@ -58,19 +58,6 @@ export default function ContactPage() {
               <br />
               <span className="maru-headline-split-light">Let&apos;s talk about it.</span>
             </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p
-              className="font-body font-light"
-              style={{
-                color:      'var(--color-ink-inverted-muted)',
-                fontSize:   'var(--text-body-sm)',
-                lineHeight: 'var(--leading-body)',
-                marginBottom: 0,
-              }}
-            >
-              We respond within 24 hours.
-            </p>
           </FadeUp>
         </div>
       </section>
@@ -207,17 +194,6 @@ export default function ContactPage() {
                           </svg>
                         </span>
                       </TrackedLink>
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize:   'var(--text-meta)',
-                          fontWeight: 300,
-                          color:      'var(--color-ink-tertiary)',
-                          margin:     0,
-                        }}
-                      >
-                        Response within 4 business hours.
-                      </p>
                     </div>
 
                     <div>
@@ -250,17 +226,6 @@ export default function ContactPage() {
                       >
                         hello@maruonline.com
                       </TrackedLink>
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize:   'var(--text-meta)',
-                          fontWeight: 300,
-                          color:      'var(--color-ink-tertiary)',
-                          margin:     0,
-                        }}
-                      >
-                        Response within 1 business day.
-                      </p>
                     </div>
 
                     <p
