@@ -24,6 +24,7 @@ export default function AssessmentFormSection() {
     >
       <div className={inner}>
         <FadeUp>
+          <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Next steps</span>
           <h2 className="h2-cta" style={{ marginBottom: "var(--space-heading-body)" }}>
             <span style={{ display: "block", fontWeight: 300 }}>Ready to Make Your Business Systems</span>
             <span style={{ display: "block", fontWeight: 700 }}>Work Smarter?</span>
