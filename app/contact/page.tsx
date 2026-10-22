@@ -53,11 +53,16 @@ export default function ContactPage() {
             <span className="label-eyebrow">Contact us</span>
           </FadeUp>
           <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split">
-              <span className="maru-headline-split-strong">Tell us what&apos;s eating your time.</span>
+            <h1 className="maru-headline-split" style={{ marginBottom: '2rem' }}>
+              <span className="maru-headline-split-light">Let&apos;s talk about</span>
               <br />
-              <span className="maru-headline-split-light">Let&apos;s talk about it.</span>
+              <span className="maru-headline-split-strong">what your business needs.</span>
             </h1>
+          </FadeUp>
+          <FadeUp delay={0.16}>
+            <p className="body-on-navy" style={{ maxWidth: '680px', marginBottom: 0 }}>
+              Explore an AI integration project, discuss an operational challenge or ask us a question. We&apos;ll start with understanding what your business needs.
+            </p>
           </FadeUp>
         </div>
       </section>
