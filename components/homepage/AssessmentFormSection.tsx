@@ -26,8 +26,8 @@ export default function AssessmentFormSection() {
         <FadeUp>
           <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Next steps</span>
           <h2 className="h2-cta" style={{ marginBottom: "var(--space-heading-body)" }}>
-            <span style={{ display: "block", fontWeight: 300 }}>Ready to Make Your Business Systems</span>
-            <span style={{ display: "block", fontWeight: 700 }}>Work Smarter?</span>
+            <span style={{ display: "block", fontWeight: 300 }}>Ready to Build AI Into</span>
+            <span style={{ display: "block", fontWeight: 700 }}>Your Existing Operations?</span>
           </h2>
           <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}>
             Whether you&apos;re exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
@@ -159,7 +159,7 @@ export default function AssessmentFormSection() {
                 className="inline-flex items-center min-h-[44px] font-body font-medium text-cyan no-underline transition-[color,opacity] duration-200 hover:underline hover:underline-offset-4 active:opacity-70 focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 focus-visible:shadow-[0_0_0_2px_rgba(61,184,198,0.4)]"
                 style={{ fontSize: "var(--text-body)" }}
               >
-                Discuss an AI Integration Project&nbsp;→
+                Discuss a Business Challenge&nbsp;→
               </Link>
             </div>
           </div>
