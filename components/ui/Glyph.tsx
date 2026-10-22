@@ -27,7 +27,9 @@ export type GlyphName =
   | 'tag'         // fixed price
   | 'compass'     // strategy
   | 'browser'     // design and development
-  | 'signal';     // marketing
+  | 'signal'      // marketing
+  | 'clipboard'   // the free POPIA Assessment
+  | 'chat';       // talk to us about a project
 
 const PATHS: Record<GlyphName, React.ReactNode> = {
   search: (
@@ -133,6 +135,19 @@ const PATHS: Record<GlyphName, React.ReactNode> = {
     <>
       <circle cx="12" cy="18.5" r="2" />
       <path d="M7.8 14.3a6 6 0 018.4 0M4.6 11.1a10.5 10.5 0 0114.8 0" />
+    </>
+  ),
+  clipboard: (
+    <>
+      <rect x="5" y="4.5" width="14" height="16.5" rx="2" />
+      <rect x="9" y="2.8" width="6" height="3.4" rx="1" />
+      <path d="M9 13.2l2.2 2.2 4-4.2" />
+    </>
+  ),
+  chat: (
+    <>
+      <path d="M3.5 5.5a2 2 0 012-2h7.5a2 2 0 012 2V10a2 2 0 01-2 2H8.5l-3 2.5V12h0a2 2 0 01-2-2z" />
+      <path d="M18 8h.5a2 2 0 012 2v4.5a2 2 0 01-2 2h0V19l-3-2.5h-3.5a2 2 0 01-2-2" />
     </>
   ),
 };

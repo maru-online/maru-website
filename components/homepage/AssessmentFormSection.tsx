@@ -1,13 +1,20 @@
+import Link from "next/link";
 import Button from "@/components/ui/Button";
+import Glyph from "@/components/ui/Glyph";
+import { FadeUp } from "@/components/ui/Animate";
 
 const outerPad = "px-6 md:px-[60px]";
 const inner    = "max-w-[900px] mx-auto";
 
-// Copy handover entry 09 (approved 5 Oct 2026), verbatim except the question
-// count: the approved "12 questions" depended on entry 08, which was superseded
-// by the 10-question POPIA AI check, so per entry 09 open item 1 the current
-// count is used. No minutes are stated here on purpose (time is still open).
-// The removed "3-5 gaps" and "12-18 hours" figures had no evidence behind them.
+const ASSESSMENT_HREF = "/popia-ai-check";
+const CONTACT_HREF    = "/contact#contact-form";
+
+// Homepage Section 5 — final call to action, 22 Oct 2026. Replaces the old
+// "Find out where your time, money and client data are exposed" block, which
+// still described the retired operations diagnostic. Two routes, in order of
+// weight: the free POPIA Assessment (primary, white card, gold button) and a
+// project conversation (secondary, text link on navy). The section keeps the
+// #assessment id so existing in-page links still land here.
 export default function AssessmentFormSection() {
   return (
     <section
@@ -16,143 +23,61 @@ export default function AssessmentFormSection() {
       style={{ background: "var(--gradient-navy-soft)" }}
     >
       <div className={inner}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <FadeUp>
+          <h2 className="h2-cta" style={{ marginBottom: "var(--space-heading-body)" }}>
+            <span style={{ display: "block", fontWeight: 300 }}>Ready to Make Your Business Systems</span>
+            <span style={{ display: "block", fontWeight: 700 }}>Work Smarter?</span>
+          </h2>
+          <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}>
+            Whether you&apos;re exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
+          </p>
+        </FadeUp>
 
-          {/* ── Left: copy ─────────────────────────────────────────── */}
-          <div>
-            <span className="label-eyebrow">Free assessment</span>
-
-            <h2
-              className="h2-cta"
-              style={{ marginBottom: "var(--space-heading-body)" }}
-            >
-              <span style={{ display: "block", fontWeight: 300 }}>Find out where your time, money</span>
-              <span style={{ display: "block", fontWeight: 700 }}>and client data are exposed.</span>
-            </h2>
-
-            <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              Our free assessment shows where your processes lose time, and where client data may be exposed through the AI tools your team already uses.
-            </p>
-
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "var(--text-body-sm)",
-                fontWeight: 300,
-                color: "rgba(250,250,248,0.5)",
-                lineHeight: "var(--leading-body)",
-                marginBottom: "var(--space-section-header-mb)",
-                fontStyle: "italic",
-              }}
-            >
-              Either way, you get clarity. That&apos;s the point.
-            </p>
-
-            {/* Proof stats */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "1.5rem" }}>
-              {[
-                "Free, with no obligation",
-                "Handled with POPIA in mind. No marketing opt-in, just your results.",
-              ].map((stat) => (
-                <div key={stat} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                  <span className="bullet-cyan" style={{ marginTop: "9px" }} />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-body-sm)",
-                      fontWeight: 500,
-                      color: "var(--color-ink-inverted)",
-                      lineHeight: "var(--leading-body)",
-                    }}
-                  >
-                    {stat}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "var(--text-meta)",
-                fontWeight: 300,
-                color: "rgba(250,250,248,0.4)",
-                marginBottom: 0,
-                letterSpacing: "0.02em",
-              }}
-            >
-              Handled with POPIA in mind. No marketing opt-in, just your results.
-            </p>
-          </div>
-
-          {/* ── Right: CTA card ─────────────────────────────────────── */}
-          <div style={{ paddingTop: "calc(0.6875rem * 1.5 + 2rem)" }}>
+        {/* ── Route 1: the free POPIA Assessment ─────────────────────────── */}
+        <FadeUp delay={0.08}>
           <div
             style={{
-              background: "#fff",
+              background: "var(--color-bg-primary)",
               borderRadius: "12px",
-              padding: "2.5rem",
+              padding: "clamp(1.5rem, 4vw, 2.25rem)",
               boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
             }}
           >
-            <h3
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 500,
-                fontSize: "var(--text-h3-serif)",
-                color: "var(--color-ink-primary)",
-                lineHeight: "var(--leading-subheading)",
-                marginBottom: "1.25rem",
-                borderBottom: "none",
-                paddingBottom: 0,
-              }}
-            >
-              Get your free assessment
-            </h3>
-
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "var(--text-body-sm)",
-                fontWeight: 300,
-                color: "var(--color-ink-secondary)",
-                lineHeight: "var(--leading-body)",
-                marginBottom: "1.5rem",
-              }}
-            >
-              Answer 10 questions about how your business runs and how your team uses AI. We show you where time, money and client data are exposed, and what to fix first.
-            </p>
-
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "2rem" }}>
-              {[
-                "See your score live as you go",
-                "No sign-up required to begin",
-              ].map((point) => (
-                <div key={point} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style={{ flexShrink: 0, marginTop: "3px" }}>
-                    <circle cx="8" cy="8" r="7" stroke="var(--color-cyan)" strokeWidth="1.2" />
-                    <path d="M5 8l2.5 2.5 3.5-4" stroke="var(--color-cyan)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-body-sm)",
-                      fontWeight: 300,
-                      color: "var(--color-ink-secondary)",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {point}
-                  </span>
-                </div>
-              ))}
+            <div className="flex flex-col sm:flex-row items-start gap-4" style={{ marginBottom: "1.75rem" }}>
+              <span className="glyph-chip glyph-chip-lg" style={{ flexShrink: 0 }}>
+                <Glyph name="clipboard" size={28} />
+              </span>
+              <div>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: 500,
+                    fontSize: "var(--text-h3-serif)",
+                    color: "var(--color-ink-primary)",
+                    lineHeight: "var(--leading-subheading)",
+                    marginBottom: "0.375rem",
+                    borderBottom: "none",
+                    paddingBottom: 0,
+                  }}
+                >
+                  Start with the free POPIA Assessment
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "var(--text-body-sm)",
+                    fontWeight: 300,
+                    color: "var(--color-ink-secondary)",
+                    lineHeight: "var(--leading-body)",
+                    margin: 0,
+                  }}
+                >
+                  Identify areas to investigate and receive a summary report by email.
+                </p>
+              </div>
             </div>
 
-            <Button
-              href="/popia-ai-check"
-              variant="primary"
-              className="w-full justify-center"
-            >
+            <Button href={ASSESSMENT_HREF} variant="primary" className="w-full justify-center">
               Take Your Free POPIA Assessment
             </Button>
 
@@ -162,34 +87,82 @@ export default function AssessmentFormSection() {
                 fontSize: "var(--text-meta)",
                 fontWeight: 300,
                 color: "var(--color-ink-tertiary)",
-                marginTop: "0.875rem",
+                marginTop: "1rem",
                 marginBottom: 0,
-                textAlign: "center",
                 lineHeight: 1.5,
               }}
             >
-              Free. No obligation.
+              Free assessment · Report delivered by email
             </p>
           </div>
-          </div>
+        </FadeUp>
 
-        </div>
-
-        {/* Risk removal */}
-        <div style={{ marginTop: "3rem", textAlign: "center" }}>
-          <p
+        {/* ── Divider ────────────────────────────────────────────────────── */}
+        <div
+          role="separator"
+          aria-label="or"
+          className="flex items-center gap-4"
+          style={{ margin: "2rem 0" }}
+        >
+          <span aria-hidden="true" style={{ width: "1px", height: "1.75rem", background: "rgba(250,250,248,0.2)" }} />
+          <span
+            aria-hidden="true"
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "var(--text-body-sm)",
-              fontWeight: 300,
-              color: "rgba(250,250,248,0.5)",
-              marginBottom: 0,
-              fontStyle: "italic",
+              fontSize: "var(--text-label)",
+              fontWeight: 500,
+              letterSpacing: "var(--tracking-eyebrow)",
+              textTransform: "uppercase",
+              color: "var(--color-ink-inverted-muted)",
             }}
           >
-            No obligation. If there&apos;s no clear opportunity, we&apos;ll tell you — and you&apos;ll still walk away with a clear picture of where you stand.
-          </p>
+            Or
+          </span>
+          <span aria-hidden="true" style={{ width: "1px", height: "1.75rem", background: "rgba(250,250,248,0.2)" }} />
         </div>
+
+        {/* ── Route 2: a project conversation ───────────────────────────── */}
+        <FadeUp delay={0.12}>
+          <div className="flex flex-col sm:flex-row items-start gap-4">
+            <span
+              className="glyph-chip glyph-chip-lg"
+              style={{
+                flexShrink: 0,
+                background: "rgba(250,250,248,0.08)",
+                color: "var(--color-ink-inverted)",
+                boxShadow: "0 0 0 1px rgba(250,250,248,0.12)",
+              }}
+            >
+              <Glyph name="chat" size={28} />
+            </span>
+            <div>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 500,
+                  fontSize: "var(--text-h3-serif)",
+                  color: "var(--color-ink-inverted)",
+                  lineHeight: "var(--leading-subheading)",
+                  marginBottom: "0.375rem",
+                  borderBottom: "none",
+                  paddingBottom: 0,
+                }}
+              >
+                Already have a project in mind?
+              </h3>
+              <p className="body-on-navy" style={{ marginBottom: "0.75rem" }}>
+                Tell us about the business challenge you want to solve.
+              </p>
+              <Link
+                href={CONTACT_HREF}
+                className="inline-flex items-center min-h-[44px] font-body font-medium text-cyan no-underline transition-[color,opacity] duration-200 hover:underline hover:underline-offset-4 active:opacity-70 focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 focus-visible:shadow-[0_0_0_2px_rgba(61,184,198,0.4)]"
+                style={{ fontSize: "var(--text-body)" }}
+              >
+                Discuss an AI Integration Project&nbsp;→
+              </Link>
+            </div>
+          </div>
+        </FadeUp>
       </div>
     </section>
   );
