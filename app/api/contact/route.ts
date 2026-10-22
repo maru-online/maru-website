@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { escapeHtml, escapeHtmlPreserveBreaks } from '@/lib/security'
 import { verifyRecaptcha } from '@/lib/recaptcha'
-import { buildWhatsAppLink, WHATSAPP_DISPLAY } from '@/lib/whatsapp'
 
 const BREVO_API = 'https://api.brevo.com/v3'
 
@@ -158,14 +157,7 @@ export async function POST(request: NextRequest) {
             <div style="background:#F5F4F0;padding:32px 40px;border-radius:0 0 8px 8px;border:1px solid #E2E8F0;border-top:none">
               <p style="font-size:17px;color:#0D1B2A;margin:0 0 16px">Hi ${safeFirst},</p>
               <p style="font-size:15px;color:#4A5568;line-height:1.8;margin:0 0 16px">
-                Thanks for reaching out. We've received your enquiry${safeService ? ` about
-                <strong>${safeService}</strong>` : ''} and someone from the Maru Online team
-                will be in touch within <strong>1 business day</strong>.
-              </p>
-              <p style="font-size:15px;color:#4A5568;line-height:1.8;margin:0 0 24px">
-                In the meantime, feel free to WhatsApp us directly on
-                <a href="${buildWhatsAppLink('/contact')}" style="color:#3DB8C6">${WHATSAPP_DISPLAY}</a>
-                if it's urgent.
+                Thank you. We'll be in touch to discuss your enquiry.
               </p>
               <p style="font-size:14px;color:#718096;margin:0">
                 — The Maru Online Team<br>

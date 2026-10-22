@@ -287,7 +287,7 @@ const nextConfig: NextConfig = {
       { source: '/process', destination: '/#how-we-work', permanent: true },
       { source: '/services', destination: '/#how-we-work', permanent: true },
       { source: '/services/:path*', destination: '/#how-we-work', permanent: true },
-      { source: '/pricing', destination: '/contact#how-we-price', permanent: true },
+      { source: '/pricing', destination: '/contact', permanent: true },
       { source: '/operations-assessment.html', destination: '/popia-ai-check', permanent: true },
     ];
   },

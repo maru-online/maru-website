@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/Textarea'
 import { Select }   from '@/components/ui/Select'
 import { Label }    from '@/components/ui/Label'
 import Button       from '@/components/ui/Button'
+import Link         from 'next/link'
 
 const schema = z.object({
   firstName: z.string().trim().min(1, 'First name is required'),
@@ -103,18 +104,9 @@ export default function ContactForm() {
           fontSize:     'var(--text-body-sm)',
           fontWeight:   600,
           color:        'var(--color-ink-primary)',
-          marginBottom: '0.5rem',
+          margin:       0,
         }}>
-          Message sent.
-        </p>
-        <p style={{
-          fontFamily: 'var(--font-body)',
-          fontSize:   'var(--text-meta)',
-          fontWeight: 300,
-          color:      'var(--color-ink-secondary)',
-          margin:     0,
-        }}>
-          We'll be in touch within 1 business day.
+          Thank you. We&apos;ll be in touch to discuss your enquiry.
         </p>
       </div>
     )
@@ -214,6 +206,28 @@ export default function ContactForm() {
       <Button variant="primary" type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Sending…' : 'Send My Enquiry'}
       </Button>
+
+      {/* Privacy assurance, approved 22 Oct 2026 (option B). Keep it true:
+          this Brevo list must never receive marketing without an opt-in. */}
+      <p style={{
+        fontFamily:   'var(--font-body)',
+        fontSize:     'var(--text-meta)',
+        fontWeight:   300,
+        color:        'var(--color-ink-tertiary)',
+        lineHeight:   1.6,
+        marginTop:    '1rem',
+        marginBottom: 0,
+        maxWidth:     '520px',
+      }}>
+        Your details are used only to respond to your enquiry. They are never sold, and you won&apos;t be added to marketing emails without your consent. See our{' '}
+        <Link
+          href="/privacy-policy"
+          className="underline underline-offset-2 hover:text-[var(--color-cyan-ink)] focus-visible:outline-none focus-visible:text-[var(--color-cyan-ink)]"
+          style={{ color: 'var(--color-ink-secondary)' }}
+        >
+          Privacy Policy
+        </Link>.
+      </p>
 
     </form>
   )
