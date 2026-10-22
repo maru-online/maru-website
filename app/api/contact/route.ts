@@ -12,7 +12,7 @@ const contactSchema = z.object({
   business:       z.string().trim().min(1).max(200),
   email:          z.string().trim().email().max(255),
   whatsapp:       z.string().trim().min(10).max(30).optional().or(z.literal('')),
-  service:        z.string().trim().min(1).max(100),
+  service:        z.string().trim().max(100).optional().or(z.literal('')),
   message:        z.string().trim().max(3000).optional().or(z.literal('')),
   referral:       z.string().trim().max(100).optional().or(z.literal('')),
   recaptchaToken: z.string().optional(),
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     const safeBusiness = escapeHtml(business)
     const safeEmail    = escapeHtml(email)
     const safeWhatsapp = whatsapp ? escapeHtml(whatsapp) : ''
-    const safeService  = escapeHtml(service)
+    const safeService  = service ? escapeHtml(service) : ''
     const safeMessage  = message  ? escapeHtmlPreserveBreaks(message)  : ''
     const safeReferral = referral ? escapeHtml(referral) : ''
 
@@ -158,8 +158,8 @@ export async function POST(request: NextRequest) {
             <div style="background:#F5F4F0;padding:32px 40px;border-radius:0 0 8px 8px;border:1px solid #E2E8F0;border-top:none">
               <p style="font-size:17px;color:#0D1B2A;margin:0 0 16px">Hi ${safeFirst},</p>
               <p style="font-size:15px;color:#4A5568;line-height:1.8;margin:0 0 16px">
-                Thanks for reaching out. We've received your enquiry about
-                <strong>${safeService}</strong> and someone from the Maru Online team
+                Thanks for reaching out. We've received your enquiry${safeService ? ` about
+                <strong>${safeService}</strong>` : ''} and someone from the Maru Online team
                 will be in touch within <strong>1 business day</strong>.
               </p>
               <p style="font-size:15px;color:#4A5568;line-height:1.8;margin:0 0 24px">

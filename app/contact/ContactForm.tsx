@@ -17,20 +17,12 @@ const schema = z.object({
   business:  z.string().trim().min(1, 'Business name is required'),
   email:     z.string().trim().email('Enter a valid email address'),
   whatsapp:  z.string().trim().min(10, 'Enter a valid WhatsApp number').optional().or(z.literal('')),
-  service:   z.string().min(1, 'Please select a service'),
+  service:   z.string().optional(),
   message:   z.string().trim().max(3000).optional(),
   referral:  z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
-
-const SERVICES = [
-  { value: '',                              label: 'Select a service…' },
-  { value: 'AI Automation',                 label: 'AI Automation' },
-  { value: 'AI Strategy Consulting',        label: 'AI Strategy Consulting' },
-  { value: 'Invara',                        label: 'Invara' },
-  { value: 'Not sure yet — just exploring', label: 'Not sure yet — just exploring' },
-]
 
 const REFERRALS = [
   { value: '',            label: 'Please select…' },
@@ -60,11 +52,12 @@ export default function ContactForm() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
-  // Links can preselect a service, e.g. /contact?service=invara from the
-  // Invara page. Read once on mount; only known options are accepted.
+  // The visible service picker was removed (22 Oct 2026). Links can still tag
+  // an enquiry, e.g. /contact?service=invara from the Invara page, so demo
+  // requests arrive labelled. Read once on mount; only known values accepted.
   useEffect(() => {
     const wanted = new URLSearchParams(window.location.search).get('service')
-    const preset: Record<string, string> = { invara: 'Invara' }
+    const preset: Record<string, string> = { invara: 'Invara demo' }
     if (wanted && preset[wanted]) setValue('service', preset[wanted])
   }, [setValue])
 
@@ -182,16 +175,8 @@ export default function ContactForm() {
         </Field>
       </div>
 
-      {/* ── Service ── */}
-      <Field label="What service are you interested in?" required error={errors.service?.message}>
-        <Select {...register('service')} defaultValue="" className={selectClass}>
-          {SERVICES.map(s => (
-            <option key={s.value} value={s.value} disabled={!s.value}>
-              {s.label}
-            </option>
-          ))}
-        </Select>
-      </Field>
+      {/* Hidden tag set from ?service= links (e.g. the Invara demo button) */}
+      <input type="hidden" {...register('service')} />
 
       {/* ── Message ── */}
       <Field label="Briefly describe what you need" error={errors.message?.message}>

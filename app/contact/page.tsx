@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import ContactFormWithRecaptcha from './ContactFormWithRecaptcha'
-import Button from '@/components/ui/Button'
 import { buildWhatsAppLink } from '@/lib/whatsapp'
 import { TrackedLink } from '@/components/analytics/TrackedLink'
 import { FadeUp } from '@/components/ui/Animate'
@@ -61,7 +60,7 @@ export default function ContactPage() {
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="body-on-navy" style={{ maxWidth: '680px', marginBottom: 0 }}>
-              Explore an AI integration project, discuss an operational challenge or ask us a question. We&apos;ll start with understanding what your business needs.
+              Explore an AI integration project, discuss an operational challenge or ask us a question.
             </p>
           </FadeUp>
         </div>
@@ -77,35 +76,6 @@ export default function ContactPage() {
       >
         <div className={innerWide}>
           <div className="card-lift p-8 md:p-12">
-            {/* Header — left-column width only */}
-            <div className="md:grid md:grid-cols-[1fr_360px] md:gap-24">
-            <FadeUp>
-              <div style={{ marginBottom: 'var(--space-section-header-mb)' }}>
-                <Button href="/booking" variant="primary">
-                  Book a discovery call
-                </Button>
-                <p
-                  style={{
-                    fontFamily:  'var(--font-body)',
-                    fontSize:    'var(--text-meta)',
-                    fontWeight:  300,
-                    color:       'var(--color-ink-tertiary)',
-                    marginTop:   '0.75rem',
-                    marginBottom: 0,
-                  }}
-                >
-                  Twenty minutes, straight to the point.
-                </p>
-              </div>
-
-              <h2 style={{ marginBottom: '1.5rem' }}>
-                <span style={{ fontWeight: 300 }}>Or send a</span>
-                <br />
-                <span style={{ fontWeight: 700 }}>message directly</span>
-              </h2>
-            </FadeUp>
-            </div>
-
             {/* Two-column grid starts here — aligned to first form field */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-10 md:gap-24 items-start">
 
