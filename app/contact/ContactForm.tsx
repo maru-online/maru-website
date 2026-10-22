@@ -16,7 +16,7 @@ const schema = z.object({
   lastName:  z.string().trim().min(1, 'Last name is required'),
   business:  z.string().trim().min(1, 'Business name is required'),
   email:     z.string().trim().email('Enter a valid email address'),
-  whatsapp:  z.string().trim().min(10, 'Enter a valid WhatsApp number').optional().or(z.literal('')),
+  mobile:    z.string().trim().min(10, 'Enter a valid mobile number').optional().or(z.literal('')),
   service:   z.string().optional(),
   message:   z.string().trim().max(3000).optional(),
   referral:  z.string().optional(),
@@ -153,7 +153,7 @@ export default function ContactForm() {
         />
       </Field>
 
-      {/* ── Row: Email + WhatsApp ── */}
+      {/* ── Row: Email + Mobile ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
         <Field label="Email Address" required error={errors.email?.message}>
           <Input
@@ -164,9 +164,9 @@ export default function ContactForm() {
             className={inputClass}
           />
         </Field>
-        <Field label="WhatsApp Number" error={errors.whatsapp?.message}>
+        <Field label="Mobile Number (optional)" error={errors.mobile?.message}>
           <Input
-            {...register('whatsapp')}
+            {...register('mobile')}
             type="tel"
             placeholder="+27 63 000 0000"
             autoComplete="tel"
