@@ -299,7 +299,7 @@ export default async function ReportPage({
             If there&apos;s no clear opportunity, we&apos;ll tell you.
           </p>
           <Link href="/contact#contact-form" className={styles.button}>
-            Request a proposal
+            Discuss a Business Challenge
           </Link>
         </section>
 
