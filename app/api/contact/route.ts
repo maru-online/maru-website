@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     const senderEmail = process.env.BREVO_SENDER_EMAIL || 'jimmymotsei@gmail.com'
     const senderName  = process.env.BREVO_SENDER_NAME  || 'Maru Online'
     const notifyTo    = [
-      { email: process.env.NOTIFICATION_EMAIL   || 'jimmyM@maruonline.com', name: 'Jimmy Motsei' },
+      { email: process.env.NOTIFICATION_EMAIL   || 'jimmyM@maruonline.com', name: 'Maru Online' },
       { email: process.env.NOTIFICATION_EMAIL_2 || 'hello@maruonline.com',  name: 'Maru Online' },
     ]
 
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
       body:    JSON.stringify(contactBody),
     })
 
-    // 2. Notification email to Jimmy
+    // 2. Lead Alert to the team
     const row = (label: string, value: string) => value ? `
       <tr style="border-bottom:1px solid #E2E8F0">
         <td style="padding:12px 0;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#718096;width:28%;vertical-align:top">${label}</td>

@@ -6,7 +6,7 @@ import { seo } from "@/lib/seo";
 
 // SCAFFOLD (brief item 06) — structure only, no chatbot.
 //
-// Route name is provisional: the brief says to confirm /ai-in-action with Jimmy
+// Route name is provisional: the brief says to confirm /ai-in-action with the owner
 // before finalising. Changing it now is a directory rename plus the
 // '/ai-in-action' key in lib/whatsapp.ts; once the page has been linked or
 // shared, it also needs a redirect from the old path.
@@ -16,7 +16,7 @@ import { seo } from "@/lib/seo";
 // is the site's one working conversion path. WhatsApp-native is preferred over
 // a generic embedded web widget once the real thing is scoped.
 //
-// Blocked on: chatbot behaviour and tech spec from Jimmy.
+// Blocked on: chatbot behaviour and tech spec from the owner.
 //
 // noindex and absent from app/sitemap.ts until there is a working demo. A page
 // promising a demo it does not have is the failure pattern this codebase has
@@ -95,7 +95,7 @@ export default function AiInActionPage() {
             <div style={{ marginTop: "2.5rem" }}>
               <ScaffoldPlaceholder
                 label="Chatbot entry point"
-                blockedOn="Jimmy — chatbot behaviour and tech spec"
+                blockedOn="Owner — chatbot behaviour and tech spec"
                 minHeight="280px"
               >
                 Nothing interactive ships here until the spec exists — a fake or

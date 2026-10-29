@@ -9,7 +9,7 @@ import { seo } from "@/lib/seo";
 // a marked placeholder: the brief is explicit that no GrowthIQ numbers or client
 // quotes are to be invented.
 //
-// Blocked on, from Jimmy:
+// Blocked on, from the owner:
 //   1. Build timeline (start → launch).
 //   2. One shareable metric, cleared with City/GrowthIQ.
 //   3. A client quote with attribution and permission to publish.
@@ -85,7 +85,7 @@ export default function GrowthIqCaseStudy() {
                 <h2 style={{ margin: "0.5rem 0 1.5rem" }}>The brief</h2>
                 <ScaffoldPlaceholder
                   label="What GrowthIQ came to us with"
-                  blockedOn="Jimmy — the problem statement as the client framed it"
+                  blockedOn="Owner — the problem statement as the client framed it"
                 >
                   Two or three paragraphs: the operational problem, why existing
                   tooling did not solve it, and the constraint that shaped the
@@ -101,7 +101,7 @@ export default function GrowthIqCaseStudy() {
                 <h2 style={{ margin: "0.5rem 0 1.5rem" }}>The build</h2>
                 <ScaffoldPlaceholder
                   label="What was built, and over what period"
-                  blockedOn="Jimmy — build timeline (start → launch)"
+                  blockedOn="Owner — build timeline (start → launch)"
                 >
                   The delivered scope. Candidates from the repo, to be confirmed
                   rather than assumed: beneficiary portal and auth, assessment
@@ -113,7 +113,7 @@ export default function GrowthIqCaseStudy() {
                 <div style={{ marginTop: "1.5rem" }}>
                   <ScaffoldPlaceholder
                     label="Screenshot — GrowthIQ dashboard"
-                    blockedOn="Jimmy — real product screenshots, not stock imagery"
+                    blockedOn="Owner — real product screenshots, not stock imagery"
                     minHeight="320px"
                   >
                     16:9. Alt text still to be written. Check for beneficiary
@@ -124,7 +124,7 @@ export default function GrowthIqCaseStudy() {
                 <div style={{ marginTop: "1.5rem" }}>
                   <ScaffoldPlaceholder
                     label="Screenshot — assessment wizard or growth plan"
-                    blockedOn="Jimmy — real product screenshots"
+                    blockedOn="Owner — real product screenshots"
                     minHeight="320px"
                   >
                     16:9. Alt text still to be written.
@@ -140,7 +140,7 @@ export default function GrowthIqCaseStudy() {
                 <h2 style={{ margin: "0.5rem 0 1.5rem" }}>The result</h2>
                 <ScaffoldPlaceholder
                   label="Before / after numbers"
-                  blockedOn="Jimmy — one shareable metric, cleared with the client"
+                  blockedOn="Owner — one shareable metric, cleared with the client"
                 >
                   Standing rule 5 requires documented before/after numbers per
                   engagement. One verified figure beats three vague ones — and
@@ -150,7 +150,7 @@ export default function GrowthIqCaseStudy() {
                 <div style={{ marginTop: "1.5rem" }}>
                   <ScaffoldPlaceholder
                     label="Client quote"
-                    blockedOn="Jimmy — quote, attribution, and permission to publish"
+                    blockedOn="Owner — quote, attribution, and permission to publish"
                   >
                     Name and role of the person quoted. Do not paraphrase or
                     compose it on their behalf.

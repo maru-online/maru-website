@@ -9,7 +9,7 @@ export interface PublishedItem {
 }
 
 /**
- * Email Jimmy whenever the insights bot publishes (or drafts) articles, with a
+ * Email the owner whenever the insights bot publishes (or drafts) articles, with a
  * one-click unpublish link per published item. Best-effort — never throws, so a
  * mail failure can't break the cron run.
  */
