@@ -104,12 +104,6 @@ export default function RootLayout({
           </>
         )}
 
-        {/* Calendly — loaded site-wide so it's pre-cached before /booking */}
-        <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
-        />
-
         <Nav showInsights={GUIDE_PAGE_VISIBLE} />
         <main id="main-content">
           {children}

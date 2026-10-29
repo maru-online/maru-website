@@ -288,6 +288,8 @@ const nextConfig: NextConfig = {
       { source: '/services', destination: '/#how-we-work', permanent: true },
       { source: '/services/:path*', destination: '/#how-we-work', permanent: true },
       { source: '/pricing', destination: '/contact', permanent: true },
+      // Calendly is retired: conversations start from the contact form.
+      { source: '/booking', destination: '/contact', permanent: true },
       { source: '/operations-assessment.html', destination: '/popia-ai-check', permanent: true },
     ];
   },
