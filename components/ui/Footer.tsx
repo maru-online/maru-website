@@ -78,7 +78,7 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                   className="font-body font-light text-[13px] leading-relaxed mb-6"
                   style={{ color: 'var(--color-ink-inverted-muted)' }}
                 >
-                  Building AI-powered workflows for growing SMEs.
+                  POPIA-aware AI implementation
                 </p>
                 {/* Social icons */}
                 <div className="flex items-center gap-3">
