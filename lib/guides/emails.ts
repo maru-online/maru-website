@@ -22,7 +22,7 @@ ${inner}
 </div></body></html>`;
 
 const signature = `<p style="margin:32px 0 0;font-size:13px;color:#555;line-height:1.5;">
-Maru Online<br>POPIA-conscious AI implementation<br>hello@maruonline.com · Gauteng, South Africa</p>`;
+Maru Online<br>POPIA-aware AI implementation<br>hello@maruonline.com · Gauteng, South Africa</p>`;
 
 /**
  * Entry 19 §5, verbatim. Transactional: no marketing content, not framed as a
@@ -54,7 +54,7 @@ ${signature}`);
     "This guide is general information, not legal advice.",
     "",
     "Maru Online",
-    "POPIA-conscious AI implementation",
+    "POPIA-aware AI implementation",
     "hello@maruonline.com · Gauteng, South Africa",
   ].join("\n");
 
@@ -97,7 +97,7 @@ ${signature}`);
     "Your guide is not affected either way.",
     "",
     "Maru Online",
-    "POPIA-conscious AI implementation",
+    "POPIA-aware AI implementation",
     "hello@maruonline.com · Gauteng, South Africa",
   ].join("\n");
 
