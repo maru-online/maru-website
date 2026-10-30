@@ -7,6 +7,7 @@ import {
   SECTIONS,
   getEntries,
   getFeatured,
+  isPublished,
 } from "@/lib/insights-resources/content";
 import { breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
 import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
@@ -17,7 +18,7 @@ import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-r
 //
 // Status: BUILT, NOT LAUNCHED. Rules:
 //  - Placeholder entries render on previews and local dev only (see
-//    SHOW_PLACEHOLDERS). Production shows real entries only.
+//    SHOW_DRAFTS). Production shows published entries only.
 //  - The page is noindex until the first real entry exists, matches /insights,
 //    and stays out of the sitemap and the nav until then.
 //  - No article or guide copy is written here. All cards come from
@@ -25,7 +26,7 @@ import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-r
 //  - The one H1 is the hero. Sections are H2, cards H3. Eyebrows are spans.
 
 export function generateMetadata(): Metadata {
-  const hasReal = getEntries().some((e) => !e.placeholder);
+  const hasReal = getEntries().some(isPublished);
   return {
     ...seo("/insights-resources"),
     title: "Insights & Resources | Practical Guidance on AI for Business",

@@ -8,6 +8,7 @@ import {
   PILLARS,
   SECTIONS,
   getEntries,
+  isPublished,
   sectionFromSegment,
   type PillarSlug,
 } from "@/lib/insights-resources/content";
@@ -28,7 +29,7 @@ export async function generateMetadata(props: { params: Promise<{ section: strin
   const key = sectionFromSegment(section);
   if (!key) return {};
   const s = SECTIONS[key];
-  const hasReal = getEntries(key).some((e) => !e.placeholder);
+  const hasReal = getEntries(key).some(isPublished);
   return {
     ...seo(`/insights-resources/${s.segment}`),
     title: `${s.label} | Insights & Resources`,

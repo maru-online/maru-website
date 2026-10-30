@@ -1,24 +1,27 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { seo } from "@/lib/seo";
 import {
   SECTIONS,
   entryHref,
   getEntries,
   getEntry,
+  isPublished,
   sectionFromSegment,
 } from "@/lib/insights-resources/content";
 import ContentPage from "@/components/insights-resources/ContentPage";
 
-// One URL per article or guide. Entries come from lib/insights-resources/content.ts.
-// With no real entries (production today) there are no params, so every URL
-// under here is a 404. Placeholder entries render on previews only, noindex,
-// so the template can be reviewed without any article existing.
+// One URL per article or guide, from lib/insights-resources/entries. Drafts
+// exist on previews only (see SHOW_DRAFTS); in production only published
+// entries have params, so everything else under here is a 404. An entry with an
+// `href` (the AI and POPIA guide) lives elsewhere and redirects there.
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getEntries().map((e) => ({ section: SECTIONS[e.section].segment, slug: e.slug }));
+  return getEntries()
+    .filter((e) => !e.href)
+    .map((e) => ({ section: SECTIONS[e.section].segment, slug: e.slug }));
 }
 
 async function load(params: Promise<{ section: string; slug: string }>) {
@@ -34,26 +37,13 @@ export async function generateMetadata(props: { params: Promise<{ section: strin
     ...seo(entryHref(entry)),
     title: `${entry.seoTitle ?? entry.title} | Maru Online`,
     description: entry.seoDescription ?? entry.summary,
-    robots: entry.placeholder ? { index: false, follow: false } : undefined,
+    robots: isPublished(entry) ? undefined : { index: false, follow: false },
   };
 }
 
 export default async function ContentEntryPage(props: { params: Promise<{ section: string; slug: string }> }) {
   const entry = await load(props.params);
   if (!entry) notFound();
-
-  return (
-    <ContentPage entry={entry}>
-      {entry.placeholder ? (
-        <div className="article-prose">
-          {/* Shows the heading hierarchy the real body will use. Not article copy. */}
-          <p className="body-muted">Placeholder body. The article or guide text renders here.</p>
-          <h2 style={{ border: "none", marginTop: "2.5rem", fontSize: "var(--text-h2, 1.75rem)", fontWeight: 700 }}>Placeholder H2 section heading</h2>
-          <p className="body-muted">Placeholder paragraph.</p>
-          <h3 style={{ marginTop: "2rem", fontSize: "var(--text-h3-sans)", fontWeight: 600 }}>Placeholder H3 subheading</h3>
-          <p className="body-muted">Placeholder paragraph. Images, diagrams and embedded media sit between blocks like this one.</p>
-        </div>
-      ) : null}
-    </ContentPage>
-  );
+  if (entry.href) redirect(entry.href);
+  return <ContentPage entry={entry} />;
 }

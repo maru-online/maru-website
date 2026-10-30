@@ -1,18 +1,22 @@
 /**
- * Insights & Resources: content model and (for now) placeholder entries.
+ * Insights & Resources: content model and entries.
  *
  * Brief: "Insights & Resources, Website Page Architecture & Implementation
- * Brief", 30 Oct 2026. Structure only. No real articles or guides yet.
+ * Brief", 30 Oct 2026.
  *
  * Rules this file keeps:
- *  - Placeholder entries exist only so the layouts can be reviewed. They are
- *    returned ONLY outside production (`SHOW_PLACEHOLDERS`), are flagged
- *    `placeholder: true`, are never indexable and never reach the sitemap.
- *  - Real content later: add entries (or replace `getEntries` with a CMS
- *    query) that return the same `ContentEntry` shape. Pages do not change.
+ *  - Every entry starts as `status: 'draft'`. Drafts are returned ONLY outside
+ *    production (`SHOW_DRAFTS`), are noindex, carry no Article markup and never
+ *    reach the sitemap. An entry goes live only when its status is changed to
+ *    'published', on the owner's go.
+ *  - Entries live in ./entries/*.ts. To use a CMS later, replace `ENTRIES`
+ *    with a query returning the same `ContentEntry` shape. Pages do not change.
  *  - Every entry carries one of five editorial pillars, shared by both
- *    offerings, so category filtering can be added later without a rebuild.
+ *    offerings, so category filtering needs no rebuild.
  */
+
+import type { ContentEntry, PillarSlug, SectionKey } from './types'
+export type { ContentEntry, PillarSlug, SectionKey, Block, Source, InsightFormat } from './types'
 
 // ─── Editorial pillars (brief section 6) ─────────────────────────────────────
 
@@ -24,7 +28,6 @@ export const PILLARS = [
   { slug: 'automation-operational-efficiency', label: 'Automation & Operational Efficiency', glyph: 'layers' },
 ] as const
 
-export type PillarSlug = (typeof PILLARS)[number]['slug']
 
 export function pillarFor(slug: PillarSlug) {
   return PILLARS.find((p) => p.slug === slug)!
@@ -38,158 +41,50 @@ export const SECTIONS = {
   resources: { segment: 'guides', label: 'Resources & Best Practice', readLabel: 'Read Guide' },
 } as const
 
-export type SectionKey = keyof typeof SECTIONS
 
 export function sectionFromSegment(segment: string): SectionKey | null {
   return (Object.keys(SECTIONS) as SectionKey[]).find((k) => SECTIONS[k].segment === segment) ?? null
 }
 
-// ─── Entry shape ─────────────────────────────────────────────────────────────
-
-/** Insights are tagged by what they do for the reader. */
-export type InsightFormat = 'News' | 'Analysis' | 'Opinion'
-
-export interface ContentEntry {
-  section: SectionKey
-  slug: string // meaningful, descriptive; becomes the URL
-  title: string
-  summary: string
-  pillar: PillarSlug
-  /** Short label shown on the card, e.g. "AI Developments" or "AI Integration Guide". */
-  category: string
-  /** ISO dates. Optional only for placeholders. */
-  publishedAt?: string
-  updatedAt?: string
-  /** Insights only. */
-  format?: InsightFormat
-  /** Resources only. Open access by default; gating is a per-resource choice. */
-  access?: 'open' | 'gated'
-  /** Resources only. "Read Guide" vs "Download" wording follows this. */
-  resourceType?: 'Guide' | 'Checklist' | 'Worksheet' | 'Assessment'
-  author?: string
-  /** Editable SEO fields; fall back to title / summary. */
-  seoTitle?: string
-  seoDescription?: string
-  /** Real featured image when one exists; otherwise the card draws a pillar visual. */
-  image?: string
-  /** Related entry slugs (same or other section). */
-  related?: string[]
-  /** True only for scaffold entries. Never indexed, never in the sitemap. */
-  placeholder?: boolean
-}
-
 // ─── Visibility ──────────────────────────────────────────────────────────────
 
-/** Same switch the guide scaffold uses: placeholders on previews and local dev only. */
-export const SHOW_PLACEHOLDERS = process.env.VERCEL_ENV !== 'production'
+/** Drafts show on previews and local dev only. Production shows published entries. */
+export const SHOW_DRAFTS = process.env.VERCEL_ENV !== 'production'
 
-// ─── Placeholder entries ─────────────────────────────────────────────────────
-// Titles are labelled as placeholders on purpose so nobody mistakes them for
-// copy. Summaries describe the slot, not a claim about the world.
+import { GUIDE_INDEXABLE, GUIDE_LIVE, GUIDE_PAGE_VISIBLE } from '@/lib/guides/config'
+import { policyReset } from './entries/ai-policy-reset'
+import { section71 } from './entries/popia-section-71'
+import { smeLandscape } from './entries/sme-where-ai-fits'
+import { integrationGuide } from './entries/ai-integration-guide'
+import { readinessGuide } from './entries/ai-readiness-guide'
+import { automationGuide } from './entries/automation-workflows-guide'
+import { aiPopiaGuide } from './entries/ai-and-popia-guide'
 
-const PLACEHOLDER_AUTHOR = 'Maru Online'
-
-const PLACEHOLDERS: ContentEntry[] = [
-  {
-    section: 'insights',
-    slug: 'placeholder-ai-developments',
-    title: 'Placeholder: AI Developments headline',
-    summary: 'Placeholder summary. Two lines on what happened and why a business reader should care.',
-    pillar: 'ai-for-business',
-    category: 'AI Developments',
-    format: 'News',
-    author: PLACEHOLDER_AUTHOR,
-    related: ['placeholder-ai-in-business', 'placeholder-ai-integration-guide'],
-    placeholder: true,
-  },
-  {
-    section: 'insights',
-    slug: 'placeholder-ai-in-business',
-    title: 'Placeholder: AI in Business analysis headline',
-    summary: 'Placeholder summary. An analysis of what an AI development means for business operations.',
-    pillar: 'ai-strategy-readiness',
-    category: 'AI in Business',
-    format: 'Analysis',
-    author: PLACEHOLDER_AUTHOR,
-    related: ['placeholder-ai-developments', 'placeholder-ai-strategy-readiness'],
-    placeholder: true,
-  },
-  {
-    section: 'insights',
-    slug: 'placeholder-south-african-ai-landscape',
-    title: 'Placeholder: South African AI Landscape headline',
-    summary: 'Placeholder summary. What a development means for South African businesses, data protection included.',
-    pillar: 'popia-data-governance',
-    category: 'South African AI Landscape',
-    format: 'Opinion',
-    author: PLACEHOLDER_AUTHOR,
-    related: ['placeholder-popia-data-governance'],
-    placeholder: true,
-  },
-  {
-    section: 'resources',
-    slug: 'placeholder-ai-integration-guide',
-    title: 'Placeholder: AI Integration Guides',
-    summary: 'How to identify opportunities and connect AI with existing systems.',
-    pillar: 'ai-integration-systems',
-    category: 'AI Integration Guides',
-    resourceType: 'Guide',
-    access: 'open',
-    author: PLACEHOLDER_AUTHOR,
-    related: ['placeholder-ai-developments'],
-    placeholder: true,
-  },
-  {
-    section: 'resources',
-    slug: 'placeholder-popia-data-governance',
-    title: 'Placeholder: POPIA & Data Governance',
-    summary: 'Practical guidance on data protection and responsible AI use.',
-    pillar: 'popia-data-governance',
-    category: 'POPIA & Data Governance',
-    resourceType: 'Checklist',
-    access: 'open',
-    author: PLACEHOLDER_AUTHOR,
-    related: ['placeholder-south-african-ai-landscape'],
-    placeholder: true,
-  },
-  {
-    section: 'resources',
-    slug: 'placeholder-ai-strategy-readiness',
-    title: 'Placeholder: AI Strategy & Readiness',
-    summary: 'Assessing business needs and preparing for AI adoption.',
-    pillar: 'ai-strategy-readiness',
-    category: 'AI Strategy & Readiness',
-    resourceType: 'Worksheet',
-    access: 'gated',
-    author: PLACEHOLDER_AUTHOR,
-    related: ['placeholder-ai-in-business'],
-    placeholder: true,
-  },
-  {
-    section: 'resources',
-    slug: 'placeholder-automation-workflows',
-    title: 'Placeholder: Automation & Workflows',
-    summary: 'Improving operational processes and reducing manual work.',
-    pillar: 'automation-operational-efficiency',
-    category: 'Automation & Workflows',
-    resourceType: 'Guide',
-    access: 'open',
-    author: PLACEHOLDER_AUTHOR,
-    placeholder: true,
-  },
+/**
+ * All content. Every entry starts as 'draft'. Flip one to 'published' only on
+ * the owner's go. The AI and POPIA guide follows the guide switches in
+ * lib/guides/config.ts, so it can never appear before the guide itself is live.
+ */
+const ENTRIES: ContentEntry[] = [
+  policyReset,
+  section71,
+  smeLandscape,
+  ...(GUIDE_PAGE_VISIBLE
+    ? [{ ...aiPopiaGuide, status: (GUIDE_LIVE && GUIDE_INDEXABLE ? 'published' : 'draft') as 'draft' | 'published' }]
+    : []),
+  integrationGuide,
+  readinessGuide,
+  automationGuide,
 ]
 
-// ─── Real entries ────────────────────────────────────────────────────────────
-// Empty on purpose. Add published content here (or swap in a CMS query).
-
-const ENTRIES: ContentEntry[] = []
+export const isPublished = (e: ContentEntry) => e.status === 'published'
 
 // ─── Accessors ───────────────────────────────────────────────────────────────
 
 export function getEntries(section?: SectionKey): ContentEntry[] {
-  const all = SHOW_PLACEHOLDERS ? [...ENTRIES, ...PLACEHOLDERS] : ENTRIES
+  const all = SHOW_DRAFTS ? ENTRIES : ENTRIES.filter(isPublished)
   const list = section ? all.filter((e) => e.section === section) : all
-  // Newest first; undated (placeholder) entries keep their authored order.
+  // Newest first; entries with the same date keep their authored order.
   return [...list].sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''))
 }
 
@@ -204,14 +99,15 @@ export function getRelated(entry: ContentEntry, max = 3): ContentEntry[] {
     .slice(0, max)
 }
 
-export function entryHref(entry: Pick<ContentEntry, 'section' | 'slug'>): string {
+export function entryHref(entry: Pick<ContentEntry, 'section' | 'slug'> & { href?: string }): string {
+  if (entry.href) return entry.href
   return `/insights-resources/${SECTIONS[entry.section].segment}/${entry.slug}`
 }
 
 /** The entry featured at the top of the landing page: first real `featured`-worthy item, else newest. */
 export function getFeatured(): ContentEntry | undefined {
   const all = getEntries()
-  return all.find((e) => !e.placeholder) ?? all[0]
+  return all.find(isPublished) ?? all[0]
 }
 
 export function formatDate(iso?: string): string {

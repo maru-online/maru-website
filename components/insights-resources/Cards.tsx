@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Glyph from "@/components/ui/Glyph";
 import {
@@ -29,7 +30,7 @@ export function actionLabel(entry: ContentEntry): string {
 const stretch =
   "after:absolute after:inset-0 after:content-[''] focus-visible:outline-none";
 
-function PlaceholderTag({ onDark = false }: { onDark?: boolean }) {
+function DraftTag({ onDark = false }: { onDark?: boolean }) {
   return (
     <span
       style={{
@@ -44,7 +45,7 @@ function PlaceholderTag({ onDark = false }: { onDark?: boolean }) {
         color: onDark ? "var(--color-ink-inverted-muted)" : "var(--color-ink-tertiary)",
       }}
     >
-      Placeholder
+      Draft
     </span>
   );
 }
@@ -87,11 +88,69 @@ export function PillarVisual({
   );
 }
 
+
+/**
+ * Brand treatment for every photograph: a navy multiply layer so very different
+ * photos sit in one family, plus a soft darkening gradient from the bottom edge.
+ * Photographs only ever pass through here; nothing else tints them.
+ */
+export function TreatedImage({
+  src,
+  alt,
+  sizes,
+  priority = false,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  sizes: string;
+  priority?: boolean;
+  className?: string;
+}) {
+  return (
+    <div className={`relative overflow-hidden ${className}`} style={{ backgroundColor: "var(--color-bg-navy-deep)" }}>
+      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 mix-blend-multiply"
+        style={{ background: "linear-gradient(135deg, rgba(26,58,92,0.55), rgba(22,50,79,0.25))" }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, rgba(13,27,42,0.45), rgba(13,27,42,0) 55%)" }}
+      />
+    </div>
+  );
+}
+
+/** Photograph when the entry has one, otherwise the drawn pillar visual. Same box either way. */
+export function EntryMedia({
+  entry,
+  className = "",
+  sizes = "(min-width: 768px) 360px, 100vw",
+  glyphSize = 36,
+  priority = false,
+}: {
+  entry: ContentEntry;
+  className?: string;
+  sizes?: string;
+  glyphSize?: number;
+  priority?: boolean;
+}) {
+  return entry.image ? (
+    <TreatedImage src={entry.image} alt={entry.imageAlt ?? ""} sizes={sizes} priority={priority} className={className} />
+  ) : (
+    <PillarVisual entry={entry} glyphSize={glyphSize} className={className} />
+  );
+}
+
 function Meta({ entry, onDark }: { entry: ContentEntry; onDark?: boolean }) {
   const date = formatDate(entry.updatedAt ?? entry.publishedAt);
   const label = entry.updatedAt ? "Updated" : "";
   const colour = onDark ? "var(--color-ink-inverted-muted)" : "var(--color-ink-tertiary)";
-  if (!date && !entry.placeholder) return null;
+  const draft = entry.status !== "published";
+  if (!date && !draft) return null;
   return (
     <div className="flex flex-wrap items-center gap-3" style={{ color: colour, fontSize: "var(--text-meta)" }}>
       {date && (
@@ -99,7 +158,7 @@ function Meta({ entry, onDark }: { entry: ContentEntry; onDark?: boolean }) {
           {label} {date}
         </time>
       )}
-      {entry.placeholder && <PlaceholderTag onDark={onDark} />}
+      {draft && <DraftTag onDark={onDark} />}
     </div>
   );
 }
@@ -120,12 +179,7 @@ export function FeaturedCard({ entry }: { entry: ContentEntry }) {
     <article
       className="card-lift group relative grid grid-cols-1 md:grid-cols-[1.1fr_1fr] overflow-hidden rounded-2xl border focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2"
     >
-      {entry.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={entry.image} alt="" className="h-full w-full object-cover min-h-[220px]" />
-      ) : (
-        <PillarVisual entry={entry} glyphSize={64} className="min-h-[220px] md:min-h-[360px]" />
-      )}
+      <EntryMedia entry={entry} glyphSize={64} sizes="(min-width: 768px) 560px, 100vw" priority className="min-h-[220px] md:min-h-[360px]" />
       <div className="p-8 md:p-12 flex flex-col justify-center">
         <div className="flex flex-wrap items-center gap-3" style={{ marginBottom: "1.25rem" }}>
           <span style={{ ...eyebrowStyle, color: "var(--color-cyan-ink)" }}>
@@ -168,13 +222,15 @@ export function FeaturedCard({ entry }: { entry: ContentEntry }) {
 export function InsightCard({ entry }: { entry: ContentEntry }) {
   return (
     <article
-      className="group relative flex flex-col rounded-xl p-7 transition-transform duration-300 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2 focus-within:ring-offset-[#16324F]"
+      className="group relative flex w-full flex-col overflow-hidden rounded-xl transition-transform duration-300 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2 focus-within:ring-offset-[#16324F]"
       style={{
         background: "linear-gradient(180deg, rgba(250,250,248,0.07), rgba(250,250,248,0.03))",
         border: "1px solid rgba(250,250,248,0.12)",
         boxShadow: "0 1px 2px rgba(0,0,0,0.12), 0 18px 40px -24px rgba(61,184,198,0.35)",
       }}
     >
+      <EntryMedia entry={entry} className="h-44 w-full" />
+      <div className="flex flex-1 flex-col p-7">
       <div className="flex items-center justify-between gap-3" style={{ marginBottom: "1.25rem" }}>
         <span style={{ ...eyebrowStyle, color: "var(--color-cyan)" }}>{entry.category}</span>
         {entry.format && (
@@ -217,6 +273,7 @@ export function InsightCard({ entry }: { entry: ContentEntry }) {
         {actionLabel(entry)}
         <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
       </Link>
+    </div>
     </article>
   );
 }
@@ -226,7 +283,9 @@ export function InsightCard({ entry }: { entry: ContentEntry }) {
 export function ResourceCard({ entry }: { entry: ContentEntry }) {
   const pillar = pillarFor(entry.pillar);
   return (
-    <article className="card-lift group relative flex flex-col rounded-xl border p-7 focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2">
+    <article className="card-lift group relative flex w-full flex-col overflow-hidden rounded-xl border focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2">
+      <EntryMedia entry={entry} className="h-44 w-full" />
+      <div className="flex flex-1 flex-col p-7">
       <div className="flex items-start justify-between gap-3" style={{ marginBottom: "1.25rem" }}>
         <span className="glyph-chip">
           <Glyph name={pillar.glyph} size={22} />
@@ -264,6 +323,7 @@ export function ResourceCard({ entry }: { entry: ContentEntry }) {
         {actionLabel(entry)}
         <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
       </Link>
+    </div>
     </article>
   );
 }
