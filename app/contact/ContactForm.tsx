@@ -19,7 +19,7 @@ const schema = z.object({
   email:     z.string().trim().email('Enter a valid email address'),
   mobile:    z.string().trim().min(10, 'Enter a valid mobile number').optional().or(z.literal('')),
   service:   z.string().optional(),
-  message:   z.string().trim().max(3000).optional(),
+  message:   z.string().trim().min(1, 'Tell us about your business challenge').max(3000),
   referral:  z.string().optional(),
 })
 
@@ -115,6 +115,26 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
 
+      {/* ── Form heading and introduction (30 Oct 2026). Inside the form so
+          they leave with it once the thank-you message shows. ── */}
+      <h2
+        style={{
+          fontFamily:    'var(--font-body)',
+          fontWeight:    700,
+          fontSize:      'var(--text-h3-sans)',
+          color:         'var(--color-ink-primary)',
+          lineHeight:    1.3,
+          marginBottom:  '0.5rem',
+          border:        'none',
+          paddingBottom: 0,
+        }}
+      >
+        Tell Us a Little About Your Challenge.
+      </h2>
+      <p className="body-muted" style={{ marginBottom: '2rem' }}>
+        Share a few details about your business and what you&apos;re looking to improve.
+      </p>
+
       {/* ── Row: First Name + Last Name ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
         <Field label="First Name" required error={errors.firstName?.message}>
@@ -171,17 +191,17 @@ export default function ContactForm() {
       <input type="hidden" {...register('service')} />
 
       {/* ── Message ── */}
-      <Field label="Briefly describe what you need" error={errors.message?.message}>
+      <Field label="Tell Us About Your Business Challenge" required error={errors.message?.message}>
         <Textarea
           {...register('message')}
-          placeholder="Tell us a bit about your business and what you're trying to solve…"
+          placeholder="Briefly describe the problem, process or task you're looking to improve."
           className={textareaClass}
           style={{ minHeight: '140px' }}
         />
       </Field>
 
       {/* ── Referral ── */}
-      <Field label="How did you hear about us?" error={errors.referral?.message}>
+      <Field label="How Did You Hear About Us? (optional)" error={errors.referral?.message}>
         <Select {...register('referral')} defaultValue="" className={selectClass}>
           {REFERRALS.map(r => (
             <option key={r.value} value={r.value}>

@@ -12,7 +12,7 @@ const contactSchema = z.object({
   email:          z.string().trim().email().max(255),
   mobile:         z.string().trim().min(10).max(30).optional().or(z.literal('')),
   service:        z.string().trim().max(100).optional().or(z.literal('')),
-  message:        z.string().trim().max(3000).optional().or(z.literal('')),
+  message:        z.string().trim().min(1).max(3000),
   referral:       z.string().trim().max(100).optional().or(z.literal('')),
   recaptchaToken: z.string().optional(),
 })
