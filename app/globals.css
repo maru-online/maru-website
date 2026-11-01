@@ -80,6 +80,21 @@
   /* ── Borders / rules ────────────────────────────────────────────────────── */
   --color-border-default:     #E2E8F0;   /* same as profile --rule */
   --color-border-card:        #E4E0D6;   /* warm stone edge — cards only */
+
+  /* ── Card system (1 Nov 2026) ───────────────────────────────────────────
+     One card everywhere: same radius, same flat offset shadow, same lift.
+     Two fills only: .card-lift (warm white, edged) for information and
+     forms; .paper-card tints for problem / step cards. Nothing else sets a
+     card radius or shadow inline. */
+  --card-radius:              12px;
+  --card-shadow:              8px 10px 0 rgba(22, 50, 79, 0.07);
+  --card-shadow-hover:        10px 14px 0 rgba(22, 50, 79, 0.09);
+  --card-lift:                translateY(-4px);
+  --tint-blue:                #E6EEF6;   /* paper card — systems / step 1 */
+  --tint-gold:                #F6EDD8;   /* paper card — admin / step 3 */
+  --tint-teal:                #E1F0F1;   /* paper card — POPIA / step 2 */
+  --color-blue-ink:           #2B5D8C;   /* icon and numeral ink on --tint-blue */
+  --color-ink-inverted-subtle:#9FB3BE;   /* small print on navy */
   --color-border-subtle:      rgba(26, 58, 92, 0.1);
   --color-border-strong:      #CBD5E0;
 
@@ -683,7 +698,8 @@
   .card-lift {
     background-color: var(--color-bg-card);
     border-color:     var(--color-border-card);
-    box-shadow:  0 1px 2px rgba(38, 32, 20, 0.05), 0 4px 12px rgba(38, 32, 20, 0.07);
+    border-radius:    var(--card-radius);
+    box-shadow:       var(--card-shadow);
     transition:  transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
                  box-shadow 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
                  background-color 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
@@ -693,8 +709,8 @@
   .card-lift:focus-within {
     background-color: var(--color-bg-card-hover);
     border-color:     var(--color-border-strong);
-    transform:   translateY(-2px) scale(1.015);
-    box-shadow:  0 4px 8px rgba(38, 32, 20, 0.06), 0 14px 32px rgba(38, 32, 20, 0.13);
+    transform:        var(--card-lift);
+    box-shadow:       var(--card-shadow-hover);
   }
 
   /* ── Metrics band ────────────────────────────────────────────────────────
@@ -919,19 +935,19 @@
 /* Tinted paper cards. Tilt is applied by the component (problem cards only);
    process cards sit straight. */
 .paper-card {
-  border-radius: 12px;
-  box-shadow: 8px 10px 0 rgba(22, 50, 79, 0.07);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
 }
-.paper-blue { background: #E6EEF6; }
-.paper-gold { background: #F6EDD8; }
-.paper-teal { background: #E1F0F1; }
-.paper-straight { transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1); }
-.paper-straight:hover, .paper-straight:focus-within { transform: translateY(-4px); }
+.paper-blue { background: var(--tint-blue); }
+.paper-gold { background: var(--tint-gold); }
+.paper-teal { background: var(--tint-teal); }
+.paper-straight { transition: transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 280ms cubic-bezier(0.25, 0.1, 0.25, 1); }
+.paper-straight:hover, .paper-straight:focus-within { transform: var(--card-lift); box-shadow: var(--card-shadow-hover); }
 .paper-icon {
   width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF;
   display: inline-flex; align-items: center; justify-content: center;
 }
-.paper-blue .paper-icon { color: #2B5D8C; }
+.paper-blue .paper-icon { color: var(--color-blue-ink); }
 .paper-gold .paper-icon { color: var(--color-gold-antique); }
 .paper-teal .paper-icon { color: var(--color-cyan-ink); }
 .paper-num {
@@ -939,10 +955,10 @@
   display: inline-flex; align-items: center; justify-content: center;
   font-family: var(--font-display), sans-serif; font-weight: 500; font-size: 17px;
 }
-.paper-blue .paper-num { color: #2B5D8C; }
+.paper-blue .paper-num { color: var(--color-blue-ink); }
 .paper-gold .paper-num { color: var(--color-gold-antique); }
 .paper-teal .paper-num { color: var(--color-cyan-ink); }
-.paper-card .prob-list li { color: #3A4A5A; }
+.paper-card .prob-list li { color: var(--color-ink-secondary); }
 
 /* Gold hand-mark under one phrase per section, drawn once by the component. */
 .hand-mark { position: relative; display: inline-block; white-space: nowrap; }
@@ -952,3 +968,12 @@
   .cta-shine::after { animation: none; display: none; }
   .paper-straight, .paper-straight:hover { transition: none; transform: none; }
 }
+
+/* Eyebrows on light grounds: the cyan that passes 4.5:1 (the bright cyan is
+   ~2:1 on the warm surface). Navy sections keep .label-eyebrow as it is. */
+.label-eyebrow.label-eyebrow-ink { color: var(--color-cyan-ink); }
+
+/* Accent edge for the one card that holds the primary offer. */
+.card-lift.card-accent-gold,
+.card-lift.card-accent-gold:hover,
+.card-lift.card-accent-gold:focus-within { border-color: var(--color-gold); }

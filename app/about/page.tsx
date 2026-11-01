@@ -315,7 +315,7 @@ export default function AboutPage() {
             {approach.map((card) => (
               <StaggerChild key={card.heading} className="h-full">
                 <div
-                  className="card-lift h-full rounded-[10px]"
+                  className="card-lift h-full"
                   style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}
                 >
                   <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
@@ -356,7 +356,7 @@ export default function AboutPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
             {caseBlocks.map((block) => (
               <StaggerChild key={block.n} className="h-full">
-                <article className="card-lift h-full rounded-[10px]" style={{ padding: "2rem 1.75rem" }}>
+                <article className="card-lift h-full" style={{ padding: "2rem 1.75rem" }}>
                   <span style={{ ...cardLabel, color: "var(--color-cyan-ink, var(--color-ink-tertiary))" }}>
                     {block.n} — {block.label}
                   </span>
@@ -383,7 +383,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6" style={{ marginTop: "2rem" }}>
             {screens.map((s) => (
               <FadeUp key={s.src}>
-                <figure className="card-lift rounded-[10px] overflow-hidden" style={{ margin: 0 }}>
+                <figure className="card-lift overflow-hidden" style={{ margin: 0 }}>
                   <Image
                     src={s.src}
                     alt={s.alt}
@@ -451,7 +451,7 @@ export default function AboutPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {commitments.map((card) => (
               <StaggerChild key={card.heading} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem" }}>
+                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem" }}>
                   <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
                     <Glyph name={card.icon} size={22} />
                   </span>

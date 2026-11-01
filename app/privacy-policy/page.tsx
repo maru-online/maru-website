@@ -120,7 +120,7 @@ export default function PrivacyPolicyPage() {
         <p className="text-ink-secondary mb-4">
           Our Information Officer is registered with the Information Regulator. To reach the Information Officer, email hello@maruonline.com.
         </p>
-        <div className="card-lift rounded-lg p-6 text-ink-secondary mb-4">
+        <div className="card-lift p-6 text-ink-secondary mb-4">
           <p><strong className="text-ink-primary">Email:</strong> hello@maruonline.com</p>
           <p><strong className="text-ink-primary">Location:</strong> Gauteng, South Africa</p>
         </div>
@@ -131,7 +131,7 @@ export default function PrivacyPolicyPage() {
         <p className="text-ink-secondary mb-4">
           Please contact us first so we can try to put things right. You also have the right to complain to the Information Regulator of South Africa.
         </p>
-        <div className="card-lift rounded-lg p-6 text-ink-secondary">
+        <div className="card-lift p-6 text-ink-secondary">
           <p className="font-medium text-ink-primary mb-2">Information Regulator:</p>
           <p>Website: inforegulator.org.za</p>
         </div>

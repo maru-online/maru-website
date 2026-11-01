@@ -25,7 +25,7 @@ function ArticleCard({ article }: { article: InsightListItem }) {
   return (
     <Link
       href={`/insights/${article.slug}`}
-      className="group block card-lift h-full rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] focus-visible:ring-offset-2 active:scale-[0.99] transition-transform"
+      className="group block card-lift h-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] focus-visible:ring-offset-2 active:scale-[0.99] transition-transform"
       style={{ border: "1px solid var(--color-border-card)" }}
     >
       <div className="relative overflow-hidden" style={{ aspectRatio: "16/9", backgroundColor: "var(--color-bg-navy-deep)" }}>

@@ -177,7 +177,7 @@ export function FeaturedCard({ entry }: { entry: ContentEntry }) {
   const kind = entry.section === "insights" ? entry.format ?? "Insight" : entry.resourceType ?? "Guide";
   return (
     <article
-      className="card-lift group relative grid grid-cols-1 md:grid-cols-[1.1fr_1fr] overflow-hidden rounded-2xl border focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2"
+      className="card-lift group relative grid grid-cols-1 md:grid-cols-[1.1fr_1fr] overflow-hidden border focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2"
     >
       <EntryMedia entry={entry} glyphSize={64} sizes="(min-width: 768px) 560px, 100vw" priority className="min-h-[220px] md:min-h-[360px]" />
       <div className="p-8 md:p-12 flex flex-col justify-center">
@@ -283,7 +283,7 @@ export function InsightCard({ entry }: { entry: ContentEntry }) {
 export function ResourceCard({ entry }: { entry: ContentEntry }) {
   const pillar = pillarFor(entry.pillar);
   return (
-    <article className="card-lift group relative flex w-full flex-col overflow-hidden rounded-xl border focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2">
+    <article className="card-lift group relative flex w-full flex-col overflow-hidden border focus-within:ring-2 focus-within:ring-[var(--color-cyan)] focus-within:ring-offset-2">
       <EntryMedia entry={entry} className="h-44 w-full" />
       <div className="flex flex-1 flex-col p-7">
       <div className="flex items-start justify-between gap-3" style={{ marginBottom: "1.25rem" }}>

@@ -215,7 +215,7 @@ export default function PricingPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
             {factors.map((card) => (
               <StaggerChild key={card.heading} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem" }}>
+                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem" }}>
                   <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
                     <Glyph name={card.icon} size={22} />
                   </span>

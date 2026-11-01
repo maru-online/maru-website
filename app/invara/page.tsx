@@ -356,7 +356,7 @@ export default function InvaraPage() {
           </FadeUp>
 
           <FadeUp delay={0.08}>
-            <div className="card-lift rounded-[12px] overflow-hidden">
+            <div className="card-lift overflow-hidden">
               <div className="hidden md:grid grid-cols-2" style={{ background: "var(--color-bg-secondary)" }}>
                 <span style={{ ...smallLabel, margin: 0, padding: "1rem 1.5rem" }}>Without a system of record</span>
                 <span style={{ ...smallLabel, margin: 0, padding: "1rem 1.5rem", color: "var(--color-cyan-ink, var(--color-ink-primary))" }}>With Invara</span>
@@ -414,7 +414,7 @@ export default function InvaraPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {audiences.map((a) => (
               <StaggerChild key={a.name} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
+                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
                   <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
                     <Glyph name={a.icon} size={22} />
                   </span>
@@ -491,7 +491,7 @@ export default function InvaraPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {channels.map((c) => (
               <StaggerChild key={c.name} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem" }}>
+                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem" }}>
                   <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
                     <Glyph name={c.icon} size={22} />
                   </span>
@@ -524,7 +524,7 @@ export default function InvaraPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 items-start">
             {/* Illustrative dashboard */}
             <FadeUp>
-              <figure className="card-lift rounded-[12px]" style={{ margin: 0, padding: "1.75rem" }}>
+              <figure className="card-lift" style={{ margin: 0, padding: "1.75rem" }}>
                 <span style={smallLabel}>Programme dashboard · illustrative</span>
                 <h3 style={{ ...cardHeading, marginBottom: "1.25rem" }}>Funds, from budget to proven</h3>
                 {[
@@ -566,7 +566,7 @@ export default function InvaraPage() {
             <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {roles.map((r) => (
                 <StaggerChild key={r.name} className="h-full">
-                  <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.4rem 1.25rem" }}>
+                  <div className="card-lift h-full" style={{ padding: "1.4rem 1.25rem" }}>
                     <span className="glyph-chip" style={{ marginBottom: "0.75rem" }}>
                       <Glyph name={r.icon} size={20} />
                     </span>
@@ -594,7 +594,7 @@ export default function InvaraPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {dataPoints.map((d) => (
               <StaggerChild key={d.heading} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
+                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
                   <span style={smallLabel}>{d.label}</span>
                   <h3 style={cardHeading}>{d.heading}</h3>
                   <p className="body-muted" style={{ marginBottom: 0 }}>{d.body}</p>

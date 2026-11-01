@@ -8,6 +8,7 @@ import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
 import HeroLight from "@/components/ui/HeroLight";
+import { HandLoop } from "@/components/ui/HandMark";
 import { seo } from '@/lib/seo'
 
 // Homepage copy: "MaruOnline Website Copy, Sections 1–4", approved 20 Oct 2026.
@@ -174,7 +175,7 @@ export default function Home() {
                   fontWeight: 400,
                   fontSize: "14px",
                   lineHeight: "20px",
-                  color: "#9FB3BE",
+                  color: "var(--color-ink-inverted-subtle)",
                   margin: 0,
                 }}
               >
@@ -195,7 +196,7 @@ export default function Home() {
       >
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>The problem</span>
+            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>The problem</span>
             <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
               Disconnected Systems
               <br />
@@ -233,7 +234,7 @@ export default function Home() {
       >
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>How we work</span>
+            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>How we work</span>
             <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
               From Business Challenge
               <br />
@@ -271,7 +272,7 @@ export default function Home() {
                     <span className="sr-only">Step {step.n}: </span>
                     {step.name}
                   </h3>
-                  <p className="body-muted" style={{ marginBottom: 0, color: "#3A4A5A" }}>
+                  <p className="body-muted" style={{ marginBottom: 0 }}>
                     {step.body}
                   </p>
                 </div>
@@ -292,7 +293,7 @@ export default function Home() {
       >
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Supporting capabilities</span>
+            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>Supporting capabilities</span>
             <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
               Strategy, Digital Infrastructure
               <br />
@@ -323,7 +324,7 @@ export default function Home() {
             {capabilities.map((col) => (
               <StaggerChild key={col.name} className="h-full">
                 <div
-                  className="card-lift h-full rounded-[10px]"
+                  className="card-lift h-full"
                   style={{ padding: "1.75rem 1.5rem" }}
                 >
                   <span className="glyph-chip glyph-chip-lg" style={{ marginBottom: "1.25rem" }}>
@@ -403,7 +404,7 @@ export default function Home() {
           <>
             <span style={{ display: 'block', fontWeight: 200 }}>We don&apos;t replace your team.</span>
             <span style={{ display: 'block', fontWeight: 200 }}>
-              We give them their <span style={{ color: 'var(--color-cyan)' }}>time back.</span>
+              We give them their <HandLoop>time back.</HandLoop>
             </span>
           </>
         }
