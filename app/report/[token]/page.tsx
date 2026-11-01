@@ -288,7 +288,7 @@ export default async function ReportPage({
         <section className={styles.cta} aria-labelledby="next-step">
           <p className={styles.eyebrow}>Next step</p>
           <h2 id="next-step" className={styles.ctaTitle}>
-            Request a proposal.
+            Discuss a Business Challenge.
           </h2>
           <p className={styles.ctaText}>
             {isV3
@@ -302,17 +302,6 @@ export default async function ReportPage({
             Discuss a Business Challenge
           </Link>
         </section>
-
-        {/* Secondary CTA */}
-        <aside className={styles.second}>
-          <p className={styles.secondTitle}>Not ready to request a proposal yet?</p>
-          <p className={styles.secondText}>
-            Reply to your report email and tell us what is happening in the business. We will take it from there.
-          </p>
-          <a href="mailto:hello@maruonline.com" className={styles.textLink}>
-            Email hello@maruonline.com →
-          </a>
-        </aside>
 
         {/* Addendum 02: every v3 report ends with this line. */}
         {isV3 && <p className={styles.closing}>{REPORT_CLOSING_LINE}</p>}

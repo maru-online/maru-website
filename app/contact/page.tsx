@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 
 const outerPad    = 'px-6 md:px-[60px]'
 const innerWide   = 'max-w-[1100px] mx-auto'
-const innerNarrow = 'max-w-[720px] mx-auto'
 
 export default function ContactPage() {
   return (
@@ -47,18 +46,18 @@ export default function ContactPage() {
         />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
-            <span className="label-eyebrow">Contact us</span>
+            <span className="label-eyebrow">Contact Us</span>
           </FadeUp>
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: '2rem' }}>
-              <span className="maru-headline-split-light">Let&apos;s talk about</span>
+              <span className="maru-headline-split-light">Let&apos;s Discuss Your</span>
               <br />
-              <span className="maru-headline-split-strong">what your business needs.</span>
+              <span className="maru-headline-split-strong">Business Challenge.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="body-on-navy" style={{ maxWidth: '680px', marginBottom: 0 }}>
-              Explore an AI integration project, discuss an operational challenge or ask us a question.
+              Tell us about the operational challenge you&apos;re facing. We&apos;ll explore whether AI, systems integration or another digital solution could help.
             </p>
           </FadeUp>
         </div>
@@ -119,35 +118,6 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-
-      {/* ════════════════════════════════════════════════════════════════════
-          CLOSING QUOTE
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-16`}
-        style={{ backgroundColor: 'var(--color-bg-secondary)' }}
-      >
-        <div className={innerNarrow}>
-          <FadeUp>
-            <p
-              style={{
-                fontFamily:    'var(--font-display)',
-                fontSize:      'var(--text-h3-serif)',
-                fontWeight:    400,
-                fontStyle:     'italic',
-                color:         'var(--color-ink-primary)',
-                lineHeight:    'var(--leading-subheading)',
-                letterSpacing: 'var(--tracking-tight)',
-                marginBottom:  '0.75rem',
-              }}
-            >
-              &ldquo;The right first step is an honest conversation about where you are.
-              Everything else follows from that.&rdquo;
-            </p>
-          </FadeUp>
         </div>
       </section>
     </>

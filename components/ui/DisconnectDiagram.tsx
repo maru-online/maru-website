@@ -79,15 +79,41 @@ const M = {
   outH: 66,
 };
 
+/** Travelling pulses along each link, mounted once the diagram is live. */
+function Pulses({ prefix }: { prefix: 'd' | 'm' }) {
+  const ids = [0, 1, 2, 3, 4].map((i) => `dd-${prefix}-link-${i}`);
+  return (
+    <g aria-hidden="true">
+      {ids.map((id, i) => (
+        <circle key={id} className="dd-pulse" r={prefix === 'd' ? 3.5 : 3} opacity="0">
+          <animateMotion dur="2.4s" begin={`${1.7 + i * 0.4}s`} repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+            <mpath href={`#${id}`} />
+          </animateMotion>
+          <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.15;0.85;1" dur="2.4s" begin={`${1.7 + i * 0.4}s`} repeatCount="indefinite" />
+        </circle>
+      ))}
+      <circle className="dd-pulse dd-pulse-out" r={prefix === 'd' ? 3.5 : 3} opacity="0">
+        <animateMotion dur="1.6s" begin="2.6s" repeatCount="indefinite">
+          <mpath href={`#dd-${prefix}-link-out`} />
+        </animateMotion>
+        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="2.6s" repeatCount="indefinite" />
+      </circle>
+    </g>
+  );
+}
+
 export default function DisconnectDiagram({ className = '' }: { className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [live, setLive] = useState(false);
+  // Looping pulses and the hub's breathing run only when motion is allowed.
+  const [motion, setMotion] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setMotion(!reduced);
     if (reduced) {
       setLive(true);
       return;
@@ -119,6 +145,7 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
         {D.rowY.map((y, i) => (
           <path
             key={`d-link-${NODES[i].id}`}
+            id={`dd-d-link-${i}`}
             className="dd-link"
             style={{ ['--i' as string]: i }}
             d={`M ${D.boxX + D.boxW} ${y} C ${D.boxX + D.boxW + 130} ${y}, ${D.hubX - 130} ${D.hubY}, ${D.hubX - D.hubR} ${D.hubY}`}
@@ -152,14 +179,17 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
 
         {/* hub → output */}
         <path
+          id="dd-d-link-out"
           className="dd-link dd-link-out"
           style={{ ['--i' as string]: 5 }}
           d={`M ${D.hubX + D.hubR} ${D.hubY} L ${D.outX} ${D.hubY}`}
         />
 
+        {live && motion && <Pulses prefix="d" />}
+
         {/* the Maru hub */}
         <g className="dd-hub">
-          <circle className="dd-hub-halo" cx={D.hubX} cy={D.hubY} r={D.hubR + 13} />
+          <circle className={`dd-hub-halo ${motion ? 'dd-breathe' : ''}`} cx={D.hubX} cy={D.hubY} r={D.hubR + 13} />
           <circle className="dd-hub-core" cx={D.hubX} cy={D.hubY} r={D.hubR} />
         </g>
 
@@ -198,6 +228,7 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
           return (
             <path
               key={`m-link-${NODES[i].id}`}
+              id={`dd-m-link-${i}`}
               className="dd-link"
               style={{ ['--i' as string]: i }}
               d={`M ${M.colX + M.boxW} ${cy} L ${M.trunkX - M.elbow} ${cy} Q ${M.trunkX} ${cy} ${M.trunkX} ${turn} L ${M.trunkX} ${M.hubY - M.hubR}`}
@@ -232,13 +263,16 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
             left of it, so this connector sweeps down and across — the one
             deliberate diagonal in the composition. */}
         <path
+          id="dd-m-link-out"
           className="dd-link dd-link-out"
           style={{ ['--i' as string]: 5 }}
           d={`M ${M.hubX} ${M.hubY + M.hubR} C ${M.hubX} ${M.hubY + M.hubR + 20}, ${M.outX + M.outW / 2} ${M.outY - 20}, ${M.outX + M.outW / 2} ${M.outY}`}
         />
 
+        {live && motion && <Pulses prefix="m" />}
+
         <g className="dd-hub">
-          <circle className="dd-hub-halo" cx={M.hubX} cy={M.hubY} r={M.hubR + 12} />
+          <circle className={`dd-hub-halo ${motion ? 'dd-breathe' : ''}`} cx={M.hubX} cy={M.hubY} r={M.hubR + 12} />
           <circle className="dd-hub-core" cx={M.hubX} cy={M.hubY} r={M.hubR} />
         </g>
 

@@ -423,12 +423,9 @@ export default function AboutPage() {
               <p className="body-muted" style={{ marginBottom: "0.875rem", maxWidth: "820px" }}>
                 GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and translate that strategy into a distinctive digital experience.
               </p>
-              <p className="body-muted" style={{ marginBottom: "1.5rem", maxWidth: "820px" }}>
+              <p className="body-muted" style={{ marginBottom: 0, maxWidth: "820px" }}>
                 The platform has recently launched, so measurable post-launch business outcomes are not yet available. As performance data becomes available, we can build on this case study with verified evidence of its impact.
               </p>
-              <Button href="https://growthiq.co.za" target="_blank" variant="secondary">
-                Explore GrowthIQ
-              </Button>
             </div>
           </FadeUp>
         </div>
