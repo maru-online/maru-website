@@ -132,7 +132,7 @@ export default function ContactForm() {
         Tell Us a Little About Your Challenge.
       </h2>
       <p className="body-muted" style={{ marginBottom: '2rem' }}>
-        Share a few details about your business and what you&apos;re looking to improve.
+        Share a few details about your business and what you&apos;re looking to improve. You don&apos;t need to have a technical solution in mind.
       </p>
 
       {/* ── Row: First Name + Last Name ── */}
@@ -239,7 +239,7 @@ export default function ContactForm() {
         marginBottom: 0,
         maxWidth:     '520px',
       }}>
-        Your details are used only to respond to your enquiry. They are never sold, and you won&apos;t be added to marketing emails without your consent. See our{' '}
+        Your details are used only to respond to your enquiry. They are never sold, and you won&apos;t be added to marketing emails without your consent. Please avoid including sensitive personal or confidential business information in this form. See our{' '}
         <Link
           href="/privacy-policy"
           className="underline underline-offset-2 hover:text-[var(--color-cyan-ink)] focus-visible:outline-none focus-visible:text-[var(--color-cyan-ink)]"

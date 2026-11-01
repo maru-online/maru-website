@@ -248,13 +248,13 @@ export default function PricingPage() {
                 A clear engagement starts with a shared understanding of the work involved.
               </p>
               <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Our proposals establish the agreed scope, deliverables, expected timeline and investment, together with any relevant assumptions, exclusions and responsibilities.
+                Our proposals should establish the agreed scope, deliverables, expected timeline and investment, together with any relevant assumptions, exclusions and responsibilities.
               </p>
               <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Where third-party services are required, such as software licences, AI API usage or hosting, we identify these costs and distinguish them from Maru Online&apos;s fees wherever applicable.
+                Where third-party services are required, such as software licences, AI API usage or hosting, these costs should be identified and distinguished from Maru Online&apos;s fees wherever applicable.
               </p>
               <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
-                If requirements change or additional work becomes necessary, we discuss the implications for scope, cost and timing before that work proceeds.
+                If requirements change or additional work becomes necessary, the implications for scope, cost and timing should be discussed before that work proceeds.
               </p>
               <p
                 className="body-muted"
