@@ -11,14 +11,12 @@ import Button from './Button'
 
 const allLinks = [
   { label: 'About',        href: '/about' },
-  { label: 'Services',     href: '/services' },
-  { label: 'Process',      href: '/process' },
-  { label: 'Pricing',      href: '/pricing' },
-  // Insights is hidden until there is something behind it. The section renders
-  // "New insights are on the way" with zero articles, and a nav item that leads
-  // to an empty room costs credibility with exactly the buyer this site is for.
-  // Restore this line the day the first article publishes.
-  // { label: 'Insights',     href: '/insights' },
+  { label: 'Invara',       href: '/invara' },
+  // Insights shows only when there is something behind it: the layout passes
+  // showInsights (GUIDE_PAGE_VISIBLE in lib/guides/config.ts — the guide is the
+  // hub's featured item). A nav item that leads to an empty room costs
+  // credibility with this buyer.
+  { label: 'Insights',     href: '/insights' },
   { label: 'Contact',      href: '/contact' },
 ]
 
@@ -37,7 +35,8 @@ function CloseIcon() {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function Nav() {
+export default function Nav({ showInsights = false }: { showInsights?: boolean }) {
+  const links = allLinks.filter((l) => showInsights || l.href !== '/insights')
   const pathname              = usePathname()
   const [isHero, setIsHero]   = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -97,7 +96,7 @@ export default function Nav() {
 
           {/* ── Desktop links ─────────────────────────────────────────────── */}
           <ul className="hidden lg:flex items-center gap-8 list-none m-0 p-0">
-            {allLinks.map(({ label, href }) => {
+            {links.map(({ label, href }) => {
               const active = isActive(href, pathname)
               return (
                 <li key={href}>
@@ -136,7 +135,7 @@ export default function Nav() {
 
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="primary" href="/operations-assessment" className="!px-5 !py-2 !text-[11px]">
+            <Button variant="primary" href="/popia-ai-check" className="!px-5 !py-2 !text-[11px]">
               Start the assessment
             </Button>
           </div>
@@ -188,7 +187,7 @@ export default function Nav() {
 
             {/* Links */}
             <ul className="flex flex-col gap-8 flex-1 list-none m-0 p-0">
-              {allLinks.map(({ label, href }, index) => {
+              {links.map(({ label, href }, index) => {
                 const active = isActive(href, pathname)
                 return (
                   <motion.li
@@ -215,7 +214,7 @@ export default function Nav() {
 
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
-              <Button variant="primary" href="/operations-assessment" className="w-full !justify-center">
+              <Button variant="primary" href="/popia-ai-check" className="w-full !justify-center">
                 Start the assessment
               </Button>
             </div>

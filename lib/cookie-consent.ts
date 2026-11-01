@@ -1,72 +1,72 @@
 'use client';
 import { useState, useEffect } from 'react';
 
+// ─── Cookie choice ────────────────────────────────────────────────────────────
+// The banner offers one choice: accept or decline analytics and marketing
+// cookies. It is stored as the plain string 'accepted' or 'declined' (the
+// Playwright helpers seed the same value). Until a visitor accepts, GA4 runs in
+// Consent Mode with storage denied and the Meta Pixel is not loaded at all.
+// Before 28 Sep 2026 the banner stored the choice and nothing read it.
+
 export const COOKIE_CONSENT_KEY = 'maru-cookie-consent';
-export const COOKIE_CONSENT_VERSION = 1;
+export type CookieChoice = 'accepted' | 'declined';
 
-export interface CookieConsentState {
-  version: number;
-  categories: {
-    necessary: boolean;
-    analytics: boolean;
-    marketing: boolean;
-    functional: boolean;
-  };
-  updatedAt: string;
-}
+/** Fired on window whenever the visitor makes or changes their choice. */
+export const COOKIE_CHOICE_EVENT = 'maru:cookie-choice';
+/** Fired by "Manage Cookie Preferences" (footer, cookie policy) to reopen the banner. */
+export const OPEN_COOKIE_PREFERENCES_EVENT = 'open-cookie-preferences';
 
-export const DEFAULT_CONSENT: CookieConsentState = {
-  version: COOKIE_CONSENT_VERSION,
-  categories: {
-    necessary: true,
-    analytics: false,
-    marketing: false,
-    functional: false,
-  },
-  updatedAt: new Date().toISOString(),
+export const getCookieChoice = (): CookieChoice | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const value = localStorage.getItem(COOKIE_CONSENT_KEY);
+    return value === 'accepted' || value === 'declined' ? value : null;
+  } catch {
+    return null;
+  }
 };
 
-export const saveConsent = (categories: CookieConsentState['categories']) => {
+export const setCookieChoice = (choice: CookieChoice) => {
   if (typeof window === 'undefined') return;
-  const state = { version: COOKIE_CONSENT_VERSION, categories, updatedAt: new Date().toISOString() };
-  localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(state));
-  window.dispatchEvent(new Event('cookie-consent-updated'));
+  try {
+    localStorage.setItem(COOKIE_CONSENT_KEY, choice);
+  } catch {
+    // Storage blocked: the choice still applies for this page view.
+  }
+  window.dispatchEvent(new CustomEvent<CookieChoice>(COOKIE_CHOICE_EVENT, { detail: choice }));
 };
 
-export const useCookieConsent = () => {
-  const [consent, setConsent] = useState<CookieConsentState | null>(null);
-  const [loaded, setLoaded] = useState(false);
+/** The visitor's current choice; null until they make one (and during SSR). */
+export const useCookieChoice = (): CookieChoice | null => {
+  const [choice, setChoice] = useState<CookieChoice | null>(null);
 
   useEffect(() => {
-    const getStored = () => {
-      try {
-        const item = localStorage.getItem(COOKIE_CONSENT_KEY);
-        if (!item) return null;
-        
-        const parsed = JSON.parse(item);
-        // Ensure structure is valid by merging with defaults
-        if (parsed && typeof parsed === 'object') {
-             // Handle case where categories might be missing or incomplete
-             if (!parsed.categories) {
-                 return { ...DEFAULT_CONSENT, ...parsed, categories: DEFAULT_CONSENT.categories };
-             }
-             return {
-                 ...DEFAULT_CONSENT,
-                 ...parsed,
-                 categories: { ...DEFAULT_CONSENT.categories, ...parsed.categories }
-             };
-        }
-        return null;
-      } catch { return null; }
-    };
-    setConsent(getStored());
-    setLoaded(true);
-    const handler = () => setConsent(getStored());
-    window.addEventListener('cookie-consent-updated', handler);
-    return () => window.removeEventListener('cookie-consent-updated', handler);
+    setChoice(getCookieChoice());
+    const handler = (e: Event) => setChoice((e as CustomEvent<CookieChoice>).detail);
+    window.addEventListener(COOKIE_CHOICE_EVENT, handler);
+    return () => window.removeEventListener(COOKIE_CHOICE_EVENT, handler);
   }, []);
 
-  return { consent, loaded };
+  return choice;
+};
+
+/**
+ * Expire every cookie whose name matches, on each domain it may have been set
+ * for (GA4 writes _ga on the registrable domain, e.g. .maruonline.com).
+ */
+export const clearCookies = (pattern: RegExp) => {
+  if (typeof document === 'undefined') return;
+  const host = window.location.hostname;
+  const domains = ['', host, `.${host}`, `.${host.split('.').slice(-2).join('.')}`];
+  document.cookie
+    .split(';')
+    .map((c) => c.split('=')[0].trim())
+    .filter((name) => pattern.test(name))
+    .forEach((name) => {
+      domains.forEach((domain) => {
+        document.cookie = `${name}=; Max-Age=0; path=/${domain ? `; domain=${domain}` : ''}`;
+      });
+    });
 };
 
 // ─── Cookie banner visibility ─────────────────────────────────────────────────

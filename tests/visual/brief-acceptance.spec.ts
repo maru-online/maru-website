@@ -25,77 +25,8 @@ async function withConsentGiven(page: Page) {
 
 // ─── Item 03 — WhatsApp bubble / CTA collision ───────────────────────────────
 
-test.describe('item 03 — floating bubble never covers the primary CTA', () => {
+test.describe('item 03 — footer touch targets (the floating WhatsApp bubble was removed, B3)', () => {
   test.skip(({ isMobile }) => !isMobile, 'mobile-only bug')
-
-  test('no overlap with the hero CTA at any scroll position', async ({ page }) => {
-    await withConsentGiven(page)
-    await page.goto('/')
-
-    const bubble = page.locator('a[aria-label="Chat on WhatsApp"]')
-    const cta = page.locator('[data-maru-primary-cta]')
-    await expect(cta).toHaveCount(1)
-
-    // Walk the scroll range that puts the CTA anywhere near the bubble's corner.
-    for (const y of [0, 20, 40, 60, 80, 120, 160, 200, 400, 800]) {
-      await page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), y)
-      await page.waitForTimeout(80)
-
-      const visible = await bubble.evaluate(
-        (el) => getComputedStyle(el).opacity !== '0',
-      )
-      if (!visible) continue // hidden bubble cannot cover anything
-
-      const [b, c] = await Promise.all([
-        bubble.boundingBox(),
-        cta.boundingBox(),
-      ])
-      expect(b, `bubble box at scrollY=${y}`).not.toBeNull()
-      expect(c, `cta box at scrollY=${y}`).not.toBeNull()
-
-      const collide =
-        b!.x < c!.x + c!.width && b!.x + b!.width > c!.x &&
-        b!.y < c!.y + c!.height && b!.y + b!.height > c!.y
-      expect(collide, `visible bubble overlaps the CTA at scrollY=${y}`).toBe(false)
-    }
-  })
-
-  test('bubble yields to the cookie banner, then returns', async ({ page }) => {
-    // No consent stored — the banner will appear on its 800ms timer.
-    await page.goto('/')
-    const banner = page.getByRole('dialog', { name: /cookie/i })
-    await expect(banner).toBeVisible({ timeout: 5000 })
-
-    const bubble = page.locator('a[aria-label="Chat on WhatsApp"]')
-
-    // While the banner is up the bubble must be invisible AND untappable —
-    // it otherwise paints over the DECLINE button by 33×44px at 375px wide.
-    await expect(bubble).toHaveAttribute('aria-hidden', 'true')
-    await expect(bubble).toHaveCSS('opacity', '0')
-    await expect(bubble).toHaveCSS('pointer-events', 'none')
-
-    // The banner's own controls must be genuinely reachable, not just painted.
-    const decline = page.getByRole('button', { name: /decline/i })
-    const declineBox = (await decline.boundingBox())!
-    const topmost = await page.evaluate(
-      ([x, y]) => {
-        const el = document.elementFromPoint(x, y)
-        return el ? el.closest('button,a')?.textContent?.trim() ?? el.tagName : null
-      },
-      [declineBox.x + declineBox.width / 2, declineBox.y + declineBox.height / 2],
-    )
-    expect(topmost, 'the DECLINE button must be the topmost element at its own centre')
-      .toMatch(/decline/i)
-
-    await decline.click()
-    await expect(banner).toBeHidden()
-
-    // Once dismissed, scroll somewhere the CTA is not in play and confirm the
-    // bubble comes back — the fix must not disable it permanently.
-    await page.evaluate(() => window.scrollTo({ top: 1400, behavior: 'instant' }))
-    await expect(bubble).toHaveCSS('opacity', '1')
-    await expect(bubble).toHaveAttribute('aria-hidden', 'false')
-  })
 
   test('footer links meet a 44px touch target', async ({ page }) => {
     await withConsentGiven(page)
@@ -155,40 +86,4 @@ test.describe('item 10 — pricing page', () => {
     expect(order.duration).toBeGreaterThan(order.title)
     expect(order.price).toBeGreaterThan(order.duration)
   })
-})
-
-// ─── Item 01 — WhatsApp openers ──────────────────────────────────────────────
-
-test.describe('item 01 — WhatsApp number and openers', () => {
-  const cases: [string, string][] = [
-    ['/', 'find out more about your AI workflow services'],
-    ['/pricing', 'understand your pricing for workflow integration'],
-    ['/contact', "question about Maru Online's services"],
-    ['/careers', 'opportunities at Maru Online'],
-    ['/operations-assessment', 'book my free operations assessment'],
-    ['/services/workflow-integration', 'interested in Workflow Integration'],
-    ['/services/team-training-handover', 'Team Training & Handover'],
-    ['/services/results-optimisation', 'know more about Results Optimisation'],
-    ['/about', 'find out more about your AI workflow services'], // unmapped → fallback
-  ]
-
-  for (const [path, expected] of cases) {
-    test(`${path} uses the new number and its own opener`, async ({ page }) => {
-      await withConsentGiven(page)
-      await page.goto(path)
-
-      const href = await page
-        .locator('a[href*="wa.me"]')
-        .first()
-        .getAttribute('href')
-
-      expect(href, `${path} has no wa.me link`).toBeTruthy()
-      expect(href!, 'old number must be gone').not.toContain('27635643263')
-      expect(href!).toContain('wa.me/27678904113')
-
-      const text = new URL(href!).searchParams.get('text')
-      expect(text, `${path} link carries no pre-filled text`).toBeTruthy()
-      expect(text!).toContain(expected)
-    })
-  }
 })

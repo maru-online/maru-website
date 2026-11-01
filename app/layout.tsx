@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { GUIDE_PAGE_VISIBLE } from "@/lib/guides/config";
 import localFont from 'next/font/local'
 import Script from 'next/script'
 import Nav from '@/components/ui/Nav'
@@ -103,17 +104,11 @@ export default function RootLayout({
           </>
         )}
 
-        {/* Calendly — loaded site-wide so it's pre-cached before /booking */}
-        <Script
-          src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
-        />
-
-        <Nav />
+        <Nav showInsights={GUIDE_PAGE_VISIBLE} />
         <main id="main-content">
           {children}
         </main>
-        <Footer />
+        <Footer showInsights={GUIDE_PAGE_VISIBLE} />
         <CookieConsent />
       </body>
     </html>

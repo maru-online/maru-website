@@ -129,6 +129,35 @@ export const operationsReports = pgTable('operations_reports', {
 });
 
 // =============================================================================
+// GUIDE REQUESTS — consent log for the "AI and POPIA" lead magnet
+// Copy handover entry 19 §7: the site's own record of every request, kept
+// apart from Brevo. "Downloaded the guide" (every row) and "subscribed to
+// notes" (marketing_confirmed_at) stay two separate facts.
+// Created by lib/db/manual/2026-10-08_guide_requests.sql (additive only).
+// =============================================================================
+
+export const guideRequests = pgTable('guide_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  guide: text('guide').notNull(),                         // CONSENT_SOURCE, e.g. guide-ai-popia
+  environment: text('environment').notNull(),             // production | preview | development
+  email: text('email').notNull(),                         // lower-cased
+  firstName: text('first_name').notNull(),
+  company: text('company'),
+  marketingTicked: boolean('marketing_ticked').notNull(),
+  consentText: text('consent_text').notNull(),            // checkbox wording shown, verbatim
+  privacyText: text('privacy_text').notNull(),            // notice under the form, verbatim
+  consentTextVersion: text('consent_text_version').notNull(),
+  confirmToken: uuid('confirm_token').unique(),           // only when ticked
+  marketingConfirmedAt: timestamp('marketing_confirmed_at', { withTimezone: true }),
+  ipHash: text('ip_hash'),                                // salted SHA-256, rate limiting only
+  deliveryStatus: text('delivery_status').notNull().default('pending'),
+  deliveryAttempts: integer('delivery_attempts').notNull().default(0),
+  deliveryError: text('delivery_error'),
+  brevoStatus: text('brevo_status').notNull().default('pending'),
+});
+
+// =============================================================================
 // TYPE EXPORTS
 // =============================================================================
 

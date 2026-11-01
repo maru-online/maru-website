@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dbLeadEngine } from "@/lib/db";
-import { operationsReports } from "@/lib/db/schema/lead-engine";
+import { guideRequests, operationsReports } from "@/lib/db/schema/lead-engine";
 import { eq } from "drizzle-orm";
 
 export async function GET(
@@ -26,6 +26,20 @@ export async function GET(
 
     const row = rows[0];
 
+    // Entry 19 §11: hide the report's guide line for someone who already
+    // requested the guide. Worked out here so the page never sees the email.
+    let guideRequested = false;
+    try {
+      const g = await dbLeadEngine
+        .select({ id: guideRequests.id })
+        .from(guideRequests)
+        .where(eq(guideRequests.email, row.email.trim().toLowerCase()))
+        .limit(1);
+      guideRequested = g.length > 0;
+    } catch (err) {
+      console.error("Report guide lookup failed:", err); // show the line; harmless
+    }
+
     return NextResponse.json({
       name: row.name,
       level: row.level,
@@ -37,6 +51,7 @@ export async function GET(
       template: row.template,
       synthesis: row.synthesis,
       createdAt: row.createdAt,
+      guideRequested,
     });
   } catch (err) {
     console.error("Report fetch error:", err);

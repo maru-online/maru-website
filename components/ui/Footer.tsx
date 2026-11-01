@@ -1,13 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import WhatsAppWidget from './WhatsAppWidget'
 import { TrackedLink } from '@/components/analytics/TrackedLink'
 import { footerNavigation } from '@/data/footer-navigation'
-import { buildWhatsAppLink } from '@/lib/whatsapp'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -42,10 +39,7 @@ const legalLinkClass =
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function Footer() {
-  // Drives the footer WhatsApp link's pre-filled opener per route.
-  const pathname = usePathname()
-
+export default function Footer({ showInsights = false }: { showInsights?: boolean }) {
   return (
     <>
       <footer style={{ background: 'var(--gradient-navy-soft)' }}>
@@ -78,7 +72,7 @@ export default function Footer() {
                   className="font-body font-light text-[13px] leading-relaxed mb-6"
                   style={{ color: 'var(--color-ink-inverted-muted)' }}
                 >
-                  Building AI-powered workflows for growing SMEs.
+                  POPIA-aware AI implementation
                 </p>
                 {/* Social icons */}
                 <div className="flex items-center gap-3">
@@ -122,7 +116,7 @@ export default function Footer() {
                   Navigation
                 </h4>
                 <ul className="flex flex-col list-none m-0 p-0">
-                  {footerNavigation.main.map((item) => (
+                  {footerNavigation.main.filter((i) => showInsights || i.href !== '/insights').map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -136,20 +130,20 @@ export default function Footer() {
                 </ul>
               </motion.div>
 
-              {/* Services column */}
+              {/* What we do column */}
               <motion.div variants={itemVariants}>
                 <h4
                   className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
                   style={{ color: 'var(--color-ink-inverted)' }}
                 >
-                  Services
+                  What we do
                 </h4>
                 <ul className="flex flex-col list-none m-0 p-0">
                   {[
-                    { name: 'Operations Diagnostic',      href: '/services/operations-diagnostic' },
-                    { name: 'Workflow Integration',    href: '/services/workflow-integration' },
-                    { name: 'Team Training & Handover',    href: '/services/team-training-handover' },
-                    { name: 'Results Optimisation',          href: '/services/results-optimisation' },
+                    { name: 'How we work',               href: '/#how-we-work' },
+                    { name: 'Supporting capabilities',   href: '/#capabilities' },
+                    { name: 'Free POPIA Assessment',     href: '/popia-ai-check' },
+                    { name: 'Invara',                    href: '/invara' },
                   ].map((item) => (
                     <li key={item.name}>
                       <Link
@@ -184,30 +178,11 @@ export default function Footer() {
                       hello@maruonline.com
                     </TrackedLink>
                   </li>
-                  <li>
-                    <TrackedLink
-                      href={buildWhatsAppLink(pathname)}
-                      event="whatsapp_click"
-                      eventData={{ source: 'footer' }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${linkClass} hover:!text-[#25D366]`}
-                      style={{ color: 'var(--color-ink-inverted-muted)' }}
-                    >
-                      WhatsApp
-                    </TrackedLink>
-                  </li>
                   <li
                     className="font-body text-[13px] font-light py-2"
                     style={{ color: 'var(--color-ink-inverted-muted)' }}
                   >
                     Gauteng, South Africa
-                  </li>
-                  <li
-                    className="font-body text-[13px] font-light py-2"
-                    style={{ color: 'var(--color-ink-inverted-muted)' }}
-                  >
-                    Mon–Fri, 9am–6pm SAST
                   </li>
                 </ul>
               </motion.div>
@@ -261,9 +236,6 @@ export default function Footer() {
           </motion.div>
         </div>
       </footer>
-
-      {/* WhatsApp floating widget — fixed position, outside footer flow */}
-      <WhatsAppWidget />
     </>
   )
 }

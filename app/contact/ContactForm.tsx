@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -10,29 +10,20 @@ import { Textarea } from '@/components/ui/Textarea'
 import { Select }   from '@/components/ui/Select'
 import { Label }    from '@/components/ui/Label'
 import Button       from '@/components/ui/Button'
+import Link         from 'next/link'
 
 const schema = z.object({
   firstName: z.string().trim().min(1, 'First name is required'),
   lastName:  z.string().trim().min(1, 'Last name is required'),
   business:  z.string().trim().min(1, 'Business name is required'),
   email:     z.string().trim().email('Enter a valid email address'),
-  whatsapp:  z.string().trim().min(10, 'Enter a valid WhatsApp number').optional().or(z.literal('')),
-  service:   z.string().min(1, 'Please select a service'),
+  mobile:    z.string().trim().min(10, 'Enter a valid mobile number').optional().or(z.literal('')),
+  service:   z.string().optional(),
   message:   z.string().trim().max(3000).optional(),
   referral:  z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
-
-const SERVICES = [
-  { value: '',                                       label: 'Select a service…' },
-  { value: 'Operations Diagnostic',                  label: 'Operations Diagnostic' },
-  { value: 'Workflow Integration / AI Automation',   label: 'Workflow Integration / AI Automation' },
-  { value: 'Team Training & Handover',               label: 'Team Training & Handover' },
-  { value: 'Website Design & Build',                 label: 'Website Design & Build' },
-  { value: 'Results Optimisation',                   label: 'Results Optimisation' },
-  { value: 'Not sure yet — just exploring',          label: 'Not sure yet — just exploring' },
-]
 
 const REFERRALS = [
   { value: '',            label: 'Please select…' },
@@ -58,8 +49,18 @@ export default function ContactForm() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
+
+  // The visible service picker was removed (22 Oct 2026). Links can still tag
+  // an enquiry, e.g. /contact?service=invara from the Invara page, so demo
+  // requests arrive labelled. Read once on mount; only known values accepted.
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get('service')
+    const preset: Record<string, string> = { invara: 'Invara demo' }
+    if (wanted && preset[wanted]) setValue('service', preset[wanted])
+  }, [setValue])
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
@@ -103,18 +104,9 @@ export default function ContactForm() {
           fontSize:     'var(--text-body-sm)',
           fontWeight:   600,
           color:        'var(--color-ink-primary)',
-          marginBottom: '0.5rem',
+          margin:       0,
         }}>
-          Message sent.
-        </p>
-        <p style={{
-          fontFamily: 'var(--font-body)',
-          fontSize:   'var(--text-meta)',
-          fontWeight: 300,
-          color:      'var(--color-ink-secondary)',
-          margin:     0,
-        }}>
-          We'll be in touch within 1 business day.
+          Thank you. We&apos;ll be in touch to discuss your enquiry.
         </p>
       </div>
     )
@@ -122,6 +114,26 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
+
+      {/* ── Form heading and introduction (30 Oct 2026). Inside the form so
+          they leave with it once the thank-you message shows. ── */}
+      <h2
+        style={{
+          fontFamily:    'var(--font-body)',
+          fontWeight:    700,
+          fontSize:      'var(--text-h3-sans)',
+          color:         'var(--color-ink-primary)',
+          lineHeight:    1.3,
+          marginBottom:  '0.5rem',
+          border:        'none',
+          paddingBottom: 0,
+        }}
+      >
+        Tell Us a Little About Your Challenge.
+      </h2>
+      <p className="body-muted" style={{ marginBottom: '2rem' }}>
+        Share a few details about your business and what you&apos;re looking to improve.
+      </p>
 
       {/* ── Row: First Name + Last Name ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
@@ -153,7 +165,7 @@ export default function ContactForm() {
         />
       </Field>
 
-      {/* ── Row: Email + WhatsApp ── */}
+      {/* ── Row: Email + Mobile ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
         <Field label="Email Address" required error={errors.email?.message}>
           <Input
@@ -164,9 +176,9 @@ export default function ContactForm() {
             className={inputClass}
           />
         </Field>
-        <Field label="WhatsApp Number" error={errors.whatsapp?.message}>
+        <Field label="Mobile Number (optional)" error={errors.mobile?.message}>
           <Input
-            {...register('whatsapp')}
+            {...register('mobile')}
             type="tel"
             placeholder="+27 63 000 0000"
             autoComplete="tel"
@@ -175,29 +187,21 @@ export default function ContactForm() {
         </Field>
       </div>
 
-      {/* ── Service ── */}
-      <Field label="What service are you interested in?" required error={errors.service?.message}>
-        <Select {...register('service')} defaultValue="" className={selectClass}>
-          {SERVICES.map(s => (
-            <option key={s.value} value={s.value} disabled={!s.value}>
-              {s.label}
-            </option>
-          ))}
-        </Select>
-      </Field>
+      {/* Hidden tag set from ?service= links (e.g. the Invara demo button) */}
+      <input type="hidden" {...register('service')} />
 
       {/* ── Message ── */}
-      <Field label="Briefly describe what you need" error={errors.message?.message}>
+      <Field label="Tell Us About Your Business Challenge" error={errors.message?.message}>
         <Textarea
           {...register('message')}
-          placeholder="Tell us a bit about your business and what you're trying to solve…"
+          placeholder="Briefly describe the problem, process or task you're looking to improve."
           className={textareaClass}
           style={{ minHeight: '140px' }}
         />
       </Field>
 
       {/* ── Referral ── */}
-      <Field label="How did you hear about us?" error={errors.referral?.message}>
+      <Field label="How Did You Hear About Us? (optional)" error={errors.referral?.message}>
         <Select {...register('referral')} defaultValue="" className={selectClass}>
           {REFERRALS.map(r => (
             <option key={r.value} value={r.value}>
@@ -222,6 +226,28 @@ export default function ContactForm() {
       <Button variant="primary" type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Sending…' : 'Send My Enquiry'}
       </Button>
+
+      {/* Privacy assurance, approved 22 Oct 2026 (option B). Keep it true:
+          this Brevo list must never receive marketing without an opt-in. */}
+      <p style={{
+        fontFamily:   'var(--font-body)',
+        fontSize:     'var(--text-meta)',
+        fontWeight:   300,
+        color:        'var(--color-ink-tertiary)',
+        lineHeight:   1.6,
+        marginTop:    '1rem',
+        marginBottom: 0,
+        maxWidth:     '520px',
+      }}>
+        Your details are used only to respond to your enquiry. They are never sold, and you won&apos;t be added to marketing emails without your consent. See our{' '}
+        <Link
+          href="/privacy-policy"
+          className="underline underline-offset-2 hover:text-[var(--color-cyan-ink)] focus-visible:outline-none focus-visible:text-[var(--color-cyan-ink)]"
+          style={{ color: 'var(--color-ink-secondary)' }}
+        >
+          Privacy Policy
+        </Link>.
+      </p>
 
     </form>
   )

@@ -202,47 +202,47 @@ const nextConfig: NextConfig = {
       // Consolidated services
       {
         source: '/services/ai-revenue-diagnostic',
-        destination: '/services/operations-diagnostic',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/ai-training-capability-building',
-        destination: '/services/team-training-handover',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/custom-ai-solution-build',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/customer-support-chatbots',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/lead-generation',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/office-automation',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/ongoing-ai-support-optimization',
-        destination: '/services/results-optimisation',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/sales-systems',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       {
         source: '/services/whatsapp-solutions',
-        destination: '/services/workflow-integration',
+        destination: '/#how-we-work',
         permanent: true,
       },
       // Consolidated briefing and admin
@@ -266,6 +266,31 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: false,
       },
+      // Live-site cleanup, 20 Oct 2026: pages that were publicly reachable but
+      // unfinished, internal or out of date. Temporary (307) so each can come
+      // back when it has real content. The release line handles these its own
+      // way; drop these entries when it merges.
+      { source: '/careers', destination: '/about', permanent: false },
+      { source: '/ai-in-action', destination: '/', permanent: false },
+      { source: '/design-system', destination: '/', permanent: false },
+      { source: '/case-studies', destination: '/about#growthiq', permanent: false },
+      { source: '/case-studies/:path*', destination: '/about#growthiq', permanent: false },
+      { source: '/resources/popia-ai-checklist', destination: '/popia-ai-check', permanent: false },
+      // The free assessment became the POPIA Assessment (20 Oct 2026). The old
+      // path is linked from emails, Brevo and earlier reports, so it must keep
+      // resolving.
+      { source: '/operations-assessment', destination: '/popia-ai-check', permanent: true },
+      // Retired 20 Oct 2026 to stop repeating the homepage and About page:
+      // the services and process pages described stages of one engagement,
+      // which the homepage now covers; the process lives in the homepage's "How we work" section and pricing
+      // in the contact page's "How we price" section.
+      { source: '/process', destination: '/#how-we-work', permanent: true },
+      { source: '/services', destination: '/#how-we-work', permanent: true },
+      { source: '/services/:path*', destination: '/#how-we-work', permanent: true },
+      { source: '/pricing', destination: '/contact', permanent: true },
+      // Calendly is retired: conversations start from the contact form.
+      { source: '/booking', destination: '/contact', permanent: true },
+      { source: '/operations-assessment.html', destination: '/popia-ai-check', permanent: true },
     ];
   },
 };

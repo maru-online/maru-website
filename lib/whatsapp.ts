@@ -29,17 +29,11 @@ export const WHATSAPP_DISPLAY = '+27 67 890 4113'
  */
 export const WHATSAPP_OPENERS: Record<string, string> = {
   default:
-    "I'd like to find out more about your AI workflow services.",
-  '/operations-assessment':
-    "I'd like to book my free operations assessment.",
-  '/pricing':
-    "I'd like to understand your pricing for workflow integration.",
-  '/services/workflow-integration':
-    "I'm interested in Workflow Integration for my business.",
-  '/services/team-training-handover':
-    "I'd like more info on Team Training & Handover.",
-  '/services/results-optimisation':
-    "I'd like to know more about Results Optimisation.",
+    "I'd like to find out more about Maru Online.",
+  '/popia-ai-check':
+    "I'd like to do the free POPIA Assessment.",
+  '/invara':
+    "I'd like to find out more about Invara.",
   '/contact':
     "I have a question about Maru Online's services.",
   '/careers':

@@ -2,16 +2,30 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { setCookieBannerVisible } from '@/lib/cookie-consent'
-
-const STORAGE_KEY = 'maru-cookie-consent'
+import {
+  getCookieChoice,
+  setCookieChoice,
+  setCookieBannerVisible,
+  OPEN_COOKIE_PREFERENCES_EVENT,
+  type CookieChoice,
+} from '@/lib/cookie-consent'
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false)
 
+  // "Manage Cookie Preferences" (footer, cookie policy) reopens the banner so a
+  // visitor can change their choice. Nothing listened for this event before.
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY)
-    if (!stored) {
+    const open = () => {
+      setVisible(true)
+      setCookieBannerVisible(true)
+    }
+    window.addEventListener(OPEN_COOKIE_PREFERENCES_EVENT, open)
+    return () => window.removeEventListener(OPEN_COOKIE_PREFERENCES_EVENT, open)
+  }, [])
+
+  useEffect(() => {
+    if (!getCookieChoice()) {
       const timer = setTimeout(() => {
         setVisible(true)
         // Tell the floating WhatsApp bubble to stand down — it otherwise paints
@@ -25,8 +39,8 @@ export default function CookieConsent() {
     }
   }, [])
 
-  function dismiss(choice: 'accepted' | 'declined') {
-    localStorage.setItem(STORAGE_KEY, choice)
+  function dismiss(choice: CookieChoice) {
+    setCookieChoice(choice)
     setVisible(false)
     setCookieBannerVisible(false)
   }
