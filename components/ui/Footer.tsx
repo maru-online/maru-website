@@ -1,13 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import WhatsAppWidget from './WhatsAppWidget'
 import { TrackedLink } from '@/components/analytics/TrackedLink'
 import { footerNavigation } from '@/data/footer-navigation'
-import { buildWhatsAppLink } from '@/lib/whatsapp'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -43,9 +40,6 @@ const legalLinkClass =
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Footer({ showInsights = false }: { showInsights?: boolean }) {
-  // Drives the footer WhatsApp link's pre-filled opener per route.
-  const pathname = usePathname()
-
   return (
     <>
       <footer style={{ background: 'var(--gradient-navy-soft)' }}>
@@ -184,30 +178,11 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                       hello@maruonline.com
                     </TrackedLink>
                   </li>
-                  <li>
-                    <TrackedLink
-                      href={buildWhatsAppLink(pathname)}
-                      event="whatsapp_click"
-                      eventData={{ source: 'footer' }}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${linkClass} hover:!text-[#25D366]`}
-                      style={{ color: 'var(--color-ink-inverted-muted)' }}
-                    >
-                      WhatsApp
-                    </TrackedLink>
-                  </li>
                   <li
                     className="font-body text-[13px] font-light py-2"
                     style={{ color: 'var(--color-ink-inverted-muted)' }}
                   >
                     Gauteng, South Africa
-                  </li>
-                  <li
-                    className="font-body text-[13px] font-light py-2"
-                    style={{ color: 'var(--color-ink-inverted-muted)' }}
-                  >
-                    Mon–Fri, 8am–6pm SAST
                   </li>
                 </ul>
               </motion.div>
@@ -261,9 +236,6 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
           </motion.div>
         </div>
       </footer>
-
-      {/* WhatsApp floating widget — fixed position, outside footer flow */}
-      <WhatsAppWidget />
     </>
   )
 }

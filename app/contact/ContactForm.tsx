@@ -19,7 +19,7 @@ const schema = z.object({
   email:     z.string().trim().email('Enter a valid email address'),
   mobile:    z.string().trim().min(10, 'Enter a valid mobile number').optional().or(z.literal('')),
   service:   z.string().optional(),
-  message:   z.string().trim().min(1, 'Tell us about your business challenge').max(3000),
+  message:   z.string().trim().max(3000).optional(),
   referral:  z.string().optional(),
 })
 
@@ -191,7 +191,7 @@ export default function ContactForm() {
       <input type="hidden" {...register('service')} />
 
       {/* ── Message ── */}
-      <Field label="Tell Us About Your Business Challenge" required error={errors.message?.message}>
+      <Field label="Tell Us About Your Business Challenge" error={errors.message?.message}>
         <Textarea
           {...register('message')}
           placeholder="Briefly describe the problem, process or task you're looking to improve."

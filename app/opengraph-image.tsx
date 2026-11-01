@@ -7,7 +7,7 @@ import { ImageResponse } from 'next/og'
 //
 // Next wires this file automatically for every route that does not override it.
 
-export const alt = 'Maru Online — AI-powered workflows that cut operating costs'
+export const alt = 'Maru Online — Building POPIA-aware AI systems into your existing workflows'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -22,8 +22,8 @@ export default async function OpengraphImage() {
           flexDirection: 'column',
           justifyContent: 'space-between',
           padding: '72px 80px',
-          // Warm Stone hero gradient, flattened for the card
-          background: 'linear-gradient(135deg, #0D1B2A 0%, #1A3A5C 100%)',
+          // Navy from the LinkedIn and Facebook banners (14 Oct 2026), flattened for the card
+          background: 'linear-gradient(135deg, #001C2A 0%, #0A2E40 100%)',
         }}
       >
         <div
@@ -32,7 +32,7 @@ export default async function OpengraphImage() {
             fontSize: 26,
             letterSpacing: 6,
             textTransform: 'uppercase',
-            color: '#3DB8C6',
+            color: '#F2A100',
             fontWeight: 600,
           }}
         >
@@ -49,14 +49,19 @@ export default async function OpengraphImage() {
           <div
             style={{
               display: 'flex',
-              fontSize: 68,
+              flexDirection: 'column',
+              fontSize: 64,
               lineHeight: 1.1,
               color: '#FDFCF9',
-              fontWeight: 700,
-              maxWidth: 900,
+              maxWidth: 960,
             }}
           >
-            AI-powered workflows that cut your operating costs
+            <div style={{ display: 'flex' }}>
+              <span style={{ color: '#FDFCF9', fontWeight: 300, marginRight: 18 }}>Building</span>
+              <span style={{ color: '#5FA9B4', fontWeight: 600 }}>POPIA-aware</span>
+            </div>
+            <div style={{ display: 'flex', color: '#FDFCF9', fontWeight: 300 }}>AI systems into</div>
+            <div style={{ display: 'flex', color: '#5FA9B4', fontWeight: 600 }}>your existing workflows.</div>
           </div>
           <div
             style={{

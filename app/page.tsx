@@ -5,6 +5,7 @@ import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
 import ImageBand from "@/components/ui/ImageBand";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
+import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
 import { seo } from '@/lib/seo'
 
@@ -28,24 +29,6 @@ const outerPad = "px-6 md:px-[60px]";
 const innerWide = "max-w-[1100px] mx-auto";
 
 // ─── Content ──────────────────────────────────────────────────────────────────
-
-const problems = [
-  {
-    icon: "unlink" as const,
-    heading: "Disconnected Business Systems",
-    body: "Business processes often span multiple applications, data sources and operational stages. Without effective integration, information becomes fragmented, handoffs require manual intervention, and visibility across the business suffers.",
-  },
-  {
-    icon: "hourglass" as const,
-    heading: "Manual Data Processing",
-    body: "Repeated data entry and routine administrative tasks consume staff time, increase the risk of errors and drive up operating costs.",
-  },
-  {
-    icon: "shield" as const,
-    heading: "Data Governance and POPIA Risks",
-    body: "Scattered personal information and inconsistent handling processes make it harder to manage access, consent and data protection obligations.",
-  },
-];
 
 const steps = [
   {
@@ -231,48 +214,16 @@ export default function Home() {
             </p>
           </FadeUp>
 
-          {/* The picture of the problem — and the fix — before the cards */}
+          <ProblemCards />
+
+          {/* The picture of the fix, below the cards: the same five systems the
+              cards describe, joined into one live view. */}
           <div
             className="mx-auto"
-            style={{ maxWidth: "1000px", marginBottom: "var(--space-section-header-mb)" }}
+            style={{ maxWidth: "1000px", marginTop: "var(--space-section-header-mb)" }}
           >
             <DisconnectDiagram />
           </div>
-
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {problems.map((card) => (
-              <StaggerChild key={card.heading} className="h-full">
-                <div
-                  className="card-lift h-full"
-                  style={{
-                    border: "0.5px solid var(--color-border-card)",
-                    borderTop: "3px solid var(--color-cyan)",
-                    borderRadius: "8px",
-                    padding: "1.75rem 1.5rem",
-                  }}
-                >
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={card.icon} size={22} />
-                  </span>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontWeight: 600,
-                      fontSize: "var(--text-h3-sans)",
-                      color: "var(--color-ink-primary)",
-                      marginBottom: "0.75rem",
-                      lineHeight: "var(--leading-subheading)",
-                    }}
-                  >
-                    {card.heading}
-                  </h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>
-                    {card.body}
-                  </p>
-                </div>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
         </div>
       </section>
 
