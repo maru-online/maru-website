@@ -16,7 +16,7 @@ const allLinks = [
   // showInsights (GUIDE_PAGE_VISIBLE in lib/guides/config.ts — the guide is the
   // hub's featured item). A nav item that leads to an empty room costs
   // credibility with this buyer.
-  { label: 'Insights',     href: '/insights' },
+  { label: 'Insights & Resources', href: '/insights-resources' },
   { label: 'Contact',      href: '/contact' },
 ]
 
@@ -36,7 +36,7 @@ function CloseIcon() {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Nav({ showInsights = false }: { showInsights?: boolean }) {
-  const links = allLinks.filter((l) => showInsights || l.href !== '/insights')
+  const links = allLinks.filter((l) => showInsights || l.href !== '/insights-resources')
   const pathname              = usePathname()
   const [isHero, setIsHero]   = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)

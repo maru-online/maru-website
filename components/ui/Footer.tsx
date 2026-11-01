@@ -116,7 +116,7 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                   Navigation
                 </h4>
                 <ul className="flex flex-col list-none m-0 p-0">
-                  {footerNavigation.main.filter((i) => showInsights || i.href !== '/insights').map((item) => (
+                  {footerNavigation.main.filter((i) => showInsights || i.href !== '/insights-resources').map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
