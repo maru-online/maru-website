@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 
 const outerPad    = 'px-6 md:px-[60px]'
 const innerWide   = 'max-w-[1100px] mx-auto'
-const innerNarrow = 'max-w-[720px] mx-auto'
 
 export default function ContactPage() {
   return (
@@ -119,35 +118,6 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-
-      {/* ════════════════════════════════════════════════════════════════════
-          CLOSING QUOTE
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-16`}
-        style={{ backgroundColor: 'var(--color-bg-secondary)' }}
-      >
-        <div className={innerNarrow}>
-          <FadeUp>
-            <p
-              style={{
-                fontFamily:    'var(--font-display)',
-                fontSize:      'var(--text-h3-serif)',
-                fontWeight:    400,
-                fontStyle:     'italic',
-                color:         'var(--color-ink-primary)',
-                lineHeight:    'var(--leading-subheading)',
-                letterSpacing: 'var(--tracking-tight)',
-                marginBottom:  '0.75rem',
-              }}
-            >
-              &ldquo;The right first step is an honest conversation about where you are.
-              Everything else follows from that.&rdquo;
-            </p>
-          </FadeUp>
         </div>
       </section>
     </>
