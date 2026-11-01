@@ -31,6 +31,11 @@ export const automationGuide: ContentEntry = {
       t: 'p',
       text: 'Most businesses have a handful of tasks that eat hours every week without anyone deciding they should: chasing quotes, retyping invoices, copying details between systems, building the same report. Automating them can give those hours back. Done badly, it just makes mistakes faster.',
     },
+    {
+      t: 'callout',
+      title: 'What you will be able to do',
+      text: 'Decide which process to automate first, document it, design the flow with its exceptions and a human check, and review the time saved after a month. For owners and managers with a repeated, rule-based task that costs real hours.',
+    },
     { t: 'h2', text: '1. Choose what is worth automating' },
     {
       t: 'p',

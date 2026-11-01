@@ -32,6 +32,11 @@ export const readinessGuide: ContentEntry = {
     },
     {
       t: 'callout',
+      title: 'What you will walk away with',
+      text: 'Your score across six areas, a clear view of what to fix first, and a first move sized to your cash flow. For an owner or manager, with the person who runs the process. About twenty minutes.',
+    },
+    {
+      t: 'callout',
       title: 'How to use it',
       text: 'Answer each question yes or no, honestly. Give yourself one point for each yes, so each area scores from 0 to 3. Do it with the person who runs the process day to day, not alone.',
     },

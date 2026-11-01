@@ -32,6 +32,11 @@ export const integrationGuide: ContentEntry = {
       t: 'p',
       text: 'Most useful AI in a business is not a new product. It is an existing process with AI built into one or two steps, connected to the systems the business already runs on. This guide walks through how to find that process, connect it and keep control of it.',
     },
+    {
+      t: 'callout',
+      title: 'What you will be able to do',
+      text: 'Pick one workflow worth connecting AI to, map the systems and data it touches, choose the simplest way to connect them, and set up the human check, the exception path and the POPIA basics before a pilot. For owners and managers deciding where AI goes; your IT provider can use it as a brief.',
+    },
     { t: 'h2', text: '1. Start with the workflow, not the AI' },
     {
       t: 'p',
