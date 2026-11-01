@@ -284,25 +284,6 @@ export default async function ReportPage({
           </p>
         )}
 
-        {/* ── NEXT STEP CTA ──────────────────────────────────────────────── */}
-        <section className={styles.cta} aria-labelledby="next-step">
-          <p className={styles.eyebrow}>Next step</p>
-          <h2 id="next-step" className={styles.ctaTitle}>
-            Discuss a Business Challenge.
-          </h2>
-          <p className={styles.ctaText}>
-            {isV3
-              ? "We review your answers first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper: which tools see client information, where it's stored, and who can reach it."
-              : "We review your assessment first, then contact you to arrange a short call at a time that suits you. On the call, we go deeper — asking direct questions about where time is actually going, where information gets stuck, and where the manual work is concentrated."}
-          </p>
-          <p className={styles.ctaText}>
-            If there&apos;s no clear opportunity, we&apos;ll tell you.
-          </p>
-          <Link href="/contact#contact-form" className={styles.button}>
-            Discuss a Business Challenge
-          </Link>
-        </section>
-
         {/* Addendum 02: every v3 report ends with this line. */}
         {isV3 && <p className={styles.closing}>{REPORT_CLOSING_LINE}</p>}
 

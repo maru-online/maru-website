@@ -282,12 +282,15 @@ const nextConfig: NextConfig = {
       { source: '/operations-assessment', destination: '/popia-ai-check', permanent: true },
       // Retired 20 Oct 2026 to stop repeating the homepage and About page:
       // the services and process pages described stages of one engagement,
-      // which the homepage now covers; the process lives in the homepage's "How we work" section and pricing
-      // in the contact page's "How we price" section.
+      // which the homepage now covers; the process lives in the homepage's "How we work" section.
+      // The Engagement & Investment page lives at /working-with-us (renamed
+      // 31 Oct 2026 so the site does not read as selling priced products). It
+      // explains how investment is determined and states no figures. The old
+      // /pricing address goes there.
+      { source: '/pricing', destination: '/working-with-us', permanent: true },
       { source: '/process', destination: '/#how-we-work', permanent: true },
       { source: '/services', destination: '/#how-we-work', permanent: true },
       { source: '/services/:path*', destination: '/#how-we-work', permanent: true },
-      { source: '/pricing', destination: '/contact', permanent: true },
       // Calendly is retired: conversations start from the contact form.
       { source: '/booking', destination: '/contact', permanent: true },
       { source: '/operations-assessment.html', destination: '/popia-ai-check', permanent: true },
