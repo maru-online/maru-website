@@ -7,6 +7,7 @@ import { BGPattern } from "@/components/ui/bg-pattern";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
+import HeroLight from "@/components/ui/HeroLight";
 import { seo } from '@/lib/seo'
 
 // Homepage copy: "MaruOnline Website Copy, Sections 1–4", approved 20 Oct 2026.
@@ -33,19 +34,19 @@ const innerWide = "max-w-[1100px] mx-auto";
 const steps = [
   {
     n: "1",
-    icon: "search" as const,
+    tint: "paper-blue",
     name: "Business & Workflow Assessment",
     body: "Identify operational bottlenecks, repetitive tasks and opportunities for improvement. Establish where AI can deliver practical business value.",
   },
   {
     n: "2",
-    icon: "connect" as const,
+    tint: "paper-teal",
     name: "AI System Design & Integration",
     body: "We design AI systems around your specific business needs and integrate them into your existing workflows, systems and data sources, with data protection considered from the outset.",
   },
   {
     n: "3",
-    icon: "chart" as const,
+    tint: "paper-gold",
     name: "Optimisation & Handover",
     body: "Measure performance against an agreed baseline, refine the system and equip your team to use and manage it effectively.",
   },
@@ -104,7 +105,9 @@ export default function Home() {
           fill="rgba(61, 184, 198, 0.101)"
           className="pointer-events-none"
         />
-        <div className={innerWide}>
+        {/* Responsive light: rests behind the empty right side, follows a mouse. */}
+        <HeroLight />
+        <div className={`relative ${innerWide}`}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>AI Implementation Consultancy</span>
           </FadeUp>
@@ -170,7 +173,7 @@ export default function Home() {
               data-maru-primary-cta
               className="flex flex-col items-stretch sm:items-start gap-3"
             >
-              <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
+              <Button href="/popia-ai-check" variant="primary" className="cta-shine w-full sm:w-auto justify-center">
                 Take Your Free POPIA Assessment
               </Button>
               <p
@@ -201,10 +204,10 @@ export default function Home() {
         <div className={innerWide}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>The problem</span>
-            <h2 style={{ marginBottom: "1.25rem" }}>
-              <span style={{ fontWeight: 700 }}>Disconnected Systems</span>
+            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
+              Disconnected Systems
               <br />
-              <span style={{ fontWeight: 300 }}>Create Unnecessary Work.</span>
+              Create <span className="hl">Unnecessary Work.</span>
             </h2>
             <p
               className="body-muted"
@@ -239,10 +242,10 @@ export default function Home() {
         <div className={innerWide}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>How we work</span>
-            <h2 style={{ marginBottom: "1.25rem" }}>
-              <span style={{ fontWeight: 300 }}>From Business Challenge</span>
+            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
+              From Business Challenge
               <br />
-              <span style={{ fontWeight: 700 }}>to Working AI System.</span>
+              to <span className="hl">Working AI System.</span>
             </h2>
             <p
               className="body-muted"
@@ -252,45 +255,31 @@ export default function Home() {
             </p>
           </FadeUp>
 
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          {/* Tinted paper cards, straight: after the mess in section 2, order. */}
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {steps.map((step) => (
               <StaggerChild key={step.n} className="h-full">
                 <div
-                  className="card-lift h-full rounded-[10px]"
-                  style={{ padding: "1.75rem 1.5rem" }}
+                  className={`paper-card paper-straight ${step.tint} h-full`}
+                  style={{ padding: "2.25rem 1.875rem" }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
-                    <span className="glyph-chip glyph-chip-lg">
-                      <Glyph name={step.icon} size={28} />
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      style={{
-                        fontSize: "26px",
-                        fontWeight: 100,
-                        color: "rgba(61, 184, 198, 0.45)",
-                        lineHeight: 1,
-                        fontFamily: "var(--font-display)",
-                      }}
-                    >
-                      0{step.n}
-                    </span>
-                  </div>
+                  <span className="paper-num" style={{ display: "flex", marginBottom: "1.25rem" }} aria-hidden="true">
+                    0{step.n}
+                  </span>
                   <h3
                     style={{
                       fontSize: "var(--text-h3-sans)",
-                      fontWeight: 600,
+                      fontWeight: 500,
                       color: "var(--color-ink-primary)",
                       lineHeight: 1.3,
-                      marginBottom: "0.75rem",
-                      borderBottom: "2px solid var(--color-cyan)",
-                      paddingBottom: "0.75rem",
-                      fontFamily: "var(--font-body)",
+                      marginBottom: "0.875rem",
+                      fontFamily: "var(--font-display)",
                     }}
                   >
-                    {step.n}. {step.name}
+                    <span className="sr-only">Step {step.n}: </span>
+                    {step.name}
                   </h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>
+                  <p className="body-muted" style={{ marginBottom: 0, color: "#3A4A5A" }}>
                     {step.body}
                   </p>
                 </div>
@@ -312,10 +301,10 @@ export default function Home() {
         <div className={innerWide}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Supporting capabilities</span>
-            <h2 style={{ marginBottom: "1.25rem" }}>
-              <span style={{ fontWeight: 300 }}>Strategy, Digital Infrastructure</span>
+            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
+              Strategy, Digital Infrastructure
               <br />
-              <span style={{ fontWeight: 700 }}>&amp; Growth</span>
+              <span className="hl">&amp; Growth</span>
             </h2>
             <p
               style={{
@@ -420,8 +409,10 @@ export default function Home() {
         alt="Two professionals celebrating a win together in the office"
         overlayText={
           <>
-            <span style={{ display: 'block', fontWeight: 300 }}>We don&apos;t replace your team.</span>
-            <span style={{ display: 'block', fontWeight: 700 }}>We give them their time back.</span>
+            <span style={{ display: 'block', fontWeight: 200 }}>We don&apos;t replace your team.</span>
+            <span style={{ display: 'block', fontWeight: 200 }}>
+              We give them their <span style={{ color: 'var(--color-cyan)' }}>time back.</span>
+            </span>
           </>
         }
         height={420}

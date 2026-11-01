@@ -16,7 +16,7 @@ const allLinks = [
   // showInsights (GUIDE_PAGE_VISIBLE in lib/guides/config.ts — the guide is the
   // hub's featured item). A nav item that leads to an empty room costs
   // credibility with this buyer.
-  { label: 'Insights & Resources', href: '/insights-resources' },
+  { label: 'Guides & Resources', href: '/insights-resources' },
   { label: 'Contact',      href: '/contact' },
 ]
 
@@ -109,14 +109,18 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
                       'font-body text-[14px] font-normal',
                       'relative pb-[2px]',
                       'transition-colors duration-200',
-                      // active state — always cyan
-                      active
-                        ? 'var(--color-cyan)'
-                        // hero: white muted default, white on hover
-                        : isHero
-                          ? 'text-[var(--color-ink-inverted-muted)] hover:text-white'
-                          // scrolled: slate default, dark navy on hover
-                          : 'text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]',
+                      // Maru cyan on hover, keyboard focus and the active page.
+                      // On the navy hero that is --color-cyan; once the bar turns
+                      // white it is --color-cyan-ink, the cyan that passes 4.5:1
+                      // on a light ground.
+                      isHero
+                        ? (active
+                            ? 'text-[var(--color-cyan)]'
+                            : 'text-[var(--color-ink-inverted-muted)] hover:text-[var(--color-cyan)] focus-visible:text-[var(--color-cyan)]')
+                        : (active
+                            ? 'text-[var(--color-cyan-ink)]'
+                            : 'text-[var(--color-ink-secondary)] hover:text-[var(--color-cyan-ink)] focus-visible:text-[var(--color-cyan-ink)]'),
+                      'focus:outline-none focus-visible:underline focus-visible:underline-offset-4',
                     ].join(' ')}
                   >
                     {label}
@@ -135,7 +139,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="primary" href="/popia-ai-check" className="!px-5 !py-2 !text-[11px]">
+            <Button variant="primary" href="/popia-ai-check" className="cta-shine !px-5 !py-2 !text-[11px]">
               Start the assessment
             </Button>
           </div>
@@ -202,7 +206,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
                       aria-current={active ? 'page' : undefined}
                       className={[
                         'font-body font-light text-[24px] transition-colors duration-150',
-                        active ? 'var(--color-cyan)' : 'text-ink-inverted hover:text-[var(--color-cyan)]',
+                        active ? 'text-[var(--color-cyan)]' : 'text-ink-inverted hover:text-[var(--color-cyan)] focus-visible:text-[var(--color-cyan)]',
                       ].join(' ')}
                     >
                       {label}
@@ -214,7 +218,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
-              <Button variant="primary" href="/popia-ai-check" className="w-full !justify-center">
+              <Button variant="primary" href="/popia-ai-check" className="cta-shine w-full !justify-center">
                 Start the assessment
               </Button>
             </div>

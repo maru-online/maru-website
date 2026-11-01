@@ -26,8 +26,8 @@ export default function AssessmentFormSection() {
         <FadeUp>
           <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Next steps</span>
           <h2 className="h2-cta" style={{ marginBottom: "var(--space-heading-body)" }}>
-            <span style={{ display: "block", fontWeight: 300 }}>Ready to Build AI Into</span>
-            <span style={{ display: "block", fontWeight: 700 }}>Your Existing Operations?</span>
+            <span style={{ display: "block", fontWeight: 200 }}>Ready to Build AI Into</span>
+            <span style={{ display: "block", fontWeight: 200, color: "var(--color-cyan)" }}>Your Existing Operations?</span>
           </h2>
           <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}>
             Whether you&apos;re exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
@@ -78,7 +78,7 @@ export default function AssessmentFormSection() {
               </div>
             </div>
 
-            <Button href={ASSESSMENT_HREF} variant="primary" className="w-full justify-center">
+            <Button href={ASSESSMENT_HREF} variant="primary" className="cta-shine w-full justify-center">
               Take Your Free POPIA Assessment
             </Button>
 
