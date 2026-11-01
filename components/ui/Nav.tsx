@@ -79,18 +79,15 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
         >
           {/* Logo */}
           <Link href="/" aria-label="Maru Online — home">
+            {/* Navy hero: the reversed lockup (white wordmark, teal "m"), the
+                brand's own version for dark grounds. White bar: the primary. */}
             <Image
-              src="/images/brand/maru-logo-primary.png"
+              src={isHero ? '/images/brand/maru-logo-reversed.png' : '/images/brand/maru-logo-primary.png'}
               alt="Maru Online"
-              width={100}
-              height={44}
+              width={84}
+              height={32}
               priority
-              style={{
-                height: '32px',
-                width: 'auto',
-                filter: isHero ? 'brightness(0) invert(1)' : 'none',
-                transition: 'filter 0.3s ease',
-              }}
+              style={{ height: '32px', width: 'auto' }}
             />
           </Link>
 

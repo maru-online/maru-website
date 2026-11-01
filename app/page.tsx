@@ -107,16 +107,19 @@ export default function Home() {
         />
         {/* Responsive light: rests behind the empty right side, follows a mouse. */}
         <HeroLight />
-        <div className={`relative ${innerWide}`}>
+        {/* Fixed-width column: production's column shrank to the longest headline
+            line and re-centred, so its left edge moved whenever the copy changed.
+            900px centred puts it at production's 190px at a 1280px viewport. */}
+        <div className="relative w-full max-w-[900px] mx-auto">
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>AI Implementation Consultancy</span>
           </FadeUp>
 
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">Your Team Is Already Using AI.</span>
+              <span className="maru-headline-split-light">Your Team Already Uses AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Are Your Systems POPIA-Aware?</span>
+              <span className="maru-headline-split-strong">Is It POPIA-Aware?</span>
             </h1>
           </FadeUp>
 
@@ -129,22 +132,10 @@ export default function Home() {
                   fontSize: "var(--text-body)",
                   color: "var(--color-ink-inverted-muted)",
                   lineHeight: "var(--leading-body-relaxed)",
-                  marginBottom: "1.25rem",
-                }}
-              >
-                Your team may already be using AI tools. But are they being used in ways that account for your business&apos;s data protection responsibilities?
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontWeight: 300,
-                  fontSize: "var(--text-body)",
-                  color: "var(--color-ink-inverted-muted)",
-                  lineHeight: "var(--leading-body-relaxed)",
                   marginBottom: 0,
                 }}
               >
-                Maru Online designs AI systems around your business&apos;s specific challenges and integrates them into your existing workflows, with South Africa&apos;s POPIA requirements in mind.
+                We design AI systems around the way your business already works and build them into the tools your team uses every day, with South Africa&apos;s POPIA requirements in mind from the start.
               </p>
             </div>
           </FadeUp>
@@ -159,9 +150,10 @@ export default function Home() {
                 lineHeight: "var(--leading-body-relaxed)",
                 maxWidth: "680px",
                 marginBottom: "3rem",
+                textWrap: "balance",
               }}
             >
-              Reduce manual processing. Improve data accuracy. Give your team more time to focus on the work that matters.
+              Less manual admin. Cleaner data. More time for the work that matters.
             </p>
           </FadeUp>
 
@@ -179,10 +171,10 @@ export default function Home() {
               <p
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontWeight: 300,
-                  fontStyle: "italic",
-                  fontSize: "var(--text-meta)",
-                  color: "var(--color-ink-inverted-muted)",
+                  fontWeight: 400,
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                  color: "#9FB3BE",
                   margin: 0,
                 }}
               >
