@@ -12,7 +12,9 @@ import {
 import { breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
 import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
 
-// Insights & Resources landing page. Copy: "Insights & Resources, Website Page
+// Guides & Resources landing page (route /insights-resources). Hero, section
+// headings, CTA and card titles revised 1 Nov 2026 per "Maru Online — Revised
+// Website Copy" v1.0 (section 7). Earlier brief: Copy: "Insights & Resources, Website Page
 // Architecture & Implementation Brief", 30 Oct 2026, applied as written except
 // the brand name ("Maru Online", two words).
 //
@@ -29,9 +31,9 @@ export function generateMetadata(): Metadata {
   const hasReal = getEntries().some(isPublished);
   return {
     ...seo("/insights-resources"),
-    title: "Insights & Resources | Practical Guidance on AI for Business",
+    title: "Guides & Resources | Practical, POPIA-Aware AI Guidance for South African Businesses",
     description:
-      "AI developments explained in business terms, plus practical guides on integrating AI, POPIA and data governance, AI readiness and automation, from Maru Online.",
+      "Understand how AI, POPIA and South African policy affect your business, and find practical guidance for introducing AI with appropriate human oversight.",
     robots: hasReal ? undefined : { index: false, follow: false },
   };
 }
@@ -110,18 +112,18 @@ export default function InsightsResourcesPage() {
         <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10 w-full`}>
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Insights &amp; Resources</span>
+            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Guides and resources</span>
           </FadeUp>
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2rem" }}>
-              <span className="maru-headline-split-light">Practical Insights for</span>
+              <span className="maru-headline-split-light">Practical, POPIA-aware AI guidance</span>
               <br />
-              <span className="maru-headline-split-strong">Businesses Navigating AI.</span>
+              <span className="maru-headline-split-strong">for South African businesses.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.16}>
             <p className="body-on-navy" style={{ maxWidth: "700px", marginBottom: 0 }}>
-              Explore the latest developments in AI, understand what they mean for your business and access practical guidance on integrating AI into your operations. From industry insights to implementation best practices, find information to help you make informed decisions.
+              Understand how AI, POPIA, and South African policy affect your business—and find practical guidance for introducing AI with appropriate human oversight.
             </p>
           </FadeUp>
         </div>
@@ -164,7 +166,7 @@ export default function InsightsResourcesPage() {
           <SectionHead
             id="ai-insights-heading"
             eyebrow="Timely · Analytical"
-            title="AI Insights for Business"
+            title="AI insights for business"
             copy="The latest AI developments, industry news and analysis — with a focus on what matters to business."
             dark
           />
@@ -182,7 +184,7 @@ export default function InsightsResourcesPage() {
           <FadeUp delay={0.1}>
             <div style={{ marginTop: "2.5rem" }}>
               <Button href={`/insights-resources/${SECTIONS.insights.segment}`} variant="secondary">
-                View All Insights
+                View all insights
               </Button>
             </div>
           </FadeUp>
@@ -200,7 +202,7 @@ export default function InsightsResourcesPage() {
           <SectionHead
             id="resources-heading"
             eyebrow="Practical · Evergreen"
-            title="Resources & Best Practice"
+            title="Resources and best practice"
             copy="Practical guides and resources to help businesses understand, plan and implement AI."
           />
           {resources.length ? (
@@ -217,7 +219,7 @@ export default function InsightsResourcesPage() {
           <FadeUp delay={0.1}>
             <div style={{ marginTop: "2.5rem" }}>
               <Button href={`/insights-resources/${SECTIONS.resources.segment}`} variant="secondary">
-                View All Resources
+                Read the guides and resources
               </Button>
             </div>
           </FadeUp>
@@ -229,17 +231,17 @@ export default function InsightsResourcesPage() {
         <div className={`${innerWide} max-w-[760px] mx-0 md:mx-auto`}>
           <FadeUp>
             <h2 style={{ color: "var(--color-ink-inverted)", border: "none", padding: 0, marginBottom: "var(--space-heading-body)" }}>
-              <span style={{ fontWeight: 700 }}>Have an AI Challenge in Your Business?</span>
+              <span style={{ fontWeight: 700 }}>Do you have an AI challenge in your business?</span>
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              Understand where AI could make a practical difference to your business operations.
+              Understand where AI could make a practical difference to your operations and what a sensible next step could look like.
             </p>
           </FadeUp>
           <FadeUp delay={0.14}>
             <div data-maru-primary-cta>
-              <Button href={CONTACT_HREF} variant="primary">Discuss a Business Challenge</Button>
+              <Button href={CONTACT_HREF} variant="primary">Discuss your business challenge</Button>
             </div>
           </FadeUp>
         </div>

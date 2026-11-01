@@ -4,9 +4,9 @@ import type { ContentEntry } from '../types'
 export const readinessGuide: ContentEntry = {
   section: 'resources',
   slug: 'ai-readiness-guide-south-african-business',
-  title: 'AI Strategy & Readiness Guide: are you ready, and where to start',
+  title: 'AI strategy and readiness guide: assess your readiness and choose where to start.',
   summary:
-    'A self-assessment across six readiness areas, with a simple way to score yourself and choose a first move.',
+    'Use a practical framework to review your business goals, workflows, data, systems, people, and governance before starting an AI initiative.',
   seoTitle: 'AI Readiness Guide for South African Businesses: Self-Assessment Worksheet',
   seoDescription:
     'Score your business across six areas of AI readiness: problem clarity, process stability, data, people, governance and capacity. Includes a worksheet and how to choose a first move.',

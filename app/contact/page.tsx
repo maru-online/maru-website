@@ -7,7 +7,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Two ways to start — the free POPIA Assessment or a 20-minute discovery call.",
+  description: "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use. Tell us about the business challenge you want to improve.",
   ...seo('/contact'),
 }
 
@@ -21,7 +21,7 @@ export default function ContactPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative min-h-[60vh] flex items-center ${outerPad} pt-48 pb-32`}
+        className={`relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-48 pb-32`}
         style={{ backgroundColor: 'var(--color-bg-navy)' }}
       >
         <BGPattern
@@ -46,18 +46,21 @@ export default function ContactPage() {
         />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
-            <span className="label-eyebrow">Contact Us</span>
+            <span className="label-eyebrow">Contact Maru Online</span>
           </FadeUp>
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: '2rem' }}>
-              <span className="maru-headline-split-light">Let&apos;s Discuss Your</span>
+              <span className="maru-headline-split-light">Let&apos;s discuss your</span>
               <br />
-              <span className="maru-headline-split-strong">Business Challenge.</span>
+              <span className="maru-headline-split-strong">business challenge.</span>
             </h1>
           </FadeUp>
           <FadeUp delay={0.16}>
+            <p className="body-on-navy" style={{ maxWidth: '680px', marginBottom: '1rem' }}>
+              Tell us about the operational challenge you are facing. We will assess whether a POPIA-aware AI or systems-integration approach could help, taking relevant privacy and information-handling requirements into account.
+            </p>
             <p className="body-on-navy" style={{ maxWidth: '680px', marginBottom: 0 }}>
-              Tell us about the operational challenge you&apos;re facing. We&apos;ll explore whether AI, systems integration or another digital solution could help.
+              You do not need to have a technical solution in mind. Start with the process, problem, or recurring task you want to improve.
             </p>
           </FadeUp>
         </div>
@@ -96,7 +99,18 @@ export default function ContactPage() {
                       marginBottom:  '0.25rem',
                     }}
                   >
-                    Email
+                    Maru Online
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize:   'var(--text-body-sm)',
+                      fontWeight: 300,
+                      color:      'var(--color-ink-secondary)',
+                      margin:     '0 0 0.25rem',
+                    }}
+                  >
+                    Gauteng, South Africa
                   </p>
                   <TrackedLink
                     href="mailto:hello@maruonline.com"

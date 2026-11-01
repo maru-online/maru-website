@@ -116,9 +116,9 @@ export default function TopicFilter({ articles }: { articles: InsightListItem[] 
             {articles.length === 0 ? "The first articles are being written and reviewed." : `No ${active} articles yet.`}
           </p>
           <p className="body-muted text-sm leading-relaxed m-0">
-            In the meantime, the free POPIA Assessment is the quickest way to see where your business stands.{" "}
+            In the meantime, the free, informational POPIA review is the quickest way to see where your business stands.{" "}
             <Link href="/popia-ai-check" className="text-cyan-ink underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] rounded-sm">
-              Take the assessment
+              Take the free review
             </Link>
             .
           </p>

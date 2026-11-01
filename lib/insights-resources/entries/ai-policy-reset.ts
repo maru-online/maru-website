@@ -9,9 +9,9 @@ import type { ContentEntry } from '../types'
 export const policyReset: ContentEntry = {
   section: 'insights',
   slug: 'south-africa-national-ai-policy-reset-what-businesses-should-do',
-  title: 'South Africa’s national AI policy goes back to the drafting table. What it means for your business.',
+  title: 'South Africa’s national AI policy is being reconsidered. What should businesses do now?',
   summary:
-    'The draft National AI Policy was withdrawn in April and is now due to reach cabinet around March 2027. The law that governs how you use AI today has not changed.',
+    'The policy position may continue to develop, but the existing legal and POPIA obligations relevant to your AI use remain in place. This guide explains what businesses can review while the policy process continues.',
   seoTitle: 'South Africa’s National AI Policy Reset: What Businesses Should Do Now',
   seoDescription:
     'The draft National AI Policy was withdrawn and a revised version is due to cabinet around March 2027. What that means for South African businesses using AI today, and what POPIA already requires.',

@@ -13,7 +13,7 @@ export const smeLandscape: ContentEntry = {
   slug: 'south-african-businesses-using-ai-gap-is-structure',
   title: 'South African businesses are trying AI. The open question is how it fits the work.',
   summary:
-    'More than half of small businesses in one 2026 survey use AI weekly, and larger firms report strategy and governance trailing adoption. We think the open question is workflow, not tools.',
+    'AI adoption is increasing, but the practical challenge is connecting AI to workflows, systems, data, and appropriate human oversight.',
   seoTitle: 'AI Adoption in South African Business: Where the Real Gap Is',
   seoDescription:
     'What recent South African surveys say about AI adoption, where the evidence is weak, and why we think the gap is about workflow and governance rather than access to tools.',

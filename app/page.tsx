@@ -11,19 +11,20 @@ import HeroLight from "@/components/ui/HeroLight";
 import { HandLoop } from "@/components/ui/HandMark";
 import { seo } from '@/lib/seo'
 
-// Homepage copy: "MaruOnline Website Copy, Sections 1–4", approved 20 Oct 2026.
+// Homepage copy: "Maru Online — Revised Website Copy" v1.0 (handover, 1 Nov 2026),
+// applied over "MaruOnline Website Copy, Sections 1–4" (approved 20 Oct 2026).
 // Editorial rules that came with it:
-//  - The free POPIA Assessment is an informational summary of areas to review
+//  - The free, informational POPIA review is a summary of areas to review
 //    against POPIA. Never call it a certification or a compliance audit.
 //  - Every listed capability must be work Maru Online can deliver. Keep
-//    "Data-Driven Growth Systems" about customer data, revenue processes and
+//    "Data-informed growth systems" about customer data, revenue processes and
 //    AI-enabled growth, not standalone campaign management.
 
 export const metadata: Metadata = {
   ...seo('/'),
-  title: "POPIA-Aware AI Systems for South African Businesses | Maru Online",
+  title: "POPIA-Aware AI Implementation for South African Businesses | Maru Online",
   description:
-    "We design AI systems around your business's challenges and integrate them into your existing workflows, with POPIA requirements in mind. Take the free POPIA Assessment.",
+    "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use, with POPIA-aware data governance built into the design and implementation.",
 };
 
 // ─── Layout constants ─────────────────────────────────────────────────────────
@@ -36,52 +37,52 @@ const steps = [
   {
     n: "1",
     tint: "paper-blue",
-    name: "Business & Workflow Assessment",
-    body: "Identify operational bottlenecks, repetitive tasks and opportunities for improvement. Establish where AI can deliver practical business value.",
+    name: "Business and workflow assessment",
+    body: "Identify operational bottlenecks, repetitive tasks, information flows, and opportunities for improvement. Establish where AI can deliver practical business value.",
   },
   {
     n: "2",
     tint: "paper-teal",
-    name: "AI System Design & Integration",
-    body: "We design AI systems around your specific business needs and integrate them into your existing workflows, systems and data sources, with data protection considered from the outset.",
+    name: "AI system design and integration",
+    body: "Design an AI-enabled workflow around your business needs and integrate it into the tools, systems, and data sources your team already uses. Consider POPIA-related data protection requirements as part of the design.",
   },
   {
     n: "3",
     tint: "paper-gold",
-    name: "Optimisation & Handover",
-    body: "Measure performance against an agreed baseline, refine the system and equip your team to use and manage it effectively.",
+    name: "Optimisation and handover",
+    body: "Measure performance against an agreed baseline, refine the workflow, document how it works, and equip your team to use and manage it effectively.",
   },
 ];
 
 const capabilities = [
   {
     icon: "compass" as const,
-    name: "Business & AI Strategy",
+    name: "Business and AI strategy",
     lead: "Understand the problem before building the solution.",
     items: [
-      "Business and workflow analysis",
-      "AI opportunity identification and prioritisation",
-      "Systems architecture and implementation roadmaps",
+      "Business and workflow analysis;",
+      "AI opportunity identification and prioritisation;",
+      "Systems architecture and implementation roadmaps.",
     ],
   },
   {
     icon: "browser" as const,
-    name: "Digital Systems & Integration",
-    lead: "Build the digital foundations your business needs to grow.",
+    name: "Digital systems and integration",
+    lead: "Build the digital foundations your business needs to work better.",
     items: [
-      "Websites, web applications and e-commerce platforms",
-      "AI integration across business systems and data sources",
-      "Connected digital infrastructure designed to support evolving business needs",
+      "Websites, web applications, and e-commerce platforms;",
+      "AI integration across business systems and data sources;",
+      "Connected digital infrastructure designed around evolving business needs.",
     ],
   },
   {
     icon: "signal" as const,
-    name: "Data-Driven Growth Systems",
-    lead: "Turn business data into better decisions and more effective customer processes.",
+    name: "Data-informed growth systems",
+    lead: "Turn business information into better decisions and more effective customer processes.",
     items: [
-      "Customer journey and revenue process analysis",
-      "Data-informed marketing and growth strategy",
-      "AI-enabled lead management, customer engagement and follow-up",
+      "Customer journey and revenue process analysis;",
+      "Data-informed marketing and growth strategy;",
+      "AI-enabled lead management, customer engagement, and follow-up.",
     ],
   },
 ];
@@ -113,14 +114,14 @@ export default function Home() {
             900px centred puts it at production's 190px at a 1280px viewport. */}
         <div className="relative w-full max-w-[900px] mx-auto">
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>AI Implementation Consultancy</span>
+            <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>POPIA-aware AI implementation</span>
           </FadeUp>
 
           <FadeUp delay={0.08}>
             <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">Your Team Already Uses AI.</span>
+              <span className="maru-headline-split-light">Your team already uses AI.</span>
               <br />
-              <span className="maru-headline-split-strong">Is It POPIA-Aware?</span>
+              <span className="maru-headline-split-strong">Is it POPIA-aware?</span>
             </h1>
           </FadeUp>
 
@@ -136,7 +137,7 @@ export default function Home() {
                   marginBottom: 0,
                 }}
               >
-                We design AI systems around the way your business already works and build them into the tools your team uses every day, with South Africa&apos;s POPIA requirements in mind from the start.
+                Maru Online helps South African businesses solve operational problems by designing and implementing practical AI-enabled workflows around the tools their teams already use. We consider POPIA-related data protection requirements from the beginning.
               </p>
             </div>
           </FadeUp>
@@ -154,7 +155,7 @@ export default function Home() {
                 textWrap: "balance",
               }}
             >
-              Less manual admin. Cleaner data. More time for the work that matters.
+              Less manual administration. Better-connected data. More time for the work that matters.
             </p>
           </FadeUp>
 
@@ -166,9 +167,14 @@ export default function Home() {
               data-maru-primary-cta
               className="flex flex-col items-stretch sm:items-start gap-3"
             >
-              <Button href="/popia-ai-check" variant="primary" className="cta-shine w-full sm:w-auto justify-center">
-                Take Your Free POPIA Assessment
-              </Button>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <Button href="/popia-ai-check" variant="primary" className="cta-shine w-full sm:w-auto justify-center">
+                  Take the free, informational POPIA review
+                </Button>
+                <Button href="/contact#contact-form" variant="secondary" className="w-full sm:w-auto justify-center">
+                  Discuss your business challenge
+                </Button>
+              </div>
               <p
                 style={{
                   fontFamily: "var(--font-body)",
@@ -179,7 +185,7 @@ export default function Home() {
                   margin: 0,
                 }}
               >
-                Free assessment · Report delivered by email
+                10 questions. About 5 minutes. Receive a short summary by email.
               </p>
             </div>
           </FadeUp>
@@ -198,15 +204,15 @@ export default function Home() {
           <FadeUp>
             <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>The problem</span>
             <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-              Disconnected Systems
+              Disconnected systems
               <br />
-              Create <span className="hl">Unnecessary Work.</span>
+              create <span className="hl">unnecessary work.</span>
             </h2>
             <p
               className="body-muted"
               style={{ maxWidth: "720px", marginBottom: "var(--space-section-header-mb)" }}
             >
-              Your business tools may work well individually. But when systems don&apos;t share information effectively, manual work increases, data becomes fragmented and managing data protection becomes more difficult.
+              Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information-handling becomes harder to manage.
             </p>
           </FadeUp>
 
@@ -236,15 +242,15 @@ export default function Home() {
           <FadeUp>
             <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>How we work</span>
             <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-              From Business Challenge
+              From business challenge
               <br />
-              to <span className="hl">Working AI System.</span>
+              to <span className="hl">working AI-enabled workflow.</span>
             </h2>
             <p
               className="body-muted"
               style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}
             >
-              Every engagement starts with understanding your business, identifying the problems worth solving, and determining where AI can make a measurable difference. We then design, integrate and refine a solution around your existing operations, with POPIA requirements in mind.
+              Every engagement starts with understanding the business problem, identifying the workflow that needs attention, and determining where AI or better-connected systems can create practical value. We then design, integrate, test, and refine the solution around your existing operations.
             </p>
           </FadeUp>
 
@@ -283,40 +289,65 @@ export default function Home() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 04 — SUPPORTING CAPABILITIES
+          SECTION 04 — POPIA-AWARE EXPLANATION (revised copy, 1 Nov 2026)
           bg: canvas
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        id="capabilities"
+        id="popia-aware"
         className={`${outerPad} py-24`}
         style={{ background: "var(--gradient-surface)" }}
       >
         <div className={innerWide}>
           <FadeUp>
-            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>Supporting capabilities</span>
             <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-              Strategy, Digital Infrastructure
+              Responsible implementation starts with
               <br />
-              <span className="hl">&amp; Growth</span>
+              <span className="hl">understanding the information involved.</span>
             </h2>
+            <p className="body-muted" style={{ maxWidth: "760px", marginBottom: "1.5rem" }}>
+              POPIA-aware means considering how personal information is collected, accessed, used, shared, stored, and retained when an AI-enabled workflow is designed or implemented. The exact considerations depend on the information, the purpose, the systems involved, and the providers connected to the workflow.
+            </p>
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontWeight: 600,
-                fontSize: "var(--text-body)",
-                color: "var(--color-ink-primary)",
-                lineHeight: "var(--leading-body)",
+                fontWeight: 400,
+                fontSize: "var(--text-meta)",
+                color: "var(--color-ink-tertiary)",
+                lineHeight: 1.6,
                 maxWidth: "760px",
-                marginBottom: "0.75rem",
+                margin: 0,
+                borderLeft: "3px solid var(--color-cyan)",
+                paddingLeft: "1rem",
               }}
             >
-              The right systems start with the right business decisions.
+              Maru Online provides implementation and design support. This is not legal advice or a blanket guarantee of POPIA compliance.
             </p>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 05 — SUPPORTING CAPABILITIES
+          bg: secondary
+          ════════════════════════════════════════════════════════════════════ */}
+      <section
+        id="capabilities"
+        className={`${outerPad} py-24`}
+        style={{ backgroundColor: "var(--color-bg-secondary)" }}
+      >
+        <div className={innerWide}>
+          <FadeUp>
+            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>Supporting capabilities</span>
+            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
+              Capabilities that
+              <br />
+              <span className="hl">support implementation.</span>
+            </h2>
             <p
               className="body-muted"
               style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}
             >
-              AI delivers more value when business strategy, digital infrastructure and operational processes work together. We bring these elements together to help South African businesses build connected, data-informed systems that support growth.
+              The right AI workflow depends on the business decisions, systems, data, and processes around it. We bring these elements together to help South African businesses build connected, usable systems that can evolve over time.
             </p>
           </FadeUp>
 
@@ -402,7 +433,7 @@ export default function Home() {
         alt="Two professionals celebrating a win together in the office"
         overlayText={
           <>
-            <span style={{ display: 'block', fontWeight: 200 }}>We don&apos;t replace your team.</span>
+            <span style={{ display: 'block', fontWeight: 200 }}>We do not replace your team.</span>
             <span style={{ display: 'block', fontWeight: 200 }}>
               We give them their <HandLoop>time back.</HandLoop>
             </span>
@@ -412,8 +443,8 @@ export default function Home() {
       />
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 05 — POPIA ASSESSMENT
-          bg: navy
+          SECTION 06 — NEXT STEPS
+          bg: canvas
           ════════════════════════════════════════════════════════════════════ */}
       <AssessmentFormSection />
 

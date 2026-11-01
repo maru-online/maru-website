@@ -27,10 +27,10 @@ type FormData = z.infer<typeof schema>
 
 const REFERRALS = [
   { value: '',            label: 'Please select…' },
-  { value: 'LinkedIn',    label: 'LinkedIn' },
-  { value: 'Google',      label: 'Google Search' },
-  { value: 'Referral',    label: 'Referral / Word of mouth' },
+  { value: 'Referral',    label: 'Referral / word of mouth' },
+  { value: 'Google',      label: 'Search engine' },
   { value: 'Social',      label: 'Social media' },
+  { value: 'Existing',    label: 'Existing relationship' },
   { value: 'Other',       label: 'Other' },
 ]
 
@@ -106,7 +106,7 @@ export default function ContactForm() {
           color:        'var(--color-ink-primary)',
           margin:       0,
         }}>
-          Thank you. We&apos;ll be in touch to discuss your enquiry.
+          Thank you. We will review your enquiry and be in touch about the next step.
         </p>
       </div>
     )
@@ -129,15 +129,15 @@ export default function ContactForm() {
           paddingBottom: 0,
         }}
       >
-        Tell Us a Little About Your Challenge.
+        Describe your challenge.
       </h2>
       <p className="body-muted" style={{ marginBottom: '2rem' }}>
-        Share a few details about your business and what you&apos;re looking to improve. You don&apos;t need to have a technical solution in mind.
+        Share a few details about your business and what you are looking to improve. The more context you provide, the more useful the initial conversation can be.
       </p>
 
       {/* ── Row: First Name + Last Name ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-        <Field label="First Name" required error={errors.firstName?.message}>
+        <Field label="First name" required error={errors.firstName?.message}>
           <Input
             {...register('firstName')}
             placeholder="Jane"
@@ -145,7 +145,7 @@ export default function ContactForm() {
             className={inputClass}
           />
         </Field>
-        <Field label="Last Name" required error={errors.lastName?.message}>
+        <Field label="Last name" required error={errors.lastName?.message}>
           <Input
             {...register('lastName')}
             placeholder="Doe"
@@ -156,7 +156,7 @@ export default function ContactForm() {
       </div>
 
       {/* ── Business Name (own row, below names) ── */}
-      <Field label="Business Name" required error={errors.business?.message}>
+      <Field label="Business name" required error={errors.business?.message}>
         <Input
           {...register('business')}
           placeholder="Acme (Pty) Ltd"
@@ -167,7 +167,7 @@ export default function ContactForm() {
 
       {/* ── Row: Email + Mobile ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8">
-        <Field label="Email Address" required error={errors.email?.message}>
+        <Field label="Email address" required error={errors.email?.message}>
           <Input
             {...register('email')}
             type="email"
@@ -176,7 +176,7 @@ export default function ContactForm() {
             className={inputClass}
           />
         </Field>
-        <Field label="Mobile Number (optional)" error={errors.mobile?.message}>
+        <Field label="Mobile number (optional)" error={errors.mobile?.message}>
           <Input
             {...register('mobile')}
             type="tel"
@@ -191,7 +191,7 @@ export default function ContactForm() {
       <input type="hidden" {...register('service')} />
 
       {/* ── Message ── */}
-      <Field label="Tell Us About Your Business Challenge" error={errors.message?.message}>
+      <Field label="What process or operational challenge would you like to improve?" error={errors.message?.message}>
         <Textarea
           {...register('message')}
           placeholder="Briefly describe the problem, process or task you're looking to improve."
@@ -201,7 +201,7 @@ export default function ContactForm() {
       </Field>
 
       {/* ── Referral ── */}
-      <Field label="How Did You Hear About Us? (optional)" error={errors.referral?.message}>
+      <Field label="How did you hear about us? (optional)" error={errors.referral?.message}>
         <Select {...register('referral')} defaultValue="" className={selectClass}>
           {REFERRALS.map(r => (
             <option key={r.value} value={r.value}>
@@ -224,11 +224,24 @@ export default function ContactForm() {
       )}
 
       <Button variant="primary" type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Sending…' : 'Send My Enquiry'}
+        {isSubmitting ? 'Sending…' : 'Send my enquiry'}
       </Button>
+      <p style={{
+        fontFamily:   'var(--font-body)',
+        fontSize:     'var(--text-meta)',
+        fontWeight:   400,
+        color:        'var(--color-ink-secondary)',
+        lineHeight:   1.6,
+        marginTop:    '0.75rem',
+        marginBottom: 0,
+      }}>
+        We will review your enquiry and be in touch about the next step.
+      </p>
 
-      {/* Privacy assurance, approved 22 Oct 2026 (option B). Keep it true:
-          this Brevo list must never receive marketing without an opt-in. */}
+      {/* Privacy note, revised 1 Nov 2026 ("Maru Online — Revised Website Copy"
+          v1.0, section 8; replaces the 22 Oct option B wording). Keep it true:
+          this Brevo list must never receive marketing without an opt-in, and it
+          must match the Privacy Policy. */}
       <p style={{
         fontFamily:   'var(--font-body)',
         fontSize:     'var(--text-meta)',
@@ -239,7 +252,7 @@ export default function ContactForm() {
         marginBottom: 0,
         maxWidth:     '520px',
       }}>
-        Your details are used only to respond to your enquiry. They are never sold, and you won&apos;t be added to marketing emails without your consent. Please avoid including sensitive personal or confidential business information in this form. See our{' '}
+        Your details will be used to respond to your enquiry. We will not add you to marketing communications without the relevant consent. Please do not include sensitive personal information or confidential business information in this form. See our{' '}
         <Link
           href="/privacy-policy"
           className="underline underline-offset-2 hover:text-[var(--color-cyan-ink)] focus-visible:outline-none focus-visible:text-[var(--color-cyan-ink)]"

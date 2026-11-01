@@ -9,10 +9,11 @@ const inner    = "max-w-[1100px] mx-auto";
 const ASSESSMENT_HREF = "/popia-ai-check";
 const CONTACT_HREF    = "/contact#contact-form";
 
-// Homepage Section 5 — final call to action. Copy approved 22 Oct 2026.
+// Homepage Section 6 — final call to action. Copy: "Maru Online — Revised
+// Website Copy" v1.0 (1 Nov 2026), over the 22 Oct 2026 approval.
 // Blended UI, 1 Nov 2026 (approved on the design canvas): warm light ground
 // after the navy image band, two routes side by side in order of weight. The
-// free POPIA Assessment card carries the gold border and the gold sheen button;
+// free, informational POPIA review card carries the gold border and the gold sheen button;
 // the project conversation stays quiet. Keeps the #assessment id so existing
 // in-page links still land here.
 export default function AssessmentFormSection() {
@@ -26,17 +27,17 @@ export default function AssessmentFormSection() {
         <FadeUp>
           <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>Next steps</span>
           <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-            Ready to Build AI Into
+            Ready to build AI into
             <br />
-            <span className="hl">Your Existing Operations?</span>
+            <span className="hl">your existing operations?</span>
           </h2>
           <p className="body-muted" style={{ maxWidth: "720px", marginBottom: "var(--space-section-header-mb)" }}>
-            Whether you&apos;re exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
+            Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
           </p>
         </FadeUp>
 
         <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          {/* ── Route 1: the free POPIA Assessment ───────────────────────── */}
+          {/* ── Route 1: the free, informational POPIA review ─────────────── */}
           <StaggerChild className="h-full">
             <div
               className="card-lift card-accent-gold h-full flex flex-col"
@@ -55,27 +56,15 @@ export default function AssessmentFormSection() {
                   marginBottom: "0.5rem",
                 }}
               >
-                Start with the free POPIA Assessment
+                Start with the free, informational POPIA review.
               </h3>
               <p className="body-muted" style={{ marginBottom: "1.75rem" }}>
-                Identify areas to investigate and receive a summary report by email.
+                Answer 10 questions in about five minutes and receive a short summary showing areas to review and actions to prioritise.
               </p>
               <div className="mt-auto flex flex-col items-stretch sm:items-start gap-3">
                 <Button href={ASSESSMENT_HREF} variant="primary" className="cta-shine w-full sm:w-auto justify-center">
-                  Take Your Free POPIA Assessment
+                  Take the free, informational POPIA review
                 </Button>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "var(--text-meta)",
-                    fontWeight: 400,
-                    color: "var(--color-ink-tertiary)",
-                    margin: 0,
-                    lineHeight: 1.5,
-                  }}
-                >
-                  Free assessment · Report delivered by email
-                </p>
               </div>
             </div>
           </StaggerChild>
@@ -115,14 +104,14 @@ export default function AssessmentFormSection() {
                 Already have a project in mind?
               </h3>
               <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Tell us about the business challenge you want to solve.
+                Tell us about the business challenge or workflow you want to improve.
               </p>
               <Link
                 href={CONTACT_HREF}
                 className="mt-auto inline-flex items-center self-start min-h-[44px] font-body font-semibold text-[var(--color-cyan-ink)] no-underline transition-[color,opacity] duration-200 hover:underline hover:underline-offset-4 active:opacity-70 focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4"
                 style={{ fontSize: "var(--text-body)" }}
               >
-                Discuss a Business Challenge&nbsp;→
+                Discuss your business challenge&nbsp;→
               </Link>
             </div>
           </StaggerChild>

@@ -5,7 +5,10 @@ import { BGPattern } from "@/components/ui/bg-pattern";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 
-// Invara product page, 20 Oct 2026. Copy drawn from the Invara artifacts
+// Invara product page, 20 Oct 2026. Copy revised 1 Nov 2026 per "Maru Online —
+// Revised Website Copy" v1.0 (section 5): five-step workflow, AI and
+// approval wording without absolutes, POPIA-aware handling points (no
+// "operator"/"sub-operator", no "designed to stay in South Africa"). Copy drawn from the Invara artifacts
 // ("Invara: where it stands", 18 Oct 2026, plus the workflow, engine and
 // User Manual docs). Rules carried over from those docs:
 //  - Invara is in its pilot phase. No results claims, time savings or
@@ -21,7 +24,7 @@ export const metadata: Metadata = {
   ...seo("/invara"),
   title: "Invara | Proof Sponsors Trust, for ESD, CSI and Bursary Programmes",
   description:
-    "Invara by Maru Online is the system of record for organisations that run sponsor-funded programmes. Every beneficiary and every rand on record, with reports ready when the sponsor asks.",
+    "Invara helps enterprise and supplier development, corporate social investment, and bursary implementers capture approved beneficiary, disbursement, and supporting evidence once, then produce sponsor-ready reports from one record.",
 };
 
 const outerPad  = "px-6 md:px-[60px]";
@@ -78,13 +81,11 @@ const audiences = [
 ];
 
 const stages = [
-  { n: "01", name: "Set up", body: "Programme from a template, your questions, sponsor access." },
-  { n: "02", name: "Consent", body: "POPIA notice and channel opt-in before anything else." },
-  { n: "03", name: "Capture", body: "WhatsApp, email, a secure link or a mentor." },
-  { n: "04", name: "Intake", body: "Every item received, identified, checked and staged." },
-  { n: "05", name: "Approve", body: "A named person approves from the Today queue." },
-  { n: "06", name: "Record", body: "One record per beneficiary, with a full events log." },
-  { n: "07", name: "Proof", body: "Dashboards, sponsor reports and the evidence pack." },
+  { n: "01", name: "Set up", body: "Set up a programme from a template, add your questions, and configure sponsor access." },
+  { n: "02", name: "Capture", body: "Collect information through the channels and forms that fit the programme and the people involved." },
+  { n: "03", name: "Review", body: "A named team member reviews items in the Today queue—the worklist for items that need attention." },
+  { n: "04", name: "Approve", body: "Approved information becomes part of the programme record with its source and approval history attached." },
+  { n: "05", name: "Report", body: "Generate sponsor-ready evidence packs from the approved record." },
 ];
 
 const channels = [
@@ -119,19 +120,24 @@ const roles = [
 
 const dataPoints = [
   {
-    label: "Where the record lives",
-    heading: "Designed to stay in South Africa",
-    body: "Beneficiary records and files are designed to be stored in South Africa, with each implementer's data kept separate from every other's.",
+    heading: "Consent before collection.",
+    body: "Explain the purpose and obtain the relevant permission before collecting information.",
   },
   {
-    label: "What leaves the country",
-    heading: "Masked text only",
-    body: "ID and bank numbers are masked before any AI step, so the AI model receives masked text only. Where a provider processes data outside South Africa, such as WhatsApp or email delivery, we set out the basis for that transfer under POPIA section 72.",
+    heading: "Collect what the programme needs.",
+    body: "Avoid collecting information that is not required for the defined purpose.",
   },
   {
-    label: "How it is handled",
-    heading: "Data protection in the design",
-    body: "Consent before collection. Only what the programme needs. Retention follows the programme's end date. The implementer acts as operator, and Invara as sub-operator under contract.",
+    heading: "Review before recording.",
+    body: "Use a named reviewer and an approval step before information is written to the programme record.",
+  },
+  {
+    heading: "Manage retention.",
+    body: "Align retention with the programme’s requirements and end date.",
+  },
+  {
+    heading: "Review provider and transfer arrangements.",
+    body: "Where a provider processes information outside South Africa, the relevant basis and safeguards should be documented.",
   },
 ];
 
@@ -306,7 +312,7 @@ export default function InvaraPage() {
 
           <FadeUp delay={0.16}>
             <p className="body-on-navy" style={{ maxWidth: "700px", marginBottom: "1.25rem" }}>
-              Invara is the system of record for organisations that run sponsor-funded programmes: enterprise and supplier development, CSI and bursaries. Every beneficiary and every rand on record, with reports ready when the sponsor asks.
+              Invara helps enterprise and supplier development, corporate social investment, and bursary implementers capture approved beneficiary, disbursement, and supporting evidence once—then produce sponsor-ready reports from one record.
             </p>
             <p
               style={{
@@ -326,7 +332,7 @@ export default function InvaraPage() {
           <FadeUp delay={0.22}>
             <div data-maru-primary-cta className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4" style={{ marginBottom: "1rem" }}>
               <Button href={DEMO_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Request a demo
+                Discuss your programme
               </Button>
               <Button href="#how-it-works" variant="secondary" className="w-full sm:w-auto justify-center">
                 See how it works
@@ -394,7 +400,7 @@ export default function InvaraPage() {
                 maxWidth: "820px",
               }}
             >
-              <strong style={{ fontWeight: 700 }}>The audit trail is the product.</strong> Every field has a source and an approver, so a sponsor or verifier question is answered with evidence.
+              <strong style={{ fontWeight: 700 }}>The audit trail is the product.</strong> Every field has a source and an approver, so sponsor or verifier questions can be answered with evidence rather than reconstruction.
             </p>
           </FadeUp>
         </div>
@@ -438,12 +444,12 @@ export default function InvaraPage() {
         <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.07)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
-            <SectionHead eyebrow="How it works" light="Seven stages," strong="one spine." onNavy />
+            <SectionHead eyebrow="How it works" light="A structured workflow" strong="from capture to reporting." onNavy />
             <p className="body-on-navy" style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}>
-              Every programme runs on the same path, from set-up to proof. While a beneficiary is in the programme, a monthly cycle feeds each new item back through intake.
+              An evidence pack is a structured collection of approved programme information and supporting documents prepared for sponsor reporting or verification.
             </p>
           </FadeUp>
-          <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
+          <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {stages.map((s) => (
               <StaggerChild key={s.n} className="h-full">
                 <div
@@ -452,10 +458,10 @@ export default function InvaraPage() {
                     padding: "1.25rem 1rem",
                     background: "rgba(250,250,248,0.05)",
                     border: "1px solid rgba(250,250,248,0.12)",
-                    borderTop: `3px solid ${s.n === "05" ? "var(--color-gold)" : "var(--color-cyan)"}`,
+                    borderTop: `3px solid ${s.n === "04" ? "var(--color-gold)" : "var(--color-cyan)"}`,
                   }}
                 >
-                  <span aria-hidden="true" style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1rem", color: s.n === "05" ? "var(--color-gold)" : "var(--color-cyan)", marginBottom: "0.5rem" }}>
+                  <span aria-hidden="true" style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1rem", color: s.n === "04" ? "var(--color-gold)" : "var(--color-cyan)", marginBottom: "0.5rem" }}>
                     {s.n}
                   </span>
                   <h3 style={{ ...cardHeading, color: "var(--color-ink-inverted)", fontSize: "1.05rem", marginBottom: "0.4rem" }}>{s.name}</h3>
@@ -467,10 +473,10 @@ export default function InvaraPage() {
           <FadeUp delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ marginTop: "2.5rem" }}>
               <p className="body-on-navy" style={{ margin: 0, borderLeft: "4px solid var(--color-gold)", paddingLeft: "1.25rem" }}>
-                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>Nothing reaches the record unapproved.</strong> Every item is staged first, and a named person approves it. Reports read approved data only.
+                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>AI speeds up capture. People keep it accountable.</strong> AI classifies incoming items and extracts fields from masked text. A named team member reviews and approves each item before it enters the record.
               </p>
               <p className="body-on-navy" style={{ margin: 0, borderLeft: "4px solid var(--color-cyan)", paddingLeft: "1.25rem" }}>
-                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>AI makes capture fast. People make it trustworthy.</strong> AI classifies items and pulls out the fields; your team checks and signs.
+                The system is designed to make review and approval clear, traceable, and part of the workflow—not an afterthought.
               </p>
             </div>
           </FadeUp>
@@ -503,7 +509,7 @@ export default function InvaraPage() {
           </StaggerParent>
           <FadeUp delay={0.1}>
             <p className="body-muted" style={{ marginTop: "2rem", marginBottom: 0, maxWidth: "820px", borderLeft: "4px solid var(--color-cyan)", paddingLeft: "1.25rem" }}>
-              <strong style={{ fontWeight: 600, color: "var(--color-ink-primary)" }}>Made for South African conditions.</strong> A low-data web form, mentor-assisted capture on site visits, and an SMS nudge when a WhatsApp message goes unread.
+              <strong style={{ fontWeight: 600, color: "var(--color-ink-primary)" }}>Built for South African programme delivery.</strong> Low-data forms, mentor-assisted capture, and SMS follow-up support the realities of programme delivery in the field and help teams follow up when a WhatsApp message goes unread.
             </p>
           </FadeUp>
         </div>
@@ -586,16 +592,15 @@ export default function InvaraPage() {
       <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
         <div className={innerWide}>
           <FadeUp>
-            <SectionHead eyebrow="Data and POPIA" light="Your beneficiaries' records," strong="handled with care." />
+            <SectionHead eyebrow="Data and POPIA" light="POPIA-aware" strong="information handling." />
             <p className={`body-muted ${innerText}`} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              Beneficiary files hold ID documents, bank details and business records. Invara is designed around that from the start.
+              Invara is designed to make consent, access, data minimisation, retention, approval, and information handling visible parts of the workflow. The exact controls depend on the information involved, the implementation configuration, and the providers connected to the system.
             </p>
           </FadeUp>
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {dataPoints.map((d) => (
               <StaggerChild key={d.heading} className="h-full">
                 <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
-                  <span style={smallLabel}>{d.label}</span>
                   <h3 style={cardHeading}>{d.heading}</h3>
                   <p className="body-muted" style={{ marginBottom: 0 }}>{d.body}</p>
                 </div>
@@ -617,16 +622,16 @@ export default function InvaraPage() {
               <span style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "0.85rem", color: "var(--color-cyan)" }}>Invara by Maru Online</span>
             </div>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              <span style={{ fontWeight: 300 }}>See your programme</span>
+              <span style={{ fontWeight: 300 }}>See how Invara could work</span>
               <br />
-              <span style={{ fontWeight: 700 }}>on one record.</span>
+              <span style={{ fontWeight: 700 }}>for your programmes.</span>
             </h2>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              Tell us about the programmes you run and the sponsors you report to. We will walk you through how Invara would handle them, from first contact with a beneficiary to the evidence pack.
+              Tell us about the programmes you run and the sponsor reporting requirements you manage. We will show how Invara can handle consent, evidence, review, approval, and sponsor-ready reporting through one record.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Button href={DEMO_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Request a demo
+                Discuss your programme
               </Button>
               <Button href="/about" variant="secondary" className="w-full sm:w-auto justify-center">
                 About Maru Online

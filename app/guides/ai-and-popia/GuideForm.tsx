@@ -95,7 +95,7 @@ export default function GuideForm({ live }: { live: boolean }) {
         <p className="body-muted text-base leading-relaxed mt-6">
           Want to see where your business stands?{" "}
           <Link href="/popia-ai-check" className="text-cyan-ink underline hover:no-underline">
-            Take the free POPIA Assessment.
+            Take the free, informational POPIA review.
           </Link>
         </p>
       </div>

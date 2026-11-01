@@ -26,7 +26,21 @@ import { GUIDE_LIVE, GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guide
 // scoring and the synthesis prompt read the same wording the visitor sees.
 
 const questions = ASSESSMENT_QUESTIONS;
-const areas = ASSESSMENT_AREAS.map((a, i) => ({ index: i + 1, label: a.label }));
+// Intro descriptions per area ("Maru Online — Revised Website Copy" v1.0,
+// section 9). Keyed by area key so they stay with the right area if the
+// question order changes.
+const AREA_DESCRIPTIONS: Record<string, string> = {
+  ai_use:        "How AI is used and where a person reviews or controls the outcome.",
+  data_location: "Where client information is stored and shared.",
+  access:        "Who can access client information.",
+  permission:    "How people are informed and how relevant permission is handled.",
+  incident:      "What happens if there is a data or information-handling incident.",
+};
+const areas = ASSESSMENT_AREAS.map((a, i) => ({
+  index: i + 1,
+  label: a.label,
+  description: AREA_DESCRIPTIONS[a.key] ?? "",
+}));
 
 // ── Status display ─────────────────────────────────────────────────────────
 
@@ -196,20 +210,26 @@ function AssessmentWizard() {
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">POPIA Assessment</span>
+            <span className="label-eyebrow">Free, informational POPIA review</span>
             <h1 className="text-3xl font-semibold text-navy leading-tight mb-4 border-none">
-              Find out where your client information goes when your team uses AI.
+              Understand how your business handles information when your team uses AI.
             </h1>
-            <p className="body-muted text-lg mb-8 leading-relaxed">
-              10 questions across 5 areas. About 5 minutes.
+            <p className="body-muted text-lg mb-3 leading-relaxed">
+              Answer 10 questions in about five minutes to receive a short report showing your score across five areas, with actions to prioritise.
+            </p>
+            <p className="body-muted text-base mb-2 leading-relaxed">
+              Designed for South African businesses exploring or already using AI.
+            </p>
+            <p className="text-ink-tertiary text-sm mb-8 leading-relaxed">
+              This is an informational review, not legal advice or a formal compliance opinion.
             </p>
 
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-6">
-              <p className="text-ink-primary text-base font-medium leading-relaxed mb-3">
-                You&apos;ll get a short report showing how your business rates in each of the five areas, and what to fix first.
-              </p>
-              <p className="text-ink-primary text-base font-medium leading-relaxed">
-                Answer based on how things actually work today — not how you want them to work. The more honest your answers, the more useful your result.
+              <h2 className="text-ink-primary text-base font-semibold leading-relaxed mb-2 border-none">
+                Answer based on what happens today.
+              </h2>
+              <p className="text-ink-primary text-base leading-relaxed">
+                Answer based on how things actually work today—not how you want them to work. The more honest your answers, the more useful your result will be.
               </p>
             </div>
 
@@ -220,17 +240,29 @@ function AssessmentWizard() {
                   key={a.index}
                   className="flex items-center gap-3 bg-bg-canvas border border-border-default rounded-lg px-4 py-3"
                 >
-                  <span className="text-xs font-mono text-cyan-ink w-4">{a.index}</span>
-                  <span className="text-ink-secondary text-sm">{a.label}</span>
+                  <span className="text-xs font-mono text-cyan-ink w-4 self-start pt-0.5">{a.index}</span>
+                  <span className="flex flex-col">
+                    <span className="text-ink-primary text-sm font-medium">{a.label}</span>
+                    {a.description && (
+                      <span className="text-ink-secondary text-sm">{a.description}</span>
+                    )}
+                  </span>
                 </div>
               ))}
             </div>
+
+            <h2 className="text-ink-primary text-base font-semibold leading-relaxed mb-2 border-none">
+              Receive a practical summary.
+            </h2>
+            <p className="body-muted text-base mb-8 leading-relaxed">
+              Your report will highlight the areas that may need attention and suggest which actions to prioritise first. It is intended to help you identify questions for further investigation.
+            </p>
 
             <Button
               onClick={handleStart}
               variant="primary"
             >
-              Start the assessment
+              Start the free review
             </Button>
           </div>
         )}
@@ -407,10 +439,10 @@ function AssessmentWizard() {
             </div>
 
             <h2 className="text-2xl font-semibold text-navy mb-3 border-none">
-              Your report is on its way.
+              Thank you.
             </h2>
             <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
-              Check your inbox for a link to your report: your result in each of the five areas and a recommended next step.
+              Your responses have been received. Your informational summary will be sent by email.
             </p>
 
             <div className="bg-bg-canvas border border-border-default rounded-lg p-6 text-left mb-8">
@@ -418,7 +450,7 @@ function AssessmentWizard() {
                 While you wait:
               </p>
               <p className="body-muted text-base leading-relaxed">
-                The report will invite you to request a proposal. We then contact you to arrange a short call at a time that suits you, where we go through your assessment together and go deeper on what we find. If there&apos;s no clear opportunity, we&apos;ll tell you.
+                The report will invite you to request a proposal. We then contact you to arrange a short call at a time that suits you, where we go through your review together and go deeper on what we find. If there&apos;s no clear opportunity, we&apos;ll tell you.
               </p>
             </div>
 

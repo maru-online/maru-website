@@ -9,9 +9,13 @@ import Button from './Button'
 
 // ─── Nav link definitions ─────────────────────────────────────────────────────
 
+// Labels and order per "Maru Online — Revised Website Copy" v1.0 (1 Nov 2026):
+// Home, About, Invara, Working With Us, Guides & Resources, Contact.
 const allLinks = [
+  { label: 'Home',         href: '/' },
   { label: 'About',        href: '/about' },
   { label: 'Invara',       href: '/invara' },
+  { label: 'Working With Us', href: '/working-with-us' },
   // Insights shows only when there is something behind it: the layout passes
   // showInsights (GUIDE_PAGE_VISIBLE in lib/guides/config.ts — the guide is the
   // hub's featured item). A nav item that leads to an empty room costs
@@ -137,7 +141,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
             <Button variant="primary" href="/popia-ai-check" className="cta-shine !px-5 !py-2 !text-[11px]">
-              Start the assessment
+              Start the free review
             </Button>
           </div>
 
@@ -216,7 +220,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
               <Button variant="primary" href="/popia-ai-check" className="cta-shine w-full !justify-center">
-                Start the assessment
+                Start the free review
               </Button>
             </div>
           </motion.div>

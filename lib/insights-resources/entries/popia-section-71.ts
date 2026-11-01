@@ -8,9 +8,9 @@ import type { ContentEntry } from '../types'
 export const section71: ContentEntry = {
   section: 'insights',
   slug: 'popia-section-71-automated-decisions-ai-business',
-  title: 'When AI recommends and a person just approves: section 71 for everyday business decisions',
+  title: 'When AI recommends and a person approves: understanding section 71 in everyday business decisions.',
   summary:
-    'POPIA restricts decisions made solely by automated profiling. For a business using AI to screen, score or rank people, the word “solely” does a lot of work.',
+    'For businesses that use AI to screen, score, or rank people, whether a decision is made “solely” by automated processing is material under section 71. This guide explains the issue in practical terms.',
   seoTitle: 'POPIA Section 71 and AI: Automated Decisions in South African Business',
   seoDescription:
     'What POPIA section 71 means when your business uses AI to screen candidates, score customers or rate staff, and a five-question test to run before AI touches a decision about a person.',

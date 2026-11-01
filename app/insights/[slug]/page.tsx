@@ -438,12 +438,12 @@ export default async function InsightArticlePage(
                 Reading about integration gaps is one thing. Finding yours is another.
               </p>
               <p className="article-cta-body">
-                The free POPIA Assessment shows you where to look first, and the
-                report arrives by email.
+                The free, informational POPIA review shows you where to look first, and the
+                summary arrives by email.
               </p>
               <div className="article-cta-actions">
                 <Link href="/popia-ai-check" className="btn-cyan">
-                  Start the assessment
+                  Start the free review
                 </Link>
                 <Link href="/insights" className="btn-ghost-white">
                   More articles →
