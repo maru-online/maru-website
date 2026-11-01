@@ -12,6 +12,7 @@ import Button from './Button'
 const allLinks = [
   { label: 'About',        href: '/about' },
   { label: 'Invara',       href: '/invara' },
+  { label: 'Working With Us', href: '/working-with-us' },
   // Insights shows only when there is something behind it: the layout passes
   // showInsights (GUIDE_PAGE_VISIBLE in lib/guides/config.ts — the guide is the
   // hub's featured item). A nav item that leads to an empty room costs
