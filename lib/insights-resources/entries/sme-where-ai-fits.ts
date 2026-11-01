@@ -11,9 +11,9 @@ import type { ContentEntry } from '../types'
 export const smeLandscape: ContentEntry = {
   section: 'insights',
   slug: 'south-african-businesses-using-ai-gap-is-structure',
-  title: 'South African businesses are using AI. The gap is in how it fits the work.',
+  title: 'South African businesses are trying AI. The open question is how it fits the work.',
   summary:
-    'More than half of small businesses in one 2026 survey use AI weekly, and larger firms report strategy and governance trailing adoption. We think the common gap is workflow, not tools.',
+    'More than half of small businesses in one 2026 survey use AI weekly, and larger firms report strategy and governance trailing adoption. We think the open question is workflow, not tools.',
   seoTitle: 'AI Adoption in South African Business: Where the Real Gap Is',
   seoDescription:
     'What recent South African surveys say about AI adoption, where the evidence is weak, and why we think the gap is about workflow and governance rather than access to tools.',
@@ -35,7 +35,7 @@ export const smeLandscape: ContentEntry = {
   body: [
     {
       t: 'p',
-      text: 'South African business owners no longer need persuading to try AI. The harder question, and the one we are asked most, is where it belongs in their business. This is our reading of the recent evidence, and what we would do about it.',
+      text: 'Many South African business owners are already trying AI. A question we hear often is where it belongs in the business. This is our reading of the recent evidence, and what we would do about it.',
     },
     { t: 'h2', text: 'What the surveys say' },
     {
