@@ -5,7 +5,9 @@ import Glyph from "@/components/ui/Glyph";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 
-// Engagement & Investment page. Copy: "Engagement & Investment Page — Copy and
+// Working With Us (Engagement & Investment) page, at /working-with-us. Named
+// 31 Oct 2026 so the site does not read as selling priced products; /pricing
+// redirects here. Copy: "Engagement & Investment Page — Copy and
 // Implementation Brief", supplied 30 Oct 2026. Applied as written, except the
 // brand name, which the site writes "Maru Online" (two words), never "MaruOnline".
 //
@@ -27,8 +29,8 @@ import { seo } from "@/lib/seo";
 // before this page is released.
 
 export const metadata: Metadata = {
-  ...seo("/pricing"),
-  title: "Engagement & Investment | How Maru Online Approaches Pricing",
+  ...seo("/working-with-us"),
+  title: "Working With Us | How a Maru Online Engagement Takes Shape",
   description:
     "We start with your business challenge, then determine the right approach, scope and investment. See how an engagement takes shape and what determines the cost.",
 };
@@ -41,33 +43,6 @@ const CONTACT_HREF = "/contact#contact-form";
 const ASSESSMENT_HREF = "/popia-ai-check";
 
 // ─── Content ──────────────────────────────────────────────────────────────────
-
-const steps = [
-  {
-    n: "01",
-    label: "Understand the business challenge",
-    heading: "Establish What Needs to Change",
-    body: "We discuss the operational challenge, the current process and the outcome your business wants to achieve. The objective is to understand the underlying problem before deciding whether AI is the appropriate response.",
-  },
-  {
-    n: "02",
-    label: "Assess the opportunity",
-    heading: "Determine the Right Approach",
-    body: "We assess where AI, systems integration or other digital solutions could address the challenge. The recommended approach depends on your existing systems, processes, data and business requirements.",
-  },
-  {
-    n: "03",
-    label: "Define the scope",
-    heading: "Establish What the Work Involves",
-    body: "Once the appropriate approach is established, we define the proposed solution, deliverables, implementation requirements and relevant assumptions. Where further investigation is required before the implementation can be scoped reliably, that requirement should be identified and agreed separately.",
-  },
-  {
-    n: "04",
-    label: "Agree on the investment",
-    heading: "Know What You’re Committing To",
-    body: "Before implementation begins, we communicate the agreed scope, investment, expected timeline and relevant responsibilities. Any material third-party costs or assumptions that could affect the engagement should also be identified.",
-  },
-];
 
 const factors = [
   {
@@ -128,17 +103,6 @@ const cardHeading: React.CSSProperties = {
   marginBottom: "0.75rem",
   border: "none",
   paddingBottom: 0,
-};
-
-const cardLabel: React.CSSProperties = {
-  display: "block",
-  fontFamily: "var(--font-body)",
-  fontSize: "var(--text-label)",
-  fontWeight: 500,
-  letterSpacing: "var(--tracking-eyebrow)",
-  textTransform: "uppercase",
-  color: "var(--color-ink-tertiary)",
-  marginBottom: "0.5rem",
 };
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -232,45 +196,9 @@ export default function PricingPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 3 — FROM CHALLENGE TO PROPOSAL — bg: secondary
-          Four steps shown as a numbered sequence in the About card style.
+          SECTION 4 — WHAT DETERMINES THE INVESTMENT — bg: secondary (the steps section was dropped, 31 Oct)
           ════════════════════════════════════════════════════════════════════ */}
       <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
-        <div className={innerWide}>
-          <FadeUp>
-            <SectionHead
-              eyebrow="How an engagement takes shape"
-              light="Understand the Challenge."
-              strong="Define the Work."
-            />
-            <p className={`body-muted ${innerText}`} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              Before recommending a solution, we need to understand the problem, the intended outcome and the practical requirements involved. This gives both parties a clearer basis for deciding what should be built and what the engagement will involve.
-            </p>
-          </FadeUp>
-
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            {steps.map((step) => (
-              <StaggerChild key={step.n} className="h-full">
-                <article
-                  className="card-lift h-full rounded-[10px]"
-                  style={{ padding: "2rem 1.75rem", borderTop: "3px solid var(--color-cyan)" }}
-                >
-                  <span style={{ ...cardLabel, color: "var(--color-cyan-ink, var(--color-ink-tertiary))" }}>
-                    Step {step.n} — {step.label}
-                  </span>
-                  <h3 style={cardHeading}>{step.heading}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{step.body}</p>
-                </article>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 4 — WHAT DETERMINES THE INVESTMENT — bg: surface
-          ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Project scope" strong="The Work Determines the Cost." />
@@ -307,9 +235,9 @@ export default function PricingPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 5 — COMMERCIAL CLARITY — bg: secondary
+          SECTION 5 — COMMERCIAL CLARITY — bg: surface
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Before work begins" strong={"Know What You’re Committing To."} />
@@ -320,13 +248,13 @@ export default function PricingPage() {
                 A clear engagement starts with a shared understanding of the work involved.
               </p>
               <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Our proposals should establish the agreed scope, deliverables, expected timeline and investment, together with any relevant assumptions, exclusions and responsibilities.
+                Our proposals establish the agreed scope, deliverables, expected timeline and investment, together with any relevant assumptions, exclusions and responsibilities.
               </p>
               <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Where third-party services are required, such as software licences, AI API usage or hosting, these costs should be identified and distinguished from Maru Online&apos;s fees wherever applicable.
+                Where third-party services are required, such as software licences, AI API usage or hosting, we identify these costs and distinguish them from Maru Online&apos;s fees wherever applicable.
               </p>
               <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
-                If requirements change or additional work becomes necessary, the implications for scope, cost and timing should be discussed before that work proceeds.
+                If requirements change or additional work becomes necessary, we discuss the implications for scope, cost and timing before that work proceeds.
               </p>
               <p
                 className="body-muted"
