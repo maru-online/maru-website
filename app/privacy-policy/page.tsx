@@ -33,8 +33,8 @@ export default function PrivacyPolicyPage() {
           We collect only what each form or tool needs.
         </p>
         <ul className="text-ink-secondary mb-4">
-          <li><strong className="text-ink-primary">POPIA Assessment.</strong> Your name, email address, business name, your website address if you give one, and your answers to the questions. We use these to calculate your result, show you your report and email you the link, and to prepare for a conversation with you if you ask for a proposal. There is an optional, unticked box if you also want to hear from us by email; ticking it is never needed to get your report.</li>
-          <li><strong className="text-ink-primary">Contact form (request a proposal).</strong> Your name, business name, email address, optional WhatsApp number, the service you are interested in, what you tell us about your needs, and how you heard about us. We use these to reply to you and prepare a proposal.</li>
+          <li><strong className="text-ink-primary">Free POPIA review.</strong> Your name, email address, business name, your website address if you give one, and your answers to the questions. We use these to calculate your result, show you your report and email you the link, and to prepare for a conversation with you if you ask for a proposal. There is an optional, unticked box if you also want to hear from us by email; ticking it is never needed to get your report.</li>
+          <li><strong className="text-ink-primary">Contact form (request a proposal).</strong> Your name, business name, email address, optional mobile number, the service you are interested in, what you tell us about your needs, and how you heard about us. We use these to reply to you and prepare a proposal.</li>
           <li><strong className="text-ink-primary">The Business AI Journal.</strong> Your email address and, if you give it, your first name, to send you the newsletter. You can unsubscribe at any time.</li>
           <li><strong className="text-ink-primary">Guide request.</strong> Your first name, email address and, optionally, company name, so we can send you our guide. A separate, unticked box lets you ask for our notes; the guide does not depend on it. We also record the wording you saw and the time, so we can show what you agreed to.</li>
           <li><strong className="text-ink-primary">WhatsApp and email.</strong> If you message us on WhatsApp or by email, we receive your number or address and what you write.</li>
@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">3. Automated reports and AI</h2>
         <p className="text-ink-secondary mb-4">
-          Your POPIA Assessment result and report are produced automatically from your answers, using fixed rules that score each area. The report is a general operational indicator. It is not legal advice and not a POPIA audit, and it has no legal or similarly significant effect on you. If you think it is wrong, tell us and we will review it and correct it.
+          Your POPIA review result and report are produced automatically from your answers, using fixed rules that score each area. The report is a general operational indicator. It is not legal advice and not a POPIA audit, and it has no legal or similarly significant effect on you. If you think it is wrong, tell us and we will review it and correct it.
         </p>
         <p className="text-ink-secondary mb-4">
           We also use an AI model, provided by Anthropic, to help us prepare internal notes from your answers. Those notes are for our preparation and are not shown to you as a decision about you. Anthropic processes this information in the United States. We do not send Anthropic your name, email address or website.
@@ -62,7 +62,7 @@ export default function PrivacyPolicyPage() {
         </p>
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Vercel</strong> hosts the website and keeps server logs, in the United States.</li>
-          <li><strong className="text-ink-primary">Neon</strong> hosts the database that holds POPIA Assessment results, reports and guide requests, in London, United Kingdom.</li>
+          <li><strong className="text-ink-primary">Neon</strong> hosts the database that holds POPIA review results, reports and guide requests, in London, United Kingdom.</li>
           <li><strong className="text-ink-primary">Brevo</strong> sends our emails (reports, replies, the newsletter and the guide) and holds contact records. Brevo stores data in the European Union (France, Germany and Belgium) and may also process it elsewhere, including the United States and India.</li>
           <li><strong className="text-ink-primary">Anthropic</strong> as described in section 3.</li>
           <li><strong className="text-ink-primary">Google</strong> provides reCAPTCHA and Google Analytics. Google acts for its own purposes for analytics cookies.</li>
@@ -79,8 +79,8 @@ export default function PrivacyPolicyPage() {
           We keep personal information only as long as we need it for the reason we collected it, and then delete it or de-identify it.
         </p>
         <ul className="text-ink-secondary mb-4">
-          <li><strong className="text-ink-primary">Guide requests</strong> are deleted after 12 months unless you confirmed you want our notes, have become a client, or have used the POPIA Assessment. If you confirmed the notes, we keep your details until you unsubscribe.</li>
-          <li><strong className="text-ink-primary">POPIA Assessment results and reports</strong> are kept for 12 months after you submit your answers and are then deleted, unless you have become a client or you have asked us to keep them. When they are deleted, your report link stops working.</li>
+          <li><strong className="text-ink-primary">Guide requests</strong> are deleted after 12 months unless you confirmed you want our notes, have become a client, or have used the POPIA review. If you confirmed the notes, we keep your details until you unsubscribe.</li>
+          <li><strong className="text-ink-primary">POPIA review results and reports</strong> are kept for 12 months after you submit your answers and are then deleted, unless you have become a client or you have asked us to keep them. When they are deleted, your report link stops working.</li>
           <li><strong className="text-ink-primary">Enquiries and proposals</strong> are kept only while we need them to reply to you or prepare a proposal. We review them at least once a year and delete or de-identify those we no longer need, unless you have become a client.</li>
           <li><strong className="text-ink-primary">Client records</strong> are kept for as long as the law requires us to keep them, and then deleted.</li>
           <li><strong className="text-ink-primary">On request,</strong> we delete your personal information sooner, unless the law requires us to keep it.</li>

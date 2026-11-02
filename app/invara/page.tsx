@@ -473,7 +473,7 @@ export default function InvaraPage() {
           <FadeUp delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ marginTop: "2.5rem" }}>
               <p className="body-on-navy" style={{ margin: 0, borderLeft: "4px solid var(--color-gold)", paddingLeft: "1.25rem" }}>
-                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>AI speeds up capture. People keep it accountable.</strong> AI classifies incoming items and extracts fields from masked text. A named team member reviews and approves each item before it enters the record.
+                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>AI speeds up capture. People keep it accountable.</strong> Invara is being built so that AI classifies incoming items and extracts fields from masked text, and a named team member reviews and approves items before they enter the record.
               </p>
               <p className="body-on-navy" style={{ margin: 0, borderLeft: "4px solid var(--color-cyan)", paddingLeft: "1.25rem" }}>
                 The system is designed to make review and approval clear, traceable, and part of the workflow—not an afterthought.
