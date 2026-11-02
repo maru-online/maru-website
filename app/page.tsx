@@ -230,12 +230,42 @@ export default function Home() {
 
           <ProblemCards />
 
-          {/* The picture of the fix, below the cards: the same five systems the
-              cards describe, joined into one live view. */}
-          <div
-            className="mx-auto"
-            style={{ maxWidth: "1000px", marginTop: "var(--space-section-header-mb)" }}
-          >
+          {/* Story turn (2 Nov 2026, proposed copy): the cards are the cost of
+              disconnected tools; the diagram is the fix. The bridge names the
+              turn so the two read as one argument, not two visuals. */}
+          <FadeUp>
+            <div
+              className="mx-auto text-center"
+              style={{ maxWidth: "640px", marginTop: "var(--space-section-header-mb)", marginBottom: "2rem" }}
+            >
+              <span
+                aria-hidden="true"
+                className="block mx-auto"
+                style={{ width: "1px", height: "48px", background: "var(--color-cyan)", marginBottom: "1.5rem" }}
+              />
+              <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1rem" }}>
+                What changes
+              </span>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 300,
+                  fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
+                  color: "var(--color-ink-primary)",
+                  lineHeight: 1.25,
+                  letterSpacing: "-0.02em",
+                  marginBottom: "0.75rem",
+                }}
+              >
+                Your tools stay. <span style={{ color: "var(--color-cyan-ink)" }}>We connect them.</span>
+              </h3>
+              <p className="body-muted" style={{ marginBottom: 0 }}>
+                Information is captured once and flows into one current view, with less retyping and fewer stray copies of client information.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="mx-auto" style={{ maxWidth: "1000px" }}>
             <DisconnectDiagram />
           </div>
         </div>
