@@ -33,24 +33,36 @@ const innerWide = "max-w-[1100px] mx-auto";
 
 // ─── Content ──────────────────────────────────────────────────────────────────
 
+// Step cards: production card design (restored 2 Nov 2026), copy as bullets.
 const steps = [
   {
     n: "1",
-    tint: "paper-blue",
+    icon: "search" as const,
     name: "Business and workflow assessment",
-    body: "Identify operational bottlenecks, repetitive tasks, information flows, and opportunities for improvement. Establish where AI can deliver practical business value.",
+    points: [
+      "Find bottlenecks, repetitive tasks, and information flows.",
+      "Establish where AI can deliver practical business value.",
+    ],
   },
   {
     n: "2",
-    tint: "paper-teal",
+    icon: "connect" as const,
     name: "AI system design and integration",
-    body: "Design an AI-enabled workflow around your business needs and integrate it into the tools, systems, and data sources your team already uses. Consider POPIA-related data protection requirements as part of the design.",
+    points: [
+      "Design an AI-enabled workflow around your business needs.",
+      "Integrate it with the tools, systems, and data your team already uses.",
+      "Consider POPIA-related data protection as part of the design.",
+    ],
   },
   {
     n: "3",
-    tint: "paper-gold",
+    icon: "chart" as const,
     name: "Optimisation and handover",
-    body: "Measure performance against an agreed baseline, refine the workflow, document how it works, and equip your team to use and manage it effectively.",
+    points: [
+      "Measure performance against an agreed baseline.",
+      "Refine the workflow and document how it works.",
+      "Equip your team to use and manage it.",
+    ],
   },
 ];
 
@@ -60,9 +72,9 @@ const capabilities = [
     name: "Business and AI strategy",
     lead: "Understand the problem before building the solution.",
     items: [
-      "Business and workflow analysis;",
-      "AI opportunity identification and prioritisation;",
-      "Systems architecture and implementation roadmaps.",
+      "Business and workflow analysis",
+      "AI opportunity identification and prioritisation",
+      "Systems architecture and implementation roadmaps",
     ],
   },
   {
@@ -70,9 +82,9 @@ const capabilities = [
     name: "Digital systems and integration",
     lead: "Build the digital foundations your business needs to work better.",
     items: [
-      "Websites, web applications, and e-commerce platforms;",
-      "AI integration across business systems and data sources;",
-      "Connected digital infrastructure designed around evolving business needs.",
+      "Websites, web applications, and e-commerce platforms",
+      "AI integration across business systems and data sources",
+      "Connected infrastructure that evolves with the business",
     ],
   },
   {
@@ -80,9 +92,9 @@ const capabilities = [
     name: "Data-informed growth systems",
     lead: "Turn business information into better decisions and more effective customer processes.",
     items: [
-      "Customer journey and revenue process analysis;",
-      "Data-informed marketing and growth strategy;",
-      "AI-enabled lead management, customer engagement, and follow-up.",
+      "Customer journey and revenue process analysis",
+      "Data-informed marketing and growth strategy",
+      "AI-enabled lead management, engagement, and follow-up",
     ],
   },
 ];
@@ -254,33 +266,49 @@ export default function Home() {
             </p>
           </FadeUp>
 
-          {/* Tinted paper cards, straight: after the mess in section 2, order. */}
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {steps.map((step) => (
               <StaggerChild key={step.n} className="h-full">
-                <div
-                  className={`paper-card paper-straight ${step.tint} h-full`}
-                  style={{ padding: "2.25rem 1.875rem" }}
-                >
-                  <span className="paper-num" style={{ display: "flex", marginBottom: "1.25rem" }} aria-hidden="true">
-                    0{step.n}
-                  </span>
+                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
+                    <span className="glyph-chip glyph-chip-lg">
+                      <Glyph name={step.icon} size={28} />
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        fontSize: "26px",
+                        fontWeight: 100,
+                        color: "rgba(61, 184, 198, 0.45)",
+                        lineHeight: 1,
+                        fontFamily: "var(--font-display)",
+                      }}
+                    >
+                      0{step.n}
+                    </span>
+                  </div>
                   <h3
                     style={{
                       fontSize: "var(--text-h3-sans)",
-                      fontWeight: 500,
+                      fontWeight: 600,
                       color: "var(--color-ink-primary)",
                       lineHeight: 1.3,
-                      marginBottom: "0.875rem",
-                      fontFamily: "var(--font-display)",
+                      marginBottom: "0.75rem",
+                      borderBottom: "2px solid var(--color-cyan)",
+                      paddingBottom: "0.75rem",
+                      fontFamily: "var(--font-body)",
                     }}
                   >
-                    <span className="sr-only">Step {step.n}: </span>
-                    {step.name}
+                    {step.n}. {step.name}
                   </h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>
-                    {step.body}
-                  </p>
+                  <ul className="prob-list">
+                    {step.points.map((p) => (
+                      <li key={p}>
+                        <span className="prob-dot" aria-hidden="true" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </StaggerChild>
             ))}

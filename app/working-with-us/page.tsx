@@ -48,13 +48,13 @@ const ASSESSMENT_HREF = "/popia-ai-check";
 // ─── Content ──────────────────────────────────────────────────────────────────
 
 const factors = [
-  "Business and workflow discovery;",
-  "Data and information flows;",
-  "System integrations;",
-  "AI model, API, and platform usage fees;",
-  "Hosting and infrastructure;",
-  "Testing, documentation, training, and handover;",
-  "Ongoing support and optimisation.",
+  "Business and workflow discovery",
+  "Data and information flows",
+  "System integrations",
+  "AI model, API, and platform usage fees",
+  "Hosting and infrastructure",
+  "Testing, documentation, training, and handover",
+  "Ongoing support and optimisation",
 ];
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────

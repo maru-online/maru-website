@@ -58,9 +58,18 @@ export default function AssessmentFormSection() {
               >
                 Start with the free, informational POPIA review.
               </h3>
-              <p className="body-muted" style={{ marginBottom: "1.75rem" }}>
-                Answer 10 questions in about five minutes and receive a short summary showing areas to review and actions to prioritise.
-              </p>
+              <ul className="prob-list" style={{ marginBottom: "1.75rem" }}>
+                {[
+                  "10 questions, about five minutes.",
+                  "A short summary by email.",
+                  "Areas to review and actions to prioritise.",
+                ].map((p) => (
+                  <li key={p}>
+                    <span className="prob-dot" aria-hidden="true" />
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
               <div className="mt-auto flex flex-col items-stretch sm:items-start gap-3">
                 <Button href={ASSESSMENT_HREF} variant="primary" className="cta-shine w-full sm:w-auto justify-center">
                   Take the free, informational POPIA review

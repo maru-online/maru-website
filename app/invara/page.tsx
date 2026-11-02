@@ -88,26 +88,39 @@ const stages = [
   { n: "05", name: "Report", body: "Generate sponsor-ready evidence packs from the approved record." },
 ];
 
+// Channel cards as bullets (2 Nov 2026).
 const channels = [
   {
     icon: "connect" as const,
     name: "WhatsApp",
-    body: "Beneficiaries use the app they already have, personal or Business. Consent, applications, document photos, assessment answers and check-ins.",
+    points: [
+      "The app beneficiaries already have, personal or Business.",
+      "Consent, applications, document photos, and check-ins.",
+    ],
   },
   {
     icon: "browser" as const,
     name: "Email",
-    body: "One inbound address per programme. The sender is verified once, and every attachment lands on the right record.",
+    points: [
+      "One inbound address per programme.",
+      "Sender verified once; attachments land on the right record.",
+    ],
   },
   {
     icon: "shield" as const,
     name: "Secure link",
-    body: "ID numbers, bank details and anything signed go through a one-time secure link, never through chat.",
+    points: [
+      "For ID numbers, bank details, and signed documents.",
+      "One-time link, never through chat.",
+    ],
   },
   {
     icon: "team" as const,
     name: "Mentor capture",
-    body: "Mentors log sessions by voice note or a two-minute form, and can capture on a site visit.",
+    points: [
+      "Sessions logged by voice note or a two-minute form.",
+      "Capture on site visits.",
+    ],
   },
 ];
 
@@ -502,7 +515,14 @@ export default function InvaraPage() {
                     <Glyph name={c.icon} size={22} />
                   </span>
                   <h3 style={cardHeading}>{c.name}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{c.body}</p>
+                  <ul className="prob-list">
+                    {c.points.map((p) => (
+                      <li key={p}>
+                        <span className="prob-dot" aria-hidden="true" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </StaggerChild>
             ))}

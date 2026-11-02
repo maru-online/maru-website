@@ -60,53 +60,57 @@ const approach = [
   },
 ];
 
+// Case-study cards as bullets (2 Nov 2026), tightened from the approved
+// paragraphs. "AI-guided" stays (see note at the top).
 const caseBlocks: {
   n: string;
   label: string;
   heading: string;
-  paras: React.ReactNode[];
+  points: React.ReactNode[];
 }[] = [
   {
     n: "01",
     label: "Industry research",
     heading: "Understand the challenge before defining the solution",
-    paras: [
-      "We conducted desktop research into the Enterprise and Supplier Development industry, focusing on the challenges agencies face when managing ESD programmes on behalf of large corporates.",
-      "The research helped establish the context in which the product needed to operate and identify opportunities to differentiate GrowthIQ in a market where programme delivery, information management and reporting all matter.",
+    points: [
+      "Desktop research into the Enterprise and Supplier Development (ESD) industry.",
+      "Focused on the challenges agencies face running ESD programmes for large corporates.",
+      "Set the product’s context and found room to differentiate GrowthIQ.",
     ],
   },
   {
     n: "02",
     label: "Product strategy",
     heading: "Define a clear point of difference",
-    paras: [
-      "The strategy centred on using AI to support a single source of truth for ESD programme management.",
+    points: [
+      "AI supporting a single source of truth for ESD programme management.",
       <>
-        GrowthIQ&apos;s positioning was built around a specific promise:{" "}
+        Positioned on one promise:{" "}
         <strong style={{ fontWeight: 600, color: "var(--color-ink-primary)" }}>
           &ldquo;Audit-ready reporting at every stage.&rdquo;
-        </strong>{" "}
-        Rather than treating reporting as a task completed at the end of a programme, the product was positioned around keeping information connected and making evidence available throughout the process.
+        </strong>
       </>,
-      "This gave the product a clear strategic direction—linking its operational purpose to a benefit that matters to corporates, transformation teams and the agencies managing their programmes.",
+      "Evidence available throughout the programme, not rebuilt at the end.",
     ],
   },
   {
     n: "03",
     label: "Brand strategy & design",
     heading: "Build a brand around the product promise",
-    paras: [
-      "We developed the GrowthIQ brand from the underlying strategy, including its brand mark, design tokens, visual identity and overall look and feel.",
-      "The design direction was shaped to communicate clarity, structure and confidence in reporting—reinforcing the product's focus on visibility and audit readiness. Data protection considerations also informed the brand and product design approach, reflecting the context in which business and programme information would be handled.",
+    points: [
+      "Brand mark, design tokens, visual identity, and look and feel, built from the strategy.",
+      "Designed to communicate clarity, structure, and confidence in reporting.",
+      "Data protection considerations informed the brand and product design.",
     ],
   },
   {
     n: "04",
     label: "Strategy into execution",
     heading: "Bring the product vision to life",
-    paras: [
-      "The research, positioning and brand system established a coherent foundation for GrowthIQ's digital experience.",
-      "The resulting platform is designed to support ESD programmes across five stages: identifying beneficiaries, assessing businesses, developing capabilities, integrating suppliers and verifying evidence. Its AI-guided approach and live information capture are intended to help keep programme information current and reporting ready throughout the process.",
+    points: [
+      "Research, positioning, and brand set the foundation for the digital experience.",
+      "Supports ESD programmes across five stages: identify beneficiaries, assess businesses, develop capabilities, integrate suppliers, and verify evidence.",
+      "An AI-guided approach and live capture help keep reporting ready throughout.",
     ],
   },
 ];
@@ -338,15 +342,14 @@ export default function AboutPage() {
                   <h3 style={{ ...cardHeading, borderBottom: "2px solid var(--color-cyan)", paddingBottom: "0.75rem", marginBottom: "1rem" }}>
                     {block.heading}
                   </h3>
-                  {block.paras.map((p, i) => (
-                    <p
-                      key={i}
-                      className="body-muted"
-                      style={{ marginBottom: i === block.paras.length - 1 ? 0 : "0.875rem" }}
-                    >
-                      {p}
-                    </p>
-                  ))}
+                  <ul className="prob-list">
+                    {block.points.map((p, i) => (
+                      <li key={i}>
+                        <span className="prob-dot" aria-hidden="true" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </article>
               </StaggerChild>
             ))}

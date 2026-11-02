@@ -1,24 +1,21 @@
 'use client'
 
 /**
- * Section 2 problem cards (homepage).
+ * Section 2 problem cards (homepage). Production card design (restored
+ * 2 Nov 2026, replacing the tinted paper cards); copy from the revised
+ * website copy handover, tightened for bullets.
  *
- * Blended UI, 1 Nov 2026: tinted "paper" cards, each in its own brand tint, with
- * a slight tilt. The cards arrive straight and spring into their tilt one after
- * another (the mess appearing); on hover a card straightens and lifts. Short
- * bullets, not paragraphs, so the message lands on a skim. One gold hand-mark,
- * on "manual intervention". Transform and opacity only; reduced-motion visitors
- * get the final state with no movement.
+ * Short bullets, not paragraphs, so the message lands on a skim. Motion is
+ * transform and opacity only: the card rises, its cyan top edge draws across,
+ * then the bullets arrive one after another. Under prefers-reduced-motion the
+ * final state renders with no movement.
  */
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
 import Glyph from '@/components/ui/Glyph'
-import HandMark from '@/components/ui/HandMark'
 
 type Card = {
   icon: 'unlink' | 'hourglass' | 'shield'
-  tint: 'paper-blue' | 'paper-gold' | 'paper-teal'
-  tilt: number
   heading: string
   points: string[]
 }
@@ -26,8 +23,6 @@ type Card = {
 const CARDS: Card[] = [
   {
     icon: 'unlink',
-    tint: 'paper-blue',
-    tilt: -1.2,
     heading: 'Disconnected business systems',
     points: [
       'Information sits in separate applications.',
@@ -37,94 +32,94 @@ const CARDS: Card[] = [
   },
   {
     icon: 'hourglass',
-    tint: 'paper-gold',
-    tilt: 0.8,
     heading: 'Manual data processing',
     points: [
       'Repeated data entry takes up staff time.',
       'Routine administration adds up.',
-      'More manual work creates more opportunities for error.',
+      'More manual work, more room for error.',
     ],
   },
   {
     icon: 'shield',
-    tint: 'paper-teal',
-    tilt: -0.6,
     heading: 'Data governance and POPIA considerations',
     points: [
-      'Personal information is scattered across systems and channels.',
+      'Personal information is spread across systems and channels.',
       'Handling practices are inconsistent.',
       'Access, consent, retention, and protection are harder to manage.',
     ],
   },
 ]
 
-const ease = [0.22, 1, 0.36, 1] as const
-const MARKED = 'Handoffs depend on manual intervention.'
-
-const parent: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
-}
-const card: Variants = {
-  hidden: { opacity: 0, y: 28, rotate: 0 },
-  visible: (tilt: number) => ({
-    opacity: 1,
-    y: 0,
-    rotate: tilt,
-    transition: { type: 'spring', stiffness: 140, damping: 16 },
-  }),
-}
+const ease = [0.25, 0.1, 0.25, 1] as const
 
 export default function ProblemCards() {
   const reduce = useReducedMotion()
 
+  const parent: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: reduce ? 0 : 0.14, delayChildren: 0.05 } },
+  }
+  const card: Variants = {
+    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.6, ease, staggerChildren: reduce ? 0 : 0.1, delayChildren: reduce ? 0 : 0.35 } },
+  }
+  const edge: Variants = {
+    hidden: reduce ? { scaleX: 1 } : { scaleX: 0 },
+    visible: { scaleX: 1, transition: { duration: reduce ? 0 : 0.7, ease, delay: reduce ? 0 : 0.15 } },
+  }
+  const bullet: Variants = {
+    hidden: reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0, transition: { duration: reduce ? 0 : 0.45, ease } },
+  }
+
   return (
     <motion.div
-      className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8"
+      className="grid grid-cols-1 md:grid-cols-3 gap-6"
       variants={parent}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
       {CARDS.map((c) => (
-        <motion.div
-          key={c.heading}
-          custom={c.tilt}
-          variants={card}
-          whileHover={reduce ? undefined : { rotate: 0, y: -4, transition: { duration: 0.3, ease } }}
-          className={`paper-card prob-card ${c.tint} h-full`}
-          style={{ padding: '2rem 1.875rem' }}
-        >
-          <span className="paper-icon" style={{ display: 'flex', marginBottom: '1.125rem' }}>
-            <Glyph name={c.icon} size={22} />
-          </span>
-          <h3
+        <motion.div key={c.heading} variants={card} className="h-full">
+          <div
+            className="card-lift prob-card h-full relative overflow-hidden"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 500,
-              fontSize: 'var(--text-h3-sans)',
-              color: 'var(--color-ink-primary)',
-              marginBottom: '0.875rem',
-              lineHeight: 'var(--leading-subheading)',
+              border: '0.5px solid var(--color-border-card)',
+              borderRadius: '8px',
+              padding: '1.75rem 1.5rem 1.5rem',
             }}
           >
-            {c.heading}
-          </h3>
-          <ul className="prob-list">
-            {c.points.map((p) => (
-              <li key={p}>
-                <span className="prob-dot" aria-hidden="true" />
-                <span>
-                  {p === MARKED ? (
-                    <>Handoffs depend on <HandMark>manual intervention.</HandMark></>
-                  ) : (
-                    p
-                  )}
-                </span>
-              </li>
-            ))}
-          </ul>
+            <motion.span
+              aria-hidden="true"
+              variants={edge}
+              className="absolute left-0 right-0 top-0 block"
+              style={{ height: '3px', background: 'var(--color-cyan)', transformOrigin: 'left center' }}
+            />
+            <span className="glyph-chip" style={{ marginBottom: '1rem' }}>
+              <Glyph name={c.icon} size={22} />
+            </span>
+            <h3
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontWeight: 600,
+                fontSize: 'var(--text-h3-sans)',
+                color: 'var(--color-ink-primary)',
+                marginBottom: '0.875rem',
+                lineHeight: 'var(--leading-subheading)',
+              }}
+            >
+              {c.heading}
+            </h3>
+            <ul className="prob-list">
+              {c.points.map((p) => (
+                <motion.li key={p} variants={bullet}>
+                  <span className="prob-dot" aria-hidden="true" />
+                  <span>{p}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
         </motion.div>
       ))}
     </motion.div>
