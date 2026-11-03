@@ -18,6 +18,7 @@ export function TreatedImage({
   priority = false,
   className = "",
   untinted = false,
+  position,
 }: {
   src: string;
   alt: string;
@@ -25,10 +26,12 @@ export function TreatedImage({
   priority?: boolean;
   className?: string;
   untinted?: boolean;
+  /** CSS object-position, to keep the subject in a wide crop (e.g. "50% 40%"). */
+  position?: string;
 }) {
   return (
     <div className={`relative overflow-hidden ${className}`} style={{ backgroundColor: "var(--color-bg-navy-deep)" }}>
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={untinted ? "object-cover object-top" : "object-cover"} />
+      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={untinted ? "object-cover object-top" : "object-cover"} style={position ? { objectPosition: position } : undefined} />
       {!untinted && (
         <>
           <div

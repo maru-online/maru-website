@@ -12,10 +12,12 @@
  */
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import { DrawnVisual } from '@/components/ui/CardMedia'
+import { DrawnVisual, TreatedImage } from '@/components/ui/CardMedia'
 
 type Card = {
   icon: 'unlink' | 'hourglass' | 'shield'
+  /** Photograph for the top band; the drawn icon band shows until one exists. */
+  image?: { src: string; alt: string; position?: string }
   heading: string
   points: string[]
 }
@@ -24,6 +26,11 @@ const CARDS: Card[] = [
   {
     icon: 'unlink',
     heading: 'Disconnected business systems',
+    image: {
+      src: '/images/home/problem-disconnected.jpg',
+      alt: 'A woman at her office desk comparing a printed spreadsheet with her laptop, monitor and phone',
+      position: '50% 40%',
+    },
     points: [
       'Information sits in separate applications.',
       'Handoffs depend on manual intervention.',
@@ -89,8 +96,19 @@ export default function ProblemCards() {
               className="absolute left-0 right-0 top-0 block"
               style={{ height: '3px', background: 'var(--color-cyan)', transformOrigin: 'left center', zIndex: 1 }}
             />
-            {/* Top band: the drawn visual, as on the Guides insight cards. */}
-            <DrawnVisual glyph={c.icon} glyphSize={40} className="h-36 w-full" />
+            {/* Top band, as on the Guides cards: the photograph, or the drawn
+                icon band until one exists. Same 176px height either way. */}
+            {c.image ? (
+              <TreatedImage
+                src={c.image.src}
+                alt={c.image.alt}
+                sizes="(min-width: 768px) 360px, 100vw"
+                position={c.image.position}
+                className="h-44 w-full"
+              />
+            ) : (
+              <DrawnVisual glyph={c.icon} glyphSize={40} className="h-44 w-full" />
+            )}
             <div className="card-body">
             <h3 className="card-title">{c.heading}</h3>
             <ul className="prob-list">
