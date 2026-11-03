@@ -27,6 +27,8 @@ const nextConfig: NextConfig = {
     // Release 1.3 preview shipped without its new rules). A clean CSS build
     // costs a little build time; a stale one costs a broken page.
     turbopackFileSystemCacheForBuild: false,
+    // Same for `next dev`: a stale cached globals.css showed old styles locally.
+    turbopackFileSystemCacheForDev: false,
   },
   
   // Headers for better caching

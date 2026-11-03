@@ -82,7 +82,7 @@ export default function ProblemCards() {
     >
       {CARDS.map((c) => (
         <motion.div key={c.heading} variants={card} className="h-full">
-          <div className="card-dark prob-card h-full relative overflow-hidden flex flex-col">
+          <div className="card-lift prob-card h-full relative overflow-hidden flex flex-col">
             <motion.span
               aria-hidden="true"
               variants={edge}

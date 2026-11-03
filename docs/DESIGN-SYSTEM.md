@@ -29,6 +29,7 @@ this. A typo in a colour name is invisible until someone looks at the page.
 | Token | Value | Use |
 |---|---|---|
 | `--gradient-surface` | `#F4F2EC → #EDEAE2` | **The default page ground.** Section backgrounds |
+| `--gradient-surface-deep` | `#ECE9E1 → #E4E0D6` | One step darker light ground, so white cards lift more (homepage problem section) |
 | `--color-bg-primary` | `#FFFFFF` | Pure white — sparingly |
 | `--color-bg-secondary` | `#F5F4F0` | Alternate band, input fills |
 | `--color-bg-canvas` | `#FAFAF8` | Warm off-white |
@@ -39,8 +40,9 @@ this. A typo in a colour name is invisible until someone looks at the page.
 **Dark surfaces appear in the hero, the footer, the assessment band, and at most one
 dark chapter per page** (`.section-dark`, added 3 Nov 2026). A dark chapter is for content
 that stands apart: proof (About: GrowthIQ), a product walkthrough (Invara: How it works),
-or timely analysis (Guides & Resources: AI insights). On the homepage it is the problem
-section (Section 2), with the fix (bridge and diagram) on a light band right after it. A page whose `<main>` carries a navy background is a bug — that was the state of the
+or timely analysis (Guides & Resources: AI insights). The homepage has none: a dark
+problem section was tried on 3 Nov 2026 and reverted. Its problem section uses
+`--gradient-surface-deep` (#ECE9E1 → #E4E0D6), one step darker than the default ground. A page whose `<main>` carries a navy background is a bug — that was the state of the
 legal pages, `/careers` and `/about`'s old client component before 3 Aug 2026.
 
 ### Cards
