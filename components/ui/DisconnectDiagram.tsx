@@ -11,7 +11,7 @@
  * dashed, tagged as exports and attachments). On scroll they straighten and
  * tick, the links draw into one gold hub ("captured once"), and a single line
  * runs out to one live view. Then white dots keep flowing in and gold dots
- * flow out. The pills underneath light in step with the reveal.
+ * flow out.
  *
  * Two layouts share one node list: horizontal convergence on >=sm, vertical
  * below. Under prefers-reduced-motion the final state renders at once with no
@@ -30,18 +30,10 @@ const NODES: Node[] = [
   { id: 'whatsapp', label: 'WHATSAPP',     badge: 'chat',   r: -2.6, dx: -12 },
 ];
 
-const PILLS = [
-  'Nothing replaced',
-  'Captured once',
-  'Less retyping',
-  'Personal information in fewer places',
-];
-
 /** Reveal stages, applied as classes on the stage in this order. */
 const STAGES = ['cd-in', 'cd-links', 'cd-hub', 'cd-outlinks', 'cd-outs'] as const;
-/** ms after start for each stage; pills light at stages 0, 2, 3 and 4. */
+/** ms after start for each stage. */
 const STAGE_AT = [150, 900, 1900, 2600, 3300];
-const PILL_AT = [150, 1900, 2600, 3300];
 const DOTS_AT = 3900;
 
 type Geo = {
@@ -236,7 +228,6 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
   const ref = useRef<HTMLElement>(null);
   const timers = useRef<number[]>([]);
   const [stage, setStage] = useState(-1); // index into STAGES reached; -1 = before
-  const [pills, setPills] = useState(0);
   const [dots, setDots] = useState(false);
   const [reduced, setReduced] = useState(false);
 
@@ -248,10 +239,8 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
   const run = useCallback(() => {
     clear();
     setStage(-1);
-    setPills(0);
     setDots(false);
     STAGE_AT.forEach((ms, i) => timers.current.push(window.setTimeout(() => setStage(i), ms)));
-    PILL_AT.forEach((ms, i) => timers.current.push(window.setTimeout(() => setPills(i + 1), ms)));
     timers.current.push(window.setTimeout(() => setDots(true), DOTS_AT));
   }, []);
 
@@ -262,7 +251,6 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
     setReduced(r);
     if (r) {
       setStage(STAGES.length - 1);
-      setPills(PILLS.length);
       return;
     }
     const io = new IntersectionObserver(
@@ -284,7 +272,6 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
   const replay = () => {
     clear();
     setStage(-1);
-    setPills(0);
     setDots(false);
     timers.current.push(window.setTimeout(run, 350));
   };
@@ -306,14 +293,6 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
         <div className="cd-svgwrap">
           <Diagram g={DESK} dots={dots && !reduced} id="d" />
           <Diagram g={MOB} dots={dots && !reduced} id="m" />
-        </div>
-        <div className="cd-pills" aria-label="What changes">
-          {PILLS.map((p, i) => (
-            <span key={p} className={`cd-pill ${i < pills ? 'cd-pill-on' : ''}`}>
-              <b>{i + 1}</b>
-              {p}
-            </span>
-          ))}
         </div>
       </section>
       {!reduced && (
