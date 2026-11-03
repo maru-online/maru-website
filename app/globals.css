@@ -819,13 +819,14 @@
   .card-lift:hover .glyph-chip,
   .card-lift:focus-within .glyph-chip,
   .foundation-cell:hover .glyph-chip {
-    transform: scale(1.08) rotate(-3deg);
+    transform: scale(1.08);
   }
-  /* The larger chip leans harder into the gesture and deepens its tint, so the
-     icon is the thing that answers a hover. */
+  /* The larger chip grows a little more and deepens its tint, so the icon is
+     the thing that answers a hover. No rotation: cards and their icons stay
+     straight on hover and click (Jimmy, 3 Nov 2026). */
   .card-lift:hover .glyph-chip-lg,
   .card-lift:focus-within .glyph-chip-lg {
-    transform: scale(1.12) rotate(-4deg);
+    transform: scale(1.12);
     box-shadow: 0 0 0 1px rgba(205, 170, 83, 0.38),
                 0 4px 10px rgba(38, 32, 20, 0.10);
   }

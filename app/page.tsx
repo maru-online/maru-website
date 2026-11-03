@@ -230,7 +230,7 @@ export default function Home() {
 
           <ProblemCards />
 
-          {/* Story turn (2 Nov 2026, proposed copy): the cards are the cost of
+          {/* Story turn (Option A, approved 3 Nov 2026): the cards are the cost of
               disconnected tools; the diagram is the fix. The bridge names the
               turn so the two read as one argument, not two visuals. */}
           <FadeUp>
@@ -260,7 +260,7 @@ export default function Home() {
                 Your tools stay. <span style={{ color: "var(--color-cyan-ink)" }}>We connect them.</span>
               </h3>
               <p className="body-muted" style={{ marginBottom: 0 }}>
-                Information is captured once and flows into one current view, with less retyping and fewer stray copies of client information.
+                Information is captured once and shared where it&apos;s needed, so your team retypes less and personal information sits in fewer places.
               </p>
             </div>
           </FadeUp>
