@@ -210,7 +210,7 @@ function AssessmentWizard() {
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Free, informational POPIA review</span>
+            <span className="label-eyebrow label-eyebrow-ink">Free, informational POPIA review</span>
             <h1 className="text-3xl font-semibold text-navy leading-tight mb-4 border-none">
               Understand how your business handles information when your team uses AI.
             </h1>
@@ -281,7 +281,7 @@ function AssessmentWizard() {
         {/* ── RESULTS PREVIEW ───────────────────────────────────────────── */}
         {step === "results" && scoreResult && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Your result</span>
+            <span className="label-eyebrow label-eyebrow-ink">Your result</span>
             <h2 className="text-2xl font-semibold text-navy mb-2 border-none">
               {scoreResult.label}
             </h2>
@@ -344,7 +344,7 @@ function AssessmentWizard() {
         {/* ── EMAIL GATE ────────────────────────────────────────────────── */}
         {step === "gate" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Your report</span>
+            <span className="label-eyebrow label-eyebrow-ink">Your report</span>
             <h2 className="text-2xl font-semibold text-navy mb-2 border-none">
               Where should we send it?
             </h2>

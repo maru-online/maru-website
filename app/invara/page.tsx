@@ -4,6 +4,7 @@ import Glyph from "@/components/ui/Glyph";
 import { BGPattern } from "@/components/ui/bg-pattern";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
+import SharedSectionHead from "@/components/ui/SectionHead";
 
 // Invara product page, 20 Oct 2026. Copy revised 1 Nov 2026 per "Maru Online —
 // Revised Website Copy" v1.0 (section 5): five-step workflow, AI and
@@ -156,29 +157,11 @@ const dataPoints = [
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────
 
-function SectionHead({ eyebrow, light, strong, onNavy = false }: { eyebrow: string; light: string; strong: string; onNavy?: boolean }) {
-  return (
-    <>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2 style={{ marginBottom: "1.5rem", border: "none", ...(onNavy ? { color: "var(--color-ink-inverted)" } : {}) }}>
-        <span style={{ fontWeight: 300 }}>{light}</span>
-        <br />
-        <span style={{ fontWeight: 700 }}>{strong}</span>
-      </h2>
-    </>
-  );
+// One section head site-wide (reading system, 3 Nov 2026): one weight, the
+// second part highlighted in colour only. Wraps components/ui/SectionHead.
+function SectionHead({ eyebrow, light, strong, onNavy = false }: { eyebrow: string; light?: string; strong: string; onNavy?: boolean }) {
+  return <SharedSectionHead eyebrow={eyebrow} light={light} strong={strong} dark={onNavy} animate={false} />;
 }
-
-const cardHeading: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontWeight: 600,
-  fontSize: "var(--text-h3-sans)",
-  color: "var(--color-ink-primary)",
-  lineHeight: 1.3,
-  marginBottom: "0.75rem",
-  border: "none",
-  paddingBottom: 0,
-};
 
 const smallLabel: React.CSSProperties = {
   display: "block",
@@ -433,12 +416,16 @@ export default function InvaraPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {audiences.map((a) => (
               <StaggerChild key={a.name} className="h-full">
-                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={a.icon} size={22} />
-                  </span>
-                  <h3 style={cardHeading}>{a.name}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{a.body}</p>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                    <div className="card-label-row">
+                      <span className="glyph-chip">
+                        <Glyph name={a.icon} size={22} />
+                      </span>
+                    </div>
+                    <h3 className="card-title">{a.name}</h3>
+                    <p className="card-text">{a.body}</p>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
@@ -449,13 +436,9 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           HOW IT WORKS
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="how-it-works"
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ background: "var(--gradient-hero)" }}
-      >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.07)" className="pointer-events-none" />
-        <div className={`${innerWide} relative z-10`}>
+      {/* The page's one dark chapter (reading system, 3 Nov 2026): the walkthrough. */}
+      <section id="how-it-works" className={`section-dark ${outerPad} py-24`}>
+        <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="How it works" light="A structured workflow" strong="from capture to reporting." onNavy />
             <p className="body-on-navy" style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}>
@@ -466,19 +449,17 @@ export default function InvaraPage() {
             {stages.map((s) => (
               <StaggerChild key={s.n} className="h-full">
                 <div
-                  className="h-full rounded-[10px]"
+                  className="card-dark h-full"
                   style={{
                     padding: "1.25rem 1rem",
-                    background: "rgba(250,250,248,0.05)",
-                    border: "1px solid rgba(250,250,248,0.12)",
                     borderTop: `3px solid ${s.n === "04" ? "var(--color-gold)" : "var(--color-cyan)"}`,
                   }}
                 >
-                  <span aria-hidden="true" style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1rem", color: s.n === "04" ? "var(--color-gold)" : "var(--color-cyan)", marginBottom: "0.5rem" }}>
+                  <span className="card-label" aria-hidden="true" style={{ display: "block", marginBottom: "0.75rem", ...(s.n === "04" ? { color: "var(--color-gold)" } : {}) }}>
                     {s.n}
                   </span>
-                  <h3 style={{ ...cardHeading, color: "var(--color-ink-inverted)", fontSize: "1.05rem", marginBottom: "0.4rem" }}>{s.name}</h3>
-                  <p style={{ margin: 0, fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "var(--text-meta)", lineHeight: 1.5, color: "var(--color-ink-inverted-muted)" }}>{s.body}</p>
+                  <h3 className="card-title" style={{ fontSize: "1.125rem", marginBottom: "0.5rem" }}>{s.name}</h3>
+                  <p className="card-text" style={{ fontSize: "0.9375rem", margin: 0 }}>{s.body}</p>
                 </div>
               </StaggerChild>
             ))}
@@ -510,11 +491,14 @@ export default function InvaraPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {channels.map((c) => (
               <StaggerChild key={c.name} className="h-full">
-                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem" }}>
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={c.icon} size={22} />
-                  </span>
-                  <h3 style={cardHeading}>{c.name}</h3>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                  <div className="card-label-row">
+                    <span className="glyph-chip">
+                      <Glyph name={c.icon} size={22} />
+                    </span>
+                  </div>
+                  <h3 className="card-title">{c.name}</h3>
                   <ul className="prob-list">
                     {c.points.map((p) => (
                       <li key={p}>
@@ -523,6 +507,7 @@ export default function InvaraPage() {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
@@ -552,7 +537,7 @@ export default function InvaraPage() {
             <FadeUp>
               <figure className="card-lift" style={{ margin: 0, padding: "1.75rem" }}>
                 <span style={smallLabel}>Programme dashboard · illustrative</span>
-                <h3 style={{ ...cardHeading, marginBottom: "1.25rem" }}>Funds, from budget to proven</h3>
+                <h3 className="card-title" style={{ marginBottom: "1.25rem" }}>Funds, from budget to proven</h3>
                 {[
                   { label: "Budget", w: 100, c: "#16324F" },
                   { label: "Committed", w: 82, c: "#00679C" },
@@ -592,12 +577,16 @@ export default function InvaraPage() {
             <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {roles.map((r) => (
                 <StaggerChild key={r.name} className="h-full">
-                  <div className="card-lift h-full" style={{ padding: "1.4rem 1.25rem" }}>
-                    <span className="glyph-chip" style={{ marginBottom: "0.75rem" }}>
-                      <Glyph name={r.icon} size={20} />
-                    </span>
-                    <h3 style={{ ...cardHeading, fontSize: "1.05rem", marginBottom: "0.4rem" }}>{r.name}</h3>
-                    <p className="body-muted" style={{ marginBottom: 0 }}>{r.body}</p>
+                  <div className="card-lift h-full flex flex-col">
+                    <div className="card-body">
+                      <div className="card-label-row">
+                        <span className="glyph-chip">
+                          <Glyph name={r.icon} size={20} />
+                        </span>
+                      </div>
+                      <h3 className="card-title">{r.name}</h3>
+                      <p className="card-text">{r.body}</p>
+                    </div>
                   </div>
                 </StaggerChild>
               ))}
@@ -620,9 +609,11 @@ export default function InvaraPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {dataPoints.map((d) => (
               <StaggerChild key={d.heading} className="h-full">
-                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
-                  <h3 style={cardHeading}>{d.heading}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{d.body}</p>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                    <h3 className="card-title">{d.heading}</h3>
+                    <p className="card-text">{d.body}</p>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
@@ -642,9 +633,8 @@ export default function InvaraPage() {
               <span style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "0.85rem", color: "var(--color-cyan)" }}>Invara by Maru Online</span>
             </div>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              <span style={{ fontWeight: 300 }}>See how Invara could work</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>for your programmes.</span>
+              See how Invara could work{" "}
+              <span style={{ color: "var(--color-cyan)" }}>for your programmes.</span>
             </h2>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
               Tell us about the programmes you run and the sponsor reporting requirements you manage. We will show how Invara can handle consent, evidence, review, approval, and sponsor-ready reporting through one record.

@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
 import { FadeUp } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
+import SharedSectionHead from "@/components/ui/SectionHead";
 
 // Working With Us (Engagement & Investment) page, at /working-with-us. Named
 // 31 Oct 2026 so the site does not read as selling priced products; /pricing
@@ -59,41 +60,12 @@ const factors = [
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────
 
-function SectionHead({
-  eyebrow,
-  light,
-  strong,
-}: {
-  eyebrow: string;
-  light?: string;
-  strong: string;
-}) {
-  return (
-    <>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2 style={{ marginBottom: "1.5rem", border: "none" }}>
-        {light && (
-          <>
-            <span style={{ fontWeight: 300 }}>{light}</span>
-            <br />
-          </>
-        )}
-        <span style={{ fontWeight: 700 }}>{strong}</span>
-      </h2>
-    </>
-  );
+// One section head site-wide (reading system, 3 Nov 2026): one weight, the
+// second part highlighted in colour only. Wraps components/ui/SectionHead.
+function SectionHead({ eyebrow, light, strong }: { eyebrow: string; light?: string; strong: string }) {
+  return <SharedSectionHead eyebrow={eyebrow} light={light} strong={strong} animate={false} />;
 }
 
-const cardHeading: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontWeight: 600,
-  fontSize: "var(--text-h3-sans)",
-  color: "var(--color-ink-primary)",
-  lineHeight: 1.3,
-  marginBottom: "0.75rem",
-  border: "none",
-  paddingBottom: 0,
-};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -191,32 +163,23 @@ export default function PricingPage() {
           </FadeUp>
 
           <FadeUp delay={0.08}>
-            <div className="card-lift" style={{ padding: "1.75rem 1.5rem" }}>
-              <span className="glyph-chip" style={{ marginBottom: "1.25rem" }}>
-                <Glyph name="layers" size={22} />
-              </span>
-              <h3 style={cardHeading}>Cost factors</h3>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                {factors.map((item) => (
-                  <li
-                    key={item}
-                    style={{
-                      fontSize: "var(--text-body-sm)",
-                      color: "var(--color-ink-secondary)",
-                      padding: "6px 0",
-                      lineHeight: "var(--leading-body)",
-                      display: "flex",
-                      gap: "8px",
-                      alignItems: "flex-start",
-                      fontFamily: "var(--font-body)",
-                      fontWeight: 300,
-                    }}
-                  >
-                    <span aria-hidden="true" style={{ color: "var(--color-cyan)", flexShrink: 0 }}>→</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            <div className="card-lift">
+              <div className="card-body">
+                <div className="card-label-row">
+                  <span className="glyph-chip">
+                    <Glyph name="layers" size={22} />
+                  </span>
+                </div>
+                <h3 className="card-title">Cost factors</h3>
+                <ul className="prob-list md:grid-cols-2 md:gap-x-8">
+                  {factors.map((item) => (
+                    <li key={item}>
+                      <span className="prob-dot" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </FadeUp>
         </div>
@@ -261,7 +224,7 @@ export default function PricingPage() {
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              <span style={{ fontWeight: 700 }}>Let&apos;s understand your business challenge.</span>
+              Let&apos;s understand your business challenge.
             </h2>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
               Tell us what you are trying to improve. We will use that context to recommend the next step, whether that is an informational review, a scoped discovery process, or a defined implementation plan.

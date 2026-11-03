@@ -95,7 +95,7 @@ export default async function SectionListingPage(props: {
                   style={{
                     border: `1px solid ${dark ? "rgba(250,250,248,0.25)" : "var(--color-border-card)"}`,
                     background: on ? "var(--color-cyan)" : "transparent",
-                    color: on ? "var(--color-ink-on-gold, #0D1B2A)" : dark ? "var(--color-ink-inverted)" : "var(--color-ink-secondary)",
+                    color: on ? "var(--color-ink-on-gold)" : dark ? "var(--color-ink-inverted)" : "var(--color-ink-secondary)",
                   }}
                 >
                   {p.label}
