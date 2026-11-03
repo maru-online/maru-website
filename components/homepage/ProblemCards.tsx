@@ -1,7 +1,9 @@
 'use client'
 
 /**
- * Section 2 problem cards (homepage).
+ * Section 2 problem cards (homepage). Production card design (restored
+ * 2 Nov 2026, replacing the tinted paper cards); copy from the revised
+ * website copy handover, tightened for bullets.
  *
  * Short bullets, not paragraphs, so the message lands on a skim. Motion is
  * transform and opacity only: the card rises, its cyan top edge draws across,
@@ -21,29 +23,29 @@ type Card = {
 const CARDS: Card[] = [
   {
     icon: 'unlink',
-    heading: 'Disconnected Business Systems',
+    heading: 'Disconnected business systems',
     points: [
       'Information sits in separate applications.',
       'Handoffs depend on manual intervention.',
-      'Little visibility across the business.',
+      'Teams have limited visibility across the business.',
     ],
   },
   {
     icon: 'hourglass',
-    heading: 'Manual Data Processing',
+    heading: 'Manual data processing',
     points: [
       'Repeated data entry takes up staff time.',
-      'Routine admin tasks add up.',
-      'More manual work means more errors.',
+      'Routine administration adds up.',
+      'More manual work, more room for error.',
     ],
   },
   {
     icon: 'shield',
-    heading: 'Data Governance and POPIA Risks',
+    heading: 'Data governance and POPIA considerations',
     points: [
-      'Personal information is scattered.',
-      'Handling is inconsistent.',
-      'Access, consent and protection are harder to manage.',
+      'Personal information is spread across systems and channels.',
+      'Handling practices are inconsistent.',
+      'Access, consent, retention, and protection are harder to manage.',
     ],
   },
 ]

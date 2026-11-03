@@ -4,9 +4,9 @@ import type { ContentEntry } from '../types'
 export const automationGuide: ContentEntry = {
   section: 'resources',
   slug: 'automation-workflows-guide-reduce-manual-work',
-  title: 'Automation & Workflows Guide: from repeated admin to a reliable process',
+  title: 'Automation and workflows guide: turn repeated administration into a reliable process.',
   summary:
-    'How to choose which process to automate first, design it with exceptions and a human check, and review it a month later.',
+    'Identify repetitive work, map the current process, and design a workflow that is easier to use, monitor, and improve.',
   seoTitle: 'Business Process Automation Guide: Reduce Manual Work in Your Workflows',
   seoDescription:
     'How to choose which process to automate first, document it, design exceptions and human checks, and measure the time saved. A practical guide for South African businesses.',
@@ -14,7 +14,7 @@ export const automationGuide: ContentEntry = {
   category: 'Automation & Workflows',
   resourceType: 'Guide',
   access: 'open',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '9 min read',
   author: 'Maru Online',

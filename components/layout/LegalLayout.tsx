@@ -88,7 +88,7 @@ export function LegalLayout({
             {/* Sidebar */}
             <aside className="lg:col-span-1">
               <div className="sticky top-32 space-y-6">
-                <div className="card-lift rounded-lg p-6">
+                <div className="card-lift p-6">
                   <h4 className="font-medium mb-4 text-ink-primary">
                     Legal documents
                   </h4>
@@ -106,7 +106,7 @@ export function LegalLayout({
                   </ul>
                 </div>
 
-                <div className="card-lift rounded-lg p-6">
+                <div className="card-lift p-6">
                   <h4 className="font-medium mb-4 text-ink-primary">
                     Need help?
                   </h4>

@@ -31,7 +31,7 @@ export default function CareersPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">What We Value</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="card-lift rounded-lg p-6">
+          <div className="card-lift p-6">
             <h3 className="text-ink-primary font-bold mb-3">🚀 Innovation & Experimentation</h3>
             <p className="text-ink-secondary text-sm">
               We encourage trying new approaches, testing ideas, and learning from failures. The AI landscape 
@@ -39,7 +39,7 @@ export default function CareersPage() {
             </p>
           </div>
 
-          <div className="card-lift rounded-lg p-6">
+          <div className="card-lift p-6">
             <h3 className="text-ink-primary font-bold mb-3">🎯 Customer Obsession</h3>
             <p className="text-ink-secondary text-sm">
               Our clients' success is our success. We go beyond delivering solutions—we become partners in 
@@ -47,7 +47,7 @@ export default function CareersPage() {
             </p>
           </div>
 
-          <div className="card-lift rounded-lg p-6">
+          <div className="card-lift p-6">
             <h3 className="text-ink-primary font-bold mb-3">🤝 Collaboration & Transparency</h3>
             <p className="text-ink-secondary text-sm">
               We work as one team, sharing knowledge freely and communicating openly. No silos, no politics—
@@ -55,7 +55,7 @@ export default function CareersPage() {
             </p>
           </div>
 
-          <div className="card-lift rounded-lg p-6">
+          <div className="card-lift p-6">
             <h3 className="text-ink-primary font-bold mb-3">📈 Continuous Learning</h3>
             <p className="text-ink-secondary text-sm">
               We invest in our team's growth through training, conferences, certifications, and hands-on 
@@ -63,7 +63,7 @@ export default function CareersPage() {
             </p>
           </div>
 
-          <div className="card-lift rounded-lg p-6">
+          <div className="card-lift p-6">
             <h3 className="text-ink-primary font-bold mb-3">🌍 Local Impact, Global Ambition</h3>
             <p className="text-ink-secondary text-sm">
               We're proud to be based in South Africa and committed to building technology solutions that 
@@ -71,7 +71,7 @@ export default function CareersPage() {
             </p>
           </div>
 
-          <div className="card-lift rounded-lg p-6">
+          <div className="card-lift p-6">
             <h3 className="text-ink-primary font-bold mb-3">⚖️ Work-Life Balance</h3>
             <p className="text-ink-secondary text-sm">
               We're building a sustainable business, not a burnout factory. Flexible hours, remote work, and 
@@ -89,7 +89,7 @@ export default function CareersPage() {
 
         <h3 className="text-xl font-medium text-ink-primary mb-4">Areas We're Hiring In:</h3>
         <ul className="space-y-4 mb-8">
-          <li className="card-lift rounded-lg p-4">
+          <li className="card-lift p-4">
             <h4 className="text-ink-primary font-bold mb-2">AI/Automation Consultants</h4>
             <p className="text-ink-secondary text-sm mb-2">
               Help businesses identify automation opportunities, design AI-powered workflows, and implement 
@@ -101,7 +101,7 @@ export default function CareersPage() {
             </p>
           </li>
 
-          <li className="card-lift rounded-lg p-4">
+          <li className="card-lift p-4">
             <h4 className="text-ink-primary font-bold mb-2">Full-Stack Developers</h4>
             <p className="text-ink-secondary text-sm mb-2">
               Build web applications, automation tools, and integration solutions using modern technologies 
@@ -113,7 +113,7 @@ export default function CareersPage() {
             </p>
           </li>
 
-          <li className="card-lift rounded-lg p-4">
+          <li className="card-lift p-4">
             <h4 className="text-ink-primary font-bold mb-2">Digital Marketing Specialists</h4>
             <p className="text-ink-secondary text-sm mb-2">
               Drive growth through SEO, content marketing, PPC campaigns, and marketing automation. Help us 
@@ -125,7 +125,7 @@ export default function CareersPage() {
             </p>
           </li>
 
-          <li className="card-lift rounded-lg p-4">
+          <li className="card-lift p-4">
             <h4 className="text-ink-primary font-bold mb-2">Business Development / Sales</h4>
             <p className="text-ink-secondary text-sm mb-2">
               Identify and close opportunities with SMBs looking to scale with AI. Build relationships, run 
@@ -260,7 +260,7 @@ export default function CareersPage() {
           <li>What you're looking for in your next role</li>
         </ul>
 
-        <div className="card-lift rounded-lg p-6">
+        <div className="card-lift p-6">
           <p className="text-ink-secondary mb-2">
             <strong className="text-ink-primary">Questions?</strong> Reach out to our team:
           </p>

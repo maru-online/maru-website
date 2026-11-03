@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { GUIDE_PAGE_VISIBLE } from "@/lib/guides/config";
+import { HAS_PUBLISHED_CONTENT } from "@/lib/insights-resources/content";
 import localFont from 'next/font/local'
 import Script from 'next/script'
+import MotionProvider from '@/components/ui/MotionProvider'
 import Nav from '@/components/ui/Nav'
 import Footer from '@/components/ui/Footer'
 import CookieConsent from '@/components/CookieConsent'
@@ -104,11 +106,13 @@ export default function RootLayout({
           </>
         )}
 
-        <Nav showInsights={GUIDE_PAGE_VISIBLE} />
-        <main id="main-content">
-          {children}
-        </main>
-        <Footer showInsights={GUIDE_PAGE_VISIBLE} />
+        <MotionProvider>
+          <Nav showInsights={GUIDE_PAGE_VISIBLE || HAS_PUBLISHED_CONTENT} />
+          <main id="main-content">
+            {children}
+          </main>
+          <Footer showInsights={GUIDE_PAGE_VISIBLE || HAS_PUBLISHED_CONTENT} />
+        </MotionProvider>
         <CookieConsent />
       </body>
     </html>

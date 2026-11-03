@@ -5,8 +5,8 @@ import { seo } from '@/lib/seo'
 // canonical and OG live here. Without this the root layout's canonical applied
 // and told Google this page was a duplicate of the homepage. (T1)
 export const metadata: Metadata = {
-  title:       'POPIA Assessment | Maru Online',
-  description: 'Ten questions, about five minutes. See where client information goes through your AI tools, apps and WhatsApp, and what to fix first. Free, emailed to you.',
+  title:       'Free, Informational POPIA Review | Maru Online',
+  description: 'Understand how your business handles information when your team uses AI. Answer 10 questions in about five minutes and receive a short report with actions to prioritise. Informational, not legal advice.',
   ...seo('/popia-ai-check'),
 }
 

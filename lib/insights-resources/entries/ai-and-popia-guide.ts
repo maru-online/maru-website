@@ -11,9 +11,9 @@ export const aiPopiaGuide: ContentEntry = {
   section: 'resources',
   slug: 'ai-and-popia',
   href: GUIDE_PATH,
-  title: 'AI and POPIA: a guide for South African business owners',
+  title: 'AI and POPIA: a guide for South African business owners.',
   summary:
-    'What your team’s AI tools do with client information, and what POPIA expects of you. 16 pages, about ten minutes to read, with a one-page self-check at the end.',
+    'Understand what your team’s AI tools may do with client or personal information, what questions to ask, and how to introduce appropriate human oversight.',
   pillar: 'popia-data-governance',
   category: 'POPIA & Data Governance',
   resourceType: 'Guide',

@@ -80,6 +80,22 @@
   /* ── Borders / rules ────────────────────────────────────────────────────── */
   --color-border-default:     #E2E8F0;   /* same as profile --rule */
   --color-border-card:        #E4E0D6;   /* warm stone edge — cards only */
+
+  /* ── Card system (1 Nov 2026; production look restored 2 Nov 2026) ─────
+     One card everywhere: same radius, same soft layered shadow, same lift,
+     as on the live site before the blended UI.
+     Two fills only: .card-lift (warm white, edged) for information and
+     forms; .paper-card tints for problem / step cards. Nothing else sets a
+     card radius or shadow inline. */
+  --card-radius:              10px;
+  --card-shadow:              0 1px 2px rgba(38, 32, 20, 0.05), 0 4px 12px rgba(38, 32, 20, 0.07);
+  --card-shadow-hover:        0 4px 8px rgba(38, 32, 20, 0.06), 0 14px 32px rgba(38, 32, 20, 0.13);
+  --card-lift:                translateY(-2px) scale(1.015);
+  --tint-blue:                #E6EEF6;   /* paper card — systems / step 1 */
+  --tint-gold:                #F6EDD8;   /* paper card — admin / step 3 */
+  --tint-teal:                #E1F0F1;   /* paper card — POPIA / step 2 */
+  --color-blue-ink:           #2B5D8C;   /* icon and numeral ink on --tint-blue */
+  --color-ink-inverted-subtle:#9FB3BE;   /* small print on navy */
   --color-border-subtle:      rgba(26, 58, 92, 0.1);
   --color-border-strong:      #CBD5E0;
 
@@ -683,7 +699,8 @@
   .card-lift {
     background-color: var(--color-bg-card);
     border-color:     var(--color-border-card);
-    box-shadow:  0 1px 2px rgba(38, 32, 20, 0.05), 0 4px 12px rgba(38, 32, 20, 0.07);
+    border-radius:    var(--card-radius);
+    box-shadow:       var(--card-shadow);
     transition:  transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
                  box-shadow 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
                  background-color 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
@@ -693,8 +710,8 @@
   .card-lift:focus-within {
     background-color: var(--color-bg-card-hover);
     border-color:     var(--color-border-strong);
-    transform:   translateY(-2px) scale(1.015);
-    box-shadow:  0 4px 8px rgba(38, 32, 20, 0.06), 0 14px 32px rgba(38, 32, 20, 0.13);
+    transform:        var(--card-lift);
+    box-shadow:       var(--card-shadow-hover);
   }
 
   /* ── Metrics band ────────────────────────────────────────────────────────
@@ -802,13 +819,14 @@
   .card-lift:hover .glyph-chip,
   .card-lift:focus-within .glyph-chip,
   .foundation-cell:hover .glyph-chip {
-    transform: scale(1.08) rotate(-3deg);
+    transform: scale(1.08);
   }
-  /* The larger chip leans harder into the gesture and deepens its tint, so the
-     icon is the thing that answers a hover. */
+  /* The larger chip grows a little more and deepens its tint, so the icon is
+     the thing that answers a hover. No rotation: cards and their icons stay
+     straight on hover and click (Jimmy, 3 Nov 2026). */
   .card-lift:hover .glyph-chip-lg,
   .card-lift:focus-within .glyph-chip-lg {
-    transform: scale(1.12) rotate(-4deg);
+    transform: scale(1.12);
     box-shadow: 0 0 0 1px rgba(205, 170, 83, 0.38),
                 0 4px 10px rgba(38, 32, 20, 0.10);
   }
@@ -890,3 +908,74 @@
 
 /* Prevent Calendly's injected iframe from blocking page interactions */
 .calendly-frame-tag { pointer-events: none !important; }
+
+/* ── Blended UI (1 Nov 2026) ─────────────────────────────────────────────────
+   Production roots (Outfit, navy gradient, teal eyebrows, gold actions) with
+   the new finish: tinted paper cards, colour-only heading emphasis, one sheen
+   on the assessment buttons. Transform and opacity only. */
+
+/* Gold assessment CTA: one light sweep crosses the button every 2 minutes,
+   first pass ~3s after load, then it rests. */
+.cta-shine { position: relative; overflow: hidden; isolation: isolate; }
+.cta-shine::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%;
+  background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%);
+  transform: translateX(-160%) skewX(-20deg);
+  animation: cta-shine 120s ease-in-out 3s infinite;
+  pointer-events: none;
+}
+@keyframes cta-shine {
+  0%        { transform: translateX(-160%) skewX(-20deg); }
+  1%, 100%  { transform: translateX(300%)  skewX(-20deg); }
+}
+
+/* Section headings: one light weight; the highlight changes colour only. */
+.h2-blend { font-weight: 200; }
+.h2-blend .hl { color: var(--color-cyan-ink); }
+.h2-blend-dark .hl { color: var(--color-cyan); }
+
+/* Tinted paper cards. Tilt is applied by the component (problem cards only);
+   process cards sit straight. */
+.paper-card {
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+.paper-blue { background: var(--tint-blue); }
+.paper-gold { background: var(--tint-gold); }
+.paper-teal { background: var(--tint-teal); }
+.paper-straight { transition: transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 280ms cubic-bezier(0.25, 0.1, 0.25, 1); }
+.paper-straight:hover, .paper-straight:focus-within { transform: var(--card-lift); box-shadow: var(--card-shadow-hover); }
+.paper-icon {
+  width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.paper-blue .paper-icon { color: var(--color-blue-ink); }
+.paper-gold .paper-icon { color: var(--color-gold-antique); }
+.paper-teal .paper-icon { color: var(--color-cyan-ink); }
+.paper-num {
+  width: 52px; height: 52px; border-radius: 999px; background: #FFFFFF;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-display), sans-serif; font-weight: 500; font-size: 17px;
+}
+.paper-blue .paper-num { color: var(--color-blue-ink); }
+.paper-gold .paper-num { color: var(--color-gold-antique); }
+.paper-teal .paper-num { color: var(--color-cyan-ink); }
+.paper-card .prob-list li { color: var(--color-ink-secondary); }
+
+/* Gold hand-mark under one phrase per section, drawn once by the component. */
+.hand-mark { position: relative; display: inline-block; white-space: nowrap; }
+.hand-mark svg { position: absolute; left: 0; bottom: -0.35em; width: 100%; height: 0.6em; overflow: visible; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-shine::after { animation: none; display: none; }
+  .paper-straight, .paper-straight:hover { transition: none; transform: none; }
+}
+
+/* Eyebrows on light grounds: the cyan that passes 4.5:1 (the bright cyan is
+   ~2:1 on the warm surface). Navy sections keep .label-eyebrow as it is. */
+.label-eyebrow.label-eyebrow-ink { color: var(--color-cyan-ink); }
+
+/* Accent edge for the one card that holds the primary offer. */
+.card-lift.card-accent-gold,
+.card-lift.card-accent-gold:hover,
+.card-lift.card-accent-gold:focus-within { border-color: var(--color-gold); }

@@ -27,7 +27,7 @@ export interface AssessmentArea {
 export const ASSESSMENT_AREAS: AssessmentArea[] = [
   {
     key: "ai_use",
-    label: "AI in your business",
+    label: "AI use and oversight",
     questions: [
       {
         id: "q1",
@@ -53,7 +53,7 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
   },
   {
     key: "data_location",
-    label: "Where client information goes",
+    label: "Information flows",
     questions: [
       {
         id: "q3",
@@ -79,7 +79,7 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
   },
   {
     key: "access",
-    label: "Who can see it",
+    label: "Access",
     questions: [
       {
         id: "q5",
@@ -105,7 +105,7 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
   },
   {
     key: "permission",
-    label: "Permission and trust",
+    label: "Consent and transparency",
     questions: [
       {
         id: "q7",
@@ -131,7 +131,7 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
   },
   {
     key: "incident",
-    label: "If something goes wrong",
+    label: "Incidents and response",
     questions: [
       {
         id: "q9",

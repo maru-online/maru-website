@@ -28,7 +28,7 @@ export type GlyphName =
   | 'compass'     // strategy
   | 'browser'     // design and development
   | 'signal'      // marketing
-  | 'clipboard'   // the free POPIA Assessment
+  | 'clipboard'   // the free POPIA review
   | 'chat';       // talk to us about a project
 
 const PATHS: Record<GlyphName, React.ReactNode> = {

@@ -30,7 +30,7 @@ function servicesFor(entry: ContentEntry): { href: string; label: string; note: 
     return [
       {
         href: "/popia-ai-check",
-        label: "Free POPIA Assessment",
+        label: "Free, informational POPIA review",
         note: "See where your business stands on data protection when AI is involved.",
       },
     ];
@@ -205,7 +205,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
             Understand where AI could make a practical difference to your business operations.
           </p>
           <div data-maru-primary-cta>
-            <Button href="/contact#contact-form" variant="primary">Discuss a Business Challenge</Button>
+            <Button href="/contact#contact-form" variant="primary">Discuss your business challenge</Button>
           </div>
         </div>
       </section>

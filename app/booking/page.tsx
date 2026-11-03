@@ -7,7 +7,7 @@ import { seo } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title:       'Book a Discovery Call | Maru Online',
-  description: 'Schedule a free 20-minute discovery call. We\'ll have reviewed your assessment before we speak.',
+  description: 'Schedule a free 20-minute discovery call. We\'ll have read your POPIA review answers before we speak.',
   ...seo('/booking'),
 }
 
@@ -55,7 +55,7 @@ export default function BookingPage() {
                 marginBottom: 0,
               }}
             >
-              We&apos;ll have reviewed your assessment before we speak.
+              We&apos;ll have read your POPIA review answers before we speak.
             </p>
           </FadeUp>
         </div>

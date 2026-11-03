@@ -179,7 +179,7 @@ export default function GrowthIqCaseStudy() {
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto justify-center">
-                  Start the assessment
+                  Start the free review
                 </Button>
                 <Button href="/contact#how-we-price" variant="tertiary">
                   See pricing

@@ -194,13 +194,13 @@ export default async function InsightsPage() {
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              The free POPIA Assessment shows where your business stands. The report arrives by email.
+              The free, informational POPIA review shows where your business stands. The summary arrives by email.
             </p>
           </FadeUp>
           <FadeUp delay={0.14}>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <Button href="/popia-ai-check" variant="primary">
-                Take Your Free POPIA Assessment
+                Take the free, informational POPIA review
               </Button>
               <Link
                 href="/contact#contact-form"

@@ -31,7 +31,7 @@ export const WHATSAPP_OPENERS: Record<string, string> = {
   default:
     "I'd like to find out more about Maru Online.",
   '/popia-ai-check':
-    "I'd like to do the free POPIA Assessment.",
+    "I'd like to do the free POPIA review.",
   '/invara':
     "I'd like to find out more about Invara.",
   '/contact':

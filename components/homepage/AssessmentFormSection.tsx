@@ -1,169 +1,130 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
-import { FadeUp } from "@/components/ui/Animate";
+import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 
 const outerPad = "px-6 md:px-[60px]";
-const inner    = "max-w-[900px] mx-auto";
+const inner    = "max-w-[1100px] mx-auto";
 
 const ASSESSMENT_HREF = "/popia-ai-check";
 const CONTACT_HREF    = "/contact#contact-form";
 
-// Homepage Section 5 — final call to action, 22 Oct 2026. Replaces the old
-// "Find out where your time, money and client data are exposed" block, which
-// still described the retired operations diagnostic. Two routes, in order of
-// weight: the free POPIA Assessment (primary, white card, gold button) and a
-// project conversation (secondary, text link on navy). The section keeps the
-// #assessment id so existing in-page links still land here.
+// Homepage Section 6 — final call to action. Copy: "Maru Online — Revised
+// Website Copy" v1.0 (1 Nov 2026), over the 22 Oct 2026 approval.
+// Blended UI, 1 Nov 2026 (approved on the design canvas): warm light ground
+// after the navy image band, two routes side by side in order of weight. The
+// free, informational POPIA review card carries the gold border and the gold sheen button;
+// the project conversation stays quiet. Keeps the #assessment id so existing
+// in-page links still land here.
 export default function AssessmentFormSection() {
   return (
     <section
       id="assessment"
       className={`${outerPad} py-24`}
-      style={{ background: "var(--gradient-navy-soft)" }}
+      style={{ background: "var(--gradient-surface)" }}
     >
       <div className={inner}>
         <FadeUp>
-          <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Next steps</span>
-          <h2 className="h2-cta" style={{ marginBottom: "var(--space-heading-body)" }}>
-            <span style={{ display: "block", fontWeight: 300 }}>Ready to Build AI Into</span>
-            <span style={{ display: "block", fontWeight: 700 }}>Your Existing Operations?</span>
+          <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>Next steps</span>
+          <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
+            Ready to build AI into
+            <br />
+            <span className="hl">your existing operations?</span>
           </h2>
-          <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}>
-            Whether you&apos;re exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
+          <p className="body-muted" style={{ maxWidth: "720px", marginBottom: "var(--space-section-header-mb)" }}>
+            Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
           </p>
         </FadeUp>
 
-        {/* ── Route 1: the free POPIA Assessment ─────────────────────────── */}
-        <FadeUp delay={0.08}>
-          <div
-            style={{
-              background: "var(--color-bg-primary)",
-              borderRadius: "12px",
-              padding: "clamp(1.5rem, 4vw, 2.25rem)",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
-            }}
-          >
-            <div className="flex flex-col sm:flex-row items-start gap-4" style={{ marginBottom: "1.75rem" }}>
-              <span className="glyph-chip glyph-chip-lg" style={{ flexShrink: 0 }}>
-                <Glyph name="clipboard" size={28} />
+        <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+          {/* ── Route 1: the free, informational POPIA review ─────────────── */}
+          <StaggerChild className="h-full">
+            <div
+              className="card-lift card-accent-gold h-full flex flex-col"
+              style={{ borderWidth: "1.5px", borderStyle: "solid", padding: "clamp(1.75rem, 4vw, 2.375rem)" }}
+            >
+              <span className="glyph-chip glyph-chip-lg glyph-chip-gold" style={{ marginBottom: "1.25rem" }}>
+                <Glyph name="clipboard" size={26} />
               </span>
-              <div>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 500,
-                    fontSize: "var(--text-h3-serif)",
-                    color: "var(--color-ink-primary)",
-                    lineHeight: "var(--leading-subheading)",
-                    marginBottom: "0.375rem",
-                    borderBottom: "none",
-                    paddingBottom: 0,
-                  }}
-                >
-                  Start with the free POPIA Assessment
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "var(--text-body-sm)",
-                    fontWeight: 300,
-                    color: "var(--color-ink-secondary)",
-                    lineHeight: "var(--leading-body)",
-                    margin: 0,
-                  }}
-                >
-                  Identify areas to investigate and receive a summary report by email.
-                </p>
-              </div>
-            </div>
-
-            <Button href={ASSESSMENT_HREF} variant="primary" className="w-full justify-center">
-              Take Your Free POPIA Assessment
-            </Button>
-
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "var(--text-meta)",
-                fontWeight: 300,
-                color: "var(--color-ink-tertiary)",
-                marginTop: "1rem",
-                marginBottom: 0,
-                lineHeight: 1.5,
-              }}
-            >
-              Free assessment · Report delivered by email
-            </p>
-          </div>
-        </FadeUp>
-
-        {/* ── Divider ────────────────────────────────────────────────────── */}
-        <div
-          role="separator"
-          aria-label="or"
-          className="flex items-center gap-4"
-          style={{ margin: "2rem 0" }}
-        >
-          <span aria-hidden="true" style={{ width: "1px", height: "1.75rem", background: "rgba(250,250,248,0.2)" }} />
-          <span
-            aria-hidden="true"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "var(--text-label)",
-              fontWeight: 500,
-              letterSpacing: "var(--tracking-eyebrow)",
-              textTransform: "uppercase",
-              color: "var(--color-ink-inverted-muted)",
-            }}
-          >
-            Or
-          </span>
-          <span aria-hidden="true" style={{ width: "1px", height: "1.75rem", background: "rgba(250,250,248,0.2)" }} />
-        </div>
-
-        {/* ── Route 2: a project conversation ───────────────────────────── */}
-        <FadeUp delay={0.12}>
-          <div className="flex flex-col sm:flex-row items-start gap-4">
-            <span
-              className="glyph-chip glyph-chip-lg"
-              style={{
-                flexShrink: 0,
-                background: "rgba(250,250,248,0.08)",
-                color: "var(--color-ink-inverted)",
-                boxShadow: "0 0 0 1px rgba(250,250,248,0.12)",
-              }}
-            >
-              <Glyph name="chat" size={28} />
-            </span>
-            <div>
               <h3
                 style={{
                   fontFamily: "var(--font-display)",
                   fontWeight: 500,
                   fontSize: "var(--text-h3-serif)",
-                  color: "var(--color-ink-inverted)",
+                  color: "var(--color-ink-primary)",
                   lineHeight: "var(--leading-subheading)",
-                  marginBottom: "0.375rem",
-                  borderBottom: "none",
-                  paddingBottom: 0,
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Start with the free, informational POPIA review.
+              </h3>
+              <ul className="prob-list" style={{ marginBottom: "1.75rem" }}>
+                {[
+                  "10 questions, about five minutes.",
+                  "A short summary by email.",
+                  "Areas to review and actions to prioritise.",
+                ].map((p) => (
+                  <li key={p}>
+                    <span className="prob-dot" aria-hidden="true" />
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex flex-col items-stretch sm:items-start gap-3">
+                <Button href={ASSESSMENT_HREF} variant="primary" className="cta-shine w-full sm:w-auto justify-center">
+                  Take the free, informational POPIA review
+                </Button>
+              </div>
+            </div>
+          </StaggerChild>
+
+          {/* ── Route 2: a project conversation ─────────────────────────── */}
+          <StaggerChild className="h-full">
+            <div
+              className="card-lift h-full flex flex-col"
+              style={{ borderWidth: "1px", borderStyle: "solid", padding: "clamp(1.75rem, 4vw, 2.375rem)" }}
+            >
+              <span className="glyph-chip glyph-chip-lg" style={{ marginBottom: "1.25rem" }}>
+                <Glyph name="chat" size={26} />
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "var(--text-label)",
+                  fontWeight: 500,
+                  letterSpacing: "var(--tracking-eyebrow)",
+                  textTransform: "uppercase",
+                  color: "var(--color-ink-tertiary)",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Or
+              </span>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 500,
+                  fontSize: "var(--text-h3-serif)",
+                  color: "var(--color-ink-primary)",
+                  lineHeight: "var(--leading-subheading)",
+                  marginBottom: "0.5rem",
                 }}
               >
                 Already have a project in mind?
               </h3>
-              <p className="body-on-navy" style={{ marginBottom: "0.75rem" }}>
-                Tell us about the business challenge you want to solve.
+              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
+                Tell us about the business challenge or workflow you want to improve.
               </p>
               <Link
                 href={CONTACT_HREF}
-                className="inline-flex items-center min-h-[44px] font-body font-medium text-cyan no-underline transition-[color,opacity] duration-200 hover:underline hover:underline-offset-4 active:opacity-70 focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 focus-visible:shadow-[0_0_0_2px_rgba(61,184,198,0.4)]"
+                className="mt-auto inline-flex items-center self-start min-h-[44px] font-body font-semibold text-[var(--color-cyan-ink)] no-underline transition-[color,opacity] duration-200 hover:underline hover:underline-offset-4 active:opacity-70 focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4"
                 style={{ fontSize: "var(--text-body)" }}
               >
-                Discuss a Business Challenge&nbsp;→
+                Discuss your business challenge&nbsp;→
               </Link>
             </div>
-          </div>
-        </FadeUp>
+          </StaggerChild>
+        </StaggerParent>
       </div>
     </section>
   );

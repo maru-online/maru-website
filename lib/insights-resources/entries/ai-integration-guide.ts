@@ -4,9 +4,9 @@ import type { ContentEntry } from '../types'
 export const integrationGuide: ContentEntry = {
   section: 'resources',
   slug: 'ai-integration-guide-connect-ai-existing-systems',
-  title: 'AI Integration Guide: connecting AI to the systems you already use',
+  title: 'AI integration guide: connect AI to the systems you already use.',
   summary:
-    'How to choose a first AI workflow, map the systems and data it touches, and connect it so a person stays in control.',
+    'Learn how to choose a first AI workflow, map the systems and information it touches, and connect it so a person remains appropriately involved.',
   seoTitle: 'AI Integration Guide for South African Businesses: Connect AI to Your Existing Systems',
   seoDescription:
     'A practical guide to choosing a first AI workflow, mapping the systems and data involved, choosing how to connect them, and building in a human check and POPIA from the start.',
@@ -14,7 +14,7 @@ export const integrationGuide: ContentEntry = {
   category: 'AI Integration Guides',
   resourceType: 'Guide',
   access: 'open',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '9 min read',
   author: 'Maru Online',

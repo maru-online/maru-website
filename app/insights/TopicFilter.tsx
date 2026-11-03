@@ -25,7 +25,7 @@ function ArticleCard({ article }: { article: InsightListItem }) {
   return (
     <Link
       href={`/insights/${article.slug}`}
-      className="group block card-lift h-full rounded-lg overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] focus-visible:ring-offset-2 active:scale-[0.99] transition-transform"
+      className="group block card-lift h-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] focus-visible:ring-offset-2 active:scale-[0.99] transition-transform"
       style={{ border: "1px solid var(--color-border-card)" }}
     >
       <div className="relative overflow-hidden" style={{ aspectRatio: "16/9", backgroundColor: "var(--color-bg-navy-deep)" }}>
@@ -116,9 +116,9 @@ export default function TopicFilter({ articles }: { articles: InsightListItem[] 
             {articles.length === 0 ? "The first articles are being written and reviewed." : `No ${active} articles yet.`}
           </p>
           <p className="body-muted text-sm leading-relaxed m-0">
-            In the meantime, the free POPIA Assessment is the quickest way to see where your business stands.{" "}
+            In the meantime, the free, informational POPIA review is the quickest way to see where your business stands.{" "}
             <Link href="/popia-ai-check" className="text-cyan-ink underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)] rounded-sm">
-              Take the assessment
+              Take the free review
             </Link>
             .
           </p>

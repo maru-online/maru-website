@@ -133,7 +133,7 @@ export default function AiInActionPage() {
                   variant="primary"
                   className="w-full sm:w-auto justify-center"
                 >
-                  Start the assessment
+                  Start the free review
                 </Button>
                 <Button href="/booking" variant="tertiary">
                   Book a discovery call
