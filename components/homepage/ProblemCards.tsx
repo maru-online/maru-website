@@ -12,7 +12,7 @@
  */
 
 import { motion, useReducedMotion, type Variants } from 'framer-motion'
-import Glyph from '@/components/ui/Glyph'
+import { DrawnVisual } from '@/components/ui/CardMedia'
 
 type Card = {
   icon: 'unlink' | 'hourglass' | 'shield'
@@ -82,19 +82,16 @@ export default function ProblemCards() {
     >
       {CARDS.map((c) => (
         <motion.div key={c.heading} variants={card} className="h-full">
-          <div className="card-lift prob-card h-full relative overflow-hidden flex flex-col">
+          <div className="card-dark prob-card h-full relative overflow-hidden flex flex-col">
             <motion.span
               aria-hidden="true"
               variants={edge}
               className="absolute left-0 right-0 top-0 block"
-              style={{ height: '3px', background: 'var(--color-cyan)', transformOrigin: 'left center' }}
+              style={{ height: '3px', background: 'var(--color-cyan)', transformOrigin: 'left center', zIndex: 1 }}
             />
+            {/* Top band: the drawn visual, as on the Guides insight cards. */}
+            <DrawnVisual glyph={c.icon} glyphSize={40} className="h-36 w-full" />
             <div className="card-body">
-            <div className="card-label-row">
-              <span className="glyph-chip">
-                <Glyph name={c.icon} size={22} />
-              </span>
-            </div>
             <h3 className="card-title">{c.heading}</h3>
             <ul className="prob-list">
               {c.points.map((p) => (

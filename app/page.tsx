@@ -205,28 +205,35 @@ export default function Home() {
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 02 — THE PROBLEM
-          bg: canvas
+          bg: dark chapter (3 Nov 2026, Jimmy's call): the problem sits in the
+          dark; the fix (bridge + diagram) follows on a light ground below.
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ background: "var(--gradient-surface)" }}
-      >
+      <section className={`section-dark ${outerPad} py-24`}>
         <div className={innerWide}>
           <SectionHead
             eyebrow="The problem"
             title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
             intro="Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information-handling becomes harder to manage."
+            dark
           />
 
           <ProblemCards />
+        </div>
+      </section>
 
+      {/* ── SECTION 02b — THE FIX: bridge + diagram, light ground ─────────── */}
+      <section
+        className={`${outerPad} pb-24`}
+        style={{ background: "var(--gradient-surface)", paddingTop: "4rem" }}
+      >
+        <div className={innerWide}>
           {/* Story turn (Option A, approved 3 Nov 2026): the cards are the cost of
               disconnected tools; the diagram is the fix. The bridge names the
               turn so the two read as one argument, not two visuals. */}
           <FadeUp>
             <div
               className="mx-auto text-center"
-              style={{ maxWidth: "640px", marginTop: "var(--space-section-header-mb)", marginBottom: "2rem" }}
+              style={{ maxWidth: "640px", marginBottom: "2rem" }}
             >
               <span
                 aria-hidden="true"
