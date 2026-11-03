@@ -17,7 +17,7 @@ export const section71: ContentEntry = {
   pillar: 'popia-data-governance',
   category: 'AI in Business',
   format: 'Analysis',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '6 min read',
   author: 'Maru Online',

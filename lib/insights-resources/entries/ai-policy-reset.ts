@@ -18,7 +18,7 @@ export const policyReset: ContentEntry = {
   pillar: 'ai-for-business',
   category: 'AI Developments',
   format: 'News',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '4 min read',
   author: 'Maru Online',
