@@ -1,8 +1,8 @@
 /**
- * GET /api/cron/assessment-retention — the POPIA Assessment's 12-month rule
+ * GET /api/cron/assessment-retention — the POPIA review's 12-month rule
  * (privacy policy section 5, agreed by the owner 8 Oct 2026).
  *
- * Deletes POPIA Assessment results (operations_reports rows, including the
+ * Deletes POPIA review results (operations_reports rows, including the
  * generated report) once a person's most recent check is older than
  * ASSESSMENT_RETENTION_MONTHS. The report link stops working with the row.
  *

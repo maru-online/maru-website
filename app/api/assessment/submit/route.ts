@@ -567,7 +567,7 @@ async function sendLeadAlertEmail(params: BrevoEmailParams) {
     body: JSON.stringify({
       sender: { name: "Maru Online", email: "hello@maruonline.com" },
       to: [{ email: "hello@maruonline.com", name: "Maru Online" }],
-      subject: `New POPIA Assessment: ${name} — ${levelLabel}${segmentB ? " ⚠️ Segment B" : ""}`,
+      subject: `New POPIA review: ${name} — ${levelLabel}${segmentB ? " ⚠️ Segment B" : ""}`,
       htmlContent: briefHtml,
       replyTo: { email, name },
       tags: [ASSESSMENT_VERSION],
@@ -640,7 +640,7 @@ function buildLeadAlertHtml(params: {
 
   return `
     <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:680px;margin:0 auto;padding:32px 24px;color:#1a1a1a;">
-      <h1 style="font-size:20px;margin:0 0 4px;">New POPIA Assessment: ${name}</h1>
+      <h1 style="font-size:20px;margin:0 0 4px;">New POPIA review: ${name}</h1>
       <p style="color:#666;font-size:14px;margin:0 0 24px;">${levelLabel} · ${ASSESSMENT_VERSION} · ${new Date().toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</p>
 
       ${flagBanner}
@@ -656,12 +656,12 @@ function buildLeadAlertHtml(params: {
 
       ${briefSection}
 
-      <h2 style="font-size:16px;margin:24px 0 8px;">Assessment Answers</h2>
+      <h2 style="font-size:16px;margin:24px 0 8px;">Review answers</h2>
       <table style="width:100%;border-collapse:collapse;font-size:14px;">
         ${answerRows}
       </table>
 
-      <p style="margin-top:32px;font-size:12px;color:#999;">This email was generated automatically by the Maru Online POPIA Assessment. Reply to this email to contact ${name} directly.</p>
+      <p style="margin-top:32px;font-size:12px;color:#999;">This email was generated automatically by the Maru Online POPIA review. Reply to this email to contact ${name} directly.</p>
     </div>
   `;
 }
