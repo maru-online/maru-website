@@ -22,6 +22,11 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
+    // Off since 3 Nov 2026: Vercel restores .next/cache between deployments,
+    // and the restored Turbopack build cache served a stale globals.css (the
+    // Release 1.3 preview shipped without its new rules). A clean CSS build
+    // costs a little build time; a stale one costs a broken page.
+    turbopackFileSystemCacheForBuild: false,
   },
   
   // Headers for better caching
