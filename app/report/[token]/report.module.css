@@ -660,6 +660,13 @@
 /* ── Wider screens ────────────────────────────────────────────────────── */
 
 @media (min-width: 640px) {
+  /* Reading system (3 Nov 2026): the site's card padding and card-text size. */
+  .cardPad {
+    padding: var(--card-pad);
+  }
+  .prose {
+    font-size: var(--text-card);
+  }
   .wrap {
     padding-left: 32px;
     padding-right: 32px;

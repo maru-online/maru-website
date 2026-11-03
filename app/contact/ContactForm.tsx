@@ -117,21 +117,10 @@ export default function ContactForm() {
 
       {/* ── Form heading and introduction (30 Oct 2026). Inside the form so
           they leave with it once the thank-you message shows. ── */}
-      <h2
-        style={{
-          fontFamily:    'var(--font-body)',
-          fontWeight:    700,
-          fontSize:      'var(--text-h3-sans)',
-          color:         'var(--color-ink-primary)',
-          lineHeight:    1.3,
-          marginBottom:  '0.5rem',
-          border:        'none',
-          paddingBottom: 0,
-        }}
-      >
+      <h2 className="card-title">
         Describe your challenge.
       </h2>
-      <p className="body-muted" style={{ marginBottom: '2rem' }}>
+      <p className="card-text" style={{ marginBottom: '2rem' }}>
         Share a few details about your business and what you are looking to improve. The more context you provide, the more useful the initial conversation can be.
       </p>
 

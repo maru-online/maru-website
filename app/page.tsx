@@ -8,6 +8,7 @@ import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
 import HeroLight from "@/components/ui/HeroLight";
+import SectionHead from "@/components/ui/SectionHead";
 import { seo } from '@/lib/seo'
 
 // Homepage copy: "Maru Online — Revised Website Copy" v1.0 (handover, 1 Nov 2026),
@@ -171,9 +172,8 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp delay={0.22}>
-            {/* data-maru-primary-cta: the floating WhatsApp bubble watches for this
-                and hides itself while this button is on screen. See
-                components/ui/WhatsAppWidget. */}
+            {/* data-maru-primary-cta: marks the hero's primary actions. The floating
+                WhatsApp bubble that watched for it was retired on 3 Nov 2026. */}
             <div
               data-maru-primary-cta
               className="flex flex-col items-stretch sm:items-start gap-3"
@@ -212,20 +212,11 @@ export default function Home() {
         style={{ background: "var(--gradient-surface)" }}
       >
         <div className={innerWide}>
-          <FadeUp>
-            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>The problem</span>
-            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-              Disconnected systems
-              <br />
-              create <span className="hl">unnecessary work.</span>
-            </h2>
-            <p
-              className="body-muted"
-              style={{ maxWidth: "720px", marginBottom: "var(--space-section-header-mb)" }}
-            >
-              Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information-handling becomes harder to manage.
-            </p>
-          </FadeUp>
+          <SectionHead
+            eyebrow="The problem"
+            title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
+            intro="Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information-handling becomes harder to manage."
+          />
 
           <ProblemCards />
 
@@ -248,7 +239,7 @@ export default function Home() {
               <h3
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontWeight: 300,
+                  fontWeight: 600,
                   fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
                   color: "var(--color-ink-primary)",
                   lineHeight: 1.25,
@@ -280,56 +271,24 @@ export default function Home() {
         style={{ backgroundColor: "var(--color-bg-secondary)" }}
       >
         <div className={innerWide}>
-          <FadeUp>
-            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>How we work</span>
-            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-              From business challenge
-              <br />
-              to <span className="hl">working AI-enabled workflow.</span>
-            </h2>
-            <p
-              className="body-muted"
-              style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}
-            >
-              Every engagement starts with understanding the business problem, identifying the workflow that needs attention, and determining where AI or better-connected systems can create practical value. We then design, integrate, test, and refine the solution around your existing operations.
-            </p>
-          </FadeUp>
+          <SectionHead
+            eyebrow="How we work"
+            title={<>From business challenge to <span className="hl">working AI-enabled workflow.</span></>}
+            intro="Every engagement starts with understanding the business problem, identifying the workflow that needs attention, and determining where AI or better-connected systems can create practical value. We then design, integrate, test, and refine the solution around your existing operations."
+          />
 
           <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {steps.map((step) => (
               <StaggerChild key={step.n} className="h-full">
-                <div className="card-lift h-full" style={{ padding: "1.75rem 1.5rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "1.25rem" }}>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                  <div className="card-label-row">
                     <span className="glyph-chip glyph-chip-lg">
                       <Glyph name={step.icon} size={28} />
                     </span>
-                    <span
-                      aria-hidden="true"
-                      style={{
-                        fontSize: "26px",
-                        fontWeight: 100,
-                        color: "rgba(61, 184, 198, 0.45)",
-                        lineHeight: 1,
-                        fontFamily: "var(--font-display)",
-                      }}
-                    >
-                      0{step.n}
-                    </span>
+                    <span className="card-label">0{step.n}</span>
                   </div>
-                  <h3
-                    style={{
-                      fontSize: "var(--text-h3-sans)",
-                      fontWeight: 600,
-                      color: "var(--color-ink-primary)",
-                      lineHeight: 1.3,
-                      marginBottom: "0.75rem",
-                      borderBottom: "2px solid var(--color-cyan)",
-                      paddingBottom: "0.75rem",
-                      fontFamily: "var(--font-body)",
-                    }}
-                  >
-                    {step.n}. {step.name}
-                  </h3>
+                  <h3 className="card-title">{step.name}</h3>
                   <ul className="prob-list">
                     {step.points.map((p) => (
                       <li key={p}>
@@ -338,6 +297,7 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
@@ -356,12 +316,11 @@ export default function Home() {
       >
         <div className={innerWide}>
           <FadeUp>
-            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-              Responsible implementation starts with
-              <br />
+            <h2 className="section-title">
+              Responsible implementation starts with{" "}
               <span className="hl">understanding the information involved.</span>
             </h2>
-            <p className="body-muted" style={{ maxWidth: "760px", marginBottom: "1.5rem" }}>
+            <p className="body-muted section-intro" style={{ marginBottom: "1.5rem" }}>
               POPIA-aware means considering how personal information is collected, accessed, used, shared, stored, and retained when an AI-enabled workflow is designed or implemented. The exact considerations depend on the information, the purpose, the systems involved, and the providers connected to the workflow.
             </p>
             <p
@@ -393,90 +352,33 @@ export default function Home() {
         style={{ backgroundColor: "var(--color-bg-secondary)" }}
       >
         <div className={innerWide}>
-          <FadeUp>
-            <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1.5rem" }}>Supporting capabilities</span>
-            <h2 className="h2-blend" style={{ marginBottom: "1.25rem" }}>
-              Capabilities that
-              <br />
-              <span className="hl">support implementation.</span>
-            </h2>
-            <p
-              className="body-muted"
-              style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}
-            >
-              The right AI workflow depends on the business decisions, systems, data, and processes around it. We bring these elements together to help South African businesses build connected, usable systems that can evolve over time.
-            </p>
-          </FadeUp>
+          <SectionHead
+            eyebrow="Supporting capabilities"
+            title={<>Capabilities that <span className="hl">support implementation.</span></>}
+            intro="The right AI workflow depends on the business decisions, systems, data, and processes around it. We bring these elements together to help South African businesses build connected, usable systems that can evolve over time."
+          />
 
           <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {capabilities.map((col) => (
               <StaggerChild key={col.name} className="h-full">
-                <div
-                  className="card-lift h-full"
-                  style={{ padding: "1.75rem 1.5rem" }}
-                >
-                  <span className="glyph-chip glyph-chip-lg" style={{ marginBottom: "1.25rem" }}>
-                    <Glyph name={col.icon} size={28} />
-                  </span>
-
-                  <h3
-                    style={{
-                      fontSize: "var(--text-h3-sans)",
-                      fontWeight: 600,
-                      color: "var(--color-ink-primary)",
-                      lineHeight: 1.3,
-                      marginBottom: "0.75rem",
-                      borderBottom: "2px solid var(--color-cyan)",
-                      paddingBottom: "0.75rem",
-                      fontFamily: "var(--font-body)",
-                    }}
-                  >
-                    {col.name}
-                  </h3>
-
-                  <p
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontWeight: 600,
-                      fontSize: "var(--text-body-sm)",
-                      color: "var(--color-ink-primary)",
-                      lineHeight: "var(--leading-body)",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    {col.lead}
-                  </p>
-
-                  <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                  <div className="card-label-row">
+                    <span className="glyph-chip glyph-chip-lg">
+                      <Glyph name={col.icon} size={28} />
+                    </span>
+                  </div>
+                  <h3 className="card-title">{col.name}</h3>
+                  <p className="card-text card-text-lead">{col.lead}</p>
+                  <ul className="prob-list">
                     {col.items.map((item) => (
-                      <li
-                        key={item}
-                        style={{
-                          fontSize: "var(--text-body-sm)",
-                          color: "var(--color-ink-secondary)",
-                          padding: "4px 0",
-                          lineHeight: "var(--leading-body)",
-                          display: "flex",
-                          gap: "8px",
-                          alignItems: "flex-start",
-                          fontFamily: "var(--font-body)",
-                          fontWeight: 300,
-                        }}
-                      >
-                        <span
-                          aria-hidden="true"
-                          style={{
-                            color: "var(--color-cyan)",
-                            flexShrink: 0,
-                            lineHeight: "var(--leading-body)",
-                          }}
-                        >
-                          →
-                        </span>
-                        {item}
+                      <li key={item}>
+                        <span className="prob-dot" aria-hidden="true" />
+                        <span>{item}</span>
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </div>
               </StaggerChild>
             ))}

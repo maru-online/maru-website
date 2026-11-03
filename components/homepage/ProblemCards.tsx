@@ -1,9 +1,9 @@
 'use client'
 
 /**
- * Section 2 problem cards (homepage). Production card design (restored
- * 2 Nov 2026, replacing the tinted paper cards); copy from the revised
- * website copy handover, tightened for bullets.
+ * Section 2 problem cards (homepage). Production card surface with the
+ * reading-system anatomy (3 Nov 2026): label row, title, bullets at card-text
+ * size. Copy from the revised website copy handover, tightened for bullets.
  *
  * Short bullets, not paragraphs, so the message lands on a skim. Motion is
  * transform and opacity only: the card rises, its cyan top edge draws across,
@@ -82,35 +82,20 @@ export default function ProblemCards() {
     >
       {CARDS.map((c) => (
         <motion.div key={c.heading} variants={card} className="h-full">
-          <div
-            className="card-lift prob-card h-full relative overflow-hidden"
-            style={{
-              border: '0.5px solid var(--color-border-card)',
-              borderRadius: '8px',
-              padding: '1.75rem 1.5rem 1.5rem',
-            }}
-          >
+          <div className="card-lift prob-card h-full relative overflow-hidden flex flex-col">
             <motion.span
               aria-hidden="true"
               variants={edge}
               className="absolute left-0 right-0 top-0 block"
               style={{ height: '3px', background: 'var(--color-cyan)', transformOrigin: 'left center' }}
             />
-            <span className="glyph-chip" style={{ marginBottom: '1rem' }}>
-              <Glyph name={c.icon} size={22} />
-            </span>
-            <h3
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-                fontSize: 'var(--text-h3-sans)',
-                color: 'var(--color-ink-primary)',
-                marginBottom: '0.875rem',
-                lineHeight: 'var(--leading-subheading)',
-              }}
-            >
-              {c.heading}
-            </h3>
+            <div className="card-body">
+            <div className="card-label-row">
+              <span className="glyph-chip">
+                <Glyph name={c.icon} size={22} />
+              </span>
+            </div>
+            <h3 className="card-title">{c.heading}</h3>
             <ul className="prob-list">
               {c.points.map((p) => (
                 <motion.li key={p} variants={bullet}>
@@ -119,6 +104,7 @@ export default function ProblemCards() {
                 </motion.li>
               ))}
             </ul>
+            </div>
           </div>
         </motion.div>
       ))}

@@ -1,6 +1,6 @@
 # Maru Online — Design System ("Warm Stone")
 
-**Written:** 3 Aug 2026 · **Enforced by:** `npm run lint:design`
+**Written:** 3 Aug 2026 · **Updated:** 3 Nov 2026 (reading system) · **Enforced by:** `npm run lint:design`
 **Source of truth:** `app/globals.css`. This document explains it; the CSS defines it.
 
 The site's job is **due-diligence credibility** for corporate ESD managers and programme
@@ -36,8 +36,11 @@ this. A typo in a colour name is invisible until someone looks at the page.
 | `--color-bg-navy-deep` | `#16324F` | Deeper hero variant |
 | `--color-bg-darkest` | `#122A45` | Mobile menu overlay |
 
-**Dark surfaces appear only in the hero, the footer, and the assessment band.** Nowhere
-else. A page whose `<main>` carries a navy background is a bug — that was the state of the
+**Dark surfaces appear in the hero, the footer, the assessment band, and at most one
+dark chapter per page** (`.section-dark`, added 3 Nov 2026). A dark chapter is for content
+that stands apart: proof (About: GrowthIQ), a product walkthrough (Invara: How it works),
+or timely analysis (Guides & Resources: AI insights). The homepage has none: its hero and
+time-back image band already carry the dark moments. A page whose `<main>` carries a navy background is a bug — that was the state of the
 legal pages, `/careers` and `/about`'s old client component before 3 Aug 2026.
 
 ### Cards
@@ -51,6 +54,23 @@ legal pages, `/careers` and `/about`'s old client component before 3 Aug 2026.
 
 Cards sit a step **above** their ground: the ground was darkened so the card has something
 to lift off, and hover carries it to pure white.
+
+### Reading system (3 Nov 2026)
+
+Carried site-wide from the Guides & Resources page because it reads more easily.
+
+| Token | Value | Use |
+|---|---|---|
+| `--card-pad` | `1.75rem` (28px) | Padding inside every card (`.card-body`) |
+| `--text-card` | `--text-body-sm` (18px) | Card text and card lists. Was 20px for bullets |
+| `--text-card-title` | `--text-h3-serif` (22px) | Card titles, display font |
+| `--section-intro-max` | `620px` | Section intro line length |
+| `--section-dark-glow` | two cyan radial gradients | The `.section-dark` background glow |
+| `--card-dark-fill` / `-border` / `-shadow` | translucent white, cyan-tinted shadow | `.card-dark` in a dark chapter |
+
+**Headings use one weight.** Section h2 is 600; a highlighted phrase changes colour only
+(`.hl`), never weight. `.h2-blend` was 200 until 3 Nov 2026 and was too thin to read at
+size. The hero H1 keeps its production light/strong split.
 
 ### Ink
 
@@ -104,6 +124,22 @@ large type and decorative meta, not for anything a reader must actually read.
 
 ## 4. Component classes
 
+`SectionHead` (`components/ui/SectionHead.tsx`) — the one section head: eyebrow, one-weight
+title (`title`, or `light` + highlighted `strong`), one intro line (`intro`). Pages with
+their own `SectionHead` helper wrap this one.
+
+**Card anatomy** — every card, in this order, inside `.card-body`:
+`.card-label-row` (glyph chip and/or `.card-label`) → `.card-title` → `.card-text` or
+`.prob-list` → optional meta → `.card-action` (one link, arrow, pinned to the bottom).
+A card with no destination has no action. No underline rules under titles, no faint
+numerals; a number goes in `.card-label`.
+
+`.section-dark` / `.card-dark` — the dark chapter and its cards (see Grounds).
+
+`TreatedImage` / `DrawnVisual` (`components/ui/CardMedia.tsx`) — every photograph goes
+through `TreatedImage` (navy multiply + bottom fade; `untinted` for product screenshots).
+`DrawnVisual` is the stand-in when there is no photograph.
+
 `.card-lift` — **owns** the card surface, edge, elevation and hover brighten.
 
 > **Trap:** an inline `background` on a card beats the class and silently kills the hover.
@@ -111,7 +147,7 @@ large type and decorative meta, not for anything a reader must actually read.
 
 `.foundation-cell` — flatter card variant for foundation/compliance grids.
 
-`.card-lift-dark` — cards on navy sections; shadow tinted with cyan.
+`.card-lift-dark` — legacy navy-section card; prefer `.card-dark` for new work.
 
 `.glyph-chip` — tinted icon chip. Cyan for core services, `.glyph-chip-gold` for
 foundation and compliance. Scales on card hover.
@@ -168,7 +204,10 @@ everything else has failed.
 
 ## 7. Per-page checklist
 
-- [ ] Ground is `--gradient-surface` or `--color-bg-secondary`; dark only in hero/footer/assessment band
+- [ ] Ground is `--gradient-surface` or `--color-bg-secondary`; dark only in hero/footer/assessment band, plus at most one `.section-dark` chapter
+- [ ] Section heads use `SectionHead`; one heading weight, highlight in colour only
+- [ ] Cards follow the anatomy (`.card-body`, `.card-title`, `.card-text`/`.prob-list`, `.card-action`)
+- [ ] Photographs go through `TreatedImage`
 - [ ] Cards use `.card-lift` with **no inline `background`**
 - [ ] Card borders use `--color-border-card` (warm), not `--color-border-default` (cool)
 - [ ] Icons are `Glyph` in a `.glyph-chip`

@@ -11,6 +11,7 @@ import {
 } from "@/lib/insights-resources/content";
 import { breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
 import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
+import SectionHead from "@/components/ui/SectionHead";
 
 // Guides & Resources landing page (route /insights-resources). Hero, section
 // headings, CTA and card titles revised 1 Nov 2026 per "Maru Online — Revised
@@ -42,40 +43,6 @@ const outerPad = "px-6 md:px-[60px]";
 const innerWide = "max-w-[1100px] mx-auto";
 
 const CONTACT_HREF = "/contact#contact-form";
-
-function SectionHead({
-  id,
-  eyebrow,
-  title,
-  copy,
-  dark = false,
-}: {
-  id: string;
-  eyebrow: string;
-  title: string;
-  copy: string;
-  dark?: boolean;
-}) {
-  return (
-    <FadeUp>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2
-        id={id}
-        style={{
-          marginBottom: "1rem",
-          border: "none",
-          fontWeight: 700,
-          ...(dark ? { color: "var(--color-ink-inverted)" } : {}),
-        }}
-      >
-        {title}
-      </h2>
-      <p className={dark ? "body-on-navy" : "body-muted"} style={{ maxWidth: "620px", marginBottom: "2.5rem" }}>
-        {copy}
-      </p>
-    </FadeUp>
-  );
-}
 
 function EmptyState({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
@@ -150,24 +117,14 @@ export default function InsightsResourcesPage() {
       <section
         id={SECTIONS.insights.segment}
         aria-labelledby="ai-insights-heading"
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-navy-deep)" }}
+        className={`section-dark ${outerPad} py-24`}
       >
-        <div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{
-            inset: 0,
-            background:
-              "radial-gradient(55% 70% at 100% 0%, rgba(61,184,198,0.14), transparent 60%), radial-gradient(40% 50% at 0% 100%, rgba(61,184,198,0.07), transparent 70%)",
-          }}
-        />
         <div className={`${innerWide} relative`}>
           <SectionHead
             id="ai-insights-heading"
             eyebrow="Timely · Analytical"
             title="AI insights for business"
-            copy="The latest AI developments, industry news and analysis — with a focus on what matters to business."
+            intro="The latest AI developments, industry news and analysis — with a focus on what matters to business."
             dark
           />
           {insights.length ? (
@@ -203,7 +160,7 @@ export default function InsightsResourcesPage() {
             id="resources-heading"
             eyebrow="Practical · Evergreen"
             title="Resources and best practice"
-            copy="Practical guides and resources to help businesses understand, plan and implement AI."
+            intro="Practical guides and resources to help businesses understand, plan and implement AI."
           />
           {resources.length ? (
             <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -231,7 +188,7 @@ export default function InsightsResourcesPage() {
         <div className={`${innerWide} max-w-[760px] mx-0 md:mx-auto`}>
           <FadeUp>
             <h2 style={{ color: "var(--color-ink-inverted)", border: "none", padding: 0, marginBottom: "var(--space-heading-body)" }}>
-              <span style={{ fontWeight: 700 }}>Do you have an AI challenge in your business?</span>
+              Do you have an AI challenge in your business?
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>

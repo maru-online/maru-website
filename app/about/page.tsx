@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from '@/lib/seo'
+import SharedSectionHead from "@/components/ui/SectionHead";
 
 // About page copy: "Maru Online — Revised Website Copy" v1.0 (1 Nov 2026),
 // applied over "MaruOnline — About Page Copy" (approved 20 Oct 2026). The
@@ -86,7 +87,7 @@ const caseBlocks: {
       "AI supporting a single source of truth for ESD programme management.",
       <>
         Positioned on one promise:{" "}
-        <strong style={{ fontWeight: 600, color: "var(--color-ink-primary)" }}>
+        <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>
           &ldquo;Audit-ready reporting at every stage.&rdquo;
         </strong>
       </>,
@@ -130,56 +131,11 @@ const screens = [
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────
 
-function SectionHead({
-  eyebrow,
-  light,
-  strong,
-  onNavy = false,
-}: {
-  eyebrow: string;
-  light: string;
-  strong: string;
-  onNavy?: boolean;
-}) {
-  return (
-    <>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2
-        style={{
-          marginBottom: "1.5rem",
-          border: "none",
-          ...(onNavy ? { color: "var(--color-ink-inverted)" } : {}),
-        }}
-      >
-        <span style={{ fontWeight: 300 }}>{light}</span>
-        <br />
-        <span style={{ fontWeight: 700 }}>{strong}</span>
-      </h2>
-    </>
-  );
+// One section head site-wide (reading system, 3 Nov 2026): one weight, the
+// second part highlighted in colour only. Wraps components/ui/SectionHead.
+function SectionHead({ eyebrow, light, strong, onNavy = false }: { eyebrow: string; light?: string; strong: string; onNavy?: boolean }) {
+  return <SharedSectionHead eyebrow={eyebrow} light={light} strong={strong} dark={onNavy} animate={false} />;
 }
-
-const cardHeading: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontWeight: 600,
-  fontSize: "var(--text-h3-sans)",
-  color: "var(--color-ink-primary)",
-  lineHeight: 1.3,
-  marginBottom: "0.75rem",
-  border: "none",
-  paddingBottom: 0,
-};
-
-const cardLabel: React.CSSProperties = {
-  display: "block",
-  fontFamily: "var(--font-body)",
-  fontSize: "var(--text-label)",
-  fontWeight: 500,
-  letterSpacing: "var(--tracking-eyebrow)",
-  textTransform: "uppercase",
-  color: "var(--color-ink-tertiary)",
-  marginBottom: "0.5rem",
-};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -294,15 +250,16 @@ export default function AboutPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {approach.map((card) => (
               <StaggerChild key={card.heading} className="h-full">
-                <div
-                  className="card-lift h-full"
-                  style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}
-                >
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={card.icon} size={22} />
-                  </span>
-                  <h3 style={cardHeading}>{card.heading}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{card.body}</p>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                    <div className="card-label-row">
+                      <span className="glyph-chip">
+                        <Glyph name={card.icon} size={22} />
+                      </span>
+                    </div>
+                    <h3 className="card-title">{card.heading}</h3>
+                    <p className="card-text">{card.body}</p>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
@@ -312,21 +269,22 @@ export default function AboutPage() {
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 3 — CASE STUDY: GROWTHIQ
-          bg: surface
+          bg: dark chapter (reading system, 3 Nov 2026): the page's one piece of proof
           ════════════════════════════════════════════════════════════════════ */}
-      <section id="growthiq" className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section id="growthiq" className={`section-dark ${outerPad} py-24`}>
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
               eyebrow="Our work in practice"
               light="A practical example"
               strong="of the work."
+              onNavy
             />
             <div className={innerText} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <p className="body-muted" style={{ marginBottom: "1rem" }}>
+              <p className="body-on-navy" style={{ marginBottom: "1rem" }}>
                 GrowthIQ is an AI-enabled Enterprise and Supplier Development (ESD) platform developed by Growth Firm. It brings programme management, SME development information and reporting into a connected environment designed to support visibility and audit-ready reporting throughout the ESD lifecycle.
               </p>
-              <p className="body-muted" style={{ marginBottom: 0 }}>
+              <p className="body-on-navy" style={{ marginBottom: 0 }}>
                 For GrowthIQ, Maru Online contributed industry research, product strategy, positioning, and brand development. The work involved understanding the market, defining the product direction, and building a clearer foundation for growth.
               </p>
             </div>
@@ -335,13 +293,12 @@ export default function AboutPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
             {caseBlocks.map((block) => (
               <StaggerChild key={block.n} className="h-full">
-                <article className="card-lift h-full" style={{ padding: "2rem 1.75rem" }}>
-                  <span style={{ ...cardLabel, color: "var(--color-cyan-ink, var(--color-ink-tertiary))" }}>
-                    {block.n} — {block.label}
-                  </span>
-                  <h3 style={{ ...cardHeading, borderBottom: "2px solid var(--color-cyan)", paddingBottom: "0.75rem", marginBottom: "1rem" }}>
-                    {block.heading}
-                  </h3>
+                <article className="card-dark h-full flex flex-col">
+                  <div className="card-body">
+                  <div className="card-label-row">
+                    <span className="card-label">{block.n} — {block.label}</span>
+                  </div>
+                  <h3 className="card-title">{block.heading}</h3>
                   <ul className="prob-list">
                     {block.points.map((p, i) => (
                       <li key={i}>
@@ -350,6 +307,7 @@ export default function AboutPage() {
                       </li>
                     ))}
                   </ul>
+                  </div>
                 </article>
               </StaggerChild>
             ))}
@@ -389,21 +347,18 @@ export default function AboutPage() {
 
           <FadeUp delay={0.08}>
             <div
-              className="rounded-[10px]"
-              style={{
-                marginTop: "2rem",
-                padding: "2rem 1.75rem",
-                background: "var(--color-bg-secondary)",
-                borderLeft: "4px solid var(--color-cyan)",
-              }}
+              className="card-dark"
+              style={{ marginTop: "2rem", borderLeft: "4px solid var(--color-cyan)" }}
             >
-              <h3 style={cardHeading}>What this demonstrates</h3>
-              <p className="body-muted" style={{ marginBottom: "0.875rem", maxWidth: "820px" }}>
+              <div className="card-body">
+              <h3 className="card-title">What this demonstrates</h3>
+              <p className="card-text" style={{ marginBottom: "0.875rem", maxWidth: "820px" }}>
                 GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and translate that strategy into a distinctive digital experience.
               </p>
-              <p className="body-muted" style={{ marginBottom: 0, maxWidth: "820px" }}>
+              <p className="card-text" style={{ marginBottom: 0, maxWidth: "820px" }}>
                 The platform has recently launched, so measurable post-launch business outcomes are not yet available. As performance data becomes available, we can build on this case study with verified evidence of its impact.
               </p>
+              </div>
             </div>
           </FadeUp>
         </div>
@@ -478,7 +433,7 @@ export default function AboutPage() {
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              <span style={{ fontWeight: 700 }}>Let&apos;s solve the right problem.</span>
+              Let&apos;s solve the right problem.
             </h2>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
               Let&apos;s identify the challenge, assess the opportunity, and outline a practical next step.
