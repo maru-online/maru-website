@@ -8,7 +8,6 @@ import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
 import HeroLight from "@/components/ui/HeroLight";
-import { HandLoop } from "@/components/ui/HandMark";
 import { seo } from '@/lib/seo'
 
 // Homepage copy: "Maru Online — Revised Website Copy" v1.0 (handover, 1 Nov 2026),
@@ -493,7 +492,7 @@ export default function Home() {
           <>
             <span style={{ display: 'block', fontWeight: 200 }}>We do not replace your team.</span>
             <span style={{ display: 'block', fontWeight: 200 }}>
-              We give them their <HandLoop>time back.</HandLoop>
+              We give them their <span style={{ color: 'var(--color-cyan)' }}>time back.</span>
             </span>
           </>
         }
