@@ -40,6 +40,11 @@ const CARDS: Card[] = [
   {
     icon: 'hourglass',
     heading: 'Manual data processing',
+    image: {
+      src: '/images/home/problem-manual.jpg',
+      alt: 'Hands typing figures from a stack of paper invoices into a laptop, beside a calculator',
+      position: '62% 55%',
+    },
     points: [
       'Repeated data entry takes up staff time.',
       'Routine administration adds up.',
@@ -49,6 +54,12 @@ const CARDS: Card[] = [
   {
     icon: 'shield',
     heading: 'Data governance and POPIA considerations',
+    // Source came back letterboxed; this is the 1376x378 strip without the bars.
+    image: {
+      src: '/images/home/problem-governance.jpg',
+      alt: 'A person filing a folder of documents into an open drawer of a steel filing cabinet',
+      position: '55% 50%',
+    },
     points: [
       'Personal information is spread across systems and channels.',
       'Handling practices are inconsistent.',
