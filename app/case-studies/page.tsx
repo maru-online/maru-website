@@ -74,7 +74,6 @@ export default function CaseStudiesPage() {
                   href={`/case-studies/${s.slug}`}
                   className="card-lift block no-underline"
                   style={{
-                    border: "1px solid var(--color-border-card)",
                     borderRadius: "8px",
                     padding: "2rem",
                   }}

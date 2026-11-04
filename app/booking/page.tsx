@@ -68,7 +68,7 @@ export default function BookingPage() {
       >
         <div className={inner}>
           <FadeUp>
-            <div className="card-lift"
+            <div className="card-lift card-static"
               style={{
                 borderRadius: '8px',
                 overflow:     'hidden',

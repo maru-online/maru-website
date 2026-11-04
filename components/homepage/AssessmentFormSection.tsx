@@ -4,8 +4,6 @@ import Glyph from "@/components/ui/Glyph";
 import { StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import SectionHead from "@/components/ui/SectionHead";
 
-const outerPad = "px-6 md:px-[60px]";
-const inner    = "max-w-[1100px] mx-auto";
 
 const ASSESSMENT_HREF = "/popia-ai-check";
 const CONTACT_HREF    = "/contact#contact-form";
@@ -20,13 +18,12 @@ const CONTACT_HREF    = "/contact#contact-form";
 // in-page links still land here.
 export default function AssessmentFormSection() {
   return (
-    <section
-      id="assessment"
-      className={`${outerPad} py-24`}
-      style={{ background: "var(--gradient-surface)" }}
-    >
-      <div className={inner}>
+    // Sits on the homepage's continuous stone ground (.flow-ground), so it sets
+    // no background of its own. Rhythm and head spacing: Open Flow, 4 Nov 2026.
+    <section id="assessment" className="sec">
+      <div className="sec-inner">
         <SectionHead
+          className="sec-head"
           eyebrow="Next steps"
           title={<>Ready to build AI into <span className="hl">your existing operations?</span></>}
           intro="Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward."

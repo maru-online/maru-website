@@ -206,7 +206,7 @@ function AssessmentWizard() {
       </div>
 
       <div className="relative z-10 w-full max-w-2xl mx-auto px-6 py-20">
-        <div className="card-lift p-8 md:p-12">
+        <div className="card-lift card-static p-8 md:p-12">
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">

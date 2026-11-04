@@ -20,7 +20,7 @@ export default async function ConfirmPage({ searchParams }: { searchParams: Prom
   const { token } = await searchParams;
   return (
     <section className="px-6 md:px-[60px] pt-48 pb-32" style={{ background: "var(--gradient-surface)" }}>
-      <div className="max-w-[640px] mx-auto card-lift p-8 md:p-12">
+      <div className="max-w-[640px] mx-auto card-lift card-static p-8 md:p-12">
         <ConfirmNotes token={token ?? ""} />
       </div>
     </section>

@@ -40,7 +40,7 @@ const legalLinkClass = 'footer-link footer-legal font-body inline-flex items-cen
 export default function Footer({ showInsights = false }: { showInsights?: boolean }) {
   return (
     <>
-      <footer style={{ background: 'var(--gradient-navy-soft)' }}>
+      <footer className="relative" style={{ background: 'var(--gradient-footer)' }}>
         <div className="max-w-[900px] mx-auto px-6 md:px-[60px] py-20">
           <motion.div
             initial="hidden"

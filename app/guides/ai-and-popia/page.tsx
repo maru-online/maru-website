@@ -88,7 +88,7 @@ export default function GuidePage() {
             </div>
           </FadeUp>
 
-          <div className="card-lift p-8 md:p-10 relative">
+          <div className="card-lift card-static p-8 md:p-10 relative">
             <GuideForm live={GUIDE_LIVE} />
           </div>
         </div>

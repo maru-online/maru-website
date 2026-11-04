@@ -3,12 +3,11 @@ import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
 import ImageBand from "@/components/ui/ImageBand";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
-import HeroLight from "@/components/ui/HeroLight";
 import SectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
 import { seo } from '@/lib/seo'
 
 // Homepage copy: "Maru Online — Revised Website Copy" v1.0 (handover, 1 Nov 2026),
@@ -19,6 +18,11 @@ import { seo } from '@/lib/seo'
 //  - Every listed capability must be work Maru Online can deliver. Keep
 //    "Data-informed growth systems" about customer data, revenue processes and
 //    AI-enabled growth, not standalone campaign management.
+//
+// Layout: "Open Flow" (approved 4 Nov 2026). One stone ground with hairline
+// dividers, tight heading groups with wide gaps after them, navy sections in
+// the Horizon gradient, faint DotField on light sections only. Classes live in
+// the "Homepage layout" block at the end of globals.css.
 
 export const metadata: Metadata = {
   ...seo('/'),
@@ -27,13 +31,9 @@ export const metadata: Metadata = {
     "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use, with POPIA-aware data governance built into the design and implementation.",
 };
 
-// ─── Layout constants ─────────────────────────────────────────────────────────
-const outerPad = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
-
 // ─── Content ──────────────────────────────────────────────────────────────────
 
-// Step cards: production card design (restored 2 Nov 2026), copy as bullets.
+// Steps: shown as rows beside the heading (Open Flow, 4 Nov 2026), copy as bullets.
 const steps = [
   {
     n: "1",
@@ -99,6 +99,17 @@ const capabilities = [
   },
 ];
 
+const BulletList = ({ items }: { items: string[] }) => (
+  <ul className="prob-list">
+    {items.map((p) => (
+      <li key={p}>
+        <span className="prob-dot" aria-hidden="true" />
+        <span>{p}</span>
+      </li>
+    ))}
+  </ul>
+);
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -106,27 +117,17 @@ export default function Home() {
     <>
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 01 — HERO
-          bg: navy-deep
+          bg: Horizon gradient
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative min-h-screen flex items-center overflow-hidden ${outerPad} pt-28 sm:pt-36 md:pt-48 pb-16 sm:pb-24 md:pb-32`}
-        style={{ background: "var(--gradient-hero)" }}
+        className="sec navy-horizon relative min-h-screen flex items-center overflow-hidden"
+        style={{ paddingTop: "clamp(9rem, 15vw, 12rem)" }}
       >
-        <BGPattern
-          variant="grid"
-          mask="fade-edges"
-          size={40}
-          fill="rgba(61, 184, 198, 0.101)"
-          className="pointer-events-none"
-        />
-        {/* Responsive light: rests behind the empty right side, follows a mouse. */}
-        <HeroLight />
         {/* Fixed-width column: production's column shrank to the longest headline
-            line and re-centred, so its left edge moved whenever the copy changed.
-            900px centred puts it at production's 190px at a 1280px viewport. */}
+            line and re-centred, so its left edge moved whenever the copy changed. */}
         <div className="relative w-full max-w-[900px] mx-auto">
           <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "3rem" }}>POPIA-aware AI implementation</span>
+            <span className="label-eyebrow" style={{ marginBottom: "2.5rem" }}>POPIA-aware AI implementation</span>
           </FadeUp>
 
           <FadeUp delay={0.08}>
@@ -138,20 +139,19 @@ export default function Home() {
           </FadeUp>
 
           <FadeUp delay={0.16}>
-            <div style={{ maxWidth: "680px", marginBottom: "2rem" }}>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontWeight: 300,
-                  fontSize: "var(--text-body)",
-                  color: "var(--color-ink-inverted-muted)",
-                  lineHeight: "var(--leading-body-relaxed)",
-                  marginBottom: 0,
-                }}
-              >
-                Maru Online helps South African businesses solve operational problems by designing and implementing practical AI-enabled workflows around the tools their teams already use. We consider POPIA-related data protection requirements from the beginning.
-              </p>
-            </div>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontWeight: 300,
+                fontSize: "var(--text-body)",
+                color: "var(--color-ink-inverted-muted)",
+                lineHeight: "var(--leading-body-relaxed)",
+                maxWidth: "640px",
+                marginBottom: "1.5rem",
+              }}
+            >
+              Maru Online helps South African businesses solve operational problems by designing and implementing practical AI-enabled workflows around the tools their teams already use. We consider POPIA-related data protection requirements from the beginning.
+            </p>
           </FadeUp>
 
           <FadeUp delay={0.19}>
@@ -162,8 +162,8 @@ export default function Home() {
                 fontSize: "var(--text-body)",
                 color: "var(--color-cyan)",
                 lineHeight: "var(--leading-body-relaxed)",
-                maxWidth: "680px",
-                marginBottom: "3rem",
+                maxWidth: "640px",
+                marginBottom: "3.5rem",
                 textWrap: "balance",
               }}
             >
@@ -174,10 +174,7 @@ export default function Home() {
           <FadeUp delay={0.22}>
             {/* data-maru-primary-cta: marks the hero's primary actions. The floating
                 WhatsApp bubble that watched for it was retired on 3 Nov 2026. */}
-            <div
-              data-maru-primary-cta
-              className="flex flex-col items-stretch sm:items-start gap-3"
-            >
+            <div data-maru-primary-cta className="flex flex-col items-stretch sm:items-start gap-3">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                 <Button href="/popia-ai-check" variant="primary" className="cta-shine w-full sm:w-auto justify-center">
                   Take the free, informational POPIA review
@@ -189,7 +186,6 @@ export default function Home() {
               <p
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontWeight: 400,
                   fontSize: "14px",
                   lineHeight: "20px",
                   color: "var(--color-ink-inverted-subtle)",
@@ -205,188 +201,155 @@ export default function Home() {
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 02 — THE PROBLEM
-          bg: deeper light ground (3 Nov 2026): one step darker than the
-          default surface so the white cards lift clearly. Tried as a dark
-          chapter the same day and reverted.
+          bg: flow ground + faint dots from the right
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`${outerPad} py-24`}
-        style={{ background: "var(--gradient-surface-deep)" }}
-      >
-        <div className={innerWide}>
-          <SectionHead
-            eyebrow="The problem"
-            title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
-            intro="Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information-handling becomes harder to manage."
-          />
+      <div className="flow-ground">
+        <section className="sec overflow-hidden">
+          <DotField tone="light" mask="right" coverage={0.45} intensity={0.65} seed={4} />
+          <div className="sec-inner">
+            <SectionHead
+              className="sec-head"
+              eyebrow="The problem"
+              title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
+              intro="Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information-handling becomes harder to manage."
+            />
+            <ProblemCards />
+          </div>
+        </section>
+      </div>
 
-          <ProblemCards />
-
-          {/* Story turn (Option A, approved 3 Nov 2026): the cards are the cost of
-              disconnected tools; the diagram is the fix. The bridge names the
-              turn so the two read as one argument, not two visuals. */}
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 03 — WHAT CHANGES (dark chapter)
+          The cards are the cost of disconnected tools; the diagram is the fix
+          (story turn, Option A, approved 3 Nov 2026). Its own navy chapter
+          since 4 Nov 2026.
+          ════════════════════════════════════════════════════════════════════ */}
+      <section className="sec sec-chapter navy-horizon overflow-hidden">
+        <div className="sec-inner">
           <FadeUp>
-            <div
-              className="mx-auto text-center"
-              style={{ maxWidth: "640px", marginTop: "var(--space-section-header-mb)", marginBottom: "2rem" }}
-            >
-              <span
-                aria-hidden="true"
-                className="block mx-auto"
-                style={{ width: "1px", height: "48px", background: "var(--color-cyan)", marginBottom: "1.5rem" }}
-              />
-              <span className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "1rem" }}>
-                What changes
-              </span>
-              <h3
+            <div className="sec-head mx-auto text-center" style={{ maxWidth: "640px" }}>
+              <span className="label-eyebrow" style={{ marginInline: "auto" }}>What changes</span>
+              <h2
                 style={{
                   fontFamily: "var(--font-display)",
                   fontWeight: 600,
                   fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
-                  color: "var(--color-ink-primary)",
+                  color: "var(--color-ink-inverted)",
                   lineHeight: 1.25,
                   letterSpacing: "-0.02em",
                   marginBottom: "0.75rem",
+                  border: "none",
+                  padding: 0,
                 }}
               >
-                Your tools stay. <span style={{ color: "var(--color-cyan-ink)" }}>We connect them.</span>
-              </h3>
-              <p className="body-muted" style={{ marginBottom: 0 }}>
+                Your tools stay. <span style={{ color: "var(--color-cyan)" }}>We connect them.</span>
+              </h2>
+              <p className="body-on-navy" style={{ marginBottom: 0 }}>
                 Information is captured once and shared where it&apos;s needed, so your team retypes less and personal information sits in fewer places.
               </p>
             </div>
           </FadeUp>
-
           <div className="mx-auto" style={{ maxWidth: "1000px" }}>
             <DisconnectDiagram />
           </div>
         </div>
       </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 03 — HOW WE WORK
-          bg: secondary
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="how-we-work"
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-secondary)" }}
-      >
-        <div className={innerWide}>
-          <SectionHead
-            eyebrow="How we work"
-            title={<>From business challenge to <span className="hl">working AI-enabled workflow.</span></>}
-            intro="Every engagement starts with understanding the business problem, identifying the workflow that needs attention, and determining where AI or better-connected systems can create practical value. We then design, integrate, test, and refine the solution around your existing operations."
-          />
-
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {steps.map((step) => (
-              <StaggerChild key={step.n} className="h-full">
-                <div className="card-lift h-full flex flex-col">
-                  <div className="card-body">
-                  <div className="card-label-row">
-                    <span className="glyph-chip glyph-chip-lg">
+      <div className="flow-ground">
+        {/* ══════════════════════════════════════════════════════════════════
+            SECTION 04 — HOW WE WORK
+            Heading stays in view beside the three steps. overflow-clip, not
+            overflow-hidden, or the sticky heading never sticks.
+            ══════════════════════════════════════════════════════════════════ */}
+        <section id="how-we-work" className="sec overflow-clip">
+          <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
+          <div className="sec-inner">
+            <div className="split">
+              <div className="split-sticky">
+                <SectionHead
+                  className="sec-head"
+                  eyebrow="How we work"
+                  title={<>From business challenge to <span className="hl">working AI-enabled workflow.</span></>}
+                  intro="Every engagement starts with understanding the business problem, identifying the workflow that needs attention, and determining where AI or better-connected systems can create practical value. We then design, integrate, test, and refine the solution around your existing operations."
+                />
+              </div>
+              <StaggerParent className="rows">
+                {steps.map((step) => (
+                  <StaggerChild key={step.n} className="row-item">
+                    <span className="glyph-chip glyph-chip-lg" aria-hidden="true">
                       <Glyph name={step.icon} size={28} />
                     </span>
-                    <span className="card-label">0{step.n}</span>
-                  </div>
-                  <h3 className="card-title">{step.name}</h3>
-                  <ul className="prob-list">
-                    {step.points.map((p) => (
-                      <li key={p}>
-                        <span className="prob-dot" aria-hidden="true" />
-                        <span>{p}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  </div>
-                </div>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
-        </div>
-      </section>
+                    <div>
+                      <span className="card-label" style={{ display: "block", marginBottom: "0.5rem" }}>Step {step.n}</span>
+                      <h3 className="card-title">{step.name}</h3>
+                      <BulletList items={step.points} />
+                    </div>
+                  </StaggerChild>
+                ))}
+              </StaggerParent>
+            </div>
+          </div>
+        </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 04 — POPIA-AWARE EXPLANATION (revised copy, 1 Nov 2026)
-          bg: canvas
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="popia-aware"
-        className={`${outerPad} py-24`}
-        style={{ background: "var(--gradient-surface)" }}
-      >
-        <div className={innerWide}>
-          <FadeUp>
-            <h2 className="section-title">
-              Responsible implementation starts with{" "}
-              <span className="hl">understanding the information involved.</span>
-            </h2>
-            <p className="body-muted section-intro" style={{ marginBottom: "1.5rem" }}>
-              POPIA-aware means considering how personal information is collected, accessed, used, shared, stored, and retained when an AI-enabled workflow is designed or implemented. The exact considerations depend on the information, the purpose, the systems involved, and the providers connected to the workflow.
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: "var(--text-meta)",
-                color: "var(--color-ink-tertiary)",
-                lineHeight: 1.6,
-                maxWidth: "760px",
-                margin: 0,
-                borderLeft: "3px solid var(--color-cyan)",
-                paddingLeft: "1rem",
-              }}
-            >
-              Maru Online provides implementation and design support. This is not legal advice or a blanket guarantee of POPIA compliance.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+        {/* ══════════════════════════════════════════════════════════════════
+            SECTION 05 — POPIA-AWARE EXPLANATION (revised copy, 1 Nov 2026)
+            ══════════════════════════════════════════════════════════════════ */}
+        <section id="popia-aware" className="sec sec-ruled">
+          <div className="sec-inner">
+            <FadeUp className="pair">
+              <h2 className="statement">
+                Responsible implementation starts with{" "}
+                <span className="hl">understanding the information involved.</span>
+              </h2>
+              <div>
+                <p className="body-muted" style={{ marginBottom: "1.75rem" }}>
+                  POPIA-aware means considering how personal information is collected, accessed, used, shared, stored, and retained when an AI-enabled workflow is designed or implemented. The exact considerations depend on the information, the purpose, the systems involved, and the providers connected to the workflow.
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: "var(--text-meta)",
+                    color: "var(--color-ink-tertiary)",
+                    lineHeight: 1.6,
+                    margin: 0,
+                    borderLeft: "3px solid var(--color-cyan)",
+                    paddingLeft: "1rem",
+                  }}
+                >
+                  Maru Online provides implementation and design support. This is not legal advice or a blanket guarantee of POPIA compliance.
+                </p>
+              </div>
+            </FadeUp>
+          </div>
+        </section>
 
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 05 — SUPPORTING CAPABILITIES
-          bg: secondary
-          ════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="capabilities"
-        className={`${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-secondary)" }}
-      >
-        <div className={innerWide}>
-          <SectionHead
-            eyebrow="Supporting capabilities"
-            title={<>Capabilities that <span className="hl">support implementation.</span></>}
-            intro="The right AI workflow depends on the business decisions, systems, data, and processes around it. We bring these elements together to help South African businesses build connected, usable systems that can evolve over time."
-          />
-
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {capabilities.map((col) => (
-              <StaggerChild key={col.name} className="h-full">
-                <div className="card-lift h-full flex flex-col">
-                  <div className="card-body">
-                  <div className="card-label-row">
-                    <span className="glyph-chip glyph-chip-lg">
-                      <Glyph name={col.icon} size={28} />
-                    </span>
-                  </div>
+        {/* ══════════════════════════════════════════════════════════════════
+            SECTION 06 — SUPPORTING CAPABILITIES
+            ══════════════════════════════════════════════════════════════════ */}
+        <section id="capabilities" className="sec sec-ruled overflow-hidden">
+          <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={15} />
+          <div className="sec-inner">
+            <SectionHead
+              className="sec-head"
+              eyebrow="Supporting capabilities"
+              title={<>Capabilities that <span className="hl">support implementation.</span></>}
+              intro="The right AI workflow depends on the business decisions, systems, data, and processes around it. We bring these elements together to help South African businesses build connected, usable systems that can evolve over time."
+            />
+            <StaggerParent className="open-cols">
+              {capabilities.map((col) => (
+                <StaggerChild key={col.name} className="open-col">
+                  <span className="glyph-chip glyph-chip-lg" style={{ marginBottom: "1.5rem" }}>
+                    <Glyph name={col.icon} size={28} />
+                  </span>
                   <h3 className="card-title">{col.name}</h3>
                   <p className="card-text card-text-lead">{col.lead}</p>
-                  <ul className="prob-list">
-                    {col.items.map((item) => (
-                      <li key={item}>
-                        <span className="prob-dot" aria-hidden="true" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  </div>
-                </div>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
-        </div>
-      </section>
+                  <BulletList items={col.items} />
+                </StaggerChild>
+              ))}
+            </StaggerParent>
+          </div>
+        </section>
+      </div>
 
       {/* ── IMAGE BAND — between capabilities and the assessment section ── */}
       <ImageBand
@@ -400,15 +363,15 @@ export default function Home() {
             </span>
           </>
         }
-        height={420}
+        height={520}
       />
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 06 — NEXT STEPS
-          bg: canvas
+          SECTION 07 — NEXT STEPS
           ════════════════════════════════════════════════════════════════════ */}
-      <AssessmentFormSection />
-
+      <div className="flow-ground">
+        <AssessmentFormSection />
+      </div>
     </>
   );
 }

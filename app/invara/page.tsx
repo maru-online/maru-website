@@ -358,7 +358,7 @@ export default function InvaraPage() {
           </FadeUp>
 
           <FadeUp delay={0.08}>
-            <div className="card-lift overflow-hidden">
+            <div className="card-lift card-static overflow-hidden">
               <div className="hidden md:grid grid-cols-2" style={{ background: "var(--color-bg-secondary)" }}>
                 <span style={{ ...smallLabel, margin: 0, padding: "1rem 1.5rem" }}>Without a system of record</span>
                 <span style={{ ...smallLabel, margin: 0, padding: "1rem 1.5rem", color: "var(--color-cyan-ink, var(--color-ink-primary))" }}>With Invara</span>

@@ -75,7 +75,7 @@ export default function ContactPage() {
         style={{ background: 'var(--gradient-surface)' }}
       >
         <div className={innerWide}>
-          <div className="card-lift p-8 md:p-12">
+          <div className="card-lift card-static p-8 md:p-12">
             {/* Two-column grid starts here — aligned to first form field */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-10 md:gap-24 items-start">
 

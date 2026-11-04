@@ -86,9 +86,17 @@
      Two fills: .card-lift (warm white, edged) on light grounds and .card-dark
      in a dark chapter. Nothing else sets a card radius or shadow inline. */
   --card-radius:              10px;
-  --card-shadow:              0 1px 2px rgba(38, 32, 20, 0.05), 0 4px 12px rgba(38, 32, 20, 0.07);
-  --card-shadow-hover:        0 4px 8px rgba(38, 32, 20, 0.06), 0 14px 32px rgba(38, 32, 20, 0.13);
-  --card-lift:                translateY(-2px) scale(1.015);
+  /* Floating cards (approved 4 Nov 2026): a barely-there outline at rest that
+     turns cyan on hover/focus; navy-tinted three-layer shadow (contact, near,
+     far) so a raised card reads as off the surface. */
+  --card-edge:                rgba(26, 58, 92, 0.07);
+  --card-edge-hover:          rgba(61, 184, 198, 0.55);
+  --card-edge-selected:       var(--color-cyan);
+  --card-shadow:              0 1px 2px rgba(22, 50, 79, 0.04), 0 4px 12px -2px rgba(22, 50, 79, 0.06);
+  --card-shadow-hover:        0 2px 4px rgba(22, 50, 79, 0.05), 0 16px 30px -8px rgba(22, 50, 79, 0.16), 0 40px 70px -20px rgba(22, 50, 79, 0.34);
+  --card-shadow-press:        0 1px 3px rgba(22, 50, 79, 0.06), 0 8px 18px -6px rgba(22, 50, 79, 0.14);
+  --card-lift:                translateY(-6px);
+  --card-ease:                cubic-bezier(0.22, 1, 0.36, 1);
   /* One step darker than --gradient-surface, for a light section that needs
      its white cards to lift more (homepage problem section). */
   --gradient-surface-deep:    linear-gradient(180deg, #ECE9E1 0%, #E4E0D6 100%);
@@ -770,20 +778,45 @@
      sets its own background inline will beat this rule and lose the brighten. */
   .card-lift {
     background-color: var(--color-bg-card);
-    border-color:     var(--color-border-card);
+    border:           1px solid var(--card-edge);
     border-radius:    var(--card-radius);
     box-shadow:       var(--card-shadow);
-    transition:  transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
-                 box-shadow 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
-                 background-color 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
-                 border-color 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition:  transform 420ms var(--card-ease),
+                 box-shadow 420ms var(--card-ease),
+                 background-color 240ms ease,
+                 border-color 240ms ease;
   }
   .card-lift:hover,
   .card-lift:focus-within {
     background-color: var(--color-bg-card-hover);
-    border-color:     var(--color-border-strong);
+    border-color:     var(--card-edge-hover);
     transform:        var(--card-lift);
     box-shadow:       var(--card-shadow-hover);
+  }
+  /* Selected: stays raised, outline goes full cyan with a soft ring. */
+  .card-lift.is-selected,
+  .card-lift[aria-selected="true"],
+  .card-lift[aria-current="true"],
+  .card-lift[aria-current="page"] {
+    background-color: var(--color-bg-card-hover);
+    border-color:     var(--card-edge-selected);
+    transform:        var(--card-lift);
+    box-shadow:       var(--card-shadow-hover), 0 0 0 3px rgba(61, 184, 198, 0.16);
+  }
+  /* Press: settles halfway back down so the click is felt. */
+  .card-lift:active {
+    transform:  translateY(-2px);
+    box-shadow: var(--card-shadow-press);
+    transition-duration: 120ms;
+  }
+  /* A card that holds a working tool (the booking calendar) keeps the edge
+     and surface but doesn't rise while someone is using it. */
+  .card-lift.card-static:hover,
+  .card-lift.card-static:focus-within,
+  .card-lift.card-static:active {
+    transform:    none;
+    box-shadow:   var(--card-shadow);
+    border-color: var(--card-edge);
   }
 
   /* ── Metrics band ────────────────────────────────────────────────────────
@@ -1016,7 +1049,8 @@
 .label-eyebrow.label-eyebrow-ink { color: var(--color-cyan-ink); }
 
 /* Accent edge for the one card that holds the primary offer. */
-.card-lift.card-accent-gold,
+/* The free-review card keeps its gold identity: soft gold edge, full gold on hover. */
+.card-lift.card-accent-gold { border-color: rgba(195, 159, 69, 0.45); }
 .card-lift.card-accent-gold:hover,
 .card-lift.card-accent-gold:focus-within { border-color: var(--color-gold); }
 
@@ -1134,3 +1168,97 @@
 .footer-social:active { transform: translateY(-1px); box-shadow: none; transition-duration: 100ms; }
 .footer-social:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
 p.footer-legal { margin: 0; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Homepage layout — "Open Flow" (approved 4 Nov 2026)
+   Spacing studied on dreamwanoura.com: tight heading groups, wide gaps between
+   a group and its content, one continuous stone ground with hairline dividers
+   instead of tinted bands. Navy sections use the Horizon gradient (no dots);
+   light sections carry a faint DotField. Built in the layout lab.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --sec-y:        clamp(5.5rem, 9vw, 8.5rem);    /*  88 → 136px section rhythm */
+  --sec-chapter-y:clamp(6.5rem, 12vw, 10.5rem);  /* 104 → 168px dark chapter */
+  --sec-head-gap: clamp(3.5rem, 6vw, 5.5rem);    /* heading group → its content */
+  --sec-gutter:   clamp(1.5rem, 5vw, 5rem);
+  --sec-wide:     1120px;
+  --sec-measure:  34rem;                         /* intro paragraphs */
+
+  /* Horizon: dark sky with a cyan dawn rising off the bottom edge and a thin
+     warm gold rim where the light meets the ground. */
+  --gradient-horizon:
+    radial-gradient(70% 26% at 50% 104%, rgba(214,183,106,0.16), transparent 70%),
+    radial-gradient(95% 60% at 50% 120%, rgba(61,184,198,0.30), rgba(61,184,198,0.07) 45%, transparent 72%),
+    linear-gradient(180deg, #0E223A 0%, #142E4B 55%, #1A3A5C 100%);
+  --gradient-footer:
+    radial-gradient(80% 50% at 50% 0%, rgba(61,184,198,0.14), transparent 70%),
+    linear-gradient(180deg, #1A3A5C 0%, #0E223A 100%);
+  /* Fine grain so gradients read as a material and never band. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.sec {
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--sec-y);
+  padding-inline: var(--sec-gutter);
+}
+.sec > canvas { z-index: -1; }
+.sec-chapter { padding-block: var(--sec-chapter-y); }
+.sec-inner   { position: relative; max-width: var(--sec-wide); margin-inline: auto; }
+
+/* Proximity: eyebrow, title and intro read as one group. SectionHead sets the
+   eyebrow margin inline, hence !important. */
+.sec-head                 { margin-bottom: var(--sec-head-gap); }
+.sec-head .label-eyebrow  { margin-bottom: 1rem !important; }
+.sec-head .section-title  { margin-bottom: 1.25rem; }
+.sec-head .section-intro  { max-width: var(--sec-measure); margin-bottom: 0; }
+
+/* One continuous light ground; sections inside it stay transparent. */
+.flow-ground { position: relative; background: var(--color-bg-secondary); }
+.sec-ruled { padding-top: 0; }
+.sec-ruled > .sec-inner { border-top: 1px solid var(--color-border-card); padding-top: var(--sec-y); }
+
+.navy-horizon { position: relative; isolation: isolate; background: var(--gradient-horizon); color: var(--color-ink-inverted); }
+.navy-horizon::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: var(--grain); opacity: 0.07; mix-blend-mode: soft-light;
+}
+
+/* Heading beside stacked rows; the heading stays in view while rows scroll.
+   Its section must not be overflow:hidden (that makes the section the sticky
+   container) — use overflow-clip. */
+.split { display: grid; gap: clamp(2rem, 5vw, 6rem); grid-template-columns: 1fr; }
+@media (min-width: 1024px) {
+  .split        { grid-template-columns: 5fr 7fr; }
+  .split-sticky { position: sticky; top: 8rem; align-self: start; }
+}
+.split-sticky .sec-head { margin-bottom: 0; }
+
+.rows > * + * { border-top: 1px solid var(--color-border-card); }
+.row-item {
+  display: grid; gap: 1rem 2.5rem;
+  padding-block: clamp(2rem, 3.5vw, 2.75rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) { .row-item { grid-template-columns: 4.5rem 1fr; } }
+.row-item:first-child { padding-top: 0; }
+
+.open-cols { display: grid; gap: clamp(2.5rem, 4vw, 4rem); grid-template-columns: 1fr; }
+@media (min-width: 768px) { .open-cols { grid-template-columns: repeat(3, 1fr); } }
+.open-col { border-top: 1px solid var(--color-border-card); padding-top: 2rem; }
+
+/* Statement beside its explanation. */
+.pair { display: grid; gap: 2rem 4rem; grid-template-columns: 1fr; }
+@media (min-width: 1024px) { .pair { grid-template-columns: 7fr 5fr; align-items: end; } }
+.statement {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  border: none; padding: 0;   /* the global h2 rule doesn't belong here */
+  color: var(--color-ink-primary);
+}
+.statement .hl { color: var(--color-cyan-ink); }
