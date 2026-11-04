@@ -1446,3 +1446,12 @@ p.footer-legal { margin: 0; }
   color: var(--color-ink-inverted-muted);
 }
 @media (prefers-reduced-motion: reduce) { .shot-dialog[open] { animation: none; } }
+/* Open column with a photo band on top (homepage capabilities, 4 Nov 2026):
+   the band replaces the hairline and icon chip; same height and treatment as
+   the problem-card photos. */
+.open-col.open-col-media { border-top: 0; padding-top: 0; }
+.open-col-band {
+  height: 11rem; width: 100%;
+  border-radius: 12px; margin-bottom: 1.75rem;
+  box-shadow: var(--card-shadow);
+}

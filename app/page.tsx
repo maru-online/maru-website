@@ -6,6 +6,7 @@ import ImageBand from "@/components/ui/ImageBand";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
+import { TreatedImage, DrawnVisual } from "@/components/ui/CardMedia";
 import SectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
 import { seo } from '@/lib/seo'
@@ -71,6 +72,10 @@ const capabilities = [
     icon: "compass" as const,
     name: "Business and AI strategy",
     lead: "Understand the problem before building the solution.",
+    image: {
+      src: "/images/home/capability-strategy.jpg",
+      alt: "A consultant and a business owner mapping a workflow together on a large paper process map with sticky notes",
+    },
     items: [
       "Business and workflow analysis",
       "AI opportunity identification and prioritisation",
@@ -334,10 +339,19 @@ export default function Home() {
             />
             <StaggerParent className="open-cols">
               {capabilities.map((col) => (
-                <StaggerChild key={col.name} className="open-col">
-                  <span className="glyph-chip glyph-chip-lg" style={{ marginBottom: "1.5rem" }}>
-                    <Glyph name={col.icon} size={28} />
-                  </span>
+                <StaggerChild key={col.name} className="open-col open-col-media">
+                  {/* Photo band (same treatment as the problem cards), or the
+                      drawn icon panel until a photograph exists. */}
+                  {col.image ? (
+                    <TreatedImage
+                      src={col.image.src}
+                      alt={col.image.alt}
+                      sizes="(min-width: 768px) 340px, 100vw"
+                      className="open-col-band"
+                    />
+                  ) : (
+                    <DrawnVisual glyph={col.icon} glyphSize={40} className="open-col-band" />
+                  )}
                   <h3 className="card-title">{col.name}</h3>
                   <p className="card-text card-text-lead">{col.lead}</p>
                   <BulletList items={col.items} />
