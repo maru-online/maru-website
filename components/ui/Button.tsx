@@ -59,9 +59,9 @@ const variantClasses: Record<ButtonVariant, string> = {
   // only need to pass the label text.
   tertiary:
     'rounded-none text-cyan-ink no-underline ' +
-    'hover:text-cyan hover:underline hover:underline-offset-4 ' +
+    'hover:text-cyan ' +
     'active:opacity-70 ' +
-    'focus-visible:underline focus-visible:underline-offset-4 focus-visible:shadow-[0_0_0_2px_rgba(61,184,198,0.4)]',
+    'focus-visible:shadow-[0_0_0_2px_rgba(61,184,198,0.4)]',
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────

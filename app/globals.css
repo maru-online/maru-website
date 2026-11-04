@@ -1122,7 +1122,10 @@
   display: inline-flex; align-items: center; gap: 0.5rem;
   font-weight: 600; color: var(--color-cyan-ink); text-underline-offset: 4px;
 }
-.card-action:hover, .card-action:focus-visible { text-decoration: underline; }
+/* Card links never underline (4 Nov 2026): the arrow nudges on hover and the
+   card itself lifts and outlines in cyan on hover and keyboard focus. */
+.card-action, .card-action:hover, .card-action:focus-visible { text-decoration: none; }
+.card-action:focus-visible .card-arrow { transform: translateX(4px); }
 .card-action .card-arrow { transition: transform 300ms cubic-bezier(0.34, 1.45, 0.64, 1); }
 .card-action:hover .card-arrow, .group:hover .card-arrow { transform: translateX(4px); }
 

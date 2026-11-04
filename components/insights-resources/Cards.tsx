@@ -148,7 +148,7 @@ export function FeaturedCard({ entry }: { entry: ContentEntry }) {
         <Link
           href={entryHref(entry)}
           scroll={entry.href ? undefined : false}
-          className={`${stretch} relative inline-flex items-center gap-2 self-start font-semibold underline-offset-4 group-hover:underline`}
+          className={`${stretch} relative inline-flex items-center gap-2 self-start font-semibold`}
           style={{ color: "var(--color-cyan-ink)" }}
         >
           {actionLabel(entry)}
@@ -205,7 +205,7 @@ export function InsightCard({ entry }: { entry: ContentEntry }) {
       <Link
         href={entryHref(entry)}
         scroll={entry.href ? undefined : false}
-        className={`${stretch} relative inline-flex items-center gap-2 self-start font-semibold underline-offset-4 group-hover:underline`}
+        className={`${stretch} relative inline-flex items-center gap-2 self-start font-semibold`}
         style={{ color: "var(--color-cyan)" }}
       >
         {actionLabel(entry)}
@@ -256,7 +256,7 @@ export function ResourceCard({ entry }: { entry: ContentEntry }) {
       <Link
         href={entryHref(entry)}
         scroll={entry.href ? undefined : false}
-        className={`${stretch} relative inline-flex items-center gap-2 self-start font-semibold underline-offset-4 group-hover:underline`}
+        className={`${stretch} relative inline-flex items-center gap-2 self-start font-semibold`}
         style={{ color: "var(--color-cyan-ink)" }}
       >
         {actionLabel(entry)}

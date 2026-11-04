@@ -71,11 +71,11 @@ export default async function ReaderArticle(props: { params: Promise<{ section: 
                   <Link
                     href={r.href ?? entryHref(r)}
                     scroll={r.href ? undefined : false}
-                    className="group flex items-start justify-between gap-4 focus-visible:outline-none"
+                    className="group flex items-start justify-between gap-4 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-cyan)]"
                   >
                     <span>
                       <span className="card-label" style={{ display: "block", marginBottom: "0.35rem" }}>{SECTIONS[r.section].label}</span>
-                      <span className="card-title group-hover:text-[var(--color-cyan-ink)] group-focus-visible:underline" style={{ marginBottom: 0 }}>{r.title}</span>
+                      <span className="card-title group-hover:text-[var(--color-cyan-ink)] group-focus-visible:text-[var(--color-cyan-ink)]" style={{ marginBottom: 0 }}>{r.title}</span>
                     </span>
                     <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1" style={{ color: "var(--color-cyan-ink)", marginTop: "1.6rem" }}>→</span>
                   </Link>
