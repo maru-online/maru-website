@@ -61,8 +61,13 @@ function EmptyState({ children, dark = false }: { children: React.ReactNode; dar
 
 export default function InsightsResourcesPage() {
   const featured = getFeatured();
-  const insights = getEntries("insights").slice(0, 3);
-  const resources = getEntries("resources").slice(0, 4);
+  // The index shows up to 3 insights and 4 guides. "See all" links appear only
+  // when a section has more than that; otherwise they led to the same items
+  // again on a near-identical page, which felt like being sent back to the top.
+  const allInsights = getEntries("insights");
+  const allResources = getEntries("resources");
+  const insights = allInsights.slice(0, 3);
+  const resources = allResources.slice(0, 4);
 
   return (
     <>
@@ -137,13 +142,15 @@ export default function InsightsResourcesPage() {
           ) : (
             <EmptyState dark>The first insights are in preparation.</EmptyState>
           )}
-          <FadeUp delay={0.1}>
-            <div style={{ marginTop: "2.5rem" }}>
-              <Button href={`/insights-resources/${SECTIONS.insights.segment}`} variant="secondary">
-                View all insights
-              </Button>
-            </div>
-          </FadeUp>
+          {allInsights.length > insights.length && (
+            <FadeUp delay={0.1}>
+              <div style={{ marginTop: "2.5rem" }}>
+                <Button href={`/insights-resources/${SECTIONS.insights.segment}`} variant="secondary">
+                  See all {allInsights.length} insights
+                </Button>
+              </div>
+            </FadeUp>
+          )}
         </div>
       </section>
 
@@ -171,13 +178,15 @@ export default function InsightsResourcesPage() {
           ) : (
             <EmptyState>The first guides are in preparation.</EmptyState>
           )}
-          <FadeUp delay={0.1}>
-            <div style={{ marginTop: "2.5rem" }}>
-              <Button href={`/insights-resources/${SECTIONS.resources.segment}`} variant="secondary">
-                Read the guides and resources
-              </Button>
-            </div>
-          </FadeUp>
+          {allResources.length > resources.length && (
+            <FadeUp delay={0.1}>
+              <div style={{ marginTop: "2.5rem" }}>
+                <Button href={`/insights-resources/${SECTIONS.resources.segment}`} variant="secondary">
+                  See all {allResources.length} guides and resources
+                </Button>
+              </div>
+            </FadeUp>
+          )}
         </div>
       </section>
 

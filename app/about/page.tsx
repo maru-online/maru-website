@@ -168,19 +168,6 @@ export default function AboutPage() {
               By connecting business strategy, AI, data, and digital systems, we design practical workflows around the way your business actually works.
             </p>
           </FadeUp>
-          <FadeUp delay={0.22}>
-            <div
-              data-maru-primary-cta
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-            >
-              <Button href={ASSESSMENT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Take the free, informational POPIA review
-              </Button>
-              <Button href={CONTACT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                Discuss your business challenge
-              </Button>
-            </div>
-          </FadeUp>
         </div>
       </section>
 
@@ -395,30 +382,13 @@ export default function AboutPage() {
                   fontSize: "var(--text-meta)",
                   color: "var(--color-ink-tertiary)",
                   lineHeight: 1.6,
-                  marginBottom: "2rem",
+                  marginBottom: 0,
                   borderLeft: "3px solid var(--color-cyan)",
                   paddingLeft: "1rem",
                 }}
               >
                 Maru Online provides implementation and design support. This is not legal advice or a blanket guarantee of POPIA compliance.
               </p>
-              <div className="flex flex-col items-stretch sm:items-start gap-3">
-                <Button href={ASSESSMENT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                  Take the free, informational POPIA review
-                </Button>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontWeight: 300,
-                    fontStyle: "italic",
-                    fontSize: "var(--text-meta)",
-                    color: "var(--color-ink-tertiary)",
-                    margin: 0,
-                  }}
-                >
-                  Receive an informational summary highlighting areas to review.
-                </p>
-              </div>
             </div>
           </FadeUp>
         </div>

@@ -324,14 +324,6 @@ export default function InvaraPage() {
           </FadeUp>
 
           <FadeUp delay={0.22}>
-            <div data-maru-primary-cta className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4" style={{ marginBottom: "1rem" }}>
-              <Button href={DEMO_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Discuss your programme
-              </Button>
-              <Button href="#how-it-works" variant="secondary" className="w-full sm:w-auto justify-center">
-                See how it works
-              </Button>
-            </div>
             <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontStyle: "italic", fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)", margin: "0 0 3.5rem" }}>
               Invara is in its pilot phase. We are working with a small number of implementers to shape it.
             </p>

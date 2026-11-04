@@ -97,19 +97,6 @@ export default function PricingPage() {
               We start by understanding the business challenge, then determine the right approach, scope, and investment.
             </p>
           </FadeUp>
-          <FadeUp delay={0.22}>
-            <div
-              data-maru-primary-cta
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-            >
-              <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Discuss your business challenge
-              </Button>
-              <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                Take the free, informational POPIA review
-              </Button>
-            </div>
-          </FadeUp>
         </div>
       </section>
 
