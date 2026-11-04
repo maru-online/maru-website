@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
@@ -12,6 +11,7 @@ import {
 import { breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
 import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
 import SectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
 
 // Guides & Resources landing page (route /insights-resources). Hero, section
 // headings, CTA and card titles revised 1 Nov 2026 per "Maru Online — Revised
@@ -73,10 +73,8 @@ export default function InsightsResourcesPage() {
 
       {/* SECTION 1 — Page introduction (navy) */}
       <section
-        className={`relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-28`}
-        style={{ background: "var(--gradient-hero)" }}
+        className={`navy-horizon relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-28`}
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10 w-full`}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Guides and resources</span>
@@ -97,7 +95,8 @@ export default function InsightsResourcesPage() {
       </section>
 
       {/* SECTION 2 — Featured content (light) */}
-      <section className={`${outerPad} py-20 md:py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec flow-ground overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Featured</span>
@@ -117,7 +116,7 @@ export default function InsightsResourcesPage() {
       <section
         id={SECTIONS.insights.segment}
         aria-labelledby="ai-insights-heading"
-        className={`section-dark ${outerPad} py-24`}
+        className="section-dark sec sec-chapter"
       >
         <div className={`${innerWide} relative`}>
           <SectionHead
@@ -152,8 +151,7 @@ export default function InsightsResourcesPage() {
       <section
         id={SECTIONS.resources.segment}
         aria-labelledby="resources-heading"
-        className={`${outerPad} py-24`}
-        style={{ background: "var(--gradient-surface)" }}
+        className="sec flow-ground overflow-hidden"
       >
         <div className={innerWide}>
           <SectionHead
@@ -184,7 +182,7 @@ export default function InsightsResourcesPage() {
       </section>
 
       {/* SECTION 5 — Final CTA (navy) */}
-      <section className={`relative overflow-hidden ${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-navy)" }}>
+      <section className="navy-horizon sec sec-chapter relative overflow-hidden">
         <div className={`${innerWide} max-w-[760px] mx-0 md:mx-auto`}>
           <FadeUp>
             <h2 style={{ color: "var(--color-ink-inverted)", border: "none", padding: 0, marginBottom: "var(--space-heading-body)" }}>

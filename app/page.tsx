@@ -208,7 +208,6 @@ export default function Home() {
           <DotField tone="light" mask="right" coverage={0.45} intensity={0.65} seed={4} />
           <div className="sec-inner">
             <SectionHead
-              className="sec-head"
               eyebrow="The problem"
               title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
               intro="Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information-handling becomes harder to manage."
@@ -267,8 +266,7 @@ export default function Home() {
             <div className="split">
               <div className="split-sticky">
                 <SectionHead
-                  className="sec-head"
-                  eyebrow="How we work"
+                      eyebrow="How we work"
                   title={<>From business challenge to <span className="hl">working AI-enabled workflow.</span></>}
                   intro="Every engagement starts with understanding the business problem, identifying the workflow that needs attention, and determining where AI or better-connected systems can create practical value. We then design, integrate, test, and refine the solution around your existing operations."
                 />
@@ -330,7 +328,6 @@ export default function Home() {
           <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={15} />
           <div className="sec-inner">
             <SectionHead
-              className="sec-head"
               eyebrow="Supporting capabilities"
               title={<>Capabilities that <span className="hl">support implementation.</span></>}
               intro="The right AI workflow depends on the business decisions, systems, data, and processes around it. We bring these elements together to help South African businesses build connected, usable systems that can evolve over time."

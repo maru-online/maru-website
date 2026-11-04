@@ -63,7 +63,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(entry)) }} />
       )}
 
-      <header className={`${outerPad} pt-40 md:pt-44 pb-16`} style={{ background: "var(--gradient-hero)" }}>
+      <header className={`navy-horizon ${outerPad} pt-40 md:pt-44 pb-16`}>
         <div className={innerText}>
           <nav aria-label="Breadcrumb" style={{ marginBottom: "2rem" }}>
             <ol className="flex flex-wrap items-center gap-2 list-none m-0 p-0" style={{ fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)" }}>
@@ -109,7 +109,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
         </div>
       </header>
 
-      <article className={`${outerPad} py-16`} style={{ background: "var(--gradient-surface)" }}>
+      <article className={`${outerPad} py-16`} style={{ background: "var(--color-bg-secondary)" }}>
         <div className={innerWide}>
           <FadeUp>
             {entry.image ? (
@@ -183,7 +183,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
         </div>
       </article>
 
-      <section className={`${outerPad} py-16`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className={`${outerPad} py-16`} style={{ backgroundColor: "var(--color-bg-secondary)", borderTop: "1px solid var(--color-border-card)" }}>
         <div className={innerText}>
           {services.length > 0 && (
             <div style={{ marginBottom: "2.5rem" }}>
@@ -211,7 +211,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
       </section>
 
       {related.length > 0 && (
-        <section className={`${outerPad} py-20`} style={{ background: "var(--gradient-surface)" }}>
+        <section className={`${outerPad} py-20`} style={{ background: "var(--color-bg-secondary)", borderTop: "1px solid var(--color-border-card)" }}>
           <div className={innerWide}>
             <h2 style={{ border: "none", fontWeight: 700, marginBottom: "2rem" }}>Related reading</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

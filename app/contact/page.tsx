@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import ContactFormWithRecaptcha from './ContactFormWithRecaptcha'
 import { TrackedLink } from '@/components/analytics/TrackedLink'
 import { FadeUp } from '@/components/ui/Animate'
-import { BGPattern } from '@/components/ui/bg-pattern'
 import { seo } from '@/lib/seo'
+import DotField from "@/components/ui/DotField";
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
@@ -21,16 +21,8 @@ export default function ContactPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-48 pb-32`}
-        style={{ backgroundColor: 'var(--color-bg-navy)' }}
+        className={`navy-horizon relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-48 pb-32`}
       >
-        <BGPattern
-          variant="grid"
-          mask="none"
-          size={40}
-          fill="rgba(61, 184, 198, 0.12)"
-          className="z-0"
-        />
         <div
           aria-hidden="true"
           style={{
@@ -71,9 +63,9 @@ export default function ContactPage() {
           ════════════════════════════════════════════════════════════════════ */}
       <section
         id="contact-form"
-        className={`${outerPad} py-24`}
-        style={{ background: 'var(--gradient-surface)' }}
+        className="sec flow-ground overflow-hidden"
       >
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <div className="card-lift card-static p-8 md:p-12">
             {/* Two-column grid starts here — aligned to first form field */}

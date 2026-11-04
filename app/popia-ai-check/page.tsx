@@ -16,7 +16,7 @@ import Link from "next/link";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { calculateScore, SCORING_NOTE, type AssessmentAnswers, type ScoreResult } from "@/lib/assessment/scoring";
 import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questions";
-import { BGPattern } from "@/components/ui/bg-pattern";
+import DotField from "@/components/ui/DotField";
 import Button from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { GUIDE_LIVE, GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guides/config";
@@ -187,15 +187,10 @@ function AssessmentWizard() {
   return (
     <div
       className="relative min-h-screen flex items-center text-ink-primary"
-      style={{ background: "var(--gradient-surface)" }}
+      style={{ background: "var(--color-bg-secondary)" }}
     >
-      <BGPattern
-        variant="grid"
-        mask="none"
-        size={40}
-        fill="rgba(61, 184, 198, 0.05)"
-        className="z-0"
-      />
+      {/* Light ground with faint dots (Open Flow, 4 Nov 2026; was a grid). */}
+      <DotField tone="light" mask="edges" coverage={0.42} intensity={0.6} seed={4} className="z-0" />
 
       {/* Progress bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-bg-secondary">

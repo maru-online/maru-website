@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FadeUp } from "@/components/ui/Animate";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import { seo } from "@/lib/seo";
 import { GUIDE_INDEXABLE, GUIDE_LIVE, GUIDE_PAGE_VISIBLE, GUIDE_PATH } from "@/lib/guides/config";
 import GuideForm from "./GuideForm";
+import DotField from "@/components/ui/DotField";
 
 /**
  * /guides/ai-and-popia — lead magnet landing page.
@@ -37,10 +37,8 @@ export default function GuidePage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
-        className={`relative flex items-center ${outerPad} pt-48 pb-24`}
-        style={{ backgroundColor: "var(--color-bg-navy)" }}
+        className={`navy-horizon relative flex items-center ${outerPad} pt-48 pb-24`}
       >
-        <BGPattern variant="grid" mask="none" size={40} fill="rgba(61, 184, 198, 0.12)" className="z-0" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <span className="label-eyebrow">Free guide</span>
@@ -68,7 +66,8 @@ export default function GuidePage() {
       </section>
 
       {/* ── What's inside + form ─────────────────────────────────────────── */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec flow-ground overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={`${innerWide} grid grid-cols-1 md:grid-cols-[1fr_420px] gap-12 md:gap-20 items-start`}>
           <FadeUp>
             <div>

@@ -23,7 +23,6 @@ export default function AssessmentFormSection() {
     <section id="assessment" className="sec">
       <div className="sec-inner">
         <SectionHead
-          className="sec-head"
           eyebrow="Next steps"
           title={<>Ready to build AI into <span className="hl">your existing operations?</span></>}
           intro="Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward."

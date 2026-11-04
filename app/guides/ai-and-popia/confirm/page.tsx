@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { GUIDE_LIVE } from "@/lib/guides/config";
 import ConfirmNotes from "./ConfirmNotes";
+import DotField from "@/components/ui/DotField";
 
 /**
  * Double opt-in landing for the guide's notes list (entry 19 §7). The email
@@ -19,7 +20,8 @@ export default async function ConfirmPage({ searchParams }: { searchParams: Prom
   if (!GUIDE_LIVE) notFound();
   const { token } = await searchParams;
   return (
-    <section className="px-6 md:px-[60px] pt-48 pb-32" style={{ background: "var(--gradient-surface)" }}>
+    <section className="relative isolate overflow-hidden px-6 md:px-[60px] pt-48 pb-32 flow-ground">
+      <DotField className="-z-10" tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
       <div className="max-w-[640px] mx-auto card-lift card-static p-8 md:p-12">
         <ConfirmNotes token={token ?? ""} />
       </div>

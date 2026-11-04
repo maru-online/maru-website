@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import { FadeUp } from "@/components/ui/Animate";
 import { getInsightList } from "@/lib/insights/getInsights";
 import { GUIDE_PAGE_VISIBLE, GUIDE_PATH } from "@/lib/guides/config";
 import { seo } from "@/lib/seo";
 import TopicFilter from "./TopicFilter";
+import DotField from "@/components/ui/DotField";
 
 /**
  * /insights — the hub for everything we publish (20 Oct 2026).
@@ -52,10 +52,8 @@ export default async function InsightsPage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
-        className={`relative overflow-hidden flex items-center ${outerPad} pt-48 pb-24`}
-        style={{ backgroundColor: "var(--color-bg-navy)" }}
+        className={`navy-horizon relative overflow-hidden flex items-center ${outerPad} pt-48 pb-24`}
       >
-        <BGPattern variant="grid" mask="none" size={40} fill="rgba(61, 184, 198, 0.12)" className="z-0" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <span className="label-eyebrow">Insights</span>
@@ -78,7 +76,7 @@ export default async function InsightsPage() {
 
       {/* ── Featured: the guide ──────────────────────────────────────────── */}
       {GUIDE_PAGE_VISIBLE && (
-        <section className={`${outerPad} pt-16 pb-4`} style={{ background: "var(--gradient-surface)" }}>
+        <section className={`${outerPad} pt-16 pb-4`} style={{ background: "var(--color-bg-secondary)" }}>
           <div className={innerWide}>
             <FadeUp>
               <div
@@ -162,7 +160,8 @@ export default async function InsightsPage() {
       )}
 
       {/* ── Articles ─────────────────────────────────────────────────────── */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec flow-ground overflow-hidden">
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem" }}>
@@ -175,7 +174,7 @@ export default async function InsightsPage() {
       </section>
 
       {/* ── Final CTA ────────────────────────────────────────────────────── */}
-      <section className={`relative overflow-hidden ${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-navy)" }}>
+      <section className="navy-horizon sec sec-chapter relative overflow-hidden">
         <div className={innerNarrow}>
           <FadeUp>
             <span className="label-eyebrow">Ready to act on it?</span>

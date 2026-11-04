@@ -147,7 +147,7 @@
   --space-heading-body:       1.625rem;  /* 26px between h border and first p */
   --space-para:               0.75rem;   /* 12px between paragraphs inside cards */
   --space-para-section:       1.5rem;    /* 24px between paragraphs in body copy */
-  --space-section-header-mb:  2.5rem;    /* 40px below section header before content */
+  --space-section-header-mb:  var(--sec-head-gap); /* heading group → content (Open Flow, 4 Nov 2026; was 2.5rem) */
 
   /* ── Font families — Outfit (headings) + Inter (body) ──────────────────── */
   --font-display:             var(--font-outfit);
@@ -1065,13 +1065,14 @@
 .section-title .hl { color: var(--color-cyan-ink); }
 .section-intro { max-width: var(--section-intro-max); margin-bottom: 2.5rem; }
 
+/* Dark chapters use the Horizon gradient with grain (Open Flow, 4 Nov 2026). */
 .section-dark {
-  position: relative; overflow: hidden;
-  background-color: var(--color-bg-navy-deep);
+  position: relative; overflow: hidden; isolation: isolate;
+  background: var(--gradient-horizon);
 }
 .section-dark::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: var(--section-dark-glow);
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+  background-image: var(--grain); opacity: 0.07; mix-blend-mode: soft-light;
 }
 .section-dark > * { position: relative; }
 .section-dark .section-title { color: var(--color-ink-inverted); }
@@ -1262,3 +1263,7 @@ p.footer-legal { margin: 0; }
   color: var(--color-ink-primary);
 }
 .statement .hl { color: var(--color-cyan-ink); }
+/* A head without its own intro is usually followed by the intro paragraph
+   written inline on the page (About, Invara). Keep that paragraph inside the
+   group instead of opening the wide gap between a title and its own text. */
+.sec-head:not(:has(.section-intro)) { margin-bottom: 1.25rem; }

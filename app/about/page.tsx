@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from '@/lib/seo'
 import SharedSectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
 
 // About page copy: "Maru Online — Revised Website Copy" v1.0 (1 Nov 2026),
 // applied over "MaruOnline — About Page Copy" (approved 20 Oct 2026). The
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 const outerPad  = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
 const CONTACT_HREF = "/contact#contact-form";
@@ -147,10 +147,8 @@ export default function AboutPage() {
           bg: navy — matches homepage hero
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
-        style={{ background: "var(--gradient-hero)" }}
+        className={`navy-horizon relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10 w-full`}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>About Maru Online</span>
@@ -190,7 +188,9 @@ export default function AboutPage() {
           SECTION 1 — OUR PURPOSE
           bg: surface
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
@@ -232,7 +232,7 @@ export default function AboutPage() {
           SECTION 2 — OUR APPROACH
           bg: secondary
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
@@ -266,12 +266,13 @@ export default function AboutPage() {
           </StaggerParent>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 3 — CASE STUDY: GROWTHIQ
           bg: dark chapter (reading system, 3 Nov 2026): the page's one piece of proof
           ════════════════════════════════════════════════════════════════════ */}
-      <section id="growthiq" className={`section-dark ${outerPad} py-24`}>
+      <section id="growthiq" className="section-dark sec sec-chapter">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
@@ -368,7 +369,9 @@ export default function AboutPage() {
           SECTION 5 — AI AND DATA PROTECTION
           bg: surface
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
@@ -420,16 +423,15 @@ export default function AboutPage() {
           </FadeUp>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           FINAL CTA
           bg: navy
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ background: "var(--gradient-hero)" }}
+        className="navy-horizon sec sec-chapter relative overflow-hidden"
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.08)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>

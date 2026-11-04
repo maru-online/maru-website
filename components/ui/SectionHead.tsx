@@ -40,12 +40,14 @@ export default function SectionHead({
     </>
   );
 
+  // `sec-head` (globals.css, Open Flow 4 Nov 2026): eyebrow, title and intro
+  // sit close as one group, with a wide gap before the section's content.
   const body = (
-    <div className={className}>
+    <div className={`sec-head ${className}`.trim()}>
       {eyebrow && (
         <span
           className={dark ? "label-eyebrow" : "label-eyebrow label-eyebrow-ink"}
-          style={{ marginBottom: "1.5rem" }}
+          style={{ marginBottom: "1rem" }}
         >
           {eyebrow}
         </span>

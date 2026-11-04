@@ -24,10 +24,7 @@ export function LegalLayout({
   return (
     <>
       {/* ── Hero — the one dark surface on these pages ─────────────────────── */}
-      <div
-        className="pt-32 pb-16"
-        style={{ backgroundColor: "var(--color-bg-navy)" }}
-      >
+      <div className="navy-horizon pt-32 pb-16">
         <div className="container mx-auto px-6 lg:px-8">
           <nav
             aria-label="Breadcrumb"
@@ -62,7 +59,7 @@ export function LegalLayout({
       {/* ── Content — Warm Stone ground ────────────────────────────────────── */}
       <section
         className="py-16 lg:py-24"
-        style={{ background: "var(--gradient-surface)" }}
+        style={{ background: "var(--color-bg-secondary)" }}
       >
         <div className="container mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">

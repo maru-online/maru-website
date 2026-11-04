@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import { FadeUp } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 import {
@@ -63,10 +62,8 @@ export default async function SectionListingPage(props: {
   return (
     <>
       <section
-        className={`relative overflow-hidden ${outerPad} pt-40 md:pt-44 pb-16`}
-        style={{ background: "var(--gradient-hero)" }}
+        className={`navy-horizon relative overflow-hidden ${outerPad} pt-40 md:pt-44 pb-16`}
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <nav aria-label="Breadcrumb" style={{ marginBottom: "1.5rem", fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)" }}>
@@ -81,7 +78,7 @@ export default async function SectionListingPage(props: {
         </div>
       </section>
 
-      <section className={`${outerPad} py-16`} style={{ background: dark ? "var(--color-bg-navy-deep)" : "var(--gradient-surface)" }}>
+      <section className={`sec ${dark ? "navy-horizon" : "flow-ground"}`}>
         <div className={innerWide}>
           <nav aria-label="Filter by category" className="flex flex-wrap gap-2" style={{ marginBottom: "2.5rem" }}>
             {[{ slug: undefined, label: "All" }, ...PILLARS].map((p) => {

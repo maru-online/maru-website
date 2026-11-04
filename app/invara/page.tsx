@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 import SharedSectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
 
 // Invara product page, 20 Oct 2026. Copy revised 1 Nov 2026 per "Maru Online —
 // Revised Website Copy" v1.0 (section 5): five-step workflow, AI and
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const outerPad  = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
 const DEMO_HREF = "/contact?service=invara#contact-form";
@@ -279,10 +279,8 @@ export default function InvaraPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative overflow-hidden ${outerPad} pt-36 md:pt-44 pb-20 md:pb-28`}
-        style={{ background: "var(--gradient-hero)" }}
+        className={`navy-horizon relative overflow-hidden ${outerPad} pt-36 md:pt-44 pb-20 md:pb-28`}
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "2rem" }}>
@@ -348,7 +346,9 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           THE PROBLEM AND THE PROOF
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="The problem" light="From year-end reconstruction" strong="to evidence on record." />
@@ -405,7 +405,7 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           WHO IT IS FOR
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Who it is for" light="Built for implementers who" strong="disburse on behalf of sponsors." />
@@ -432,12 +432,13 @@ export default function InvaraPage() {
           </StaggerParent>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           HOW IT WORKS
           ════════════════════════════════════════════════════════════════════ */}
       {/* The page's one dark chapter (reading system, 3 Nov 2026): the walkthrough. */}
-      <section id="how-it-works" className={`section-dark ${outerPad} py-24`}>
+      <section id="how-it-works" className="section-dark sec sec-chapter">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="How it works" light="A structured workflow" strong="from capture to reporting." onNavy />
@@ -480,7 +481,9 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           CAPTURE AT SOURCE
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Capture at source" light="Beneficiaries use what" strong="they already have." />
@@ -523,7 +526,7 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           YOU STAY IN CONTROL
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Your team, your sponsors" light="You stay in control." strong="Nothing gets lost." />
@@ -598,7 +601,7 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           DATA AND POPIA
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Data and POPIA" light="POPIA-aware" strong="information handling." />
@@ -620,12 +623,12 @@ export default function InvaraPage() {
           </StaggerParent>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           FINAL CTA
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`relative overflow-hidden ${outerPad} py-24`} style={{ background: "var(--gradient-hero)" }}>
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.08)" className="pointer-events-none" />
+      <section className="navy-horizon sec sec-chapter relative overflow-hidden">
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>

@@ -12,7 +12,7 @@ export default async function PartnerLandingPage(props: Props) {
   return (
     <main
       className="min-h-screen relative overflow-hidden"
-      style={{ background: 'var(--gradient-surface)' }}
+      style={{ background: 'var(--color-bg-secondary)' }}
     >
       <section className="container mx-auto px-6 py-24 flex flex-col items-center justify-center min-h-[80vh] text-center">
         <div

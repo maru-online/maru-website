@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
 import { FadeUp } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 import SharedSectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
 
 // Working With Us (Engagement & Investment) page, at /working-with-us. Named
 // 31 Oct 2026 so the site does not read as selling priced products; /pricing
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 };
 
 const outerPad = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
 const CONTACT_HREF = "/contact#contact-form";
@@ -73,13 +73,11 @@ export default function PricingPage() {
   return (
     <>
       {/* ════════════════════════════════════════════════════════════════════
-          HERO — bg: navy, matches the homepage and About hero
+          HERO — bg: Horizon gradient, matches the homepage and About hero
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
-        style={{ background: "var(--gradient-hero)" }}
+        className={`navy-horizon relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10 w-full`}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Working with us</span>
@@ -116,9 +114,11 @@ export default function PricingPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 2 — WHY WE PRICE THIS WAY — bg: surface
+          SECTION 2 — WHY WE PRICE THIS WAY — bg: flow ground
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
@@ -149,9 +149,9 @@ export default function PricingPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 4 — WHAT DETERMINES THE INVESTMENT — bg: secondary (the steps section was dropped, 31 Oct)
+          SECTION 4 — WHAT DETERMINES THE INVESTMENT — bg: flow ground (the steps section was dropped, 31 Oct)
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Project scope" light="Scope and complexity" strong="determine the investment." />
@@ -186,9 +186,9 @@ export default function PricingPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 5 — COMMERCIAL CLARITY — bg: surface
+          SECTION 5 — COMMERCIAL CLARITY — bg: flow ground
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Expectations" light="Understand the engagement" strong="before work begins." />
@@ -212,15 +212,14 @@ export default function PricingPage() {
           </FadeUp>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 6 — FINAL CTA — bg: navy
+          SECTION 6 — FINAL CTA — bg: Horizon gradient
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ background: "var(--gradient-hero)" }}
+        className="navy-horizon sec sec-chapter relative overflow-hidden"
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.08)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
