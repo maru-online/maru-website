@@ -1096,3 +1096,41 @@
   .card-action .card-arrow { transition: none; }
 }
 .section-title-dark .hl { color: var(--color-cyan); }
+
+/* ── Footer (4 Nov 2026) ─────────────────────────────────────────────────────
+   Was 13px/300 at 75% white, legal row at 35% (failed contrast), and colours
+   were inline so hover never showed. Now: one step heavier and brighter, and
+   links lift 2px and turn cyan on hover/focus. Transform + colour only. */
+:root {
+  --footer-ink:        rgba(250, 250, 248, 0.86);  /* links and body */
+  --footer-ink-legal:  rgba(250, 250, 248, 0.64);  /* 12–13px legal row, ≥4.5:1 on navy */
+  --footer-rule:       rgba(250, 250, 248, 0.12);
+  --footer-ease:       cubic-bezier(0.22, 1, 0.36, 1);
+}
+.footer-text { font-size: 14px; font-weight: 400; color: var(--footer-ink); }
+.footer-link {
+  font-size: 14px; font-weight: 400; color: var(--footer-ink);
+  transition: color 200ms ease, transform 280ms var(--footer-ease);
+}
+.footer-link:hover,
+.footer-link:focus-visible { color: var(--color-cyan); transform: translateY(-2px); }
+.footer-link:active { transform: translateY(0); transition-duration: 100ms; }
+.footer-link:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; border-radius: 2px; }
+.footer-legal { font-size: 13px; font-weight: 400; color: var(--footer-ink-legal); }
+
+.footer-social {
+  border: 1px solid rgba(250, 250, 248, 0.24);
+  color: rgba(250, 250, 248, 0.72);
+  transition: color 200ms ease, border-color 200ms ease,
+              transform 280ms var(--footer-ease), box-shadow 280ms var(--footer-ease);
+}
+.footer-social:hover,
+.footer-social:focus-visible {
+  color: var(--color-cyan);
+  border-color: rgba(61, 184, 198, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px -10px rgba(61, 184, 198, 0.55);
+}
+.footer-social:active { transform: translateY(-1px); box-shadow: none; transition-duration: 100ms; }
+.footer-social:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
+p.footer-legal { margin: 0; }
