@@ -1079,7 +1079,9 @@
 
 /* Dark chapters use the Horizon gradient with grain (Open Flow, 4 Nov 2026). */
 .section-dark {
-  position: relative; overflow: hidden; isolation: isolate;
+  /* clip, not hidden: hidden makes the section a scroll container, which stops
+     sticky children (the GrowthIQ showcase) from sticking. */
+  position: relative; overflow: clip; isolation: isolate;
   background: var(--gradient-horizon);
 }
 .section-dark::before {
@@ -1366,3 +1368,81 @@ p.footer-legal { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   .reader-panel, .reader-scrim { animation: none; }
 }
+
+/* ── Product showcase (About → GrowthIQ, 4 Nov 2026) ────────────────────────
+   One legible screenshot, pinned on the left while the story cards scroll past
+   on the right. Wider than the reading column so the screenshot stays legible.
+   Stacks on small screens (screenshot first). */
+.showcase {
+  display: grid; gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 1024px) {
+  .showcase {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    margin-inline: calc((100% - min(1280px, 100vw - 2 * var(--sec-gutter))) / 2);
+  }
+  .showcase-media { position: sticky; top: 7rem; align-self: start; }
+}
+.showcase-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.shot { margin: 0; }
+.shot-frame {
+  border-radius: 14px; overflow: hidden;
+  background: #F7F8FA;
+  border: 1px solid rgba(250, 250, 248, 0.16);
+  box-shadow: 0 2px 4px rgba(3, 12, 24, 0.25),
+              0 30px 60px -24px rgba(3, 12, 24, 0.75),
+              0 40px 110px -30px rgba(61, 184, 198, 0.45);
+}
+.shot-bar {
+  display: flex; align-items: center; justify-content: center;
+  height: 34px; background: #0F2540;
+  border-bottom: 1px solid rgba(250, 250, 248, 0.08);
+}
+.shot-bar-label {
+  font-family: var(--font-body); font-size: 12px; letter-spacing: 0.02em;
+  color: var(--color-ink-inverted-muted);
+}
+.shot-open {
+  display: block; width: 100%; padding: 0; border: 0; background: none;
+  cursor: zoom-in;
+}
+.shot-open:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: -2px; }
+.shot-img { display: block; width: 100%; height: auto; }
+.shot-caption {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0.5rem 1.5rem; margin-top: 1rem;
+  font-family: var(--font-body); font-size: var(--text-meta); line-height: 1.5;
+  color: var(--color-ink-inverted-subtle);
+}
+.shot-zoom {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  min-height: 44px; padding: 0 0.25rem;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  color: var(--color-cyan);
+  transition: transform 240ms var(--card-ease), color 160ms ease;
+}
+.shot-zoom:hover { transform: translateY(-2px); color: var(--color-ink-inverted); }
+.shot-zoom:active { transform: none; }
+.shot-zoom:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; border-radius: 4px; }
+
+.shot-dialog {
+  width: min(1800px, 96vw); max-width: none; max-height: 94dvh;
+  margin: auto; padding: 0; border: 0; background: transparent; overflow: visible;
+}
+.shot-dialog::backdrop { background: rgba(10, 24, 42, 0.82); backdrop-filter: blur(4px); }
+.shot-dialog[open] { animation: reader-fade 220ms ease both; }
+.shot-dialog-inner { position: relative; }
+.shot-dialog-img {
+  display: block; width: 100%; height: auto; max-height: 86dvh; object-fit: contain;
+  border-radius: 12px; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+}
+.shot-dialog-close { position: absolute; top: -0.75rem; right: -0.75rem; z-index: 1; }
+@media (max-width: 640px) { .shot-dialog-close { top: -3.25rem; right: 0; } }
+.shot-dialog-caption {
+  margin: 0.875rem 0 0; text-align: center;
+  font-family: var(--font-body); font-size: var(--text-meta);
+  color: var(--color-ink-inverted-muted);
+}
+@media (prefers-reduced-motion: reduce) { .shot-dialog[open] { animation: none; } }

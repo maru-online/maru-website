@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from '@/lib/seo'
 import SharedSectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
+import ProductShot from "@/components/ui/ProductShot";
 
 // About page copy: "Maru Online — Revised Website Copy" v1.0 (1 Nov 2026),
 // applied over "MaruOnline — About Page Copy" (approved 20 Oct 2026). The
@@ -116,18 +116,20 @@ const caseBlocks: {
   },
 ];
 
-const screens = [
-  {
-    src: "/images/case-studies/growthiq-dashboard.webp",
-    alt: "GrowthIQ programme dashboard showing an ESD score, verification due date and a beneficiary list, using invented sample data",
-    caption: "GrowthIQ programme dashboard. Shown with invented sample data, not a client record.",
-  },
-  {
-    src: "/images/case-studies/growthiq-assessment.webp",
-    alt: "GrowthIQ business assessment step with yes or no questions and an Ask GrowthAI prompt, using invented sample data",
-    caption: "AI-guided business assessment using the platform’s built-in guidance. Sample data.",
-  },
-];
+// GrowthIQ dashboard (4 Nov 2026): one focused crop, legible at the size it is
+// shown (sidebar and empty right margin removed, sample-data notice kept), and
+// the original full capture behind "View full size". Every name, score and
+// figure in it is invented sample data.
+const dashboard = {
+  src: "/images/case-studies/growthiq-dashboard-focus.webp",
+  width: 1276,
+  height: 1012,
+  fullSrc: "/images/case-studies/growthiq-dashboard.webp",
+  fullWidth: 1800,
+  fullHeight: 1012,
+  alt: "GrowthIQ programme dashboard showing an ESD score of 81.9%, verification due in 49 days, one beneficiary needing attention and the beneficiary list, using invented sample data",
+  caption: "GrowthIQ programme dashboard. Shown with invented sample data, not a client record.",
+};
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────
 
@@ -278,77 +280,60 @@ export default function AboutPage() {
             </div>
           </FadeUp>
 
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            {caseBlocks.map((block) => (
-              <StaggerChild key={block.n} className="h-full">
-                <article className="card-dark h-full flex flex-col">
+          {/* Showcase: the dashboard stays in view on the left while the four
+              parts of the work, then the takeaway, scroll past on the right. */}
+          <div className="showcase">
+            <FadeUp className="showcase-media">
+              <ProductShot
+                frameLabel="GrowthIQ · Programme portal"
+                src={dashboard.src}
+                width={dashboard.width}
+                height={dashboard.height}
+                fullSrc={dashboard.fullSrc}
+                fullWidth={dashboard.fullWidth}
+                fullHeight={dashboard.fullHeight}
+                alt={dashboard.alt}
+                caption={dashboard.caption}
+                sizes="(min-width: 1024px) 720px, 100vw"
+              />
+            </FadeUp>
+
+            <StaggerParent className="showcase-stack">
+              {caseBlocks.map((block) => (
+                <StaggerChild key={block.n}>
+                  <article className="card-dark flex flex-col">
+                    <div className="card-body">
+                    <div className="card-label-row">
+                      <span className="card-label">{block.n} — {block.label}</span>
+                    </div>
+                    <h3 className="card-title">{block.heading}</h3>
+                    <ul className="prob-list">
+                      {block.points.map((p, i) => (
+                        <li key={i}>
+                          <span className="prob-dot" aria-hidden="true" />
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    </div>
+                  </article>
+                </StaggerChild>
+              ))}
+              <StaggerChild>
+                <div className="card-dark" style={{ borderLeft: "4px solid var(--color-cyan)" }}>
                   <div className="card-body">
-                  <div className="card-label-row">
-                    <span className="card-label">{block.n} — {block.label}</span>
+                  <h3 className="card-title">What this demonstrates</h3>
+                  <p className="card-text" style={{ marginBottom: "0.875rem" }}>
+                    GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and translate that strategy into a distinctive digital experience.
+                  </p>
+                  <p className="card-text" style={{ marginBottom: 0 }}>
+                    The platform has recently launched, so measurable post-launch business outcomes are not yet available. As performance data becomes available, we can build on this case study with verified evidence of its impact.
+                  </p>
                   </div>
-                  <h3 className="card-title">{block.heading}</h3>
-                  <ul className="prob-list">
-                    {block.points.map((p, i) => (
-                      <li key={i}>
-                        <span className="prob-dot" aria-hidden="true" />
-                        <span>{p}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  </div>
-                </article>
+                </div>
               </StaggerChild>
-            ))}
-          </StaggerParent>
-
-          {/* Genuine GrowthIQ screens, captured from the demo programme. The
-              in-app "SAMPLE DATA" banner stays visible on purpose: every name,
-              score and figure in them is invented. */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6" style={{ marginTop: "2rem" }}>
-            {screens.map((s) => (
-              <FadeUp key={s.src}>
-                <figure className="card-lift overflow-hidden" style={{ margin: 0 }}>
-                  <Image
-                    src={s.src}
-                    alt={s.alt}
-                    width={1800}
-                    height={1012}
-                    sizes="(min-width: 768px) 540px, 100vw"
-                    style={{ width: "100%", height: "auto", display: "block" }}
-                  />
-                  <figcaption
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-meta)",
-                      fontWeight: 300,
-                      color: "var(--color-ink-tertiary)",
-                      padding: "0.875rem 1.25rem",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {s.caption}
-                  </figcaption>
-                </figure>
-              </FadeUp>
-            ))}
+            </StaggerParent>
           </div>
-
-          <FadeUp delay={0.08}>
-            <div
-              className="card-dark"
-              style={{ marginTop: "2rem", borderLeft: "4px solid var(--color-cyan)" }}
-            >
-              <div className="card-body">
-              <h3 className="card-title">What this demonstrates</h3>
-              <p className="card-text" style={{ marginBottom: "0.875rem", maxWidth: "820px" }}>
-                GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and translate that strategy into a distinctive digital experience.
-              </p>
-              <p className="card-text" style={{ marginBottom: 0, maxWidth: "820px" }}>
-                The platform has recently launched, so measurable post-launch business outcomes are not yet available. As performance data becomes available, we can build on this case study with verified evidence of its impact.
-              </p>
-              </div>
-            </div>
-          </FadeUp>
         </div>
       </section>
 
