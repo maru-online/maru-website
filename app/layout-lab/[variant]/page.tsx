@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { ReactNode } from "react";
 import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
@@ -19,10 +18,11 @@ import "../lab.css";
 // components as app/page.tsx. Not linked, not indexed. Pick one, then it is
 // promoted into the real page and this route is deleted.
 
+// Round 2 (4 Nov 2026): round 1's A/B/C were reviewed and replaced.
 const VARIANTS = {
-  a: "A · Breathe",
-  b: "B · Chapters",
-  c: "C · Editorial split",
+  "1": "1 · Glow",
+  "2": "2 · Open flow",
+  "3": "3 · Chapters",
 } as const;
 type Variant = keyof typeof VARIANTS;
 
@@ -245,54 +245,81 @@ function Switcher({ current }: { current: Variant }) {
   );
 }
 
-// ─── Variant A — Breathe ─────────────────────────────────────────────────────
-// Same structure as today. More air, dot field on the hero, faint stone dots
-// drifting in from alternating sides on the light sections.
+// ─── Round 2 shared ──────────────────────────────────────────────────────────
 
-function VariantA() {
+type Grad = "g1" | "g2" | "g3";
+
+function NavyHero({ grad, align, light = false }: { grad: Grad; align: "left" | "center"; light?: boolean }) {
+  return (
+    <section
+      className={`lab-section lab-${grad} relative min-h-screen flex items-center overflow-hidden`}
+      style={{ paddingTop: "clamp(9rem, 15vw, 12rem)" }}
+    >
+      {light && <HeroLight />}
+      <div className={`relative w-full ${align === "left" ? "max-w-[900px] mx-auto" : ""}`}>
+        <Hero align={align} />
+      </div>
+    </section>
+  );
+}
+
+function Head({ head, center = false }: { head: typeof problemHead; center?: boolean }) {
+  return <SectionHead {...head} className={`lab-head${center ? " lab-center" : ""}`} />;
+}
+
+function PopiaStatement({ dark = false }: { dark?: boolean }) {
+  return (
+    <h2 className="lab-statement" style={{ color: dark ? "var(--color-ink-inverted)" : "var(--color-ink-primary)" }}>
+      Responsible implementation starts with{" "}
+      <span style={{ color: dark ? "var(--color-cyan)" : "var(--color-cyan-ink)" }}>
+        understanding the information involved.
+      </span>
+    </h2>
+  );
+}
+
+// ─── 1 · Glow ────────────────────────────────────────────────────────────────
+// Option A's structure, which worked. Light dots only, lighter; navy hero in
+// the Glow gradient; proximity spacing on every head.
+
+function Variant1() {
   return (
     <>
-      <section className="lab-section lab-navy relative min-h-screen flex items-center overflow-hidden" style={{ paddingTop: "clamp(9rem, 16vw, 13rem)" }}>
-        <DotField tone="dark" coverage={0.55} seed={11} />
-        <HeroLight />
-        <div className="relative w-full max-w-[900px] mx-auto"><Hero align="left" /></div>
-      </section>
+      <NavyHero grad="g1" align="left" light />
 
       <section className="lab-section lab-stone-deep overflow-hidden">
-        <DotField tone="light" mask="right" coverage={0.5} seed={4} />
+        <DotField tone="light" mask="right" coverage={0.45} intensity={0.7} seed={4} />
         <div className="lab-inner">
-          <SectionHead {...problemHead} className="lab-head-gap" />
+          <Head head={problemHead} />
           <ProblemCards />
-          <div style={{ marginBlock: "clamp(5rem, 9vw, 8rem) 3rem" }}><Bridge /></div>
+          <div style={{ marginBlock: "var(--lab-section-y) 3rem" }}><Bridge /></div>
           <div className="mx-auto" style={{ maxWidth: "1000px" }}><DisconnectDiagram /></div>
         </div>
       </section>
 
       <section id="how-we-work" className="lab-section lab-stone-flat overflow-hidden">
-        <DotField tone="light" mask="left" coverage={0.5} seed={9} />
+        <DotField tone="light" mask="left" coverage={0.45} intensity={0.7} seed={9} />
         <div className="lab-inner">
-          <SectionHead {...howHead} className="lab-head-gap" />
+          <Head head={howHead} />
           <StepCards />
         </div>
       </section>
 
       <section id="popia-aware" className="lab-section lab-chapter lab-stone overflow-hidden">
-        <DotField tone="light" mask="edges" coverage={0.45} seed={21} intensity={0.45} />
-        <div className="lab-read lab-center">
+        <DotField tone="light" mask="edges" coverage={0.42} intensity={0.45} seed={21} />
+        <div className="lab-read lab-center" style={{ maxWidth: "820px" }}>
           <FadeUp>
-            <h2 className="section-title" style={{ marginBottom: "2rem" }}>
-              Responsible implementation starts with <span className="hl">understanding the information involved.</span>
-            </h2>
-            <p className="body-muted section-intro" style={{ marginBottom: "2rem" }}>{popiaBody}</p>
+            <div style={{ marginBottom: "1.75rem" }}><PopiaStatement /></div>
+            <p className="body-muted mx-auto" style={{ maxWidth: "var(--lab-measure)", marginBottom: "2rem" }}>{popiaBody}</p>
             <PopiaNote center />
           </FadeUp>
         </div>
       </section>
 
       <section id="capabilities" className="lab-section lab-stone-flat overflow-hidden">
-        <DotField tone="light" mask="right" coverage={0.5} seed={15} />
+        <DotField tone="light" mask="right" coverage={0.45} intensity={0.7} seed={15} />
         <div className="lab-inner">
-          <SectionHead {...capHead} className="lab-head-gap" />
+          <Head head={capHead} />
           <CapabilityCards />
         </div>
       </section>
@@ -303,39 +330,120 @@ function VariantA() {
   );
 }
 
-// ─── Variant B — Chapters ────────────────────────────────────────────────────
-// openinstinct's rhythm: centred heads, dense field on dark chapters, the
-// diagram and the POPIA statement promoted to their own dark chapters, and
-// the two lower card grids opened up.
+// ─── 2 · Open flow ───────────────────────────────────────────────────────────
+// Closest to Wanoura: one continuous stone ground with hairline dividers in
+// place of tinted bands, asymmetric splits, steps as rows beside a heading
+// that stays in view. "Your tools stay" keeps its own navy chapter (the one
+// dark section that worked in B), now in the Horizon gradient.
 
-function VariantB() {
+function Variant2() {
   return (
     <>
-      <section className="lab-section lab-navy relative min-h-screen flex items-center overflow-hidden" style={{ paddingTop: "clamp(9rem, 16vw, 13rem)" }}>
-        <DotField tone="dark" coverage={0.7} seed={11} />
-        <div className="relative w-full"><Hero align="center" /></div>
+      <NavyHero grad="g2" align="left" />
+
+      <div className="lab-flow">
+        <section className="lab-section overflow-hidden">
+          <DotField tone="light" mask="right" coverage={0.45} intensity={0.65} seed={4} />
+          <div className="lab-inner">
+            <Head head={problemHead} />
+            <ProblemCards />
+          </div>
+        </section>
+      </div>
+
+      <section className="lab-section lab-chapter lab-g2 overflow-hidden">
+        <div className="lab-inner">
+          <div className="lab-head"><Bridge dark /></div>
+          <div className="mx-auto" style={{ maxWidth: "1000px" }}><DisconnectDiagram /></div>
+        </div>
       </section>
 
+      <div className="lab-flow">
+        <section id="how-we-work" className="lab-section overflow-clip">
+          <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
+          <div className="lab-inner">
+            <div className="lab-split">
+              <div className="lab-split-sticky"><SectionHead {...howHead} className="lab-head" /></div>
+              <StaggerParent className="lab-rows">
+                {steps.map((s) => (
+                  <StaggerChild key={s.n} className="lab-row">
+                    <span className="glyph-chip glyph-chip-lg" aria-hidden="true"><Glyph name={s.icon} size={28} /></span>
+                    <div>
+                      <span className="card-label" style={{ display: "block", marginBottom: "0.5rem" }}>Step {s.n}</span>
+                      <h3 className="card-title">{s.name}</h3>
+                      <BulletList items={s.points} />
+                    </div>
+                  </StaggerChild>
+                ))}
+              </StaggerParent>
+            </div>
+          </div>
+        </section>
+
+        <section id="popia-aware" className="lab-section lab-ruled">
+          <div className="lab-inner">
+            <FadeUp className="lab-pair">
+              <PopiaStatement />
+              <div>
+                <p className="body-muted" style={{ marginBottom: "1.75rem" }}>{popiaBody}</p>
+                <PopiaNote />
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+
+        <section id="capabilities" className="lab-section lab-ruled overflow-hidden">
+          <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={15} />
+          <div className="lab-inner">
+            <Head head={capHead} />
+            <StaggerParent className="lab-cols">
+              {capabilities.map((c) => (
+                <StaggerChild key={c.name} className="lab-col">
+                  <span className="glyph-chip glyph-chip-lg" style={{ marginBottom: "1.5rem" }}><Glyph name={c.icon} size={28} /></span>
+                  <h3 className="card-title">{c.name}</h3>
+                  <p className="card-text card-text-lead">{c.lead}</p>
+                  <BulletList items={c.items} />
+                </StaggerChild>
+              ))}
+            </StaggerParent>
+          </div>
+        </section>
+      </div>
+
+      <ImageStatement />
+      <div className="lab-flow"><AssessmentFormSection /></div>
+    </>
+  );
+}
+
+// ─── 3 · Chapters ────────────────────────────────────────────────────────────
+// B's centred rhythm with dark chapters in the Silk gradient instead of dots;
+// light sections keep a light dot field.
+
+function Variant3() {
+  return (
+    <>
+      <NavyHero grad="g3" align="center" />
+
       <section className="lab-section lab-stone overflow-hidden">
-        <DotField tone="light" mask="top" coverage={0.55} seed={4} intensity={0.5} />
+        <DotField tone="light" mask="top" coverage={0.45} intensity={0.6} seed={4} />
         <div className="lab-inner">
-          <SectionHead {...problemHead} className="lab-head-gap lab-center" />
+          <Head head={problemHead} center />
           <ProblemCards />
         </div>
       </section>
 
-      <section className="lab-section lab-chapter lab-navy overflow-hidden">
-        <DotField tone="dark" coverage={0.5} seed={33} mask="y" />
+      <section className="lab-section lab-chapter lab-g3 overflow-hidden">
         <div className="lab-inner">
-          <div className="lab-head-gap"><Bridge dark /></div>
+          <div className="lab-head"><Bridge dark /></div>
           <div className="mx-auto" style={{ maxWidth: "1000px" }}><DisconnectDiagram /></div>
         </div>
       </section>
 
       <section id="how-we-work" className="lab-section lab-stone-flat overflow-hidden">
-        <DotField tone="light" mask="bottom" coverage={0.5} seed={9} intensity={0.5} />
+        <DotField tone="light" mask="bottom" coverage={0.45} intensity={0.6} seed={9} />
         <div className="lab-inner">
-          <SectionHead {...howHead} className="lab-head-gap lab-center" />
+          <Head head={howHead} center />
           <StaggerParent className="lab-seq">
             {steps.map((s) => (
               <StaggerChild key={s.n} className="lab-seq-item">
@@ -348,24 +456,20 @@ function VariantB() {
         </div>
       </section>
 
-      <section id="popia-aware" className="lab-section lab-chapter lab-navy overflow-hidden">
-        <DotField tone="dark" coverage={0.62} seed={5} mask="edges" />
-        <div className="lab-read lab-center" style={{ maxWidth: "880px" }}>
+      <section id="popia-aware" className="lab-section lab-chapter lab-g3 overflow-hidden">
+        <div className="lab-read lab-center" style={{ maxWidth: "860px" }}>
           <FadeUp>
-            <h2 className="lab-statement" style={{ color: "var(--color-ink-inverted)", marginBottom: "2.5rem" }}>
-              Responsible implementation starts with{" "}
-              <span style={{ color: "var(--color-cyan)" }}>understanding the information involved.</span>
-            </h2>
-            <p className="body-on-navy mx-auto" style={{ maxWidth: "680px", marginBottom: "2.5rem", lineHeight: "var(--leading-body-relaxed)" }}>{popiaBody}</p>
+            <div style={{ marginBottom: "2rem" }}><PopiaStatement dark /></div>
+            <p className="body-on-navy mx-auto" style={{ maxWidth: "var(--lab-measure)", marginBottom: "2rem", lineHeight: "var(--leading-body-relaxed)" }}>{popiaBody}</p>
             <PopiaNote dark center />
           </FadeUp>
         </div>
       </section>
 
       <section id="capabilities" className="lab-section lab-stone overflow-hidden">
-        <DotField tone="light" mask="top" coverage={0.5} seed={15} intensity={0.5} />
+        <DotField tone="light" mask="top" coverage={0.45} intensity={0.6} seed={15} />
         <div className="lab-inner">
-          <SectionHead {...capHead} className="lab-head-gap lab-center" />
+          <Head head={capHead} center />
           <StaggerParent className="lab-cols">
             {capabilities.map((c) => (
               <StaggerChild key={c.name} className="lab-col">
@@ -385,108 +489,6 @@ function VariantB() {
   );
 }
 
-// ─── Variant C — Editorial split ─────────────────────────────────────────────
-// Asymmetric: split heads, sticky headings beside stacked rows, one continuous
-// light field behind every light section; the hero's field gathers on the
-// right as its visual.
-
-function SplitHead({ head, sticky = false, children }: { head: typeof problemHead; sticky?: boolean; children?: ReactNode }) {
-  return (
-    <div className="lab-split">
-      <div className={sticky ? "lab-split-sticky" : ""}>
-        <SectionHead eyebrow={head.eyebrow} title={head.title} intro={sticky ? head.intro : undefined} />
-      </div>
-      {children ?? (
-        <FadeUp className="lab-split-end">
-          <p className="section-intro body-muted">{head.intro}</p>
-        </FadeUp>
-      )}
-    </div>
-  );
-}
-
-function VariantC() {
-  return (
-    <>
-      <section className="lab-section lab-navy relative min-h-screen flex items-center overflow-hidden" style={{ paddingTop: "clamp(9rem, 16vw, 13rem)" }}>
-        <DotField tone="dark" coverage={0.78} seed={11} mask="right" />
-        <div className="relative w-full lab-inner"><Hero align="left" /></div>
-      </section>
-
-      <div className="lab-continuous">
-        <DotField tone="light" fixed coverage={0.5} seed={4} intensity={0.6} />
-
-        <section className="lab-section">
-          <div className="lab-inner">
-            <div className="lab-head-gap"><SplitHead head={problemHead} /></div>
-            <ProblemCards />
-            <div style={{ marginBlock: "clamp(5rem, 9vw, 8rem) 3rem" }}><Bridge /></div>
-            <div className="mx-auto" style={{ maxWidth: "1000px" }}><DisconnectDiagram /></div>
-          </div>
-        </section>
-
-        <section id="how-we-work" className="lab-section">
-          <div className="lab-inner">
-            <SplitHead head={howHead} sticky>
-              <StaggerParent className="lab-rows">
-                {steps.map((s) => (
-                  <StaggerChild key={s.n} className="lab-row">
-                    <span className="glyph-chip glyph-chip-lg" aria-hidden="true"><Glyph name={s.icon} size={28} /></span>
-                    <div>
-                      <span className="card-label" style={{ display: "block", marginBottom: "0.5rem" }}>Step {s.n}</span>
-                      <h3 className="card-title">{s.name}</h3>
-                      <BulletList items={s.points} />
-                    </div>
-                  </StaggerChild>
-                ))}
-              </StaggerParent>
-            </SplitHead>
-          </div>
-        </section>
-
-        <section id="popia-aware" className="lab-section lab-chapter">
-          <div className="lab-inner">
-            <div className="lab-split lab-split-wide">
-              <FadeUp>
-                <h2 className="lab-statement" style={{ color: "var(--color-ink-primary)" }}>
-                  Responsible implementation starts with{" "}
-                  <span style={{ color: "var(--color-cyan-ink)" }}>understanding the information involved.</span>
-                </h2>
-              </FadeUp>
-              <FadeUp className="lab-split-end">
-                <p className="body-muted" style={{ lineHeight: "var(--leading-body-relaxed)", marginBottom: "2rem" }}>{popiaBody}</p>
-                <PopiaNote />
-              </FadeUp>
-            </div>
-          </div>
-        </section>
-
-        <section id="capabilities" className="lab-section">
-          <div className="lab-inner">
-            <SplitHead head={capHead} sticky>
-              <StaggerParent className="lab-rows">
-                {capabilities.map((c) => (
-                  <StaggerChild key={c.name} className="lab-row">
-                    <span className="glyph-chip glyph-chip-lg" aria-hidden="true"><Glyph name={c.icon} size={28} /></span>
-                    <div>
-                      <h3 className="card-title">{c.name}</h3>
-                      <p className="card-text card-text-lead">{c.lead}</p>
-                      <BulletList items={c.items} />
-                    </div>
-                  </StaggerChild>
-                ))}
-              </StaggerParent>
-            </SplitHead>
-          </div>
-        </section>
-      </div>
-
-      <ImageStatement />
-      <AssessmentFormSection />
-    </>
-  );
-}
-
 // ─── Route ───────────────────────────────────────────────────────────────────
 
 export default async function LayoutLab({ params }: { params: Promise<{ variant: string }> }) {
@@ -494,10 +496,10 @@ export default async function LayoutLab({ params }: { params: Promise<{ variant:
   if (!(variant in VARIANTS)) notFound();
   const v = variant as Variant;
   return (
-    <div className={`lab lab-${v}`}>
-      {v === "a" && <VariantA />}
-      {v === "b" && <VariantB />}
-      {v === "c" && <VariantC />}
+    <div className={`lab r2 lab-v${v} lab-foot-g${v}`}>
+      {v === "1" && <Variant1 />}
+      {v === "2" && <Variant2 />}
+      {v === "3" && <Variant3 />}
       <Switcher current={v} />
     </div>
   );

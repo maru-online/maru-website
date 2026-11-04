@@ -146,3 +146,87 @@
 .lab-switch a:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
 .lab-switch a[aria-current="page"] { background: var(--color-cyan); color: var(--color-ink-primary); }
 @media (min-width: 1024px) { .lab-split.lab-split-wide { grid-template-columns: 7fr 5fr; } }
+
+/* ═════════════════════════════════════════════════════════════════════════
+   Round 2 (4 Nov 2026 feedback): dots on light grounds only and lighter;
+   navy goes premium through layered gradients; spacing follows the
+   proximity rhythm studied on dreamwanoura.com: tight groups, wide gaps
+   between groups, one ground with hairlines instead of tinted bands.
+   ═════════════════════════════════════════════════════════════════════════ */
+
+.lab.r2 {
+  --lab-section-y: clamp(5.5rem, 9vw, 8.5rem);   /* 88 → 136px */
+  --lab-chapter-y: clamp(6.5rem, 12vw, 10.5rem); /* 104 → 168px */
+  --lab-head-gap:  clamp(3.5rem, 6vw, 5.5rem);   /* group → its content */
+  --lab-wide:      1120px;
+  --lab-measure:   34rem;                        /* intro paragraphs */
+}
+
+/* Proximity: eyebrow, title and intro sit close as one group. SectionHead
+   sets the eyebrow margin inline, hence !important. */
+.r2 .lab-head .label-eyebrow  { margin-bottom: 1rem !important; }
+.r2 .lab-head .section-title  { margin-bottom: 1.25rem; }
+.r2 .lab-head .section-intro  { max-width: var(--lab-measure); margin-bottom: 0; }
+.r2 .lab-head                 { margin-bottom: var(--lab-head-gap); }
+.r2 .lab-center .section-intro { margin-inline: auto; }
+
+/* ── Navy gradients: three treatments ───────────────────────────────────
+   All share a fine grain so the gradients don't band and read as a
+   material, not a CSS default. */
+.lab-g1, .lab-g2, .lab-g3 { position: relative; isolation: isolate; color: var(--color-ink-inverted); }
+.lab-g1::after, .lab-g2::after, .lab-g3::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.07; mix-blend-mode: soft-light;
+}
+
+/* 1 · Glow: light falls from the top right, deepens toward the bottom. */
+.lab-g1 {
+  background:
+    radial-gradient(60% 55% at 88% 6%, rgba(61,184,198,0.22), transparent 62%),
+    radial-gradient(45% 50% at 6% 96%, rgba(61,184,198,0.09), transparent 70%),
+    radial-gradient(85% 60% at 50% 125%, rgba(8,20,35,0.55), transparent 70%),
+    linear-gradient(160deg, #1D4066 0%, #16324F 48%, #10263F 100%);
+}
+
+/* 2 · Horizon: dark sky, a cyan dawn rising off the bottom edge with a
+   thin warm gold rim where the light meets the ground. */
+.lab-g2 {
+  background:
+    radial-gradient(70% 26% at 50% 104%, rgba(214,183,106,0.16), transparent 70%),
+    radial-gradient(95% 60% at 50% 120%, rgba(61,184,198,0.30), rgba(61,184,198,0.07) 45%, transparent 72%),
+    linear-gradient(180deg, #0E223A 0%, #142E4B 55%, #1A3A5C 100%);
+}
+
+/* 3 · Silk: soft mesh of cyan, navy-light and a trace of gold, with a
+   faint sheen sweeping across, like brushed fabric. */
+.lab-g3 {
+  background:
+    radial-gradient(50% 60% at 84% 10%, rgba(61,184,198,0.20), transparent 65%),
+    radial-gradient(42% 48% at 10% 86%, rgba(195,159,69,0.12), transparent 70%),
+    radial-gradient(60% 70% at 42% 42%, rgba(38,82,124,0.6), transparent 75%),
+    conic-gradient(from 210deg at 68% 30%, rgba(255,255,255,0.035), transparent 25%, rgba(255,255,255,0.02) 50%, transparent 75%),
+    linear-gradient(150deg, #142D4A 0%, #16324F 50%, #0E223A 100%);
+}
+
+/* Footer joins the chosen treatment (it lives outside .lab in the layout). */
+body:has(.lab-foot-g1) footer { background: linear-gradient(180deg, #16324F 0%, #10263F 100%), #10263F !important; }
+body:has(.lab-foot-g2) footer { background: radial-gradient(80% 50% at 50% 0%, rgba(61,184,198,0.14), transparent 70%), linear-gradient(180deg, #1A3A5C 0%, #0E223A 100%) !important; }
+body:has(.lab-foot-g3) footer { background: radial-gradient(45% 60% at 90% 10%, rgba(61,184,198,0.14), transparent 70%), radial-gradient(40% 50% at 5% 95%, rgba(195,159,69,0.08), transparent 70%), linear-gradient(150deg, #142D4A 0%, #0E223A 100%) !important; }
+
+/* ── Continuous ground (variant 2): one stone surface, hairline dividers
+   inside the content width, as Wanoura does with border-t. ──────────── */
+.lab-flow { position: relative; background: var(--color-bg-secondary); }
+.lab-flow .lab-section,
+.lab-flow #assessment { background: transparent !important; }
+.lab-ruled { padding-top: 0 !important; }
+.lab-ruled > .lab-inner { border-top: 1px solid var(--color-border-card); padding-top: var(--lab-section-y); }
+
+/* Asymmetric statement split (POPIA in variant 2). */
+.lab-pair { display: grid; gap: 2rem 4rem; grid-template-columns: 1fr; }
+@media (min-width: 1024px) { .lab-pair { grid-template-columns: 7fr 5fr; align-items: end; } }
+
+.r2 .lab-statement { font-size: clamp(1.9rem, 3.6vw, 3rem); }
+
+/* Global h2 carries a rule and padding; the statement is a different object. */
+.lab .lab-statement { border: none; padding: 0; }
