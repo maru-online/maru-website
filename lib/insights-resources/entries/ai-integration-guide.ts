@@ -19,6 +19,7 @@ export const integrationGuide: ContentEntry = {
   readTime: '9 min read',
   author: 'Maru Online',
   image: '/images/insights-resources/ai-human-oversight.jpg',
+  imageTone: 'standard',
   imageAlt: 'A man working on a laptop beside a translucent display of a wireframe head and process diagrams.',
   legalNote: true,
   related: ['automation-workflows-guide-reduce-manual-work', 'ai-readiness-guide-south-african-business', 'popia-section-71-automated-decisions-ai-business'],

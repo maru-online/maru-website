@@ -95,6 +95,7 @@ export function ArticleImage({ entry, sizes, priority = false }: { entry: Conten
         <TreatedImage
           src={entry.image}
           alt={entry.imageAlt ?? ""}
+          tone={entry.imageTone}
           sizes={sizes}
           priority={priority}
           className="ir-hero-img w-full rounded-2xl"

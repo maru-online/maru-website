@@ -18,6 +18,8 @@ export const aiPopiaGuide: ContentEntry = {
   category: 'POPIA & Data Governance',
   resourceType: 'Guide',
   access: 'gated',
+  image: '/images/insights-resources/guide-ai-popia-reader.jpg',
+  imageAlt: 'A business owner reading carefully at her desk',
   status: 'draft',
   publishedAt: '2026-10-08',
   author: 'Maru Online',

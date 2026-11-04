@@ -1455,3 +1455,11 @@ p.footer-legal { margin: 0; }
   border-radius: 12px; margin-bottom: 1.75rem;
   box-shadow: var(--card-shadow);
 }
+/* Section heading beside one photograph (Invara "Who it is for", 4 Nov 2026). */
+.split-media { display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: end; }
+@media (min-width: 1024px) { .split-media { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); } }
+.split-media .sec-head { margin-bottom: 1.25rem; }
+.split-media-img {
+  aspect-ratio: 3 / 2; width: 100%;
+  border-radius: 14px; box-shadow: var(--card-shadow-hover);
+}

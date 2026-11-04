@@ -86,6 +86,10 @@ const capabilities = [
     icon: "browser" as const,
     name: "Digital systems and integration",
     lead: "Build the digital foundations your business needs to work better.",
+    image: {
+      src: "/images/home/capability-digital.jpg",
+      alt: "Two developers reviewing a website together, one testing it on a phone",
+    },
     items: [
       "Websites, web applications, and e-commerce platforms",
       "AI integration across business systems and data sources",
@@ -96,6 +100,10 @@ const capabilities = [
     icon: "signal" as const,
     name: "Data-informed growth systems",
     lead: "Turn business information into better decisions and more effective customer processes.",
+    image: {
+      src: "/images/home/capability-growth.jpg",
+      alt: "A manager highlighting a printed bar chart beside a laptop showing a rising trend",
+    },
     items: [
       "Customer journey and revenue process analysis",
       "Data-informed marketing and growth strategy",

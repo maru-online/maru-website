@@ -55,6 +55,8 @@ export interface ContentEntry {
   /** Public path of the featured image. */
   image?: string
   imageAlt?: string
+  /** 'standard' only for photos made dark and blue at source; see TreatedImage. Default 'deep'. */
+  imageTone?: 'standard' | 'deep'
   /** Scannable summary shown above the body. */
   inShort?: string[]
   body?: Block[]

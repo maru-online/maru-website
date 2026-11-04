@@ -5,6 +5,7 @@ import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 import SharedSectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
+import { TreatedImage } from "@/components/ui/CardMedia";
 
 // Invara product page, 20 Oct 2026. Copy revised 1 Nov 2026 per "Maru Online —
 // Revised Website Copy" v1.0 (section 5): five-step workflow, AI and
@@ -399,11 +400,23 @@ export default function InvaraPage() {
           ════════════════════════════════════════════════════════════════════ */}
       <section className="sec sec-ruled">
         <div className={innerWide}>
+          {/* One photograph for the section (4 Nov 2026), beside the heading,
+              not one per card: it sets the scene, the cards carry the detail. */}
           <FadeUp>
-            <SectionHead eyebrow="Who it is for" light="Built for implementers who" strong="disburse on behalf of sponsors." />
-            <p className={`body-muted ${innerText}`} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              Invara is for the organisations in the middle: funded by corporate sponsors, working directly with beneficiaries, and accountable to both.
-            </p>
+            <div className="split-media" style={{ marginBottom: "var(--space-section-header-mb)" }}>
+              <div>
+                <SectionHead eyebrow="Who it is for" light="Built for implementers who" strong="disburse on behalf of sponsors." />
+                <p className="body-muted" style={{ marginBottom: 0 }}>
+                  Invara is for the organisations in the middle: funded by corporate sponsors, working directly with beneficiaries, and accountable to both.
+                </p>
+              </div>
+              <TreatedImage
+                src="/images/invara/workshop-visit.jpg"
+                alt="A small business owner in his woodwork workshop, pointing to timber stock during a programme visit"
+                sizes="(min-width: 1024px) 460px, 100vw"
+                className="split-media-img"
+              />
+            </div>
           </FadeUp>
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {audiences.map((a) => (

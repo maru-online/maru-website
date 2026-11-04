@@ -18,6 +18,7 @@ export function TreatedImage({
   priority = false,
   className = "",
   untinted = false,
+  tone = "deep",
   position,
 }: {
   src: string;
@@ -26,13 +27,59 @@ export function TreatedImage({
   priority?: boolean;
   className?: string;
   untinted?: boolean;
+  /**
+   * "deep" (default, 4 Nov 2026): for daylight photos. Partly desaturated,
+   * then a navy colour blend (keeps each pixel's brightness), a light navy
+   * multiply and a faint cyan light from the top right, so every photo lands
+   * in one blue family with its highlights intact.
+   * "standard": the older light navy multiply, for photos made dark and blue
+   * at source (the AI integration guide image).
+   */
+  tone?: "standard" | "deep";
   /** CSS object-position, to keep the subject in a wide crop (e.g. "50% 40%"). */
   position?: string;
 }) {
   return (
     <div className={`relative overflow-hidden ${className}`} style={{ backgroundColor: "var(--color-bg-navy-deep)" }}>
-      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={untinted ? "object-cover object-top" : "object-cover"} style={position ? { objectPosition: position } : undefined} />
-      {!untinted && (
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className={untinted ? "object-cover object-top" : "object-cover"}
+        style={{
+          ...(position ? { objectPosition: position } : {}),
+          ...(!untinted && tone === "deep" ? { filter: "saturate(0.45) contrast(1.12) brightness(0.95)" } : {}),
+        }}
+      />
+      {!untinted && tone === "deep" && (
+        <>
+          {/* Colour blend: navy takes over the hue but keeps each pixel's
+              brightness, so faces, paper and screens keep their highlights. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 mix-blend-color"
+            style={{ background: "linear-gradient(135deg, rgba(27,68,104,0.9), rgba(18,48,79,0.9))" }}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 mix-blend-multiply"
+            style={{ background: "linear-gradient(135deg, rgba(26,58,92,0.38), rgba(14,34,58,0.52))" }}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 mix-blend-screen"
+            style={{ background: "radial-gradient(80% 90% at 85% 0%, rgba(61,184,198,0.18), transparent 60%)" }}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(13,27,42,0.5), rgba(13,27,42,0) 55%)" }}
+          />
+        </>
+      )}
+      {!untinted && tone === "standard" && (
         <>
           <div
             aria-hidden="true"

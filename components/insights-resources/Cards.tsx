@@ -80,7 +80,7 @@ export function EntryMedia({
   priority?: boolean;
 }) {
   return entry.image ? (
-    <TreatedImage src={entry.image} alt={entry.imageAlt ?? ""} sizes={sizes} priority={priority} className={className} />
+    <TreatedImage src={entry.image} alt={entry.imageAlt ?? ""} sizes={sizes} priority={priority} className={className} tone={entry.imageTone} />
   ) : (
     <PillarVisual entry={entry} glyphSize={glyphSize} className={className} />
   );

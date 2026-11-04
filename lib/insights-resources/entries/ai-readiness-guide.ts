@@ -17,6 +17,8 @@ export const readinessGuide: ContentEntry = {
   status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '8 min read',
+  image: '/images/insights-resources/guide-readiness-checklist.jpg',
+  imageAlt: 'A hand ticking items off a printed readiness checklist',
   author: 'Maru Online',
   legalNote: true,
   related: ['south-african-businesses-using-ai-gap-is-structure', 'ai-integration-guide-connect-ai-existing-systems', 'ai-and-popia'],
