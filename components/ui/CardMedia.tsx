@@ -28,8 +28,8 @@ export function TreatedImage({
   className?: string;
   untinted?: boolean;
   /**
-   * "deep" (default, 4 Nov 2026; eased 4 Nov evening so more of the photo
-   * shows through): for daylight photos. Partly desaturated,
+   * "deep" (default, 4 Nov 2026; eased twice the same evening so the photos
+   * keep their warmth under a light navy wash): for daylight photos. Lightly desaturated,
    * then a navy colour blend (keeps each pixel's brightness), a light navy
    * multiply and a faint cyan light from the top right, so every photo lands
    * in one blue family with its highlights intact.
@@ -51,7 +51,7 @@ export function TreatedImage({
         className={untinted ? "object-cover object-top" : "object-cover"}
         style={{
           ...(position ? { objectPosition: position } : {}),
-          ...(!untinted && tone === "deep" ? { filter: "saturate(0.6) contrast(1.08) brightness(0.98)" } : {}),
+          ...(!untinted && tone === "deep" ? { filter: "saturate(0.85) contrast(1.05)" } : {}),
         }}
       />
       {!untinted && tone === "deep" && (
@@ -61,17 +61,17 @@ export function TreatedImage({
           <div
             aria-hidden="true"
             className="absolute inset-0 mix-blend-color"
-            style={{ background: "linear-gradient(135deg, rgba(27,68,104,0.72), rgba(18,48,79,0.72))" }}
+            style={{ background: "linear-gradient(135deg, rgba(27,68,104,0.42), rgba(18,48,79,0.48))" }}
           />
           <div
             aria-hidden="true"
             className="absolute inset-0 mix-blend-multiply"
-            style={{ background: "linear-gradient(135deg, rgba(26,58,92,0.28), rgba(14,34,58,0.42))" }}
+            style={{ background: "linear-gradient(135deg, rgba(26,58,92,0.16), rgba(14,34,58,0.28))" }}
           />
           <div
             aria-hidden="true"
             className="absolute inset-0 mix-blend-screen"
-            style={{ background: "radial-gradient(80% 90% at 85% 0%, rgba(61,184,198,0.18), transparent 60%)" }}
+            style={{ background: "radial-gradient(80% 90% at 85% 0%, rgba(61,184,198,0.14), transparent 60%)" }}
           />
           <div
             aria-hidden="true"
