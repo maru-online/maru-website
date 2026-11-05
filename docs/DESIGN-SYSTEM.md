@@ -166,6 +166,36 @@ bodies, so individual elements don't carry colour utilities.
 
 ---
 
+### 4a. Cards, grid, dots and type (5 Nov 2026)
+
+**Two card builds.** Photo cards (`TreatedImage` band on top) and grid cards
+(`DrawnVisual` with `title`: the navy grid header carries the card title; body
+below). Both are `.card-lift`. The header sits flush, so only the card's top
+corners round. Primary-route cards may pass `accent="gold"` (to be revisited
+with the CTA colour decision).
+
+**Grid motif** (`.grid-motif`, `.grid-motif-feature`, `.hero-grid` in
+`globals.css`): 1px cyan lines, one style at three weights — glyph panels
+0.10 / 40px; titled card headers 0.22 / 28px; page heroes 0.20 / 52px (40px on
+phones), full strength top-right and never below ~45% behind the copy. Every
+page hero carries `.hero-grid`; navy chapter sections do not.
+
+**Dots** (`DotField`, light grounds only): dots open each light run — mask
+`right` on the first light section after the hero, `left` on the first light
+section after a navy break — and the last section of a run of three or more
+gets a second set from the other side.
+
+**Type roles.** H1 hero: `maru-headline-split`. Section H2: `.section-title`
+(Outfit 600, `--text-h2`) — including statement-style headings and headings on
+navy (`SectionHead dark`). Card title: `.card-title` (Outfit 600, 22px); grid
+header title `.drawn-visual-title` (26px). Article body headings: Outfit 600.
+Section intros: 18px on every ground; 20px only for hero leads. Notes and
+captions: 12–14px, never italic.
+
+**Column.** Every page, the footer and the legal pages sit on `.sec-inner`
+(1120px). The footer has five columns: brand, navigation, what we do, get in
+touch, legal.
+
 ## 5. Specificity traps
 
 **`globals.css` loads after Tailwind at equal specificity.** A `display` declaration on a
