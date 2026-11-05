@@ -1260,9 +1260,10 @@ p.footer-legal { margin: 0; }
    set per use so card panels and heroes stay one family:
      .grid-motif          faint, centred — glyph panels (guides, problem cards)
      .grid-motif-feature  the visible feature — titled card panels
-     .hero-grid           page heroes: larger cells, slightly lower strength
-                          (a big area reads stronger), brightest top-right
-                          where the Horizon light is, gone behind the copy.  */
+     .hero-grid           page heroes: same fade as the card panels, larger
+                          cells, slightly lower strength (a big area reads
+                          stronger); holds at about half strength behind
+                          the copy.                                          */
 .grid-motif,
 .hero-grid::before {
   background-image:
@@ -1284,15 +1285,15 @@ p.footer-legal { margin: 0; }
 .hero-grid { isolation: isolate; }
 .hero-grid::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  --grid-alpha: 0.15; --grid-cell: 52px;
-  --grid-mask: radial-gradient(85% 110% at 100% 0%, #000 15%, rgb(0 0 0 / 0.5) 45%, transparent 80%);
+  /* Same fade as the card panels (.grid-motif-feature): full strength
+     top-right, about half strength across the copy, fading out only in the
+     far bottom-left, so the grid holds behind the headline. */
+  --grid-alpha: 0.20; --grid-cell: 52px;
+  --grid-mask: radial-gradient(120% 140% at 85% 0%, #000 25%, rgb(0 0 0 / 0.55) 55%, transparent 90%);
 }
 @media (max-width: 767px) {
-  /* Copy spans the full width on phones: smaller cells, fade sooner. */
-  .hero-grid::before {
-    --grid-cell: 40px;
-    --grid-mask: radial-gradient(110% 70% at 100% 0%, #000 10%, rgb(0 0 0 / 0.45) 40%, transparent 75%);
-  }
+  /* Phones: smaller cells for the narrower hero; same fade. */
+  .hero-grid::before { --grid-cell: 40px; }
 }
 
 /* Heading beside stacked rows; the heading stays in view while rows scroll.
