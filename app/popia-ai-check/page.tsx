@@ -19,7 +19,7 @@ import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questio
 import DotField from "@/components/ui/DotField";
 import Button from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
-import { GUIDE_LIVE, GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guides/config";
+import { GUIDE_LIVE, GUIDE_REQUESTED_STORAGE_KEY, guideHref } from "@/lib/guides/config";
 
 // ── Questions ──────────────────────────────────────────────────────────────
 // Approved copy (Addendum 02 item B) lives in lib/assessment/questions.ts so
@@ -328,7 +328,7 @@ function AssessmentWizard() {
             {GUIDE_LIVE && !hasGuide && (
               <p className="body-muted text-sm leading-relaxed mt-6 mb-0 text-center">
                 Want the basics behind these questions?{" "}
-                <Link href={GUIDE_PATH} className="text-cyan-ink underline hover:no-underline">
+                <Link href={guideHref("review")} className="text-cyan-ink underline hover:no-underline">
                   Read the guide.
                 </Link>
               </p>

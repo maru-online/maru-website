@@ -1,6 +1,6 @@
 import { TrackedLink } from "@/components/analytics/TrackedLink";
 import GuideBook from "@/components/ui/GuideBook";
-import { GUIDE_COVER, GUIDE_PATH } from "@/lib/guides/config";
+import { GUIDE_COVER, guideHref, type GuideSource } from "@/lib/guides/config";
 
 /**
  * The downloadable guide on Guides & Resources (5 Nov 2026): a navy panel with
@@ -8,7 +8,7 @@ import { GUIDE_COVER, GUIDE_PATH } from "@/lib/guides/config";
  * It replaces the guide's card in the resources grid, so the one downloadable
  * guide stands apart from the web guides it is being compared with.
  */
-export default function GuidePromo({ location }: { location: string }) {
+export default function GuidePromo({ location }: { location: GuideSource }) {
   return (
     <aside className="guide-promo on-navy" aria-labelledby="guide-promo-title">
       <div className="grid-motif grid-motif-feature" aria-hidden="true" />
@@ -27,7 +27,7 @@ export default function GuidePromo({ location }: { location: string }) {
           <li>Ends with a one-page self-check</li>
         </ul>
         <TrackedLink
-          href={GUIDE_PATH}
+          href={guideHref(location)}
           event="guide_promo_click"
           eventData={{ guide: "ai-and-popia", location }}
           className="btn btn-primary"

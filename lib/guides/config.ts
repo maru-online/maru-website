@@ -35,6 +35,37 @@ export const GUIDE_PREVIEWABLE = process.env.VERCEL_ENV !== "production";
 export const GUIDE_PAGE_VISIBLE = GUIDE_LIVE || GUIDE_PREVIEWABLE;
 export const GUIDE_PDF_ROUTE = "/downloads/ai-and-popia-guide.pdf";
 
+/**
+ * Where a visit to the guide page came from (5 Nov 2026). Links into the guide
+ * carry ?from=<source>; the landing page passes it to the lead and download
+ * events, so the one-month comparison with the web guides can separate
+ * requests from Guides & Resources from those the POPIA review sends.
+ * Analytics only: nothing is stored against the person.
+ */
+export const GUIDE_SOURCES = ["resources", "resources-listing", "review", "report", "report-area"] as const;
+export type GuideSource = (typeof GUIDE_SOURCES)[number];
+export const guideHref = (from: GuideSource) => `${GUIDE_PATH}?from=${from}`;
+/** The `from` value from a URL, or "direct" when it is missing or unknown. */
+export function guideSourceFrom(value: unknown): GuideSource | "direct" {
+  return typeof value === "string" && (GUIDE_SOURCES as readonly string[]).includes(value)
+    ? (value as GuideSource)
+    : "direct";
+}
+
+/**
+ * Report: point each weak area to the matching part of the guide (5 Nov 2026).
+ * DRAFT WORDING (app/report/[token]/page.tsx, guideAreaLine) — off until the
+ * owner approves it in the copy review. Review area key → guide part.
+ */
+export const GUIDE_REPORT_AREA_LINKS = false;
+export const GUIDE_AREA_PARTS: Record<string, { part: number; title: string; page: number }> = {
+  ai_use: { part: 1, title: "AI in your business", page: 6 },
+  data_location: { part: 2, title: "Where client information goes", page: 7 },
+  access: { part: 3, title: "Who can see it", page: 9 },
+  permission: { part: 4, title: "Permission and trust", page: 10 },
+  incident: { part: 5, title: "If something goes wrong", page: 12 },
+};
+
 /** The guide's cover and inside pages, rendered from the PDF (5 Nov 2026). */
 export const GUIDE_COVER = "/images/guides/ai-and-popia/cover.webp";
 export const GUIDE_PREVIEW_PAGES = [

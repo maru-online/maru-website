@@ -10,6 +10,7 @@ import {
   GUIDE_PAGE_VISIBLE,
   GUIDE_PATH,
   GUIDE_PREVIEW_PAGES,
+  guideSourceFrom,
 } from "@/lib/guides/config";
 import GuideForm from "./GuideForm";
 import DotField from "@/components/ui/DotField";
@@ -39,8 +40,10 @@ const PARTS = [
   { title: "If something goes wrong", text: "Who you tell, how, and how quickly." },
 ];
 
-export default function GuidePage() {
+export default async function GuidePage({ searchParams }: { searchParams: Promise<{ from?: string }> }) {
   if (!GUIDE_PAGE_VISIBLE) notFound();
+  // Where the visitor came from (?from=), for the lead and download events.
+  const source = guideSourceFrom((await searchParams).from);
   return (
     <>
       <PageHero
@@ -56,7 +59,7 @@ export default function GuidePage() {
         <div className="sec-inner guide-landing">
           <div className="guide-landing-form">
             <div className="card-lift card-static p-8 md:p-10 relative">
-              <GuideForm live={GUIDE_LIVE} />
+              <GuideForm live={GUIDE_LIVE} source={source} />
             </div>
           </div>
 

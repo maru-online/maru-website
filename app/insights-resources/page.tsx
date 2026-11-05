@@ -162,7 +162,7 @@ export default function InsightsResourcesPage() {
           {gatedGuide && (
             <FadeUp>
               <div style={{ marginBottom: "2.5rem" }}>
-                <GuidePromo location="resources-index" />
+                <GuidePromo location="resources" />
               </div>
             </FadeUp>
           )}

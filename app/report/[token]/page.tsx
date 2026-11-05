@@ -3,7 +3,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAreaFinding, getReportSummary, getReportVersion, type AreaStatus } from "@/lib/assessment/reportTemplates";
 import { LEVEL_RESULTS, REPORT_CLOSING_LINE, SCORING_NOTE, type AreaResult } from "@/lib/assessment/scoring";
-import { GUIDE_LIVE, GUIDE_PATH } from "@/lib/guides/config";
+import {
+  GUIDE_AREA_PARTS,
+  GUIDE_LIVE,
+  GUIDE_PDF_ROUTE,
+  GUIDE_REPORT_AREA_LINKS,
+  guideHref,
+} from "@/lib/guides/config";
 import styles from "./report.module.css";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -237,6 +243,11 @@ export default async function ReportPage({
                   area={area.area}
                   status={area.status}
                   finding={finding}
+                  guideLine={
+                    GUIDE_LIVE && GUIDE_REPORT_AREA_LINKS && isV3
+                      ? guideAreaLine(area.areaKey, area.status, Boolean(data.guideRequested))
+                      : null
+                  }
                 />
               ))}
             </div>
@@ -278,7 +289,7 @@ export default async function ReportPage({
         {GUIDE_LIVE && isV3 && !data.guideRequested && (
           <p className={styles.guideLine}>
             Want the basics behind these questions?{" "}
-            <Link href={GUIDE_PATH} className={styles.guideLink}>
+            <Link href={guideHref("report")} className={styles.guideLink}>
               Read the guide.
             </Link>
           </p>
@@ -302,18 +313,47 @@ export default async function ReportPage({
 
 // ── Area Card ─────────────────────────────────────────────────────────────
 
+/**
+ * Per-area pointer to the matching part of the AI and POPIA guide, for weak
+ * areas only (critical or significant). DRAFT WORDING for the owner's copy
+ * review; shown only when GUIDE_REPORT_AREA_LINKS is on (lib/guides/config.ts).
+ * A visitor who already has the guide goes straight to the page in the PDF
+ * (#page= opens there in browser PDF viewers); everyone else to the guide page.
+ */
+function guideAreaLine(
+  areaKey: string,
+  status: AreaStatus,
+  hasGuide: boolean,
+): { text: string; label: string; href: string } | null {
+  const part = GUIDE_AREA_PARTS[areaKey];
+  if (!part || (status !== "critical" && status !== "significant")) return null;
+  return hasGuide
+    ? {
+        text: `Part ${part.part} of your guide, “${part.title}”, covers this.`,
+        label: `Open it at page ${part.page}`,
+        href: `${GUIDE_PDF_ROUTE}#page=${part.page}`,
+      }
+    : {
+        text: `Part ${part.part} of our free guide, “${part.title}”, explains this in plain language.`,
+        label: "Get the guide",
+        href: guideHref("report-area"),
+      };
+}
+
 function AreaCard({
   id,
   number,
   area,
   status,
   finding,
+  guideLine,
 }: {
   id: string;
   number: number;
   area: string;
   status: AreaStatus;
   finding: { observation: string; issues: string[] };
+  guideLine?: { text: string; label: string; href: string } | null;
 }) {
   const shown = finding.issues.slice(0, ISSUES_SHOWN);
   const rest = finding.issues.slice(ISSUES_SHOWN);
@@ -360,6 +400,15 @@ function AreaCard({
               ))}
             </ul>
           </details>
+        )}
+
+        {guideLine && (
+          <p className={styles.areaGuide}>
+            {guideLine.text}{" "}
+            <a href={guideLine.href} className={styles.guideLink}>
+              {guideLine.label}
+            </a>
+          </p>
         )}
       </div>
     </article>

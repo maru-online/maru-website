@@ -34,7 +34,7 @@ const inputClass =
   "w-full rounded-xl border border-border-default bg-bg-canvas px-4 py-3 text-sm text-ink-primary " +
   "placeholder-ink-tertiary outline-none transition-colors focus:border-cyan focus-visible:ring-2 focus-visible:ring-cyan";
 
-export default function GuideForm({ live }: { live: boolean }) {
+export default function GuideForm({ live, source = "direct" }: { live: boolean; source?: string }) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
@@ -72,7 +72,7 @@ export default function GuideForm({ live }: { live: boolean }) {
       setDone({ marketing });
       // GA4 recommended lead event, so the guide can be compared with the web
       // guides over the trial month (5 Nov 2026).
-      trackEvent("generate_lead", { lead_type: "guide", guide: "ai-and-popia", marketing_opt_in: marketing });
+      trackEvent("generate_lead", { lead_type: "guide", guide: "ai-and-popia", source, marketing_opt_in: marketing });
     } catch {
       setErrors({ server: MSG_SERVER });
     } finally {
@@ -93,7 +93,7 @@ export default function GuideForm({ live }: { live: boolean }) {
           target="_blank"
           rel="noopener"
           className="btn btn-primary"
-          onClick={() => trackEvent("file_download", { file_name: "ai-and-popia-guide.pdf", guide: "ai-and-popia" })}
+          onClick={() => trackEvent("file_download", { file_name: "ai-and-popia-guide.pdf", guide: "ai-and-popia", source })}
         >
           Download the guide (PDF)
           <span className="btn-arrow" aria-hidden="true">→</span>
