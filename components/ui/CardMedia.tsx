@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { ElementType, ReactNode } from "react";
 import Glyph, { type GlyphName } from "@/components/ui/Glyph";
 
 /**
@@ -9,7 +10,9 @@ import Glyph, { type GlyphName } from "@/components/ui/Glyph";
  *    puts very different photos in one family, plus a soft fade from the
  *    bottom edge. Product screenshots pass `untinted` so they stay accurate.
  *  - DrawnVisual: the stand-in when there is no photograph. Layered gradients,
- *    the hero grid motif and one Glyph.
+ *    the hero grid motif and one Glyph. Pass `title` instead (homepage
+ *    capabilities, 5 Nov 2026) and the card's heading sits in the panel in
+ *    place of the glyph; the panel is then real content, not decoration.
  */
 export function TreatedImage({
   src,
@@ -101,16 +104,23 @@ export function TreatedImage({
 export function DrawnVisual({
   glyph,
   glyphSize = 44,
+  title,
+  titleAs: TitleTag = "h3",
   className = "",
 }: {
-  glyph: GlyphName;
+  glyph?: GlyphName;
   glyphSize?: number;
+  /** Heading shown in the panel instead of the glyph. */
+  title?: ReactNode;
+  /** Heading element for `title` (default h3), to keep the page outline right. */
+  titleAs?: ElementType;
   className?: string;
 }) {
+  const titled = title != null;
   return (
     <div
-      aria-hidden="true"
-      className={`relative overflow-hidden grid place-items-center ${className}`}
+      aria-hidden={titled ? undefined : true}
+      className={`relative overflow-hidden ${titled ? "drawn-visual-titled" : "grid place-items-center"} ${className}`}
       style={{
         background:
           "radial-gradient(70% 90% at 85% 0%, rgba(61,184,198,0.30), transparent 60%), radial-gradient(60% 70% at 0% 100%, rgba(61,184,198,0.12), transparent 70%), var(--gradient-hero)",
@@ -118,6 +128,7 @@ export function DrawnVisual({
     >
       {/* Faint grid, same motif as the heroes */}
       <div
+        aria-hidden="true"
         className="absolute inset-0"
         style={{
           backgroundImage:
@@ -127,9 +138,13 @@ export function DrawnVisual({
           WebkitMaskImage: "radial-gradient(ellipse at center, #000 30%, transparent 75%)",
         }}
       />
-      <span style={{ color: "var(--color-cyan)" }} className="relative">
-        <Glyph name={glyph} size={glyphSize} />
-      </span>
+      {titled ? (
+        <TitleTag className="drawn-visual-title">{title}</TitleTag>
+      ) : glyph ? (
+        <span style={{ color: "var(--color-cyan)" }} className="relative">
+          <Glyph name={glyph} size={glyphSize} />
+        </span>
+      ) : null}
     </div>
   );
 }

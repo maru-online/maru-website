@@ -1458,6 +1458,18 @@ p.footer-legal { margin: 0; }
   border-radius: 12px; margin-bottom: 1.75rem;
   box-shadow: var(--card-shadow);
 }
+/* DrawnVisual carrying the card title (homepage capabilities, 5 Nov 2026):
+   the title sits bottom-left in the navy panel, away from the cyan light in
+   the top-right corner, and replaces the title in the card body. */
+.drawn-visual-titled { display: flex; align-items: flex-end; }
+.drawn-visual-title {
+  position: relative; margin: 0; padding: 1.5rem 1.75rem;
+  max-width: 17ch;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.375rem, 1.1rem + 0.7vw, 1.625rem);
+  line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--color-ink-inverted); text-wrap: balance;
+}
 /* Section heading beside one photograph (Invara "Who it is for", 4 Nov 2026). */
 .split-media { display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: end; }
 @media (min-width: 1024px) { .split-media { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); } }

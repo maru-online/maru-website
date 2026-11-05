@@ -140,7 +140,9 @@ numerals; a number goes in `.card-label`.
 
 `TreatedImage` / `DrawnVisual` (`components/ui/CardMedia.tsx`) — every photograph goes
 through `TreatedImage` (navy multiply + bottom fade; `untinted` for product screenshots).
-`DrawnVisual` is the stand-in when there is no photograph.
+`DrawnVisual` is the stand-in when there is no photograph. With `title` it carries the
+card heading in place of the glyph (homepage capabilities); the title is then removed
+from the card body.
 
 `.card-lift` — **owns** the card surface, edge, elevation and hover brighten.
 

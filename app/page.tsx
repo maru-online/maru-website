@@ -6,7 +6,7 @@ import ImageBand from "@/components/ui/ImageBand";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
-import { TreatedImage, DrawnVisual } from "@/components/ui/CardMedia";
+import { DrawnVisual } from "@/components/ui/CardMedia";
 import SectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
 import { seo } from '@/lib/seo'
@@ -69,13 +69,8 @@ const steps = [
 
 const capabilities = [
   {
-    icon: "compass" as const,
     name: "Business and AI strategy",
     lead: "Understand the problem before building the solution.",
-    image: {
-      src: "/images/home/capability-strategy.jpg",
-      alt: "A consultant and a business owner mapping a workflow together on a large paper process map with sticky notes",
-    },
     items: [
       "Business and workflow analysis",
       "AI opportunity identification and prioritisation",
@@ -83,13 +78,8 @@ const capabilities = [
     ],
   },
   {
-    icon: "browser" as const,
     name: "Digital systems and integration",
     lead: "Build the digital foundations your business needs to work better.",
-    image: {
-      src: "/images/home/capability-digital.jpg",
-      alt: "Two developers reviewing a website together, one testing it on a phone",
-    },
     items: [
       "Websites, web applications, and e-commerce platforms",
       "AI integration across business systems and data sources",
@@ -97,13 +87,8 @@ const capabilities = [
     ],
   },
   {
-    icon: "signal" as const,
     name: "Data-informed growth systems",
     lead: "Turn business information into better decisions and more effective customer processes.",
-    image: {
-      src: "/images/home/capability-growth.jpg",
-      alt: "A manager highlighting a printed bar chart beside a laptop showing a rising trend",
-    },
     items: [
       "Customer journey and revenue process analysis",
       "Data-informed marketing and growth strategy",
@@ -348,19 +333,10 @@ export default function Home() {
             <StaggerParent className="open-cols">
               {capabilities.map((col) => (
                 <StaggerChild key={col.name} className="open-col open-col-media">
-                  {/* Photo band (same treatment as the problem cards), or the
-                      drawn icon panel until a photograph exists. */}
-                  {col.image ? (
-                    <TreatedImage
-                      src={col.image.src}
-                      alt={col.image.alt}
-                      sizes="(min-width: 768px) 340px, 100vw"
-                      className="open-col-band"
-                    />
-                  ) : (
-                    <DrawnVisual glyph={col.icon} glyphSize={40} className="open-col-band" />
-                  )}
-                  <h3 className="card-title">{col.name}</h3>
+                  {/* Navy drawn panel carrying the title (5 Nov 2026): the
+                      photos read too literal here, so this section uses the
+                      Guides & Resources drawn visual with the heading in it. */}
+                  <DrawnVisual title={col.name} className="open-col-band" />
                   <p className="card-text card-text-lead">{col.lead}</p>
                   <BulletList items={col.items} />
                 </StaggerChild>
