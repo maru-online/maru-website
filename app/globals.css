@@ -1323,6 +1323,30 @@ p.footer-legal { margin: 0; }
 }
 @media (min-width: 768px) { .row-item { grid-template-columns: 4.5rem 1fr; } }
 .row-item:first-child { padding-top: 0; }
+/* Hover lift for stacked rows (homepage "How we work", 5 Nov 2026). The row
+   rises 4px and a card surface with a soft shadow fades in behind it; no
+   redesign at rest. Uses `translate`, not `transform`, because the entrance
+   animation leaves an inline transform on the row. Mouse devices only. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .rows-lift .row-item {
+    position: relative; isolation: isolate;
+    transition: translate 420ms var(--card-ease);
+  }
+  .rows-lift .row-item::before {
+    content: ""; position: absolute; z-index: -1; pointer-events: none;
+    inset: 0.75rem -1.5rem;
+    border-radius: var(--card-radius);
+    background: var(--color-bg-card-hover);
+    border: 1px solid var(--card-edge);
+    /* Slight: lighter than a raised card's --card-shadow-hover. */
+    box-shadow: 0 1px 2px rgba(22, 50, 79, 0.04), 0 12px 28px -12px rgba(22, 50, 79, 0.18);
+    opacity: 0;
+    transition: opacity 420ms var(--card-ease);
+  }
+  .rows-lift .row-item:first-child::before { top: -1.5rem; }
+  .rows-lift .row-item:hover { translate: 0 -4px; }
+  .rows-lift .row-item:hover::before { opacity: 1; }
+}
 
 
 /* Statement beside its explanation. */
@@ -1505,6 +1529,16 @@ p.footer-legal { margin: 0; }
 /* Single column below 1024px (three columns would squeeze the cards on
    tablets); the cap stops a full-width panel getting tall. */
 .cap-card-visual { aspect-ratio: 3 / 1; min-height: 7.25rem; max-height: 9rem; width: 100%; flex: none; }
+/* Homepage next-step (CTA) cards, 5 Nov 2026: the capability-card build at
+   two columns. The header keeps the 3:1 proportion but grows to fit the
+   title on a phone (min-height: fit-content; the panel clips overflow, so
+   the automatic minimum would not apply). */
+.cta-cards { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+@media (min-width: 768px) { .cta-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cta-card-visual { aspect-ratio: 3 / 1; min-height: fit-content; width: 100%; flex: none; }
+/* Wider cards than the capability row: let the title run longer per line. */
+.cta-card-visual .drawn-visual-title { max-width: 24ch; }
+
 /* DrawnVisual carrying the card title (homepage capabilities, 5 Nov 2026):
    the title sits bottom-left in the navy panel, away from the cyan light in
    the top-right corner, and replaces the title in the card body. */

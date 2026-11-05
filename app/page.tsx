@@ -269,7 +269,7 @@ export default function Home() {
                   intro="Every engagement starts with understanding the business problem, identifying the workflow that needs attention, and determining where AI or better-connected systems can create practical value. We then design, integrate, test, and refine the solution around your existing operations."
                 />
               </div>
-              <StaggerParent className="rows">
+              <StaggerParent className="rows rows-lift">
                 {steps.map((step) => (
                   <StaggerChild key={step.n} className="row-item">
                     <span className="glyph-chip glyph-chip-lg" aria-hidden="true">

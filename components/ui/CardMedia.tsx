@@ -106,6 +106,7 @@ export function DrawnVisual({
   glyphSize = 44,
   title,
   titleAs: TitleTag = "h3",
+  accent = "cyan",
   className = "",
 }: {
   glyph?: GlyphName;
@@ -114,16 +115,20 @@ export function DrawnVisual({
   title?: ReactNode;
   /** Heading element for `title` (default h3), to keep the page outline right. */
   titleAs?: ElementType;
+  /** Colour of the corner light. "gold" marks the primary route (homepage
+   *  POPIA review card); everything else stays cyan. */
+  accent?: "cyan" | "gold";
   className?: string;
 }) {
   const titled = title != null;
+  const light = accent === "gold" ? "rgba(214,178,94,0.34)" : "rgba(61,184,198,0.30)";
   return (
     <div
       aria-hidden={titled ? undefined : true}
       className={`relative overflow-hidden ${titled ? "drawn-visual-titled" : "grid place-items-center"} ${className}`}
       style={{
         background:
-          "radial-gradient(70% 90% at 85% 0%, rgba(61,184,198,0.30), transparent 60%), radial-gradient(60% 70% at 0% 100%, rgba(61,184,198,0.12), transparent 70%), var(--gradient-hero)",
+          `radial-gradient(70% 90% at 85% 0%, ${light}, transparent 60%), radial-gradient(60% 70% at 0% 100%, rgba(61,184,198,0.12), transparent 70%), var(--gradient-hero)`,
       }}
     >
       {/* Grid motif (globals.css): faint behind a glyph; a visible feature on

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import Glyph from "@/components/ui/Glyph";
+import { DrawnVisual } from "@/components/ui/CardMedia";
 import { StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import SectionHead from "@/components/ui/SectionHead";
 
@@ -28,64 +28,54 @@ export default function AssessmentFormSection() {
           intro="Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward."
         />
 
-        <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        {/* Card build, 5 Nov 2026: same as the capability cards (navy grid
+            header carrying the title, body below). The review keeps the
+            weight: gold light in its header, gold edge and the gold button. */}
+        <StaggerParent className="cta-cards">
           {/* ── Route 1: the free, informational POPIA review ─────────────── */}
           <StaggerChild className="h-full">
-            <div
-              className="card-lift card-accent-gold h-full flex flex-col"
-              style={{ borderWidth: "1.5px", borderStyle: "solid" }}
-            >
+            <article className="card-lift card-accent-gold h-full flex flex-col overflow-hidden">
+              <DrawnVisual
+                title="Start with the free, informational POPIA review."
+                accent="gold"
+                className="cta-card-visual"
+              />
               <div className="card-body">
-              <div className="card-label-row">
-                <span className="glyph-chip glyph-chip-lg glyph-chip-gold">
-                  <Glyph name="clipboard" size={26} />
-                </span>
+                <ul className="prob-list" style={{ marginBottom: "1.75rem" }}>
+                  {[
+                    "10 questions, about five minutes.",
+                    "A short summary by email.",
+                    "Areas to review and actions to prioritise.",
+                  ].map((p) => (
+                    <li key={p}>
+                      <span className="prob-dot" aria-hidden="true" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto flex flex-col items-stretch sm:items-start gap-3">
+                  <Button href={ASSESSMENT_HREF} variant="primary" className="cta-shine w-full sm:w-auto justify-center">
+                    Take the free, informational POPIA review
+                  </Button>
+                </div>
               </div>
-              <h3 className="card-title">Start with the free, informational POPIA review.</h3>
-              <ul className="prob-list" style={{ marginBottom: "1.75rem" }}>
-                {[
-                  "10 questions, about five minutes.",
-                  "A short summary by email.",
-                  "Areas to review and actions to prioritise.",
-                ].map((p) => (
-                  <li key={p}>
-                    <span className="prob-dot" aria-hidden="true" />
-                    <span>{p}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-auto flex flex-col items-stretch sm:items-start gap-3">
-                <Button href={ASSESSMENT_HREF} variant="primary" className="cta-shine w-full sm:w-auto justify-center">
-                  Take the free, informational POPIA review
-                </Button>
-              </div>
-              </div>
-            </div>
+            </article>
           </StaggerChild>
 
           {/* ── Route 2: a project conversation ─────────────────────────── */}
           <StaggerChild className="h-full">
-            <div
-              className="card-lift h-full flex flex-col"
-              style={{ borderWidth: "1px", borderStyle: "solid" }}
-            >
+            <article className="card-lift h-full flex flex-col overflow-hidden">
+              <DrawnVisual title="Already have a project in mind?" className="cta-card-visual" />
               <div className="card-body">
-              <div className="card-label-row">
-                <span className="glyph-chip glyph-chip-lg">
-                  <Glyph name="chat" size={26} />
-                </span>
-                <span className="card-label card-label-muted">Or</span>
+                <p className="card-text">
+                  Tell us about the business challenge or workflow you want to improve.
+                </p>
+                <Link href={CONTACT_HREF} className="card-action min-h-[44px] focus-visible:outline-none">
+                  Discuss your business challenge
+                  <span className="card-arrow" aria-hidden="true">→</span>
+                </Link>
               </div>
-              <h3 className="card-title">Already have a project in mind?</h3>
-              <p className="card-text">
-                Tell us about the business challenge or workflow you want to improve.
-              </p>
-              <Link href={CONTACT_HREF} className="card-action min-h-[44px] focus-visible:outline-none">
-                Discuss your business challenge
-                <span className="card-arrow" aria-hidden="true">→</span>
-              </Link>
-              </div>
-            </div>
+            </article>
           </StaggerChild>
         </StaggerParent>
       </div>
