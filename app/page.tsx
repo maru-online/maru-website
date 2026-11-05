@@ -330,15 +330,19 @@ export default function Home() {
               title={<>Capabilities that <span className="hl">support implementation.</span></>}
               intro="The right AI workflow depends on the business decisions, systems, data, and processes around it. We bring these elements together to help South African businesses build connected, usable systems that can evolve over time."
             />
-            <StaggerParent className="open-cols">
+            {/* Built like the Guides & Resources cards (5 Nov 2026): the
+                drawn navy panel sits flush at the top (square bottom corners)
+                and carries the title; the body below keeps the card edge. */}
+            <StaggerParent className="cap-cards">
               {capabilities.map((col) => (
-                <StaggerChild key={col.name} className="open-col open-col-media">
-                  {/* Navy drawn panel carrying the title (5 Nov 2026): the
-                      photos read too literal here, so this section uses the
-                      Guides & Resources drawn visual with the heading in it. */}
-                  <DrawnVisual title={col.name} className="open-col-band" />
-                  <p className="card-text card-text-lead">{col.lead}</p>
-                  <BulletList items={col.items} />
+                <StaggerChild key={col.name} className="h-full">
+                  <article className="card-lift h-full flex flex-col overflow-hidden">
+                    <DrawnVisual title={col.name} className="cap-card-visual" />
+                    <div className="card-body">
+                      <p className="card-text card-text-lead">{col.lead}</p>
+                      <BulletList items={col.items} />
+                    </div>
+                  </article>
                 </StaggerChild>
               ))}
             </StaggerParent>
