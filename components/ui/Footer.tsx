@@ -32,27 +32,28 @@ const itemVariants = {
 // used to be inline styles, which beat the hover class, so hover never showed.
 const linkClass = 'footer-link font-body inline-flex items-center min-h-[44px]'
 
-// Legal row: same treatment at the smaller 12px size used in the bottom bar.
-const legalLinkClass = 'footer-link footer-legal font-body inline-flex items-center min-h-[44px]'
-
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Footer({ showInsights = false }: { showInsights?: boolean }) {
   return (
     <>
       <footer className="relative" style={{ background: 'var(--gradient-footer)' }}>
-        <div className="max-w-[900px] mx-auto px-6 md:px-[60px] py-20">
+        {/* Same column as the page content (sec-inner, 1120px) — it was capped
+            at 900px, which wrapped links and made the footer feel cramped. */}
+        <div className="px-6 md:px-[60px] py-20">
+          <div className="sec-inner">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={containerVariants}
           >
-            {/* ── 4-column grid ──────────────────────────────────────────── */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            {/* ── 5 columns (5 Nov 2026): brand gets the wider share; legal
+                links moved out of the bottom bar into their own column. ── */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-x-6 md:gap-x-8 gap-y-10 md:gap-y-12">
 
               {/* Brand column */}
-              <motion.div variants={itemVariants} className="lg:col-span-1">
+              <motion.div variants={itemVariants} className="col-span-2 md:col-span-4 lg:col-span-1 lg:pr-8">
                 <Link
                   href="/"
                   aria-label="Maru Online — home"
@@ -160,6 +161,34 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                 </ul>
               </motion.div>
 
+              {/* Legal column */}
+              <motion.div variants={itemVariants}>
+                <h4
+                  className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
+                  style={{ color: 'var(--color-ink-inverted)' }}
+                >
+                  Legal
+                </h4>
+                <ul className="flex flex-col list-none m-0 p-0">
+                  {footerNavigation.legal.map((item) => (
+                    <li key={item.name}>
+                      <Link href={item.href} className={linkClass}>
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => window.dispatchEvent(new Event('open-cookie-preferences'))}
+                      className={linkClass}
+                    >
+                      Cookie Preferences
+                    </button>
+                  </li>
+                </ul>
+              </motion.div>
+
             </div>
 
             {/* ── Bottom bar ─────────────────────────────────────────────── */}
@@ -175,33 +204,12 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                   © {new Date().getFullYear()} Maru Online. All Rights Reserved.
                 </p>
 
-                {/* Legal links */}
-                <ul className="flex flex-wrap items-center gap-5 list-none m-0 p-0">
-                  {footerNavigation.legal.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className={legalLinkClass}
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => window.dispatchEvent(new Event('open-cookie-preferences'))}
-                      className={legalLinkClass}
-                    >
-                      Cookie Preferences
-                    </button>
-                  </li>
-                </ul>
 
               </div>
             </motion.div>
 
           </motion.div>
+          </div>
         </div>
       </footer>
     </>

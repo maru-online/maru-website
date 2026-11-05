@@ -40,7 +40,7 @@ export function generateMetadata(): Metadata {
 }
 
 const outerPad = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner"; // same 1120px column as every other page (was 1100px)
 
 const CONTACT_HREF = "/contact#contact-form";
 
@@ -160,6 +160,8 @@ export default function InsightsResourcesPage() {
         aria-labelledby="resources-heading"
         className="sec flow-ground overflow-hidden"
       >
+        {/* Dots open each light run (left after a navy break). */}
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <SectionHead
             id="resources-heading"

@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import { DrawnVisual } from "@/components/ui/CardMedia";
 import { StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import SectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
 
 
 const ASSESSMENT_HREF = "/popia-ai-check";
@@ -20,7 +21,9 @@ export default function AssessmentFormSection() {
   return (
     // Sits on the homepage's continuous stone ground (.flow-ground), so it sets
     // no background of its own. Rhythm and head spacing: Open Flow, 4 Nov 2026.
-    <section id="assessment" className="sec">
+    <section id="assessment" className="sec overflow-hidden">
+      {/* Dots open each light run (left after the image band). */}
+      <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
       <div className="sec-inner">
         <SectionHead
           eyebrow="Next steps"

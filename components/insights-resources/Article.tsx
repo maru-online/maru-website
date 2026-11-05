@@ -50,7 +50,7 @@ export function ArticleMeta({
         id={titleId}
         style={{
           fontFamily: "var(--font-display)",
-          fontWeight: 400,
+          fontWeight: 500,
           fontSize: navy ? "clamp(2rem, 4.2vw, 3rem)" : "clamp(1.75rem, 3.4vw, 2.5rem)",
           color: navy ? "var(--color-ink-inverted)" : "var(--color-ink-primary)",
           letterSpacing: "-0.03em",

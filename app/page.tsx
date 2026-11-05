@@ -223,30 +223,13 @@ export default function Home() {
           ════════════════════════════════════════════════════════════════════ */}
       <section className="sec sec-chapter navy-horizon overflow-hidden">
         <div className="sec-inner">
-          <FadeUp>
-            <div className="sec-head mx-auto text-center" style={{ maxWidth: "640px" }}>
-              <span className="label-eyebrow" style={{ marginInline: "auto" }}>What changes</span>
-              <h2
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 600,
-                  fontSize: "clamp(1.5rem, 2.6vw, 2rem)",
-                  color: "var(--color-ink-inverted)",
-                  lineHeight: 1.25,
-                  letterSpacing: "-0.02em",
-                  marginBottom: "0.75rem",
-                  border: "none",
-                  padding: 0,
-                }}
-              >
-                Your tools stay. <span style={{ color: "var(--color-cyan)" }}>We connect them.</span>
-              </h2>
-              <p className="body-on-navy" style={{ marginBottom: 0 }}>
-                Information is captured once and shared where it&apos;s needed, so your team retypes less and personal information sits in fewer places.
-              </p>
-            </div>
-          </FadeUp>
-          <div className="mx-auto" style={{ maxWidth: "1000px" }}>
+          <SectionHead
+            eyebrow="What changes"
+            title={<>Your tools stay. <span className="hl">We connect them.</span></>}
+            intro="Information is captured once and shared where it's needed, so your team retypes less and personal information sits in fewer places."
+            dark
+          />
+          <div>
             <DisconnectDiagram />
           </div>
         </div>

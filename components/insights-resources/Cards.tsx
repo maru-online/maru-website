@@ -127,18 +127,7 @@ export function FeaturedCard({ entry }: { entry: ContentEntry }) {
             {kind} · {entry.category}
           </span>
         </div>
-        <h3
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "var(--text-h3-serif)",
-            lineHeight: 1.2,
-            letterSpacing: "-0.02em",
-            color: "var(--color-ink-primary)",
-            marginBottom: "0.75rem",
-            border: "none",
-            padding: 0,
-          }}
-        >
+        <h3 className="card-title">
           {entry.title}
         </h3>
         <p className="body-muted" style={{ marginBottom: "1.25rem" }}>{entry.summary}</p>
@@ -184,18 +173,7 @@ export function InsightCard({ entry }: { entry: ContentEntry }) {
           </span>
         )}
       </div>
-      <h3
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "var(--text-h3-serif)",
-          lineHeight: 1.25,
-          letterSpacing: "-0.02em",
-          color: "var(--color-ink-inverted)",
-          marginBottom: "0.75rem",
-          border: "none",
-          padding: 0,
-        }}
-      >
+      <h3 className="card-title">
         {entry.title}
       </h3>
       <p className="body-on-navy" style={{ marginBottom: "1.25rem", flexGrow: 1 }}>{entry.summary}</p>
@@ -235,18 +213,7 @@ export function ResourceCard({ entry }: { entry: ContentEntry }) {
       <span style={{ ...eyebrowStyle, color: "var(--color-cyan-ink)", marginBottom: "0.5rem", display: "block" }}>
         {entry.category}
       </span>
-      <h3
-        style={{
-          fontFamily: "var(--font-body)",
-          fontWeight: 600,
-          fontSize: "var(--text-h3-sans)",
-          lineHeight: 1.3,
-          color: "var(--color-ink-primary)",
-          marginBottom: "0.75rem",
-          border: "none",
-          padding: 0,
-        }}
-      >
+      <h3 className="card-title">
         {entry.title}
       </h3>
       <p className="body-muted" style={{ marginBottom: "1.25rem", flexGrow: 1 }}>{entry.summary}</p>

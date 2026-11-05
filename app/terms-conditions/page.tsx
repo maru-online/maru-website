@@ -173,7 +173,7 @@ export default function TermsConditionsPage() {
       </section>
 
       <div className="border-t border-white/10 pt-8 mt-12 mb-12">
-        <p className="text-sm text-ink-secondary italic">
+        <p className="text-sm text-ink-secondary">
           By engaging our services, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.
         </p>
       </div>

@@ -41,7 +41,7 @@ export async function generateMetadata(props: { params: Promise<{ section: strin
 }
 
 const outerPad = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner"; // same 1120px column as every other page (was 1100px)
 
 export default async function SectionListingPage(props: {
   params: Promise<{ section: string }>;

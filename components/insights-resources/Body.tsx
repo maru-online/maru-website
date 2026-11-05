@@ -42,8 +42,8 @@ export default function Body({ blocks }: { blocks: Block[] }) {
               <h2
                 key={i}
                 style={{
-                  fontFamily: "var(--font-body)",
-                  fontWeight: 700,
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 600,
                   fontSize: "1.5rem",
                   lineHeight: 1.25,
                   letterSpacing: "-0.02em",
@@ -61,9 +61,10 @@ export default function Body({ blocks }: { blocks: Block[] }) {
               <h3
                 key={i}
                 style={{
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "var(--font-display)",
                   fontWeight: 600,
                   fontSize: "var(--text-h3-sans)",
+                  letterSpacing: "-0.01em",
                   color: "var(--color-ink-primary)",
                   margin: "2rem 0 0.75rem",
                 }}

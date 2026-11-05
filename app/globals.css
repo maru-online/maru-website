@@ -1352,6 +1352,20 @@ p.footer-legal { margin: 0; }
 /* Statement beside its explanation. */
 .pair { display: grid; gap: 2rem 4rem; grid-template-columns: 1fr; }
 @media (min-width: 1024px) { .pair { grid-template-columns: 7fr 5fr; align-items: end; } }
+/* Type consistency pass (5 Nov 2026).
+   - Section intros are 18px on every ground. .body-on-navy is 20px, which is
+     right for hero leads but made navy-section intros and paragraphs larger
+     than the same text on stone. Heroes carry .hero-grid, so everything else
+     on navy steps down to the section size.
+   - Legal pages: headings at the site's one heading weight (600), without the
+     global h2 rule line. */
+.section-intro { font-size: var(--text-body-sm); }
+.navy-horizon:not(.hero-grid) .body-on-navy,
+.section-dark .body-on-navy { font-size: var(--text-body-sm); }
+.legal-prose h2, .legal-prose h3, .legal-prose h4 {
+  font-weight: 600; border-bottom: 0; padding-bottom: 0;
+}
+
 /* Takes the section-title H2 as is (weight, size, leading, tracking), so it
    matches every other section heading (5 Nov 2026; it was a light 300 face
    with its own size). Only the global h2 rule's rule line and gap go. */

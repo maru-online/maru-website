@@ -85,7 +85,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
               </ul>
             </div>
           )}
-          <h2 style={{ border: "none", fontWeight: 700, marginBottom: "0.75rem" }}>Have an AI challenge in your business?</h2>
+          <h2 style={{ border: "none", marginBottom: "0.75rem" }}>Have an AI challenge in your business?</h2>
           <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
             Understand where AI could make a practical difference to your business operations.
           </p>
@@ -98,7 +98,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
       {related.length > 0 && (
         <section className={`${outerPad} py-20`} style={{ background: "var(--color-bg-secondary)", borderTop: "1px solid var(--color-border-card)" }}>
           <div className={innerWide}>
-            <h2 style={{ border: "none", fontWeight: 700, marginBottom: "2rem" }}>Related reading</h2>
+            <h2 style={{ border: "none", marginBottom: "2rem" }}>Related reading</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {related.map((r) => (
                 <div key={r.slug} className="flex">

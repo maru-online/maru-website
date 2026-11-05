@@ -24,8 +24,8 @@ export function LegalLayout({
   return (
     <>
       {/* ── Hero — the one dark surface on these pages ─────────────────────── */}
-      <div className="navy-horizon pt-32 pb-16">
-        <div className="container mx-auto px-6 lg:px-8">
+      <div className="navy-horizon hero-grid relative overflow-hidden px-6 md:px-[60px] pt-32 pb-16">
+        <div className="sec-inner">
           <nav
             aria-label="Breadcrumb"
             className="flex gap-2 text-sm mb-8"
@@ -58,10 +58,10 @@ export function LegalLayout({
 
       {/* ── Content — Warm Stone ground ────────────────────────────────────── */}
       <section
-        className="py-16 lg:py-24"
+        className="px-6 md:px-[60px] py-16 lg:py-24"
         style={{ background: "var(--color-bg-secondary)" }}
       >
-        <div className="container mx-auto px-6 lg:px-8">
+        <div className="sec-inner">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-3">
@@ -86,7 +86,7 @@ export function LegalLayout({
             <aside className="lg:col-span-1">
               <div className="sticky top-32 space-y-6">
                 <div className="card-lift p-6">
-                  <h4 className="font-medium mb-4 text-ink-primary">
+                  <h4 className="font-semibold mb-4 text-ink-primary">
                     Legal documents
                   </h4>
                   <ul className="space-y-3">
@@ -104,7 +104,7 @@ export function LegalLayout({
                 </div>
 
                 <div className="card-lift p-6">
-                  <h4 className="font-medium mb-4 text-ink-primary">
+                  <h4 className="font-semibold mb-4 text-ink-primary">
                     Need help?
                   </h4>
                   <p className="text-ink-secondary text-sm mb-4">

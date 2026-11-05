@@ -175,7 +175,9 @@ export default function PricingPage() {
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 5 — COMMERCIAL CLARITY — bg: flow ground
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="sec sec-ruled">
+      <section className="sec sec-ruled overflow-hidden">
+        {/* Last section of a three-section light run: dots from the other side. */}
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Expectations" light="Understand the engagement" strong="before work begins." />
@@ -228,7 +230,6 @@ export default function PricingPage() {
                 style={{
                   fontFamily: "var(--font-body)",
                   fontWeight: 300,
-                  fontStyle: "italic",
                   fontSize: "var(--text-meta)",
                   color: "var(--color-ink-inverted)",
                   opacity: 0.8,

@@ -325,7 +325,7 @@ export default function InvaraPage() {
           </FadeUp>
 
           <FadeUp delay={0.22}>
-            <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontStyle: "italic", fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)", margin: "0 0 3.5rem" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)", margin: "0 0 3.5rem" }}>
               Invara is in its pilot phase. We are working with a small number of implementers to shape it.
             </p>
           </FadeUp>
@@ -575,7 +575,7 @@ export default function InvaraPage() {
                     ))}
                   </ul>
                 </div>
-                <figcaption style={{ marginTop: "1rem", fontFamily: "var(--font-body)", fontSize: "var(--text-meta)", fontWeight: 300, fontStyle: "italic", color: "var(--color-ink-tertiary)" }}>
+                <figcaption style={{ marginTop: "1rem", fontFamily: "var(--font-body)", fontSize: "var(--text-meta)", fontWeight: 300, color: "var(--color-ink-tertiary)" }}>
                   Illustration of the dashboard design. Bar lengths are not data.
                 </figcaption>
               </figure>
@@ -606,7 +606,9 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           DATA AND POPIA
           ════════════════════════════════════════════════════════════════════ */}
-      <section className="sec sec-ruled">
+      <section className="sec sec-ruled overflow-hidden">
+        {/* Last section of a three-section light run: dots from the other side. */}
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={15} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Data and POPIA" light="POPIA-aware" strong="information handling." />
