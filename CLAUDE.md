@@ -13,7 +13,7 @@ Rules for AI agents working in this repo. Read this first, then
   (Neon Postgres). Deployed on Vercel. Node 24 on Vercel (`engines`).
 - **This Next.js version has breaking changes.** Before using an API you are
   not sure of, read the matching guide in `node_modules/next/dist/docs/`.
-  See the managed block at the end of this file.
+  See `AGENTS.md` (included at the end of this file).
 
 ## Branch and deploy
 
@@ -102,12 +102,9 @@ Sanity. That failure alone is not a bug; rely on the Vercel build instead.
 - Keep reports short: what changed, checks run, open questions.
 - Never say something was tested or verified unless it was.
 
-<!-- BEGIN:nextjs-agent-rules -->
+## Next.js agent rules
 
-# This is NOT the Next.js you know
+Next.js 16.4+ keeps its managed agent rules in `AGENTS.md` (written by
+`next dev`); they are included here:
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+@AGENTS.md
