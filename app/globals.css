@@ -46,6 +46,11 @@
   --color-cyan-light:         #E8F8FA;   /* solid tint — for badges/icon bg */
   --color-cyan-dark:          #2DA8B6;
   --color-cyan-ink:           #1B6F79;   /* cyan text on light grounds */
+  /* Action colour (5 Nov 2026): green means go. Fills primary buttons on navy
+     only — on light grounds it would vanish (1.3:1), so there the button is
+     the deep teal. Used for nothing else. */
+  --color-go:                 #9FE98F;   /* 9.1:1 on navy */
+  --color-go-ink:             #12361A;   /* text on --color-go */
 
   /* ── Brand gold — the primary accent ────────────────────────────────────── */
   /* Derived from --gradient-gold (#D6B76A → #A8862F). These were referenced by
@@ -1033,17 +1038,71 @@
 
 /* Gold assessment CTA: one light sweep crosses the button every 2 minutes,
    first pass ~3s after load, then it rests. */
-.cta-shine { position: relative; overflow: hidden; isolation: isolate; }
-.cta-shine::after {
-  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 40%;
-  background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%);
-  transform: translateX(-160%) skewX(-20deg);
-  animation: cta-shine 120s ease-in-out 3s infinite;
-  pointer-events: none;
+/* ── Page hero (5 Nov 2026) ──────────────────────────────────────────────────
+   Eyebrow, H1, one sentence (PageHero). Height comes from content and this
+   padding, never from the viewport. Breadcrumb heroes (section listings,
+   legal pages) take the same padding. */
+.page-hero {
+  padding-inline: var(--sec-gutter);
+  padding-top: clamp(9rem, 12vw, 10.5rem);   /* clears the fixed nav */
+  padding-bottom: clamp(4.5rem, 7vw, 6rem);
 }
-@keyframes cta-shine {
-  0%        { transform: translateX(-160%) skewX(-20deg); }
-  1%, 100%  { transform: translateX(300%)  skewX(-20deg); }
+.page-hero-eyebrow { display: block; margin-bottom: 1.5rem !important; }
+.page-hero-title { margin-bottom: 1.5rem; }
+.page-hero-lead { max-width: 40rem; margin: 0; text-wrap: pretty; }
+.page-hero-actions {
+  margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.875rem;
+}
+@media (min-width: 640px) { .page-hero-actions { flex-direction: row; align-items: center; } }
+
+/* ── CTA system (5 Nov 2026) ─────────────────────────────────────────────────
+   Sentence case, 16px at weight 500, 48px tall, card radius, short label and
+   one arrow that moves on hover. Primary: deep teal with white text on light
+   grounds and the nav bar; green with dark text inside navy grounds. Gold is
+   retired from the interface. Secondary: a quiet outline. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem;
+  min-height: 48px; padding: 0 1.375rem; border-radius: var(--card-radius);
+  font-family: var(--font-body); font-size: 1rem; font-weight: 500;
+  letter-spacing: -0.005em; line-height: 1.2; text-transform: none;
+  text-decoration: none; white-space: nowrap; cursor: pointer; border: 0;
+  transition: transform 300ms var(--card-ease), box-shadow 300ms var(--card-ease), opacity 200ms ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 3px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.4; pointer-events: none; }
+.btn-sm { min-height: 40px; padding: 0 1rem; font-size: 0.875rem; border-radius: 8px; }
+.btn-arrow { display: inline-block; transition: transform 300ms var(--card-ease); }
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+.btn-primary {
+  background: var(--color-cyan-ink); color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(22, 50, 79, 0.12), 0 12px 24px -12px rgba(27, 111, 121, 0.55);
+}
+.btn-primary:hover { box-shadow: 0 2px 4px rgba(22, 50, 79, 0.12), 0 16px 30px -12px rgba(27, 111, 121, 0.6); }
+.btn-secondary { background: transparent; color: var(--color-ink-primary); box-shadow: inset 0 0 0 1px rgba(22, 50, 79, 0.28); }
+.btn-secondary:hover { box-shadow: inset 0 0 0 1px rgba(22, 50, 79, 0.5); }
+.btn-tertiary {
+  min-height: 44px; padding: 0; border-radius: 0; background: none;
+  color: var(--color-cyan-ink); font-weight: 600;
+}
+.btn-tertiary:hover { transform: none; }
+
+/* Navy grounds: heroes, chapters, dark sections, the mobile menu, the footer. */
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-primary {
+  background: var(--color-go); color: var(--color-go-ink);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15), 0 12px 26px -12px rgba(159, 233, 143, 0.5);
+}
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-primary:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 16px 32px -12px rgba(159, 233, 143, 0.6);
+}
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-secondary { color: var(--color-ink-inverted); box-shadow: inset 0 0 0 1px rgba(250, 250, 248, 0.35); }
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-secondary:hover { box-shadow: inset 0 0 0 1px rgba(250, 250, 248, 0.6); }
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-tertiary { color: var(--color-cyan); }
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn-arrow { transition: none; }
+  .btn:hover, .btn:hover .btn-arrow { transform: none; }
 }
 
 /* Section headings: one weight (the base h2 weight, 600); the highlight
@@ -1053,18 +1112,11 @@
 .h2-blend-dark .hl { color: var(--color-cyan); }
 
 @media (prefers-reduced-motion: reduce) {
-  .cta-shine::after { animation: none; display: none; }
 }
 
 /* Eyebrows on light grounds: the cyan that passes 4.5:1 (the bright cyan is
    ~2:1 on the warm surface). Navy sections keep .label-eyebrow as it is. */
 .label-eyebrow.label-eyebrow-ink { color: var(--color-cyan-ink); }
-
-/* Accent edge for the one card that holds the primary offer. */
-/* The free-review card keeps its gold identity: soft gold edge, full gold on hover. */
-.card-lift.card-accent-gold { border-color: rgba(195, 159, 69, 0.45); }
-.card-lift.card-accent-gold:hover,
-.card-lift.card-accent-gold:focus-within { border-color: var(--color-gold); }
 
 /* ── Reading system (3 Nov 2026) ─────────────────────────────────────────────
    Carried site-wide from the Guides & Resources page. See docs/DESIGN-SYSTEM.md

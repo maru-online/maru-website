@@ -14,8 +14,8 @@ const CONTACT_HREF    = "/contact#contact-form";
 // Reading system (3 Nov 2026): shared section head and card anatomy.
 // Blended UI, 1 Nov 2026 (approved on the design canvas): warm light ground
 // after the navy image band, two routes side by side in order of weight. The
-// free, informational POPIA review card carries the gold border and the gold sheen button;
-// the project conversation stays quiet. Keeps the #assessment id so existing
+// free, informational POPIA review card leads (first, with the primary button);
+// the project conversation stays quiet. Gold retired 5 Nov 2026. Keeps the #assessment id so existing
 // in-page links still land here.
 export default function AssessmentFormSection() {
   return (
@@ -32,15 +32,14 @@ export default function AssessmentFormSection() {
         />
 
         {/* Card build, 5 Nov 2026: same as the capability cards (navy grid
-            header carrying the title, body below). The review keeps the
-            weight: gold light in its header, gold edge and the gold button. */}
+            header carrying the title, body below). The review leads with the
+            primary button; the project card uses a text link. */}
         <StaggerParent className="cta-cards">
           {/* ── Route 1: the free, informational POPIA review ─────────────── */}
           <StaggerChild className="h-full">
-            <article className="card-lift card-accent-gold h-full flex flex-col overflow-hidden">
+            <article className="card-lift h-full flex flex-col overflow-hidden">
               <DrawnVisual
                 title="Start with the free, informational POPIA review."
-                accent="gold"
                 className="cta-card-visual"
               />
               <div className="card-body">
@@ -57,8 +56,8 @@ export default function AssessmentFormSection() {
                   ))}
                 </ul>
                 <div className="mt-auto flex flex-col items-stretch sm:items-start gap-3">
-                  <Button href={ASSESSMENT_HREF} variant="primary" className="cta-shine w-full sm:w-auto justify-center">
-                    Take the free, informational POPIA review
+                  <Button href={ASSESSMENT_HREF} variant="primary" className="w-full sm:w-auto">
+                    Take the free POPIA review
                   </Button>
                 </div>
               </div>
@@ -74,7 +73,7 @@ export default function AssessmentFormSection() {
                   Tell us about the business challenge or workflow you want to improve.
                 </p>
                 <Link href={CONTACT_HREF} className="card-action min-h-[44px] focus-visible:outline-none">
-                  Discuss your business challenge
+                  Discuss your challenge
                   <span className="card-arrow" aria-hidden="true">→</span>
                 </Link>
               </div>

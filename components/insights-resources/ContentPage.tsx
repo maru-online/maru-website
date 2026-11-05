@@ -38,7 +38,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(entry)) }} />
       )}
 
-      <header className={`navy-horizon ${outerPad} pt-40 md:pt-44 pb-16`}>
+      <header className="page-hero navy-horizon hero-grid relative overflow-hidden">
         <div className={innerText}>
           <nav aria-label="Breadcrumb" style={{ marginBottom: "2rem" }}>
             <ol className="flex flex-wrap items-center gap-2 list-none m-0 p-0" style={{ fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)" }}>
@@ -90,7 +90,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
             Understand where AI could make a practical difference to your business operations.
           </p>
           <div data-maru-primary-cta>
-            <Button href="/contact#contact-form" variant="primary">Discuss your business challenge</Button>
+            <Button href="/contact#contact-form" variant="primary">Discuss your challenge</Button>
           </div>
         </div>
       </section>

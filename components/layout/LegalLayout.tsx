@@ -24,7 +24,7 @@ export function LegalLayout({
   return (
     <>
       {/* ── Hero — the one dark surface on these pages ─────────────────────── */}
-      <div className="navy-horizon hero-grid relative overflow-hidden px-6 md:px-[60px] pt-32 pb-16">
+      <div className="page-hero navy-horizon hero-grid relative overflow-hidden">
         <div className="sec-inner">
           <nav
             aria-label="Breadcrumb"

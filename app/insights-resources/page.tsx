@@ -12,6 +12,7 @@ import { breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
 import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
 import SectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
+import PageHero from "@/components/ui/PageHero";
 
 // Guides & Resources landing page (route /insights-resources). Hero, section
 // headings, CTA and card titles revised 1 Nov 2026 per "Maru Online — Revised
@@ -39,7 +40,6 @@ export function generateMetadata(): Metadata {
   };
 }
 
-const outerPad = "px-6 md:px-[60px]";
 const innerWide = "sec-inner"; // same 1120px column as every other page (was 1100px)
 
 const CONTACT_HREF = "/contact#contact-form";
@@ -77,27 +77,12 @@ export default function InsightsResourcesPage() {
       />
 
       {/* SECTION 1 — Page introduction (navy) */}
-      <section
-        className={`navy-horizon hero-grid relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-28`}
-      >
-        <div className={`${innerWide} relative z-10 w-full`}>
-          <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Guides and resources</span>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: "2rem" }}>
-              <span className="maru-headline-split-light">Practical, POPIA-aware AI guidance</span>
-              <br />
-              <span className="maru-headline-split-strong">for South African businesses.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p className="body-on-navy" style={{ maxWidth: "700px", marginBottom: 0 }}>
-              Understand how AI, POPIA, and South African policy affect your business—and find practical guidance for introducing AI with appropriate human oversight.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Guides and resources"
+        light="Practical, POPIA-aware AI guidance"
+        strong="for South African businesses."
+        lead="Understand how AI, POPIA, and South African policy affect your business."
+      />
 
       {/* SECTION 2 — Featured content (light) */}
       <section className="sec flow-ground overflow-hidden">
@@ -207,7 +192,7 @@ export default function InsightsResourcesPage() {
           </FadeUp>
           <FadeUp delay={0.14}>
             <div data-maru-primary-cta>
-              <Button href={CONTACT_HREF} variant="primary">Discuss your business challenge</Button>
+              <Button href={CONTACT_HREF} variant="primary">Discuss your challenge</Button>
             </div>
           </FadeUp>
         </div>

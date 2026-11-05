@@ -106,7 +106,6 @@ export function DrawnVisual({
   glyphSize = 44,
   title,
   titleAs: TitleTag = "h3",
-  accent = "cyan",
   className = "",
 }: {
   glyph?: GlyphName;
@@ -115,13 +114,10 @@ export function DrawnVisual({
   title?: ReactNode;
   /** Heading element for `title` (default h3), to keep the page outline right. */
   titleAs?: ElementType;
-  /** Colour of the corner light. "gold" marks the primary route (homepage
-   *  POPIA review card); everything else stays cyan. */
-  accent?: "cyan" | "gold";
   className?: string;
 }) {
   const titled = title != null;
-  const light = accent === "gold" ? "rgba(214,178,94,0.34)" : "rgba(61,184,198,0.30)";
+  const light = "rgba(61,184,198,0.30)";
   return (
     <div
       aria-hidden={titled ? undefined : true}

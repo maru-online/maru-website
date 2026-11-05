@@ -5,6 +5,7 @@ import { FadeUp } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 import SharedSectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
+import PageHero from "@/components/ui/PageHero";
 
 // Working With Us (Engagement & Investment) page, at /working-with-us. Named
 // 31 Oct 2026 so the site does not read as selling priced products; /pricing
@@ -39,7 +40,6 @@ export const metadata: Metadata = {
     "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use. We start with the business challenge, then determine the right approach, scope and investment.",
 };
 
-const outerPad = "px-6 md:px-[60px]";
 const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
@@ -75,30 +75,12 @@ export default function PricingPage() {
       {/* ════════════════════════════════════════════════════════════════════
           HERO — bg: Horizon gradient, matches the homepage and About hero
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`navy-horizon hero-grid relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
-      >
-        <div className={`${innerWide} relative z-10 w-full`}>
-          <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Working with us</span>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: "2rem" }}>
-              <span className="maru-headline-split-light">Every business challenge is different.</span>
-              <br />
-              <span className="maru-headline-split-strong">Your solution should be, too.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "1rem" }}>
-              We help South African businesses identify and implement practical AI solutions with POPIA-aware data governance built into the scope.
-            </p>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              We start by understanding the business challenge, then determine the right approach, scope, and investment.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Working with us"
+        light="Every business challenge is different."
+        strong="Your solution should be, too."
+        lead="We help South African businesses identify and implement practical AI solutions with POPIA-aware data governance built into the scope."
+      />
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 2 — WHY WE PRICE THIS WAY — bg: flow ground
@@ -219,11 +201,11 @@ export default function PricingPage() {
             </p>
             <div className="flex flex-col items-stretch sm:items-start gap-3">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
-                <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                  Discuss your business challenge
+                <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto">
+                  Discuss your challenge
                 </Button>
-                <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                  Take the free, informational POPIA review
+                <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto">
+                  Take the free POPIA review
                 </Button>
               </div>
               <p

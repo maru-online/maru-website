@@ -64,8 +64,8 @@ Sanity. That failure alone is not a bug; rely on the Vercel build instead.
 - `components/homepage/`, `components/insights-resources/` — page-specific
   pieces. `lib/insights-resources/entries/` holds the guide and insight
   entries.
-- `docs/DESIGN-SYSTEM.md` — the current design system. The root
-  `DESIGN-SYSTEM.md` is an older v2 copy; do not use it.
+- `docs/DESIGN-SYSTEM.md` — the current design system (the old root v2 copy
+  was deleted on 5 Nov 2026).
 
 ## Design rules (summary — details in docs/DESIGN-SYSTEM.md)
 
@@ -78,8 +78,11 @@ Sanity. That failure alone is not a bug; rely on the Vercel build instead.
 - **Cards:** `.card-lift` owns the surface, edge, lift and hover. Never set a
   card background inline (it kills the hover). `.card-dark` on navy,
   `.card-static` for forms and tools. Card links never underline.
-- **CTAs:** only the homepage hero has buttons. Inner pages end with one CTA
-  section.
+- **Heroes:** `PageHero` — eyebrow, H1, one sentence; height from content.
+- **CTAs:** `Button` takes its colour from its ground: green on navy, deep
+  teal on light grounds and the nav. Sentence case, short labels. Gold is
+  retired from the interface. Only the homepage hero has buttons; inner pages
+  end with one CTA section.
 - **Photos:** every photo goes through `TreatedImage` (default "deep" tone);
   product screenshots pass `untinted`. Crop tight on a detail, remove logos
   and legible text, at most one photo set per page, and not every card gets

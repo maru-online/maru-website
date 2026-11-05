@@ -60,7 +60,7 @@ export default async function ReaderArticle(props: { params: Promise<{ section: 
           Understand where AI could make a practical difference to your business operations.
         </p>
         {/* Leaves the reader for the contact page, so a full load is right here. */}
-        <Button href="/contact#contact-form" variant="primary">Discuss your business challenge</Button>
+        <Button href="/contact#contact-form" variant="primary">Discuss your challenge</Button>
 
         {related.length > 0 && (
           <nav aria-label="Related reading" style={{ marginTop: "3rem" }}>

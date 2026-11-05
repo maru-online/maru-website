@@ -121,7 +121,7 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                   {[
                     { name: 'How we work',               href: '/#how-we-work' },
                     { name: 'Supporting capabilities',   href: '/#capabilities' },
-                    { name: 'Free, informational POPIA review', href: '/popia-ai-check' },
+                    { name: 'Free POPIA review',          href: '/popia-ai-check' },
                     { name: 'Invara',                    href: '/invara' },
                   ].map((item) => (
                     <li key={item.name}>

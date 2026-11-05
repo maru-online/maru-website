@@ -171,8 +171,16 @@ bodies, so individual elements don't carry colour utilities.
 **Two card builds.** Photo cards (`TreatedImage` band on top) and grid cards
 (`DrawnVisual` with `title`: the navy grid header carries the card title; body
 below). Both are `.card-lift`. The header sits flush, so only the card's top
-corners round. Primary-route cards may pass `accent="gold"` (to be revisited
-with the CTA colour decision).
+corners round.
+
+**Heroes** (`PageHero`): eyebrow, two-part H1, one sentence; homepage only
+adds actions. Height from content (`.page-hero` padding), never the viewport.
+
+**CTA buttons** (`Button`, `.btn-*`): sentence case, 16px at 500, 48px, card
+radius, short label, moving arrow on primary. Colour follows the ground:
+`--color-go` (green, 9.1:1) with `--color-go-ink` text inside navy grounds;
+deep teal (`--color-cyan-ink`) with white text on stone, white and the nav.
+Green is used for nothing else. Gold is retired from the interface.
 
 **Grid motif** (`.grid-motif`, `.grid-motif-feature`, `.hero-grid` in
 `globals.css`): 1px cyan lines, one style at three weights — glyph panels

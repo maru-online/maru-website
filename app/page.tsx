@@ -8,6 +8,7 @@ import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
 import { DrawnVisual } from "@/components/ui/CardMedia";
 import SectionHead from "@/components/ui/SectionHead";
+import PageHero from "@/components/ui/PageHero";
 import DotField from "@/components/ui/DotField";
 import { seo } from '@/lib/seo'
 
@@ -117,85 +118,22 @@ export default function Home() {
           SECTION 01 — HERO
           bg: Horizon gradient
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className="sec navy-horizon hero-grid relative min-h-screen flex items-center overflow-hidden"
-        style={{ paddingTop: "clamp(9rem, 15vw, 12rem)" }}
-      >
-        {/* Fixed-width column: production's column shrank to the longest headline
-            line and re-centred, so its left edge moved whenever the copy changed. */}
-        <div className="relative w-full max-w-[900px] mx-auto">
-          <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2.5rem" }}>POPIA-aware AI implementation</span>
-          </FadeUp>
-
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: "2.5rem" }}>
-              <span className="maru-headline-split-light">Your team already uses AI.</span>
-              <br />
-              <span className="maru-headline-split-strong">Is it POPIA-aware?</span>
-            </h1>
-          </FadeUp>
-
-          <FadeUp delay={0.16}>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 300,
-                fontSize: "var(--text-body)",
-                color: "var(--color-ink-inverted-muted)",
-                lineHeight: "var(--leading-body-relaxed)",
-                maxWidth: "640px",
-                marginBottom: "1.5rem",
-              }}
-            >
-              Maru Online helps South African businesses solve operational problems by designing and implementing practical AI-enabled workflows around the tools their teams already use. We consider POPIA-related data protection requirements from the beginning.
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.19}>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontWeight: 500,
-                fontSize: "var(--text-body)",
-                color: "var(--color-cyan)",
-                lineHeight: "var(--leading-body-relaxed)",
-                maxWidth: "640px",
-                marginBottom: "3.5rem",
-                textWrap: "balance",
-              }}
-            >
-              Less manual administration. Better-connected data. More time for the work that matters.
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.22}>
-            {/* data-maru-primary-cta: marks the hero's primary actions. The floating
-                WhatsApp bubble that watched for it was retired on 3 Nov 2026. */}
-            <div data-maru-primary-cta className="flex flex-col items-stretch sm:items-start gap-3">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Button href="/popia-ai-check" variant="primary" className="cta-shine w-full sm:w-auto justify-center">
-                  Take the free, informational POPIA review
-                </Button>
-                <Button href="/contact#contact-form" variant="secondary" className="w-full sm:w-auto justify-center">
-                  Discuss your business challenge
-                </Button>
-              </div>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "14px",
-                  lineHeight: "20px",
-                  color: "var(--color-ink-inverted-subtle)",
-                  margin: 0,
-                }}
-              >
-                10 questions. About 5 minutes. Receive a short summary by email.
-              </p>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="POPIA-aware AI implementation"
+        light="Your team already uses AI."
+        strong="Is it POPIA-aware?"
+        lead="Maru Online helps South African businesses solve operational problems by designing and implementing practical AI-enabled workflows around the tools their teams already use."
+        actions={
+          <>
+            <Button href="/popia-ai-check" variant="primary" className="w-full sm:w-auto">
+              Take the free POPIA review
+            </Button>
+            <Button href="/contact#contact-form" variant="secondary" className="w-full sm:w-auto">
+              Discuss your challenge
+            </Button>
+          </>
+        }
+      />
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 02 — THE PROBLEM

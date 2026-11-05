@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import ContactFormWithRecaptcha from './ContactFormWithRecaptcha'
 import { TrackedLink } from '@/components/analytics/TrackedLink'
-import { FadeUp } from '@/components/ui/Animate'
 import { seo } from '@/lib/seo'
 import DotField from "@/components/ui/DotField";
+import PageHero from "@/components/ui/PageHero";
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
@@ -11,7 +11,6 @@ export const metadata: Metadata = {
   ...seo('/contact'),
 }
 
-const outerPad    = 'px-6 md:px-[60px]'
 const innerWide   = 'max-w-[1100px] mx-auto'
 
 export default function ContactPage() {
@@ -20,43 +19,12 @@ export default function ContactPage() {
       {/* ════════════════════════════════════════════════════════════════════
           HERO
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`navy-horizon hero-grid relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-48 pb-32`}
-      >
-        <div
-          aria-hidden="true"
-          style={{
-            position:      'absolute',
-            top:           '-120px',
-            right:         '-120px',
-            width:         '480px',
-            height:        '480px',
-            borderRadius:  '50%',
-            border:        '1px solid rgba(61,184,198,0.15)',
-            pointerEvents: 'none',
-          }}
-        />
-        <div className={`${innerWide} relative z-10`}>
-          <FadeUp>
-            <span className="label-eyebrow">Contact Maru Online</span>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: '2rem' }}>
-              <span className="maru-headline-split-light">Let&apos;s discuss your</span>
-              <br />
-              <span className="maru-headline-split-strong">business challenge.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p className="body-on-navy" style={{ maxWidth: '680px', marginBottom: '1rem' }}>
-              Tell us about the operational challenge you are facing. We will assess whether a POPIA-aware AI or systems-integration approach could help, taking relevant privacy and information-handling requirements into account.
-            </p>
-            <p className="body-on-navy" style={{ maxWidth: '680px', marginBottom: 0 }}>
-              You do not need to have a technical solution in mind. Start with the process, problem, or recurring task you want to improve.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Contact Maru Online"
+        light="Let's discuss your"
+        strong="business challenge."
+        lead="Tell us about the operational challenge you are facing."
+      />
 
       {/* ════════════════════════════════════════════════════════════════════
           CONTACT FORM + SIDE INFO

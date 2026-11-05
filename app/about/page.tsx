@@ -3,6 +3,7 @@ import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from '@/lib/seo'
+import PageHero from "@/components/ui/PageHero";
 import SharedSectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
 import ProductShot from "@/components/ui/ProductShot";
@@ -34,7 +35,6 @@ export const metadata: Metadata = {
     "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use, with POPIA-aware data governance built into the design and implementation.",
 };
 
-const outerPad  = "px-6 md:px-[60px]";
 const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
@@ -148,30 +148,12 @@ export default function AboutPage() {
           HERO
           bg: navy — matches homepage hero
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`navy-horizon hero-grid relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
-      >
-        <div className={`${innerWide} relative z-10 w-full`}>
-          <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>About Maru Online</span>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: "2rem" }}>
-              <span className="maru-headline-split-light">We build AI-enabled systems around</span>
-              <br />
-              <span className="maru-headline-split-strong">real business problems.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "1rem" }}>
-              We help South African businesses identify where AI, better-connected data, or workflow redesign can solve operational problems—and implement the right solution.
-            </p>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              By connecting business strategy, AI, data, and digital systems, we design practical workflows around the way your business actually works.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="About Maru Online"
+        light="We build AI-enabled systems around"
+        strong="real business problems."
+        lead="We help South African businesses identify where AI, better-connected data, or workflow redesign can solve operational problems, and implement the right solution."
+      />
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 1 — OUR PURPOSE
@@ -396,11 +378,11 @@ export default function AboutPage() {
               Let&apos;s identify the challenge, assess the opportunity, and outline a practical next step.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Discuss your business challenge
+              <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto">
+                Discuss your challenge
               </Button>
-              <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                Take the free, informational POPIA review
+              <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto">
+                Take the free POPIA review
               </Button>
             </div>
           </FadeUp>

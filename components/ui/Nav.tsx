@@ -46,7 +46,14 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setIsHero(window.scrollY < window.innerHeight)
+    // Navy (transparent) bar while the page's navy hero is under it; white
+    // once it scrolls past. Heroes are content-height now (PageHero), so this
+    // follows the hero's real bottom edge, not the viewport height. Pages
+    // without a navy hero get the white bar from the start.
+    const onScroll = () => {
+      const hero = document.querySelector('.hero-grid')
+      setIsHero(!!hero && hero.getBoundingClientRect().bottom > 64)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -71,7 +78,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
       {/* ── Header bar ────────────────────────────────────────────────────── */}
       <header
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b transition-[background-color,border-color] duration-300"
+        className={`${isHero ? 'on-navy ' : ''}fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b transition-[background-color,border-color] duration-300`}
         style={{
           backgroundColor: isHero ? 'rgba(26,58,92,0.5)' : 'rgba(255,255,255,0.95)',
           borderBottomColor: isHero ? 'transparent' : 'var(--color-border-default)',
@@ -79,7 +86,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
       >
         <nav
           aria-label="Main navigation"
-          className="flex items-center justify-between h-[56px] lg:h-[64px] px-6 lg:px-[60px] max-w-[1200px] mx-auto"
+          className="flex items-center justify-between h-[56px] lg:h-[64px] px-6 lg:px-[60px] max-w-[1240px] mx-auto"
         >
           {/* Logo */}
           <Link href="/" aria-label="Maru Online — home">
@@ -140,8 +147,8 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="primary" href="/popia-ai-check" className="cta-shine !px-5 !py-2 !text-[11px]">
-              Start the free review
+            <Button variant="primary" href="/popia-ai-check" size="sm">
+              Free POPIA review
             </Button>
           </div>
 
@@ -176,7 +183,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-[60] bg-bg-darkest flex flex-col px-6 pt-6 pb-10"
+            className="on-navy fixed inset-0 z-[60] bg-bg-darkest flex flex-col px-6 pt-6 pb-10"
           >
             {/* Close */}
             <div className="flex justify-end mb-10">
@@ -219,8 +226,8 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
-              <Button variant="primary" href="/popia-ai-check" className="cta-shine w-full !justify-center">
-                Start the free review
+              <Button variant="primary" href="/popia-ai-check" className="w-full">
+                Free POPIA review
               </Button>
             </div>
           </motion.div>

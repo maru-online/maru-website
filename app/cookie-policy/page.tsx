@@ -141,7 +141,7 @@ export default function CookiePolicyPage() {
 
         <button
           onClick={() => window.dispatchEvent(new Event('open-cookie-preferences'))}
-          className="px-6 py-3 rounded-lg text-sm font-bold mb-8 [background:var(--gradient-gold)] text-[var(--color-ink-on-gold)] shadow-[var(--shadow-btn)] transition-[transform,box-shadow,filter] duration-200 ease-out hover:scale-[1.02] hover:brightness-105 hover:shadow-[var(--shadow-btn-hover)] active:scale-[0.98]"
+          className="btn btn-primary mb-8"
         >
           Manage Cookie Preferences
         </button>

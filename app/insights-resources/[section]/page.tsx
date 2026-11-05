@@ -40,7 +40,6 @@ export async function generateMetadata(props: { params: Promise<{ section: strin
   };
 }
 
-const outerPad = "px-6 md:px-[60px]";
 const innerWide = "sec-inner"; // same 1120px column as every other page (was 1100px)
 
 export default async function SectionListingPage(props: {
@@ -62,7 +61,7 @@ export default async function SectionListingPage(props: {
   return (
     <>
       <section
-        className={`navy-horizon hero-grid relative overflow-hidden ${outerPad} pt-40 md:pt-44 pb-16`}
+        className="page-hero navy-horizon hero-grid relative overflow-hidden"
       >
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
