@@ -37,7 +37,7 @@ export default function GuidePage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
-        className={`navy-horizon relative flex items-center ${outerPad} pt-48 pb-24`}
+        className={`navy-horizon hero-grid relative overflow-hidden flex items-center ${outerPad} pt-48 pb-24`}
       >
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
