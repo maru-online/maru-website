@@ -1352,14 +1352,12 @@ p.footer-legal { margin: 0; }
 /* Statement beside its explanation. */
 .pair { display: grid; gap: 2rem 4rem; grid-template-columns: 1fr; }
 @media (min-width: 1024px) { .pair { grid-template-columns: 7fr 5fr; align-items: end; } }
+/* Takes the section-title H2 as is (weight, size, leading, tracking), so it
+   matches every other section heading (5 Nov 2026; it was a light 300 face
+   with its own size). Only the global h2 rule's rule line and gap go. */
 .statement {
-  font-family: var(--font-display);
-  font-weight: 300;
-  font-size: clamp(1.9rem, 3.6vw, 3rem);
-  line-height: 1.15;
-  letter-spacing: var(--tracking-display);
   text-wrap: balance;
-  border: none; padding: 0;   /* the global h2 rule doesn't belong here */
+  border: none; padding: 0; margin: 0;
   color: var(--color-ink-primary);
 }
 .statement .hl { color: var(--color-cyan-ink); }
