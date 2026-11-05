@@ -11,7 +11,7 @@
  * final state renders with no movement.
  */
 
-import { motion, useReducedMotion, type Variants } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { DrawnVisual, TreatedImage } from '@/components/ui/CardMedia'
 
 type Card = {
@@ -71,23 +71,26 @@ const CARDS: Card[] = [
 const ease = [0.25, 0.1, 0.25, 1] as const
 
 export default function ProblemCards() {
-  const reduce = useReducedMotion()
-
+  // Variants are the same on the server and in the browser. Branching on
+  // useReducedMotion() here caused a hydration mismatch (it is null on the
+  // server). Reduced motion is handled site-wide by MotionConfig
+  // reducedMotion="user" (MotionProvider): movement is skipped, so cards and
+  // bullets simply appear.
   const parent: Variants = {
     hidden: {},
-    visible: { transition: { staggerChildren: reduce ? 0 : 0.14, delayChildren: 0.05 } },
+    visible: { transition: { staggerChildren: 0.14, delayChildren: 0.05 } },
   }
   const card: Variants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, y: 28 },
-    visible: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.6, ease, staggerChildren: reduce ? 0 : 0.1, delayChildren: reduce ? 0 : 0.35 } },
+    hidden: { opacity: 0, y: 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease, staggerChildren: 0.1, delayChildren: 0.35 } },
   }
   const edge: Variants = {
-    hidden: reduce ? { scaleX: 1 } : { scaleX: 0 },
-    visible: { scaleX: 1, transition: { duration: reduce ? 0 : 0.7, ease, delay: reduce ? 0 : 0.15 } },
+    hidden: { scaleX: 0 },
+    visible: { scaleX: 1, transition: { duration: 0.7, ease, delay: 0.15 } },
   }
   const bullet: Variants = {
-    hidden: reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 },
-    visible: { opacity: 1, x: 0, transition: { duration: reduce ? 0 : 0.45, ease } },
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.45, ease } },
   }
 
   return (
