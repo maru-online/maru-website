@@ -182,6 +182,15 @@ radius, short label, moving arrow on primary. Colour follows the ground:
 deep teal (`--color-cyan-ink`) with white text on stone, white and the nav.
 Green is used for nothing else. Gold is retired from the interface.
 
+**Tools band** (`ToolsTicker`, `.tools-band`): a slim stone band closing the
+homepage capabilities section, tool names (not logos) in the site type with a
+category line, slow scroll with edge fades, pause on hover/focus plus a Pause
+button, static wrapped list under reduced motion. The list comes from the build
+repositories; update it there when the stack changes.
+
+**Photo band headline** (`ImageBand`, `.image-band-headline`): section-title
+size, light line (300) then strong line (600); shade evened out on phones.
+
 **Grid motif** (`.grid-motif`, `.grid-motif-feature`, `.hero-grid` in
 `globals.css`): 1px cyan lines, one style at three weights — glyph panels
 0.10 / 40px; titled card headers 0.22 / 28px; page heroes 0.20 / 52px (40px on

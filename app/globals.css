@@ -1137,6 +1137,76 @@
 .guide-page { margin: 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-card); box-shadow: var(--card-shadow); background: var(--color-bg-card); }
 .guide-page img { display: block; width: 100%; height: auto; }
 
+/* Headline over a photo band (homepage "We do not replace your team",
+   5 Nov 2026): section-title scale, light line then strong line, like the
+   heroes. Was a 200-weight line that read faint over the photo. */
+.image-band-headline {
+  margin: 0; max-width: 46rem;
+  font-family: var(--font-display); color: var(--color-ink-inverted);
+  font-size: var(--text-h2); line-height: 1.15; letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+/* Hero weights are 100/500, which suit 72px on a flat navy ground; over a
+   photo at section size that is what read faint, so this band uses 300/600. */
+.image-band-headline .maru-headline-split-light { font-weight: 300; }
+.image-band-headline .maru-headline-split-strong { font-weight: 600; }
+/* Phones: the text spans the whole photo, so the shade is even across it. */
+@media (max-width: 767px) {
+  .image-band-scrim { background: linear-gradient(180deg, rgba(13,27,42,0.55), rgba(13,27,42,0.7)) !important; }
+}
+
+/* ── Tools we build with (5 Nov 2026) ───────────────────────────────────────
+   A slim band after Supporting capabilities: label on the left, a slow
+   ticker of tool names on the right, edges fading out. On stone with its own
+   hairline, so it reads as its own thing, apart from the navy diagram. */
+.tools-band { padding-inline: var(--sec-gutter); padding-bottom: clamp(3.5rem, 6vw, 5rem); }
+.tools-band-inner {
+  border-top: 1px solid var(--color-border-card); padding-top: clamp(2.5rem, 4vw, 3.25rem);
+  display: grid; gap: 1.75rem; grid-template-columns: minmax(0, 1fr); align-items: center;
+}
+@media (min-width: 1024px) { .tools-band-inner { grid-template-columns: 17rem minmax(0, 1fr); gap: 3rem; } }
+.tools-band-title {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; line-height: 1.3;
+  letter-spacing: -0.01em; color: var(--color-ink-primary); margin: 0 0 0.5rem; border: 0; padding: 0;
+}
+.tools-band-text { margin: 0; font-size: var(--text-meta); line-height: 1.55; color: var(--color-ink-secondary); }
+.tools-ticker-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; min-width: 0; }
+.tools-ticker-wrap > .tools-ticker { width: 100%; }
+@media (min-width: 768px) {
+  .tools-ticker-wrap { flex-direction: row; align-items: center; }
+}
+.tools-ticker {
+  flex: 1 1 auto; min-width: 0; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.tools-track { display: flex; width: max-content; animation: tools-scroll 80s linear infinite; }
+.tools-ticker:hover .tools-track,
+.tools-ticker:focus-within .tools-track,
+.tools-ticker[data-paused] .tools-track { animation-play-state: paused; }
+@keyframes tools-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.tools-list { display: flex; margin: 0; padding: 0; list-style: none; }
+.tools-item {
+  display: flex; flex-direction: column; gap: 0.125rem; white-space: nowrap;
+  padding: 0.25rem 2.25rem; border-left: 1px solid var(--color-border-card);
+}
+.tools-name { font-family: var(--font-display); font-weight: 500; font-size: 1.375rem; letter-spacing: -0.01em; color: var(--color-ink-primary); }
+.tools-kind { font-size: 0.8125rem; color: var(--color-ink-secondary); }
+.tools-toggle {
+  flex: none; display: inline-flex; align-items: center; gap: 0.375rem;
+  min-height: 36px; padding: 0 0.75rem; border-radius: 999px; border: 0; cursor: pointer;
+  background: transparent; box-shadow: inset 0 0 0 1px var(--color-border-card);
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 500; color: var(--color-ink-secondary);
+}
+.tools-toggle:hover { color: var(--color-ink-primary); box-shadow: inset 0 0 0 1px rgba(22, 50, 79, 0.35); }
+.tools-toggle:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .tools-track { animation: none; width: auto; }
+  .tools-list { flex-wrap: wrap; row-gap: 1rem; }
+  .tools-list[aria-hidden="true"], .tools-toggle { display: none; }
+  .tools-ticker { -webkit-mask-image: none; mask-image: none; }
+}
+
 /* ── CTA system (5 Nov 2026) ─────────────────────────────────────────────────
    Sentence case, 16px at weight 500, 48px tall, card radius, short label and
    one arrow that moves on hover. Primary: deep teal with white text on light

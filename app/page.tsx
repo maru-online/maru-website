@@ -10,6 +10,7 @@ import { DrawnVisual } from "@/components/ui/CardMedia";
 import SectionHead from "@/components/ui/SectionHead";
 import PageHero from "@/components/ui/PageHero";
 import DotField from "@/components/ui/DotField";
+import ToolsTicker from "@/components/ui/ToolsTicker";
 import { seo } from '@/lib/seo'
 
 // Homepage copy: "Maru Online — Revised Website Copy" v1.0 (handover, 1 Nov 2026),
@@ -269,6 +270,21 @@ export default function Home() {
             </StaggerParent>
           </div>
         </section>
+        {/* ══════════════════════════════════════════════════════════════════
+            TOOLS WE BUILD WITH (5 Nov 2026) — a slim band closing the
+            capabilities section. Placed here, not after the "Your tools stay"
+            diagram, so it reads as the stack behind our builds and is not
+            mistaken for the client tools the diagram connects.
+            ══════════════════════════════════════════════════════════════════ */}
+        <section className="tools-band" aria-labelledby="tools-heading">
+          <div className="sec-inner tools-band-inner">
+            <div>
+              <h2 id="tools-heading" className="tools-band-title">Tools we build with</h2>
+              <p className="tools-band-text">The platforms behind the websites, systems and automations we have delivered.</p>
+            </div>
+            <ToolsTicker />
+          </div>
+        </section>
       </div>
 
       {/* ── IMAGE BAND — between capabilities and the assessment section ── */}
@@ -277,9 +293,10 @@ export default function Home() {
         alt="Two professionals celebrating a win together in the office"
         overlayText={
           <>
-            <span style={{ display: 'block', fontWeight: 200 }}>We do not replace your team.</span>
-            <span style={{ display: 'block', fontWeight: 200 }}>
-              We give them their <span style={{ color: 'var(--color-cyan)' }}>time back.</span>
+            <span className="maru-headline-split-light">We do not replace your team.</span>
+            <br />
+            <span className="maru-headline-split-strong">
+              We give them their <span style={{ color: "var(--color-cyan)" }}>time back.</span>
             </span>
           </>
         }
