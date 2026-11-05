@@ -55,7 +55,7 @@ export default async function LandingPage(props: Props) {
     <main className="min-h-screen" style={{ background: "var(--color-bg-secondary)" }}>
       {/* Hero Section — dark surface is allowed here */}
       <section
-        className="navy-horizon relative min-h-[90vh] flex items-center pt-[clamp(150px,20vh,200px)] pb-[clamp(80px,12vh,140px)] overflow-hidden"
+        className="navy-horizon hero-grid relative min-h-[90vh] flex items-center pt-[clamp(150px,20vh,200px)] pb-[clamp(80px,12vh,140px)] overflow-hidden"
       >
         
         <div className="container mx-auto px-6 lg:px-8 relative z-10 w-full">

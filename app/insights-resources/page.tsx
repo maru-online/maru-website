@@ -78,7 +78,7 @@ export default function InsightsResourcesPage() {
 
       {/* SECTION 1 — Page introduction (navy) */}
       <section
-        className={`navy-horizon relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-28`}
+        className={`navy-horizon hero-grid relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-28`}
       >
         <div className={`${innerWide} relative z-10 w-full`}>
           <FadeUp>

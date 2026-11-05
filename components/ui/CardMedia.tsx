@@ -101,9 +101,6 @@ export function TreatedImage({
   );
 }
 
-const GRID_MASK = "radial-gradient(ellipse at center, #000 30%, transparent 75%)";
-const GRID_MASK_TITLED = "radial-gradient(120% 140% at 85% 0%, #000 25%, rgba(0,0,0,0.55) 55%, transparent 90%)";
-
 export function DrawnVisual({
   glyph,
   glyphSize = 44,
@@ -129,22 +126,9 @@ export function DrawnVisual({
           "radial-gradient(70% 90% at 85% 0%, rgba(61,184,198,0.30), transparent 60%), radial-gradient(60% 70% at 0% 100%, rgba(61,184,198,0.12), transparent 70%), var(--gradient-hero)",
       }}
     >
-      {/* Grid, same motif as the heroes. Faint behind a glyph; on a titled
-          panel it is a visible feature (5 Nov 2026): stronger lines, smaller
-          cells, brightest top-right and fading out behind the title. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          backgroundImage: titled
-            ? "linear-gradient(rgba(61,184,198,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(61,184,198,0.22) 1px, transparent 1px)"
-            : "linear-gradient(rgba(61,184,198,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(61,184,198,0.10) 1px, transparent 1px)",
-          backgroundSize: titled ? "28px 28px" : "40px 40px",
-          backgroundPosition: titled ? "-1px -1px" : undefined,
-          maskImage: titled ? GRID_MASK_TITLED : GRID_MASK,
-          WebkitMaskImage: titled ? GRID_MASK_TITLED : GRID_MASK,
-        }}
-      />
+      {/* Grid motif (globals.css): faint behind a glyph; a visible feature on
+          a titled panel, brightest top-right and fading behind the title. */}
+      <div aria-hidden="true" className={`absolute inset-0 grid-motif${titled ? " grid-motif-feature" : ""}`} />
       {titled ? (
         <TitleTag className="drawn-visual-title">{title}</TitleTag>
       ) : glyph ? (

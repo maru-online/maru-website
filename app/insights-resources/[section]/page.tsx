@@ -62,7 +62,7 @@ export default async function SectionListingPage(props: {
   return (
     <>
       <section
-        className={`navy-horizon relative overflow-hidden ${outerPad} pt-40 md:pt-44 pb-16`}
+        className={`navy-horizon hero-grid relative overflow-hidden ${outerPad} pt-40 md:pt-44 pb-16`}
       >
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>

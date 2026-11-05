@@ -280,7 +280,7 @@ export default function InvaraPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`navy-horizon relative overflow-hidden ${outerPad} pt-36 md:pt-44 pb-20 md:pb-28`}
+        className={`navy-horizon hero-grid relative overflow-hidden ${outerPad} pt-36 md:pt-44 pb-20 md:pb-28`}
       >
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>

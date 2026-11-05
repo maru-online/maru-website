@@ -118,7 +118,7 @@ export default function Home() {
           bg: Horizon gradient
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className="sec navy-horizon relative min-h-screen flex items-center overflow-hidden"
+        className="sec navy-horizon hero-grid relative min-h-screen flex items-center overflow-hidden"
         style={{ paddingTop: "clamp(9rem, 15vw, 12rem)" }}
       >
         {/* Fixed-width column: production's column shrank to the longest headline

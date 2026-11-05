@@ -21,7 +21,7 @@ export default function ContactPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`navy-horizon relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-48 pb-32`}
+        className={`navy-horizon hero-grid relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-48 pb-32`}
       >
         <div
           aria-hidden="true"

@@ -149,7 +149,7 @@ export default function AboutPage() {
           bg: navy — matches homepage hero
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`navy-horizon relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
+        className={`navy-horizon hero-grid relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
       >
         <div className={`${innerWide} relative z-10 w-full`}>
           <FadeUp>

@@ -1255,6 +1255,46 @@ p.footer-legal { margin: 0; }
   background-image: var(--grain); opacity: 0.07; mix-blend-mode: soft-light;
 }
 
+/* ── Grid motif (5 Nov 2026) ─────────────────────────────────────────────────
+   One grid, three weights. 1px cyan lines; strength, cell size and fade are
+   set per use so card panels and heroes stay one family:
+     .grid-motif          faint, centred — glyph panels (guides, problem cards)
+     .grid-motif-feature  the visible feature — titled card panels
+     .hero-grid           page heroes: larger cells, slightly lower strength
+                          (a big area reads stronger), brightest top-right
+                          where the Horizon light is, gone behind the copy.  */
+.grid-motif,
+.hero-grid::before {
+  background-image:
+    linear-gradient(rgb(61 184 198 / var(--grid-alpha)) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(61 184 198 / var(--grid-alpha)) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  background-position: -1px -1px;
+  -webkit-mask-image: var(--grid-mask);
+          mask-image: var(--grid-mask);
+}
+.grid-motif {
+  --grid-alpha: 0.10; --grid-cell: 40px;
+  --grid-mask: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+.grid-motif.grid-motif-feature {
+  --grid-alpha: 0.22; --grid-cell: 28px;
+  --grid-mask: radial-gradient(120% 140% at 85% 0%, #000 25%, rgb(0 0 0 / 0.55) 55%, transparent 90%);
+}
+.hero-grid { isolation: isolate; }
+.hero-grid::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  --grid-alpha: 0.15; --grid-cell: 52px;
+  --grid-mask: radial-gradient(85% 110% at 100% 0%, #000 15%, rgb(0 0 0 / 0.5) 45%, transparent 80%);
+}
+@media (max-width: 767px) {
+  /* Copy spans the full width on phones: smaller cells, fade sooner. */
+  .hero-grid::before {
+    --grid-cell: 40px;
+    --grid-mask: radial-gradient(110% 70% at 100% 0%, #000 10%, rgb(0 0 0 / 0.45) 40%, transparent 75%);
+  }
+}
+
 /* Heading beside stacked rows; the heading stays in view while rows scroll.
    Its section must not be overflow:hidden (that makes the section the sticky
    container) — use overflow-clip. */
