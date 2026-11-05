@@ -69,7 +69,7 @@ const steps = [
 
 const capabilities = [
   {
-    name: "Business and AI strategy",
+    name: "Business and AI Strategy",
     lead: "Understand the problem before building the solution.",
     items: [
       "Business and workflow analysis",
@@ -78,7 +78,7 @@ const capabilities = [
     ],
   },
   {
-    name: "Digital systems and integration",
+    name: "Digital Systems and Integration",
     lead: "Build the digital foundations your business needs to work better.",
     items: [
       "Websites, web applications, and e-commerce platforms",
@@ -87,7 +87,7 @@ const capabilities = [
     ],
   },
   {
-    name: "Data-informed growth systems",
+    name: "Data-Informed Growth Systems",
     lead: "Turn business information into better decisions and more effective customer processes.",
     items: [
       "Customer journey and revenue process analysis",
