@@ -35,6 +35,13 @@ export const GUIDE_PREVIEWABLE = process.env.VERCEL_ENV !== "production";
 export const GUIDE_PAGE_VISIBLE = GUIDE_LIVE || GUIDE_PREVIEWABLE;
 export const GUIDE_PDF_ROUTE = "/downloads/ai-and-popia-guide.pdf";
 
+/** The guide's cover and inside pages, rendered from the PDF (5 Nov 2026). */
+export const GUIDE_COVER = "/images/guides/ai-and-popia/cover.webp";
+export const GUIDE_PREVIEW_PAGES = [
+  { src: "/images/guides/ai-and-popia/page-06.webp", alt: "Page 6 of the guide: Part 1, AI in your business" },
+  { src: "/images/guides/ai-and-popia/page-14.webp", alt: "Page 14 of the guide: the one-page self-check" },
+] as const;
+
 /**
  * The file served at GUIDE_PDF_ROUTE, from content/guides/. Only the final,
  * verified PDF is committed, under this name.

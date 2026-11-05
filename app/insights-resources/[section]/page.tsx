@@ -12,6 +12,7 @@ import {
   type PillarSlug,
 } from "@/lib/insights-resources/content";
 import { InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
+import GuidePromo from "@/components/insights-resources/GuidePromo";
 
 // Full listing for one offering: /insights-resources/ai-insights and
 // /insights-resources/guides. Category (pillar) filter is plain links driven by
@@ -53,8 +54,12 @@ export default async function SectionListingPage(props: {
 
   const s = SECTIONS[key];
   const active = PILLARS.find((p) => p.slug === pillar)?.slug as PillarSlug | undefined;
-  const all = getEntries(key);
+  const sectionEntries = getEntries(key);
+  // The downloadable guide shows as a promo, not a card (5 Nov 2026).
+  const gatedGuide = sectionEntries.find((e) => e.access === "gated");
+  const all = sectionEntries.filter((e) => e.access !== "gated");
   const entries = active ? all.filter((e) => e.pillar === active) : all;
+  const showPromo = !!gatedGuide && (!active || active === gatedGuide.pillar);
   const base = `/insights-resources/${s.segment}`;
   const dark = key === "insights";
 
@@ -100,6 +105,11 @@ export default async function SectionListingPage(props: {
             })}
           </nav>
 
+          {showPromo && (
+            <div style={{ marginBottom: "2.5rem" }}>
+              <GuidePromo location="resources-listing" />
+            </div>
+          )}
           {entries.length ? (
             <div className={`grid grid-cols-1 ${dark ? "md:grid-cols-3" : "sm:grid-cols-2"} gap-6`}>
               {entries.map((e) => (

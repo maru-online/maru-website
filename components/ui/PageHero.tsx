@@ -8,6 +8,7 @@ import { FadeUp } from "@/components/ui/Animate";
  * first section shows above the fold.
  *
  * `actions` is for the homepage only (the one hero with buttons).
+ * `aside` puts one visual beside the copy on wide screens (the guide's book).
  */
 export default function PageHero({
   eyebrow,
@@ -15,6 +16,7 @@ export default function PageHero({
   strong,
   lead,
   actions,
+  aside,
 }: {
   eyebrow: string;
   /** First line of the H1, light weight. */
@@ -24,10 +26,10 @@ export default function PageHero({
   /** One sentence. */
   lead: ReactNode;
   actions?: ReactNode;
+  aside?: ReactNode;
 }) {
-  return (
-    <section className="page-hero navy-horizon hero-grid relative overflow-hidden">
-      <div className="sec-inner">
+  const copy = (
+    <div>
         <FadeUp>
           <span className="label-eyebrow page-hero-eyebrow">{eyebrow}</span>
         </FadeUp>
@@ -45,6 +47,19 @@ export default function PageHero({
           <FadeUp delay={0.22}>
             <div className="page-hero-actions">{actions}</div>
           </FadeUp>
+        )}
+    </div>
+  );
+  return (
+    <section className="page-hero navy-horizon hero-grid relative overflow-hidden">
+      <div className="sec-inner">
+        {aside ? (
+          <div className="page-hero-split">
+            {copy}
+            <FadeUp delay={0.12}>{aside}</FadeUp>
+          </div>
+        ) : (
+          copy
         )}
       </div>
     </section>

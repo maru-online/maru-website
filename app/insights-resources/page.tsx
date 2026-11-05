@@ -10,6 +10,7 @@ import {
 } from "@/lib/insights-resources/content";
 import { breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
 import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
+import GuidePromo from "@/components/insights-resources/GuidePromo";
 import SectionHead from "@/components/ui/SectionHead";
 import DotField from "@/components/ui/DotField";
 import PageHero from "@/components/ui/PageHero";
@@ -65,7 +66,11 @@ export default function InsightsResourcesPage() {
   // when a section has more than that; otherwise they led to the same items
   // again on a near-identical page, which felt like being sent back to the top.
   const allInsights = getEntries("insights");
-  const allResources = getEntries("resources");
+  // The downloadable (gated) guide gets its own promo above the grid; the
+  // grid holds the web guides it is being compared with (5 Nov 2026).
+  const resourceEntries = getEntries("resources");
+  const gatedGuide = resourceEntries.find((e) => e.access === "gated");
+  const allResources = resourceEntries.filter((e) => e.access !== "gated");
   const insights = allInsights.slice(0, 3);
   const resources = allResources.slice(0, 4);
 
@@ -154,6 +159,13 @@ export default function InsightsResourcesPage() {
             title="Resources and best practice"
             intro="Practical guides and resources to help businesses understand, plan and implement AI."
           />
+          {gatedGuide && (
+            <FadeUp>
+              <div style={{ marginBottom: "2.5rem" }}>
+                <GuidePromo location="resources-index" />
+              </div>
+            </FadeUp>
+          )}
           {resources.length ? (
             <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {resources.map((e) => (
