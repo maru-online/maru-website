@@ -1295,6 +1295,15 @@ p.footer-legal { margin: 0; }
   /* Phones: smaller cells for the narrower hero; same fade. */
   .hero-grid::before { --grid-cell: 40px; }
 }
+@media (min-width: 768px) {
+  /* Wide heroes: the card fade is shaped for a tall-ish panel, so on a wide
+     hero it left the left side and bottom bare. Here the grid covers the
+     whole hero the way it does on phones: full strength top-right, easing
+     to a floor of about 45% so it never drops out behind the copy. */
+  .hero-grid::before {
+    --grid-mask: radial-gradient(140% 150% at 80% 0%, #000 30%, rgb(0 0 0 / 0.75) 60%, rgb(0 0 0 / 0.45) 100%);
+  }
+}
 
 /* Heading beside stacked rows; the heading stays in view while rows scroll.
    Its section must not be overflow:hidden (that makes the section the sticky
