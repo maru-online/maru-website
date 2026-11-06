@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { GUIDE_PAGE_VISIBLE } from "@/lib/guides/config";
+import { HAS_PUBLISHED_CONTENT } from "@/lib/insights-resources/content";
 import localFont from 'next/font/local'
 import Script from 'next/script'
+import MotionProvider from '@/components/ui/MotionProvider'
 import Nav from '@/components/ui/Nav'
 import Footer from '@/components/ui/Footer'
 import CookieConsent from '@/components/CookieConsent'
@@ -33,22 +35,22 @@ const inter = localFont({
 // ─── Metadata ─────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
   metadataBase: new URL('https://maruonline.com'),
-  title: 'AI & Automation Consultants for Growing SMEs | Maru Online',
+  title: 'POPIA-Aware AI Implementation for South African Businesses | Maru Online',
   description:
-    'We find where your processes are costing you time and money — then build AI-powered workflows that cut costs and free your team. Free assessment.',
+    'Maru Online designs and implements practical AI-enabled workflows around the tools South African businesses already use, with POPIA-aware information handling.',
   openGraph: {
     type: 'website',
     siteName: 'Maru Online',
     locale: 'en_ZA',
-    title: 'AI That Actually Works for Your Business — Not Just Another Tool',
+    title: 'POPIA-aware AI implementation for South African businesses',
     description:
-      'We connect AI with your existing tools and workflows to automate the work your team shouldn\'t be doing manually. Free assessment for growing SMEs.',
+      'Practical AI-enabled workflows built around your existing tools. Start with the free, informational POPIA review.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI That Actually Works for Your Business — Not Just Another Tool',
+    title: 'POPIA-aware AI implementation for South African businesses',
     description:
-      'We find where your processes are costing you time and money — then build AI-powered workflows that cut costs and free your team. Free assessment.',
+      'Maru Online designs and implements practical AI-enabled workflows around the tools South African businesses already use, with POPIA-aware information handling.',
   },
 }
 
@@ -104,11 +106,13 @@ export default function RootLayout({
           </>
         )}
 
-        <Nav showInsights={GUIDE_PAGE_VISIBLE} />
-        <main id="main-content">
-          {children}
-        </main>
-        <Footer showInsights={GUIDE_PAGE_VISIBLE} />
+        <MotionProvider>
+          <Nav showInsights={GUIDE_PAGE_VISIBLE || HAS_PUBLISHED_CONTENT} />
+          <main id="main-content">
+            {children}
+          </main>
+          <Footer showInsights={GUIDE_PAGE_VISIBLE || HAS_PUBLISHED_CONTENT} />
+        </MotionProvider>
         <CookieConsent />
       </body>
     </html>

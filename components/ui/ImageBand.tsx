@@ -30,12 +30,15 @@ export default function ImageBand({
         style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
         sizes="100vw"
       />
-      {/* Dark scrim */}
+      {/* Dark scrim (evened out on phones in globals.css, .image-band-scrim) */}
       <div
+        className="image-band-scrim"
         style={{
           position:   'absolute',
           inset:      0,
-          background: 'linear-gradient(to right, rgba(13,27,42,0.72) 0%, rgba(13,27,42,0.35) 60%, rgba(13,27,42,0.1) 100%)',
+          // Slightly deeper on the left (5 Nov 2026) so the headline reads
+          // clearly against the photo's lighter areas.
+          background: 'linear-gradient(to right, rgba(13,27,42,0.80) 0%, rgba(13,27,42,0.45) 55%, rgba(13,27,42,0.12) 100%)',
         }}
       />
       {overlayText && (
@@ -45,23 +48,14 @@ export default function ImageBand({
             inset:     0,
             display:   'flex',
             alignItems: 'center',
-            padding:   'clamp(1.5rem, 6vw, 5rem)',
+            paddingInline: 'var(--sec-gutter)',
           }}
         >
-          <p
-            style={{
-              fontFamily:   'var(--font-display)',
-              fontSize:     'clamp(1.375rem, 3vw, 2.25rem)',
-              fontWeight:   600,
-              color:        'var(--color-ink-inverted)',
-              lineHeight:   'var(--leading-subheading)',
-              letterSpacing: 'var(--tracking-tight)',
-              maxWidth:     '640px',
-              margin:       0,
-            }}
-          >
-            {overlayText}
-          </p>
+          {/* On the page column, in the site's split-headline style: pass a
+              light line and a strong line (maru-headline-split-*). */}
+          <div className="sec-inner" style={{ width: '100%' }}>
+            <p className="image-band-headline">{overlayText}</p>
+          </div>
         </div>
       )}
     </div>

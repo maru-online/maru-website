@@ -22,6 +22,13 @@ const nextConfig: NextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
+    // Off since 3 Nov 2026: Vercel restores .next/cache between deployments,
+    // and the restored Turbopack build cache served a stale globals.css (the
+    // Release 1.3 preview shipped without its new rules). A clean CSS build
+    // costs a little build time; a stale one costs a broken page.
+    turbopackFileSystemCacheForBuild: false,
+    // Same for `next dev`: a stale cached globals.css showed old styles locally.
+    turbopackFileSystemCacheForDev: false,
   },
   
   // Headers for better caching
@@ -117,17 +124,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/resources',
-        destination: '/insights',
+        destination: '/insights-resources',
         permanent: true,
       },
       {
         source: '/knowledge',
-        destination: '/insights',
+        destination: '/insights-resources',
         permanent: true,
       },
       {
         source: '/knowledge/:path*',
-        destination: '/insights',
+        destination: '/insights-resources',
         permanent: true,
       },
       {
@@ -266,16 +273,19 @@ const nextConfig: NextConfig = {
         destination: '/',
         permanent: false,
       },
-      // Live-site cleanup, 20 Oct 2026: pages that were publicly reachable but
-      // unfinished, internal or out of date. Temporary (307) so each can come
-      // back when it has real content. The release line handles these its own
-      // way; drop these entries when it merges.
-      { source: '/careers', destination: '/about', permanent: false },
-      { source: '/ai-in-action', destination: '/', permanent: false },
-      { source: '/design-system', destination: '/', permanent: false },
-      { source: '/case-studies', destination: '/about#growthiq', permanent: false },
-      { source: '/case-studies/:path*', destination: '/about#growthiq', permanent: false },
-      { source: '/resources/popia-ai-checklist', destination: '/popia-ai-check', permanent: false },
+      // Retired pages, 6 Nov 2026: the route files were deleted and these
+      // addresses now redirect permanently so old links still resolve.
+      { source: '/careers', destination: '/about', permanent: true },
+      { source: '/ai-in-action', destination: '/', permanent: true },
+      { source: '/design-system', destination: '/', permanent: true },
+      { source: '/case-studies', destination: '/about#growthiq', permanent: true },
+      { source: '/case-studies/:path*', destination: '/about#growthiq', permanent: true },
+      { source: '/partners/:path*', destination: '/', permanent: true },
+      { source: '/resources/popia-ai-checklist', destination: '/popia-ai-check', permanent: true },
+      // The legacy Insights hub was retired 6 Nov 2026; Guides & Resources
+      // replaces it.
+      { source: '/insights', destination: '/insights-resources', permanent: true },
+      { source: '/insights/:path*', destination: '/insights-resources', permanent: true },
       // The free assessment became the POPIA Assessment (20 Oct 2026). The old
       // path is linked from emails, Brevo and earlier reports, so it must keep
       // resolving.

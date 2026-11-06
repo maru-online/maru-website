@@ -3,7 +3,13 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAreaFinding, getReportSummary, getReportVersion, type AreaStatus } from "@/lib/assessment/reportTemplates";
 import { LEVEL_RESULTS, REPORT_CLOSING_LINE, SCORING_NOTE, type AreaResult } from "@/lib/assessment/scoring";
-import { GUIDE_LIVE, GUIDE_PATH } from "@/lib/guides/config";
+import {
+  GUIDE_AREA_PARTS,
+  GUIDE_LIVE,
+  GUIDE_PDF_ROUTE,
+  GUIDE_REPORT_AREA_LINKS,
+  guideHref,
+} from "@/lib/guides/config";
 import styles from "./report.module.css";
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -35,13 +41,13 @@ export async function generateMetadata({
   // Addendum 03 A7: v3 reports only; v2 reports keep their original title.
   if (getReportVersion(data.template) === "assessment_v3") {
     return {
-      title: "Your POPIA Assessment Report | Maru Online",
+      title: "Your POPIA Review Report | Maru Online",
       robots: { index: false, follow: false },
     };
   }
   return {
-    title: `POPIA Assessment Report — Maru Online`,
-    description: `Your personalised POPIA Assessment report from Maru Online.`,
+    title: `POPIA Review Report — Maru Online`,
+    description: `Your personalised, informational POPIA review report from Maru Online.`,
     robots: { index: false, follow: false },
   };
 }
@@ -130,9 +136,9 @@ export default async function ReportPage({
       {/* ── Hero ────────────────────────────────────────────────────────── */}
       <header className={styles.hero}>
         <div className={styles.wrap}>
-          <p className={styles.eyebrow}>POPIA Assessment · Your report</p>
+          <p className={styles.eyebrow}>Free, informational POPIA review · Your report</p>
           <h1 className={styles.h1}>
-            {firstName}, here&apos;s what your assessment reveals.
+            {firstName}, here&apos;s what your review reveals.
           </h1>
           <div className={styles.heroMeta}>
             <span className={styles.levelPill}>{levelLabel}</span>
@@ -180,7 +186,7 @@ export default async function ReportPage({
               </ol>
               {tied && (
                 <p className={styles.startNote}>
-                  These areas scored the same, so they appear in the order of the assessment.
+                  These areas scored the same, so they appear in the order of the review.
                 </p>
               )}
             </div>
@@ -213,7 +219,7 @@ export default async function ReportPage({
               <p className={styles.prose}>
                 {isV3 && LEVEL_RESULTS[level]?.summary}
                 {!isV3 && data.levelLabel === "Early Stage" &&
-                  "Your assessment points to a business running largely on effort and institutional knowledge. Most processes are informal — they work because the right people know what to do, not because systems make it automatic. The opportunity across your five areas is significant."}
+                  "Your review points to a business running largely on effort and institutional knowledge. Most processes are informal — they work because the right people know what to do, not because systems make it automatic. The opportunity across your five areas is significant."}
                 {!isV3 && data.levelLabel === "Building" &&
                   "Your business has real processes in place — but they still depend on manual steps and disconnected systems at key points. Targeted integration at those handoff points is where the return is fastest."}
                 {!isV3 && data.levelLabel === "Primed" &&
@@ -237,6 +243,11 @@ export default async function ReportPage({
                   area={area.area}
                   status={area.status}
                   finding={finding}
+                  guideLine={
+                    GUIDE_LIVE && GUIDE_REPORT_AREA_LINKS && isV3
+                      ? guideAreaLine(area.areaKey, area.status, Boolean(data.guideRequested))
+                      : null
+                  }
                 />
               ))}
             </div>
@@ -278,8 +289,8 @@ export default async function ReportPage({
         {GUIDE_LIVE && isV3 && !data.guideRequested && (
           <p className={styles.guideLine}>
             Want the basics behind these questions?{" "}
-            <Link href={GUIDE_PATH} className={styles.guideLink}>
-              Read the guide.
+            <Link href={guideHref("report")} className={styles.guideLink}>
+              Get the guide.
             </Link>
           </p>
         )}
@@ -302,18 +313,47 @@ export default async function ReportPage({
 
 // ── Area Card ─────────────────────────────────────────────────────────────
 
+/**
+ * Per-area pointer to the matching part of the AI and POPIA guide, for weak
+ * areas only (critical or significant). DRAFT WORDING for the owner's copy
+ * review; shown only when GUIDE_REPORT_AREA_LINKS is on (lib/guides/config.ts).
+ * A visitor who already has the guide goes straight to the page in the PDF
+ * (#page= opens there in browser PDF viewers); everyone else to the guide page.
+ */
+function guideAreaLine(
+  areaKey: string,
+  status: AreaStatus,
+  hasGuide: boolean,
+): { text: string; label: string; href: string } | null {
+  const part = GUIDE_AREA_PARTS[areaKey];
+  if (!part || (status !== "critical" && status !== "significant")) return null;
+  return hasGuide
+    ? {
+        text: `Part ${part.part} of your guide, “${part.title}”, covers this.`,
+        label: `Open it at page ${part.page}`,
+        href: `${GUIDE_PDF_ROUTE}#page=${part.page}`,
+      }
+    : {
+        text: `Part ${part.part} of our free guide, “${part.title}”, explains this in plain language.`,
+        label: "Get the guide",
+        href: guideHref("report-area"),
+      };
+}
+
 function AreaCard({
   id,
   number,
   area,
   status,
   finding,
+  guideLine,
 }: {
   id: string;
   number: number;
   area: string;
   status: AreaStatus;
   finding: { observation: string; issues: string[] };
+  guideLine?: { text: string; label: string; href: string } | null;
 }) {
   const shown = finding.issues.slice(0, ISSUES_SHOWN);
   const rest = finding.issues.slice(ISSUES_SHOWN);
@@ -360,6 +400,15 @@ function AreaCard({
               ))}
             </ul>
           </details>
+        )}
+
+        {guideLine && (
+          <p className={styles.areaGuide}>
+            {guideLine.text}{" "}
+            <a href={guideLine.href} className={styles.guideLink}>
+              {guideLine.label}
+            </a>
+          </p>
         )}
       </div>
     </article>

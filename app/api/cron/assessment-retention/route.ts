@@ -1,8 +1,8 @@
 /**
- * GET /api/cron/assessment-retention — the POPIA Assessment's 12-month rule
+ * GET /api/cron/assessment-retention — the POPIA review's 12-month rule
  * (privacy policy section 5, agreed by the owner 8 Oct 2026).
  *
- * Deletes POPIA Assessment results (operations_reports rows, including the
+ * Deletes POPIA review results (operations_reports rows, including the
  * generated report) once a person's most recent check is older than
  * ASSESSMENT_RETENTION_MONTHS. The report link stops working with the row.
  *
@@ -25,9 +25,9 @@
  *   - Dry run unless `?apply=1`: reports what it would delete, including the
  *     addresses (dry run only), so they can be checked against the client list.
  *   - Brevo is touched only in production.
- *   - Scheduled monthly in vercel.json with `?apply=1`. Vercel sends
- *     CRON_SECRET as the bearer token, so nothing runs until the owner sets it.
- *     Run a manual dry run (no `apply`) before setting it.
+ *   - Scheduled monthly in vercel.json as a DRY RUN (no `apply`): it logs the
+ *     count and deletes nothing. Once a manual dry run has been checked against
+ *     the client list, add `?apply=1` to the schedule to make it live.
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -106,6 +106,7 @@ export async function GET(req: NextRequest) {
   const emails = rows.map((r) => r.email).filter((e) => !keep.has(e));
 
   if (!apply || emails.length === 0) {
+    console.log("assessment retention dry run", { count: emails.length, apply });
     return NextResponse.json({
       dryRun: !apply,
       cutoff,

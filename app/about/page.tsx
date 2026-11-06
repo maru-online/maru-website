@@ -1,16 +1,21 @@
 import { Metadata } from "next";
-import Image from "next/image";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from '@/lib/seo'
+import PageHero from "@/components/ui/PageHero";
+import SharedSectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
+import ProductShot from "@/components/ui/ProductShot";
 
-// About page copy: "MaruOnline — About Page Copy", approved 20 Oct 2026.
+// About page copy: "Maru Online — Revised Website Copy" v1.0 (1 Nov 2026),
+// applied over "MaruOnline — About Page Copy" (approved 20 Oct 2026). The
+// revision folds the old "Our commitments" cards (Clear thinking, Defined
+// work, Practical outcomes) into the approach section.
 // The GrowthIQ case study is published as written, on the owner's decision.
 // "AI-guided" in block 04 is deliberate: the GrowthIQ gap assessment is
 // AI-guided, so that is the claim that can be shown. Do not soften it to
-// "AI-supported". The POPIA Assessment is an informational summary, never a
+// "AI-supported". The free POPIA review is an informational summary, never a
 // certification or compliance audit.
 //
 // Implementation notes (20 Oct 2026):
@@ -27,11 +32,10 @@ export const metadata: Metadata = {
   ...seo('/about'),
   title: "About Maru Online | AI Systems Built Around Real Business Problems",
   description:
-    "We help South African businesses turn complex operational challenges into practical digital solutions, connecting business strategy, AI, data and digital infrastructure.",
+    "Maru Online is a South African consultancy that designs and implements AI-enabled workflows and digital systems, with POPIA-aware information handling. Read how we work and what we have contributed to.",
 };
 
-const outerPad  = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
 const CONTACT_HREF = "/contact#contact-form";
@@ -41,159 +45,99 @@ const ASSESSMENT_HREF = "/popia-ai-check";
 
 const approach = [
   {
-    label: "Understand before we build",
     icon: "search" as const,
-    heading: "Diagnose the Real Problem",
-    body: "We examine your business, workflows and operating environment to understand what's creating friction, where opportunities exist and what needs to change. This helps distinguish the underlying problem from its symptoms before implementation begins.",
+    heading: "Clear thinking",
+    body: "Understand the business problem before selecting a tool.",
   },
   {
-    label: "Design around the business",
-    icon: "compass" as const,
-    heading: "Build Around What Matters",
-    body: "We shape solutions around your business objectives, existing systems and operational realities. Whether the answer involves AI integration, connected data or a purpose-built digital platform, the design starts with what the business needs to achieve.",
+    icon: "layers" as const,
+    heading: "Defined work",
+    body: "Establish the scope, information, responsibilities, and expected outcome.",
   },
   {
-    label: "Implement for practical use",
-    icon: "connect" as const,
-    heading: "Turn Strategy into a Working System",
-    body: "A solution has to work beyond the planning stage. We focus on implementation, integration, usability and agreed objectives, with data protection considerations built into the approach from the outset.",
+    icon: "team" as const,
+    heading: "Practical outcomes",
+    body: "Build something usable, maintainable, and relevant to the way the business operates.",
   },
 ];
 
+// Case-study cards as bullets (2 Nov 2026), tightened from the approved
+// paragraphs. "AI-guided" stays (see note at the top).
 const caseBlocks: {
   n: string;
   label: string;
   heading: string;
-  paras: React.ReactNode[];
+  points: React.ReactNode[];
 }[] = [
   {
     n: "01",
     label: "Industry research",
-    heading: "Understand the Challenge Before Defining the Solution",
-    paras: [
-      "We conducted desktop research into the Enterprise and Supplier Development industry, focusing on the challenges agencies face when managing ESD programmes on behalf of large corporates.",
-      "The research helped establish the context in which the product needed to operate and identify opportunities to differentiate GrowthIQ in a market where programme delivery, information management and reporting all matter.",
+    heading: "Understand the challenge before defining the solution",
+    points: [
+      "Desktop research into the Enterprise and Supplier Development (ESD) industry.",
+      "Focused on the challenges agencies face running ESD programmes for large corporates.",
+      "Set the product’s context and found room to differentiate GrowthIQ.",
     ],
   },
   {
     n: "02",
     label: "Product strategy",
-    heading: "Define a Clear Point of Difference",
-    paras: [
-      "The strategy centred on using AI to support a single source of truth for ESD programme management.",
+    heading: "Define a clear point of difference",
+    points: [
+      "AI supporting a single source of truth for ESD programme management.",
       <>
-        GrowthIQ&apos;s positioning was built around a specific promise:{" "}
-        <strong style={{ fontWeight: 600, color: "var(--color-ink-primary)" }}>
+        Positioned on one promise:{" "}
+        <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>
           &ldquo;Audit-ready reporting at every stage.&rdquo;
-        </strong>{" "}
-        Rather than treating reporting as a task completed at the end of a programme, the product was positioned around keeping information connected and making evidence available throughout the process.
+        </strong>
       </>,
-      "This gave the product a clear strategic direction—linking its operational purpose to a benefit that matters to corporates, transformation teams and the agencies managing their programmes.",
+      "Evidence available throughout the programme, not rebuilt at the end.",
     ],
   },
   {
     n: "03",
     label: "Brand strategy & design",
-    heading: "Build a Brand Around the Product Promise",
-    paras: [
-      "We developed the GrowthIQ brand from the underlying strategy, including its brand mark, design tokens, visual identity and overall look and feel.",
-      "The design direction was shaped to communicate clarity, structure and confidence in reporting—reinforcing the product's focus on visibility and audit readiness. Data protection considerations also informed the brand and product design approach, reflecting the context in which business and programme information would be handled.",
+    heading: "Build a brand around the product promise",
+    points: [
+      "Brand mark, design tokens, visual identity, and look and feel, built from the strategy.",
+      "Designed to communicate clarity, structure, and confidence in reporting.",
+      "Data protection considerations informed the brand and product design.",
     ],
   },
   {
     n: "04",
     label: "Strategy into execution",
-    heading: "Bring the Product Vision to Life",
-    paras: [
-      "The research, positioning and brand system established a coherent foundation for GrowthIQ's digital experience.",
-      "The resulting platform is designed to support ESD programmes across five stages: identifying beneficiaries, assessing businesses, developing capabilities, integrating suppliers and verifying evidence. Its AI-guided approach and live information capture are intended to help keep programme information current and reporting ready throughout the process.",
+    heading: "Bring the product vision to life",
+    points: [
+      "Research, positioning, and brand set the foundation for the digital experience.",
+      "Supports ESD programmes across five stages: identify beneficiaries, assess businesses, develop capabilities, integrate suppliers, and verify evidence.",
+      "An AI-guided approach and live capture help keep reporting ready throughout.",
     ],
   },
 ];
 
-const screens = [
-  {
-    src: "/images/case-studies/growthiq-dashboard.webp",
-    alt: "GrowthIQ programme dashboard showing an ESD score, verification due date and a beneficiary list, using invented sample data",
-    caption: "GrowthIQ programme dashboard. Shown with invented sample data, not a client record.",
-  },
-  {
-    src: "/images/case-studies/growthiq-assessment.webp",
-    alt: "GrowthIQ business assessment step with yes or no questions and an Ask GrowthAI prompt, using invented sample data",
-    caption: "AI-guided business assessment, with help from GrowthAI at each question. Sample data.",
-  },
-];
-
-const commitments = [
-  {
-    icon: "search" as const,
-    heading: "Diagnose First",
-    body: "We investigate the problem before recommending a solution. By understanding the current process, constraints and desired outcome, we can focus effort on the changes most likely to create value.",
-  },
-  {
-    icon: "layers" as const,
-    heading: "Clarity from the Start",
-    body: "We aim to establish a clear scope, agreed deliverables and realistic expectations before implementation. Where performance can be measured, we identify suitable indicators so progress can be assessed against an appropriate baseline.",
-  },
-  {
-    icon: "team" as const,
-    heading: "Build for Lasting Value",
-    body: "The objective is not simply to deliver a tool. It's to create a solution that serves a real business need. Documentation, testing, usability and knowledge transfer help your team understand the system and use it effectively.",
-  },
-];
+// GrowthIQ dashboard (4 Nov 2026): one focused crop, legible at the size it is
+// shown (sidebar and empty right margin removed, sample-data notice kept), and
+// the original full capture behind "View full size". Every name, score and
+// figure in it is invented sample data.
+const dashboard = {
+  src: "/images/case-studies/growthiq-dashboard-focus.webp",
+  width: 1276,
+  height: 1012,
+  fullSrc: "/images/case-studies/growthiq-dashboard.webp",
+  fullWidth: 1800,
+  fullHeight: 1012,
+  alt: "GrowthIQ programme dashboard showing an ESD score of 81.9%, verification due in 49 days, one beneficiary needing attention and the beneficiary list, using invented sample data",
+  caption: "GrowthIQ programme dashboard. Shown with invented sample data, not a client record.",
+};
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────
 
-function SectionHead({
-  eyebrow,
-  light,
-  strong,
-  onNavy = false,
-}: {
-  eyebrow: string;
-  light: string;
-  strong: string;
-  onNavy?: boolean;
-}) {
-  return (
-    <>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2
-        style={{
-          marginBottom: "1.5rem",
-          border: "none",
-          ...(onNavy ? { color: "var(--color-ink-inverted)" } : {}),
-        }}
-      >
-        <span style={{ fontWeight: 300 }}>{light}</span>
-        <br />
-        <span style={{ fontWeight: 700 }}>{strong}</span>
-      </h2>
-    </>
-  );
+// One section head site-wide (reading system, 3 Nov 2026): one weight, the
+// second part highlighted in colour only. Wraps components/ui/SectionHead.
+function SectionHead({ eyebrow, light, strong, onNavy = false }: { eyebrow: string; light?: string; strong: string; onNavy?: boolean }) {
+  return <SharedSectionHead eyebrow={eyebrow} light={light} strong={strong} dark={onNavy} animate={false} />;
 }
-
-const cardHeading: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontWeight: 600,
-  fontSize: "var(--text-h3-sans)",
-  color: "var(--color-ink-primary)",
-  lineHeight: 1.3,
-  marginBottom: "0.75rem",
-  border: "none",
-  paddingBottom: 0,
-};
-
-const cardLabel: React.CSSProperties = {
-  display: "block",
-  fontFamily: "var(--font-body)",
-  fontSize: "var(--text-label)",
-  fontWeight: 500,
-  letterSpacing: "var(--tracking-eyebrow)",
-  textTransform: "uppercase",
-  color: "var(--color-ink-tertiary)",
-  marginBottom: "0.5rem",
-};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -204,54 +148,26 @@ export default function AboutPage() {
           HERO
           bg: navy — matches homepage hero
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
-        style={{ background: "var(--gradient-hero)" }}
-      >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
-        <div className={`${innerWide} relative z-10 w-full`}>
-          <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>About Maru Online</span>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: "2rem" }}>
-              <span className="maru-headline-split-light">We Build AI Systems Around</span>
-              <br />
-              <span className="maru-headline-split-strong">Real Business Problems.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              We help South African businesses turn complex operational challenges into practical digital solutions. By connecting business strategy, AI, data and digital infrastructure, we design systems around the way your business actually works.
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.22}>
-            <div
-              data-maru-primary-cta
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-            >
-              <Button href={ASSESSMENT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Take Your Free POPIA Assessment
-              </Button>
-              <Button href={CONTACT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                Discuss a Business Challenge
-              </Button>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="About Maru Online"
+        light="We build AI-enabled systems around"
+        strong="real business problems."
+        lead="We help South African businesses identify where AI, better-connected data, or workflow redesign can resolve operational problems, and implement the right solution."
+      />
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 1 — OUR PURPOSE
           bg: surface
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
               eyebrow="Why Maru Online exists"
-              light="Technology Should Solve Problems,"
-              strong="Not Create More Work."
+              light="Technology should solve problems,"
+              strong="not create more work."
             />
           </FadeUp>
           <FadeUp delay={0.08}>
@@ -266,13 +182,7 @@ export default function AboutPage() {
                   marginBottom: "1.25rem",
                 }}
               >
-                Businesses don&apos;t necessarily need more tools. They need better ways for their systems, data and people to work together.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Disconnected processes, repetitive manual work and fragmented information can make everyday operations more complicated than they need to be. Introducing AI without understanding these underlying problems can add another layer of complexity rather than solve them.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                At Maru Online, we start with the business challenge. We investigate what&apos;s happening, identify where the real opportunity lies and determine how AI and digital systems can make a practical difference.
+                Businesses do not necessarily need more tools. They need better ways for their systems, data, and people to work together.
               </p>
               <p
                 className="body-muted"
@@ -282,7 +192,7 @@ export default function AboutPage() {
                   paddingLeft: "1.25rem",
                 }}
               >
-                Sometimes the answer is integrating existing applications. Sometimes it means redesigning a workflow or building a new solution. The technology follows the problem—not the other way around.
+                The technology follows the problem, not the other way around.
               </p>
             </div>
           </FadeUp>
@@ -293,20 +203,17 @@ export default function AboutPage() {
           SECTION 2 — OUR APPROACH
           bg: secondary
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
               eyebrow="How we think"
-              light="Understand the Business. Design the Solution."
-              strong="Make It Work."
+              light="Assess the workflow. Design and integrate the system."
+              strong="Optimise and hand over."
             />
             <div className={innerText} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <p className="body-muted" style={{ marginBottom: "1rem" }}>
-                Effective AI implementation requires more than choosing a tool. It requires an understanding of business objectives, operational processes, data and the people who will use the solution.
-              </p>
               <p className="body-muted" style={{ marginBottom: 0 }}>
-                Our approach connects strategic thinking with technical execution, helping businesses move from an identified problem to a solution designed for practical use.
+                We begin by understanding the business challenge, the workflow involved, the information it depends on, and the people who need to use the solution. From there, we define the right scope, design the system, integrate it into the operating environment, and support the handover.
               </p>
             </div>
           </FadeUp>
@@ -314,153 +221,101 @@ export default function AboutPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
             {approach.map((card) => (
               <StaggerChild key={card.heading} className="h-full">
-                <div
-                  className="card-lift h-full rounded-[10px]"
-                  style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}
-                >
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={card.icon} size={22} />
-                  </span>
-                  <span style={cardLabel}>{card.label}</span>
-                  <h3 style={cardHeading}>{card.heading}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{card.body}</p>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                    <div className="card-label-row">
+                      <span className="glyph-chip">
+                        <Glyph name={card.icon} size={22} />
+                      </span>
+                    </div>
+                    <h3 className="card-title">{card.heading}</h3>
+                    <p className="card-text">{card.body}</p>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
           </StaggerParent>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 3 — CASE STUDY: GROWTHIQ
-          bg: surface
+          bg: dark chapter (reading system, 3 Nov 2026): the page's one piece of proof
           ════════════════════════════════════════════════════════════════════ */}
-      <section id="growthiq" className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section id="growthiq" className="section-dark sec sec-chapter">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
               eyebrow="Our work in practice"
-              light="GrowthIQ: Turning an Industry Challenge"
-              strong="into a Digital Solution"
+              light="A practical example"
+              strong="of the work."
+              onNavy
             />
             <div className={innerText} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <p className="body-muted" style={{ marginBottom: "1rem" }}>
+              <p className="body-on-navy" style={{ marginBottom: "1rem" }}>
                 GrowthIQ is an AI-enabled Enterprise and Supplier Development (ESD) platform developed by Growth Firm. It brings programme management, SME development information and reporting into a connected environment designed to support visibility and audit-ready reporting throughout the ESD lifecycle.
               </p>
-              <p className="body-muted" style={{ marginBottom: 0 }}>
-                Maru Online worked on the industry research, product strategy, positioning and brand development behind GrowthIQ—translating a complex business challenge into a clearly differentiated digital product.
+              <p className="body-on-navy" style={{ marginBottom: 0 }}>
+                For GrowthIQ, Maru Online contributed industry research, product strategy, positioning, and brand development. The work involved understanding the market, defining the product direction, and building a clearer foundation for growth.
               </p>
             </div>
           </FadeUp>
 
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            {caseBlocks.map((block) => (
-              <StaggerChild key={block.n} className="h-full">
-                <article className="card-lift h-full rounded-[10px]" style={{ padding: "2rem 1.75rem" }}>
-                  <span style={{ ...cardLabel, color: "var(--color-cyan-ink, var(--color-ink-tertiary))" }}>
-                    {block.n} — {block.label}
-                  </span>
-                  <h3 style={{ ...cardHeading, borderBottom: "2px solid var(--color-cyan)", paddingBottom: "0.75rem", marginBottom: "1rem" }}>
-                    {block.heading}
-                  </h3>
-                  {block.paras.map((p, i) => (
-                    <p
-                      key={i}
-                      className="body-muted"
-                      style={{ marginBottom: i === block.paras.length - 1 ? 0 : "0.875rem" }}
-                    >
-                      {p}
-                    </p>
-                  ))}
-                </article>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
+          {/* Showcase: the dashboard stays in view on the left while the four
+              parts of the work, then the takeaway, scroll past on the right. */}
+          <div className="showcase">
+            <FadeUp className="showcase-media">
+              <ProductShot
+                frameLabel="GrowthIQ · Programme portal"
+                src={dashboard.src}
+                width={dashboard.width}
+                height={dashboard.height}
+                fullSrc={dashboard.fullSrc}
+                fullWidth={dashboard.fullWidth}
+                fullHeight={dashboard.fullHeight}
+                alt={dashboard.alt}
+                caption={dashboard.caption}
+                sizes="(min-width: 1024px) 720px, 100vw"
+              />
+            </FadeUp>
 
-          {/* Genuine GrowthIQ screens, captured from the demo programme. The
-              in-app "SAMPLE DATA" banner stays visible on purpose: every name,
-              score and figure in them is invented. */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6" style={{ marginTop: "2rem" }}>
-            {screens.map((s) => (
-              <FadeUp key={s.src}>
-                <figure className="card-lift rounded-[10px] overflow-hidden" style={{ margin: 0 }}>
-                  <Image
-                    src={s.src}
-                    alt={s.alt}
-                    width={1800}
-                    height={1012}
-                    sizes="(min-width: 768px) 540px, 100vw"
-                    style={{ width: "100%", height: "auto", display: "block" }}
-                  />
-                  <figcaption
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "var(--text-meta)",
-                      fontWeight: 300,
-                      color: "var(--color-ink-tertiary)",
-                      padding: "0.875rem 1.25rem",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {s.caption}
-                  </figcaption>
-                </figure>
-              </FadeUp>
-            ))}
-          </div>
-
-          <FadeUp delay={0.08}>
-            <div
-              className="rounded-[10px]"
-              style={{
-                marginTop: "2rem",
-                padding: "2rem 1.75rem",
-                background: "var(--color-bg-secondary)",
-                borderLeft: "4px solid var(--color-cyan)",
-              }}
-            >
-              <h3 style={cardHeading}>What This Demonstrates</h3>
-              <p className="body-muted" style={{ marginBottom: "0.875rem", maxWidth: "820px" }}>
-                GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and translate that strategy into a distinctive digital experience.
-              </p>
-              <p className="body-muted" style={{ marginBottom: 0, maxWidth: "820px" }}>
-                The platform has recently launched, so measurable post-launch business outcomes are not yet available. As performance data becomes available, we can build on this case study with verified evidence of its impact.
-              </p>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════════
-          SECTION 4 — HOW WE WORK (commitments)
-          bg: secondary
-          ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
-        <div className={innerWide}>
-          <FadeUp>
-            <SectionHead
-              eyebrow="Our commitments"
-              light="Clear Thinking. Defined Work."
-              strong="Practical Outcomes."
-            />
-            <p className={`body-muted ${innerText}`} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              Good implementation depends on more than the technology itself. It requires clear decisions, realistic expectations and a shared understanding of what success looks like.
-            </p>
-          </FadeUp>
-
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-            {commitments.map((card) => (
-              <StaggerChild key={card.heading} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem" }}>
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={card.icon} size={22} />
-                  </span>
-                  <h3 style={cardHeading}>{card.heading}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{card.body}</p>
+            <StaggerParent className="showcase-stack">
+              {caseBlocks.map((block) => (
+                <StaggerChild key={block.n}>
+                  <article className="card-dark flex flex-col">
+                    <div className="card-body">
+                    <div className="card-label-row">
+                      <span className="card-label">{block.n} — {block.label}</span>
+                    </div>
+                    <h3 className="card-title">{block.heading}</h3>
+                    <ul className="prob-list">
+                      {block.points.map((p, i) => (
+                        <li key={i}>
+                          <span className="prob-dot" aria-hidden="true" />
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    </div>
+                  </article>
+                </StaggerChild>
+              ))}
+              <StaggerChild>
+                <div className="card-dark" style={{ borderLeft: "4px solid var(--color-cyan)" }}>
+                  <div className="card-body">
+                  <h3 className="card-title">What this demonstrates</h3>
+                  <p className="card-text" style={{ marginBottom: "0.875rem" }}>
+                    GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and carry that strategy into the platform's brand and identity.
+                  </p>
+                  <p className="card-text" style={{ marginBottom: 0 }}>
+                    The platform has recently launched, so measurable post-launch business outcomes are not yet available. As performance data becomes available, we can build on this case study with verified evidence of its impact.
+                  </p>
+                  </div>
                 </div>
               </StaggerChild>
-            ))}
-          </StaggerParent>
+            </StaggerParent>
+          </div>
         </div>
       </section>
 
@@ -468,74 +323,63 @@ export default function AboutPage() {
           SECTION 5 — AI AND DATA PROTECTION
           bg: surface
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
               eyebrow="Responsible implementation"
-              light="Build with Data Protection"
-              strong="in Mind."
+              light="Build with data protection"
+              strong="in mind."
             />
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className={innerText}>
               <p className="body-muted" style={{ marginBottom: "1rem" }}>
-                AI systems can involve personal information moving between applications, teams and service providers. How that information is collected, accessed, processed, shared and retained needs to be considered as part of the design and implementation process.
+                For AI-enabled systems involving personal information, we consider POPIA-related data protection requirements as part of the design conversation. What that involves depends on the information, how it will be used, and the systems or providers that will access it.
               </p>
-              <p className="body-muted" style={{ marginBottom: "1rem" }}>
-                We take South Africa&apos;s Protection of Personal Information Act (POPIA) into account when assessing and designing AI-enabled business systems. The relevant considerations depend on the information involved, the intended use and the systems connected.
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 400,
+                  fontSize: "var(--text-meta)",
+                  color: "var(--color-ink-tertiary)",
+                  lineHeight: 1.6,
+                  marginBottom: 0,
+                  borderLeft: "3px solid var(--color-cyan)",
+                  paddingLeft: "1rem",
+                }}
+              >
+                Maru Online provides implementation and design support. This is not legal advice, and it does not guarantee POPIA compliance.
               </p>
-              <p className="body-muted" style={{ marginBottom: "2rem" }}>
-                Our approach is to make data protection part of the conversation from the beginning—not an afterthought once a solution is already in place.
-              </p>
-              <div className="flex flex-col items-stretch sm:items-start gap-3">
-                <Button href={ASSESSMENT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                  Take Your Free POPIA Assessment
-                </Button>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontWeight: 300,
-                    fontStyle: "italic",
-                    fontSize: "var(--text-meta)",
-                    color: "var(--color-ink-tertiary)",
-                    margin: 0,
-                  }}
-                >
-                  Receive an informational summary highlighting areas to review.
-                </p>
-              </div>
             </div>
           </FadeUp>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           FINAL CTA
           bg: navy
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ background: "var(--gradient-hero)" }}
+        className="navy-horizon sec sec-chapter relative overflow-hidden"
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.08)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              <span style={{ fontWeight: 700 }}>Let&apos;s Solve the Right Problem.</span>
+              Start with the right problem.
             </h2>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "1rem" }}>
-              Whether you&apos;re exploring AI for the first time or looking to connect systems that aren&apos;t working effectively together, the starting point is understanding what your business needs to achieve.
-            </p>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              Let&apos;s identify the challenge, assess the opportunity and determine what a practical solution could look like.
+              We identify the challenge, assess the opportunity, and outline a practical next step.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Discuss a Business Challenge
+              <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto">
+                Discuss your challenge
               </Button>
-              <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                Take Your Free POPIA Assessment
+              <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto">
+                Take the free POPIA review
               </Button>
             </div>
           </FadeUp>

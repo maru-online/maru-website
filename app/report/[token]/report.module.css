@@ -617,6 +617,15 @@
   line-height: 1.7;
   color: var(--color-ink-primary);
 }
+/* Per-area pointer to the guide (draft, behind GUIDE_REPORT_AREA_LINKS). */
+.areaGuide {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border-card);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-ink-secondary);
+}
 .guideLink {
   font-weight: 600;
   color: var(--color-cyan-ink);
@@ -660,6 +669,13 @@
 /* ── Wider screens ────────────────────────────────────────────────────── */
 
 @media (min-width: 640px) {
+  /* Reading system (3 Nov 2026): the site's card padding and card-text size. */
+  .cardPad {
+    padding: var(--card-pad);
+  }
+  .prose {
+    font-size: var(--text-card);
+  }
   .wrap {
     padding-left: 32px;
     padding-right: 32px;

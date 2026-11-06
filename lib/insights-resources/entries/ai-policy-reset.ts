@@ -9,16 +9,16 @@ import type { ContentEntry } from '../types'
 export const policyReset: ContentEntry = {
   section: 'insights',
   slug: 'south-africa-national-ai-policy-reset-what-businesses-should-do',
-  title: 'South Africa’s national AI policy goes back to the drafting table. What it means for your business.',
+  title: 'South Africa’s national AI policy is being reconsidered. What should businesses do now?',
   summary:
-    'The draft National AI Policy was withdrawn in April and is now due to reach cabinet around March 2027. The law that governs how you use AI today has not changed.',
+    'The policy position may continue to develop, but the existing legal and POPIA obligations relevant to your AI use remain in place. This guide explains what businesses can review while the policy process continues.',
   seoTitle: 'South Africa’s National AI Policy Reset: What Businesses Should Do Now',
   seoDescription:
     'The draft National AI Policy was withdrawn and a revised version is due to cabinet around March 2027. What that means for South African businesses using AI today, and what POPIA already requires.',
   pillar: 'ai-for-business',
   category: 'AI Developments',
   format: 'News',
-  status: 'draft',
+  status: 'draft', // unpublished 6 Nov 2026 (owner decision): dated news, actions duplicated in the AI-landscape insight
   publishedAt: '2026-10-30',
   readTime: '4 min read',
   author: 'Maru Online',
@@ -64,7 +64,7 @@ export const policyReset: ContentEntry = {
       t: 'ul',
       items: [
         '**POPIA already applies.** If a client’s or employee’s personal information goes into an AI tool, POPIA’s conditions for lawful processing apply, including security safeguards, purpose limits and how long you keep information. Section 71 restricts decisions made solely by automated profiling. A national AI policy being late does not suspend any of this.',
-        '**Regulator guidance is still thin.** As at March 2026, commentators reported that the Information Regulator had published no guidance on AI risk or on section 71. Guidance may follow. It is not a reason to wait.',
+        '**Regulator guidance may follow.** We are not aware of Information Regulator guidance on AI risk or on section 71. Check the Regulator’s website for anything issued since this was written. It is not a reason to wait.',
         '**Boards are being pointed the same way.** King V, the voluntary governance code published on 31 October 2025, applies to financial years starting on or after 1 January 2026. Under its technology practices, boards are expected to ensure human oversight and override for automated technologies, in proportion to the risk. It is aimed at governing bodies, but it is a sensible benchmark for any business.',
       ],
     },

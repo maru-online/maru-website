@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import { FadeUp } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
 import {
@@ -13,6 +12,7 @@ import {
   type PillarSlug,
 } from "@/lib/insights-resources/content";
 import { InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
+import GuidePromo from "@/components/insights-resources/GuidePromo";
 
 // Full listing for one offering: /insights-resources/ai-insights and
 // /insights-resources/guides. Category (pillar) filter is plain links driven by
@@ -41,8 +41,7 @@ export async function generateMetadata(props: { params: Promise<{ section: strin
   };
 }
 
-const outerPad = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner"; // same 1120px column as every other page (was 1100px)
 
 export default async function SectionListingPage(props: {
   params: Promise<{ section: string }>;
@@ -55,18 +54,20 @@ export default async function SectionListingPage(props: {
 
   const s = SECTIONS[key];
   const active = PILLARS.find((p) => p.slug === pillar)?.slug as PillarSlug | undefined;
-  const all = getEntries(key);
+  const sectionEntries = getEntries(key);
+  // The downloadable guide shows as a promo, not a card (5 Nov 2026).
+  const gatedGuide = sectionEntries.find((e) => e.access === "gated");
+  const all = sectionEntries.filter((e) => e.access !== "gated");
   const entries = active ? all.filter((e) => e.pillar === active) : all;
+  const showPromo = !!gatedGuide && (!active || active === gatedGuide.pillar);
   const base = `/insights-resources/${s.segment}`;
   const dark = key === "insights";
 
   return (
     <>
       <section
-        className={`relative overflow-hidden ${outerPad} pt-40 md:pt-44 pb-16`}
-        style={{ background: "var(--gradient-hero)" }}
+        className="page-hero navy-horizon hero-grid relative overflow-hidden"
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <nav aria-label="Breadcrumb" style={{ marginBottom: "1.5rem", fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)" }}>
@@ -81,7 +82,7 @@ export default async function SectionListingPage(props: {
         </div>
       </section>
 
-      <section className={`${outerPad} py-16`} style={{ background: dark ? "var(--color-bg-navy-deep)" : "var(--gradient-surface)" }}>
+      <section className={`sec ${dark ? "navy-horizon" : "flow-ground"}`}>
         <div className={innerWide}>
           <nav aria-label="Filter by category" className="flex flex-wrap gap-2" style={{ marginBottom: "2.5rem" }}>
             {[{ slug: undefined, label: "All" }, ...PILLARS].map((p) => {
@@ -95,7 +96,7 @@ export default async function SectionListingPage(props: {
                   style={{
                     border: `1px solid ${dark ? "rgba(250,250,248,0.25)" : "var(--color-border-card)"}`,
                     background: on ? "var(--color-cyan)" : "transparent",
-                    color: on ? "var(--color-ink-on-gold, #0D1B2A)" : dark ? "var(--color-ink-inverted)" : "var(--color-ink-secondary)",
+                    color: on ? "var(--color-ink-on-gold)" : dark ? "var(--color-ink-inverted)" : "var(--color-ink-secondary)",
                   }}
                 >
                   {p.label}
@@ -104,6 +105,11 @@ export default async function SectionListingPage(props: {
             })}
           </nav>
 
+          {showPromo && (
+            <div style={{ marginBottom: "2.5rem" }}>
+              <GuidePromo location="resources-listing" />
+            </div>
+          )}
           {entries.length ? (
             <div className={`grid grid-cols-1 ${dark ? "md:grid-cols-3" : "sm:grid-cols-2"} gap-6`}>
               {entries.map((e) => (

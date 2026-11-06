@@ -8,23 +8,23 @@ import type { ContentEntry } from '../types'
 export const section71: ContentEntry = {
   section: 'insights',
   slug: 'popia-section-71-automated-decisions-ai-business',
-  title: 'When AI recommends and a person just approves: section 71 for everyday business decisions',
+  title: 'When AI recommends and a person approves: understanding section 71 in everyday business decisions.',
   summary:
-    'POPIA restricts decisions made solely by automated profiling. For a business using AI to screen, score or rank people, the word “solely” does a lot of work.',
+    'For businesses that use AI to screen, score, or rank people, whether a decision is made “solely” by automated processing is material under section 71. This guide explains the issue in practical terms.',
   seoTitle: 'POPIA Section 71 and AI: Automated Decisions in South African Business',
   seoDescription:
     'What POPIA section 71 means when your business uses AI to screen candidates, score customers or rate staff, and a five-question test to run before AI touches a decision about a person.',
   pillar: 'popia-data-governance',
   category: 'AI in Business',
   format: 'Analysis',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '6 min read',
   author: 'Maru Online',
   image: '/images/insights-resources/popia-data-protection.jpg',
   imageAlt: 'A laptop showing a data protection screen beside a privacy document, a notebook and printed charts on a desk.',
   legalNote: true,
-  related: ['south-africa-national-ai-policy-reset-what-businesses-should-do', 'ai-and-popia'],
+  related: ['south-african-businesses-using-ai-gap-is-structure', 'ai-and-popia'],
   inShort: [
     'Section 71 limits decisions with legal or substantial effects on a person that rest solely on automated processing meant to profile them.',
     'Using AI to screen applicants, score customers or rate staff can fall in scope. A score that only decides which enquiry gets a call first is unlikely to.',
@@ -33,7 +33,7 @@ export const section71: ContentEntry = {
   body: [
     {
       t: 'p',
-      text: 'More South African businesses now use AI for tasks that sit close to decisions about people: shortlisting CVs, flagging risky customers, ranking leads, scoring staff. Section 71 of POPIA is the provision most directly aimed at this, and few owners know it is there.',
+      text: 'More South African businesses now use AI for tasks that sit close to decisions about people: shortlisting CVs, flagging risky customers, ranking leads, scoring staff. Section 71 of POPIA is the provision most directly aimed at this.',
     },
     { t: 'h2', text: 'What section 71 says' },
     {
@@ -71,7 +71,7 @@ export const section71: ContentEntry = {
     },
     {
       t: 'p',
-      text: 'We are not aware of published guidance from the Information Regulator, or of court decisions, on how “solely” will be read in practice. As at March 2026, commentators reported none. Treat it as a risk judgement, not a safe harbour. The sound reading is the one law firms advising employers are already giving: AI output is an input to a human decision, and the person deciding must be able to explain the reasons and be empowered to override.',
+      text: 'We are not aware of published guidance from the Information Regulator, or of court decisions, on how “solely” will be read in practice. Check the Regulator’s website for anything issued since this was written. Treat it as a risk judgement, not a safe harbour. Law firms advising employers describe the same approach: AI output is an input to a human decision, and the person deciding must be able to explain the reasons and be empowered to override.',
     },
     { t: 'h2', text: 'A five-question test before AI touches a decision about a person' },
     {

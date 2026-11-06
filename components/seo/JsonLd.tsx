@@ -29,7 +29,7 @@ export function OrganizationJsonLd() {
         url: siteConfig.url,
         email: siteConfig.contact.email,
         description:
-          'AI implementation consultancy for South African SMEs. We find where manual processes cost time and money, then build AI-powered workflows that cut those costs.',
+          'AI implementation consultancy for South African businesses. We design and implement practical AI-enabled workflows around the tools teams already use.',
         areaServed: { '@type': 'Country', name: 'South Africa' },
         // Region and country only: no street address and no telephone in
         // public structured data (copy handover entry 18; footer shows
@@ -45,7 +45,7 @@ export function OrganizationJsonLd() {
           'AI implementation',
           'Workflow automation',
           'Business process optimisation',
-          'AI readiness assessment',
+          'POPIA-aware AI implementation',
         ],
       }}
     />

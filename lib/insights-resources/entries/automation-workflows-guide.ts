@@ -4,9 +4,9 @@ import type { ContentEntry } from '../types'
 export const automationGuide: ContentEntry = {
   section: 'resources',
   slug: 'automation-workflows-guide-reduce-manual-work',
-  title: 'Automation & Workflows Guide: from repeated admin to a reliable process',
+  title: 'Automation and workflows guide: turn repeated administration into a reliable process.',
   summary:
-    'How to choose which process to automate first, design it with exceptions and a human check, and review it a month later.',
+    'Identify repetitive work, map the current process, and design a workflow that is easier to use, monitor, and improve.',
   seoTitle: 'Business Process Automation Guide: Reduce Manual Work in Your Workflows',
   seoDescription:
     'How to choose which process to automate first, document it, design exceptions and human checks, and measure the time saved. A practical guide for South African businesses.',
@@ -14,7 +14,7 @@ export const automationGuide: ContentEntry = {
   category: 'Automation & Workflows',
   resourceType: 'Guide',
   access: 'open',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '9 min read',
   author: 'Maru Online',
@@ -23,13 +23,13 @@ export const automationGuide: ContentEntry = {
   related: ['ai-integration-guide-connect-ai-existing-systems', 'south-african-businesses-using-ai-gap-is-structure'],
   inShort: [
     'Choose a task that repeats often, takes real time and follows rules you can write down.',
-    'Document and settle the process first. Do not automate a mess.',
+    'Document and settle the process first. Do not automate a process that is not settled.',
     'Design the exceptions and the human check before the happy path, then measure the time saved.',
   ],
   body: [
     {
       t: 'p',
-      text: 'Most businesses have a handful of tasks that eat hours every week without anyone deciding they should: chasing quotes, retyping invoices, copying details between systems, building the same report. Automating them can give those hours back. Done badly, it just makes mistakes faster.',
+      text: 'Most businesses have a handful of tasks that consume hours every week without anyone deciding they should: chasing quotes, retyping invoices, copying details between systems, building the same report. Automating them can give those hours back. Poorly designed automation repeats errors at speed.',
     },
     {
       t: 'callout',
@@ -59,7 +59,7 @@ export const automationGuide: ContentEntry = {
     { t: 'h2', text: '2. Document the process as it is' },
     {
       t: 'p',
-      text: 'Write the current steps in order, with who does each, which system it happens in and what a good result looks like. If two people do it two different ways, settle on one way first. Automation fixes a process in place, and a process nobody agrees on will be fixed in the wrong shape.',
+      text: 'Write the current steps in order, with who does each, which system it happens in and what a good result looks like. If two people do it two different ways, settle on one way first. Automation locks a process in place, and a process nobody agrees on will be locked in the wrong shape.',
     },
     { t: 'h2', text: '3. Design the flow: trigger, steps, checks, result' },
     {

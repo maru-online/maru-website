@@ -16,25 +16,39 @@ import Link from "next/link";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { calculateScore, SCORING_NOTE, type AssessmentAnswers, type ScoreResult } from "@/lib/assessment/scoring";
 import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questions";
-import { BGPattern } from "@/components/ui/bg-pattern";
+import DotField from "@/components/ui/DotField";
 import Button from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
-import { GUIDE_LIVE, GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guides/config";
+import { GUIDE_LIVE, GUIDE_REQUESTED_STORAGE_KEY, guideHref } from "@/lib/guides/config";
 
 // ── Questions ──────────────────────────────────────────────────────────────
 // Approved copy (Addendum 02 item B) lives in lib/assessment/questions.ts so
 // scoring and the synthesis prompt read the same wording the visitor sees.
 
 const questions = ASSESSMENT_QUESTIONS;
-const areas = ASSESSMENT_AREAS.map((a, i) => ({ index: i + 1, label: a.label }));
+// Intro descriptions per area ("Maru Online — Revised Website Copy" v1.0,
+// section 9). Keyed by area key so they stay with the right area if the
+// question order changes.
+const AREA_DESCRIPTIONS: Record<string, string> = {
+  ai_use:        "How AI is used and where a person reviews or controls the outcome.",
+  data_location: "Where client information is stored and shared.",
+  access:        "Who can access client information.",
+  permission:    "How people are informed and how relevant permission is handled.",
+  incident:      "What happens if there is a data or information-handling incident.",
+};
+const areas = ASSESSMENT_AREAS.map((a, i) => ({
+  index: i + 1,
+  label: a.label,
+  description: AREA_DESCRIPTIONS[a.key] ?? "",
+}));
 
 // ── Status display ─────────────────────────────────────────────────────────
 
 const statusConfig = {
   critical:    { label: "Critical gap",    colour: "#E53E3E", bg: "#FFF5F5", border: "#FC8181" },
   significant: { label: "Significant gap", colour: "#C05621", bg: "#FFFAF0", border: "#F6AD55" },
-  partial:     { label: "Partial",         colour: "#2F855A", bg: "#F0FFF4", border: "#68D391" },
-  strong:      { label: "Strong",          colour: "#2B6CB0", bg: "#EBF8FF", border: "#63B3ED" },
+  partial:     { label: "Partly in place", colour: "#2F855A", bg: "#F0FFF4", border: "#68D391" },
+  strong:      { label: "Largely in place", colour: "#2B6CB0", bg: "#EBF8FF", border: "#63B3ED" },
 };
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -61,6 +75,7 @@ function AssessmentWizard() {
   // POPIA s69: direct marketing needs a separate opt-in. Unticked by default,
   // and the report is sent whether or not it is ticked (Addendum 01, item D).
   const [marketingConsent, setMarketingConsent] = useState(false);
+  const [followUpConsent, setFollowUpConsent] = useState(false);
   const [submitting, setSubmitting]   = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [progress, setProgress]       = useState(0);
@@ -140,6 +155,7 @@ function AssessmentWizard() {
             email: email.trim(),
             website: website.trim() || undefined,
             marketingConsent,
+            followUpConsent,
             recaptchaToken,
           }),
           signal: controller.signal,
@@ -173,15 +189,10 @@ function AssessmentWizard() {
   return (
     <div
       className="relative min-h-screen flex items-center text-ink-primary"
-      style={{ background: "var(--gradient-surface)" }}
+      style={{ background: "var(--color-bg-secondary)" }}
     >
-      <BGPattern
-        variant="grid"
-        mask="none"
-        size={40}
-        fill="rgba(61, 184, 198, 0.05)"
-        className="z-0"
-      />
+      {/* Light ground with faint dots (Open Flow, 4 Nov 2026; was a grid). */}
+      <DotField tone="light" mask="edges" coverage={0.42} intensity={0.6} seed={4} className="z-0" />
 
       {/* Progress bar */}
       <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-bg-secondary">
@@ -192,24 +203,30 @@ function AssessmentWizard() {
       </div>
 
       <div className="relative z-10 w-full max-w-2xl mx-auto px-6 py-20">
-        <div className="card-lift p-8 md:p-12">
+        <div className="card-lift card-static p-8 md:p-12">
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">POPIA Assessment</span>
+            <span className="label-eyebrow label-eyebrow-ink">Free, informational POPIA review</span>
             <h1 className="text-3xl font-semibold text-navy leading-tight mb-4 border-none">
-              Find out where your client information goes when your team uses AI.
+              Understand how your business handles information when your team uses AI.
             </h1>
-            <p className="body-muted text-lg mb-8 leading-relaxed">
-              10 questions across 5 areas. About 5 minutes.
+            <p className="body-muted text-lg mb-3 leading-relaxed">
+              Answer 10 questions in about five minutes to receive a report showing your score across five areas, with actions to prioritise.
+            </p>
+            <p className="body-muted text-base mb-2 leading-relaxed">
+              Designed for South African businesses exploring or already using AI.
+            </p>
+            <p className="text-ink-tertiary text-sm mb-8 leading-relaxed">
+              This is an informational review, not legal advice or a formal compliance opinion.
             </p>
 
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-6">
-              <p className="text-ink-primary text-base font-medium leading-relaxed mb-3">
-                You&apos;ll get a short report showing how your business rates in each of the five areas, and what to fix first.
-              </p>
-              <p className="text-ink-primary text-base font-medium leading-relaxed">
-                Answer based on how things actually work today — not how you want them to work. The more honest your answers, the more useful your result.
+              <h2 className="text-ink-primary text-base font-semibold leading-relaxed mb-2 border-none">
+                Answer based on what happens today.
+              </h2>
+              <p className="text-ink-primary text-base leading-relaxed">
+                Answer for how your business works today, not how you would like it to work. The more honest your answers, the more useful your result will be.
               </p>
             </div>
 
@@ -220,17 +237,29 @@ function AssessmentWizard() {
                   key={a.index}
                   className="flex items-center gap-3 bg-bg-canvas border border-border-default rounded-lg px-4 py-3"
                 >
-                  <span className="text-xs font-mono text-cyan-ink w-4">{a.index}</span>
-                  <span className="text-ink-secondary text-sm">{a.label}</span>
+                  <span className="text-xs font-mono text-cyan-ink w-4 self-start pt-0.5">{a.index}</span>
+                  <span className="flex flex-col">
+                    <span className="text-ink-primary text-sm font-medium">{a.label}</span>
+                    {a.description && (
+                      <span className="text-ink-secondary text-sm">{a.description}</span>
+                    )}
+                  </span>
                 </div>
               ))}
             </div>
+
+            <h2 className="text-ink-primary text-base font-semibold leading-relaxed mb-2 border-none">
+              What your report contains.
+            </h2>
+            <p className="body-muted text-base mb-8 leading-relaxed">
+              Your report will highlight the areas that may need attention and suggest which actions to prioritise first. It is intended to help you identify questions for further investigation.
+            </p>
 
             <Button
               onClick={handleStart}
               variant="primary"
             >
-              Start the assessment
+              Start the free review
             </Button>
           </div>
         )}
@@ -249,7 +278,7 @@ function AssessmentWizard() {
         {/* ── RESULTS PREVIEW ───────────────────────────────────────────── */}
         {step === "results" && scoreResult && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Your result</span>
+            <span className="label-eyebrow label-eyebrow-ink">Your result</span>
             <h2 className="text-2xl font-semibold text-navy mb-2 border-none">
               {scoreResult.label}
             </h2>
@@ -282,10 +311,10 @@ function AssessmentWizard() {
 
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-8">
               <p className="text-ink-primary font-semibold mb-2">
-                Your detailed report goes deeper.
+                Your report goes deeper.
               </p>
               <p className="body-muted text-base leading-relaxed">
-                It breaks down each area — what your answers reveal, the specific issues, and a recommended approach for your stage of business. Enter your details below to receive it.
+                It breaks down each area: what your answers reveal, the specific issues, and a recommended approach for your stage of business. Enter your details below to receive it.
               </p>
             </div>
 
@@ -294,15 +323,15 @@ function AssessmentWizard() {
               variant="primary"
               className="w-full"
             >
-              Get my free detailed report
+              Get my free report
             </Button>
 
             {/* Copy handover entry 19 §11 (approved 8 Oct), verbatim. */}
             {GUIDE_LIVE && !hasGuide && (
               <p className="body-muted text-sm leading-relaxed mt-6 mb-0 text-center">
                 Want the basics behind these questions?{" "}
-                <Link href={GUIDE_PATH} className="text-cyan-ink underline hover:no-underline">
-                  Read the guide.
+                <Link href={guideHref("review")} className="text-cyan-ink underline hover:no-underline">
+                  Get the guide.
                 </Link>
               </p>
             )}
@@ -312,12 +341,12 @@ function AssessmentWizard() {
         {/* ── EMAIL GATE ────────────────────────────────────────────────── */}
         {step === "gate" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Your report</span>
+            <span className="label-eyebrow label-eyebrow-ink">Your report</span>
             <h2 className="text-2xl font-semibold text-navy mb-2 border-none">
               Where should we send it?
             </h2>
             <p className="body-muted text-base mb-8 leading-relaxed">
-              We will email you a link to your personalised report — a structured page showing your findings across all five areas with a recommended next step.
+              We will email you a link to your report: a page showing your findings across all five areas, with actions to prioritise.
             </p>
 
             <form onSubmit={handleGateSubmit} className="space-y-5">
@@ -359,6 +388,20 @@ function AssessmentWizard() {
                 />
               </div>
 
+              {/* Follow-up consent (6 Nov 2026). Separate and unticked: ticking is
+                  never needed to get the report, and only a tick lets us send the
+                  one follow-up email about the results (POPIA s69, no silent opt-in). */}
+              <label className="flex items-start gap-3 cursor-pointer min-h-[44px] py-1">
+                <Checkbox
+                  checked={followUpConsent}
+                  onChange={(e) => setFollowUpConsent(e.target.checked)}
+                  className="mt-0.5"
+                />
+                <span className="text-sm text-ink-secondary leading-relaxed">
+                  Email me once, in about two days, to ask whether I would like to talk through my results.
+                </span>
+              </label>
+
               {/* Addendum 01 item D — approved 26 Sep 2026. Separate, opt-in,
                   unticked: only a tick adds the contact to the marketing list. */}
               <label className="flex items-start gap-3 cursor-pointer min-h-[44px] py-1">
@@ -387,11 +430,11 @@ function AssessmentWizard() {
 
               {/* POPIA s18 notice at the point of collection (Addendum 01 D). */}
               <p className="text-ink-tertiary text-xs text-center leading-relaxed">
-                We use your name and email to send your report and to follow up about it. Nothing else. Some of our providers process information outside South Africa, as our{" "}
+                We use your name and email to send your report. If you tick the first box, we also use them to email you once about your results. Some of our providers process information outside South Africa, as our{" "}
                 <Link href="/privacy-policy" className="text-cyan-ink underline hover:no-underline">
                   Privacy Policy
                 </Link>{" "}
-                explains. By sending your report request, you agree to this.
+                explains.
               </p>
             </form>
           </div>
@@ -407,20 +450,20 @@ function AssessmentWizard() {
             </div>
 
             <h2 className="text-2xl font-semibold text-navy mb-3 border-none">
-              Your report is on its way.
+              Thank you.
             </h2>
-            <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
-              Check your inbox for a link to your report: your result in each of the five areas and a recommended next step.
+            <p className="body-muted text-base leading-relaxed mb-4 max-w-md mx-auto">
+              {followUpConsent
+                ? "Your report is on its way. We will reach out to you by email in about two days to see if you would like to talk through your results."
+                : "Your report is on its way."}
             </p>
-
-            <div className="bg-bg-canvas border border-border-default rounded-lg p-6 text-left mb-8">
-              <p className="text-ink-primary font-semibold text-base mb-2">
-                While you wait:
-              </p>
-              <p className="body-muted text-base leading-relaxed">
-                The report will invite you to request a proposal. We then contact you to arrange a short call at a time that suits you, where we go through your assessment together and go deeper on what we find. If there&apos;s no clear opportunity, we&apos;ll tell you.
-              </p>
-            </div>
+            <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
+              {followUpConsent ? "If you would like to get in touch sooner, email us at" : "If you would like to talk through your results, email us at"}{" "}
+              <a href="mailto:hello@maruonline.com" className="text-cyan-ink underline hover:no-underline">
+                hello@maruonline.com
+              </a>
+              .
+            </p>
 
             <Link href="/" className="text-cyan-ink text-sm hover:underline">
               ← Back to Maru Online

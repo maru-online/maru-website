@@ -4,9 +4,9 @@ import type { ContentEntry } from '../types'
 export const integrationGuide: ContentEntry = {
   section: 'resources',
   slug: 'ai-integration-guide-connect-ai-existing-systems',
-  title: 'AI Integration Guide: connecting AI to the systems you already use',
+  title: 'AI integration guide: connect AI to the systems you already use.',
   summary:
-    'How to choose a first AI workflow, map the systems and data it touches, and connect it so a person stays in control.',
+    'Learn how to choose a first AI workflow, map the systems and information it touches, and connect it so a person remains appropriately involved.',
   seoTitle: 'AI Integration Guide for South African Businesses: Connect AI to Your Existing Systems',
   seoDescription:
     'A practical guide to choosing a first AI workflow, mapping the systems and data involved, choosing how to connect them, and building in a human check and POPIA from the start.',
@@ -14,11 +14,12 @@ export const integrationGuide: ContentEntry = {
   category: 'AI Integration Guides',
   resourceType: 'Guide',
   access: 'open',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '9 min read',
   author: 'Maru Online',
   image: '/images/insights-resources/ai-human-oversight.jpg',
+  imageTone: 'standard',
   imageAlt: 'A man working on a laptop beside a translucent display of a wireframe head and process diagrams.',
   legalNote: true,
   related: ['automation-workflows-guide-reduce-manual-work', 'ai-readiness-guide-south-african-business', 'popia-section-71-automated-decisions-ai-business'],
@@ -118,7 +119,7 @@ export const integrationGuide: ContentEntry = {
     { t: 'h2', text: '7. Pilot small, then review' },
     {
       t: 'p',
-      text: 'Run the workflow on a small share of real work for a few weeks. Record the hours a week the task took before, and after. Record errors and exceptions. About a month in, review what works, fix what does not and decide whether to widen it. A pilot sized to what you can afford to get wrong also suits a business watching its cash flow.',
+      text: 'Run the workflow on a small share of real work for a few weeks. Record the hours a week the task took before, and after. Record errors and exceptions. About a month in, review what works, correct what does not and decide whether to widen it. A pilot sized to what you can afford to get wrong also suits a business watching its cash flow.',
     },
     { t: 'h2', text: 'Common ways integrations go wrong' },
     {

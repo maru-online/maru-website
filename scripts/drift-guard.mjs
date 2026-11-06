@@ -14,6 +14,8 @@
  *   4. Components that nothing imports. Matched on PATH, not basename —
  *      a basename check reported the stale components/ui/CookieConsent.tsx
  *      as live because components/CookieConsent.tsx shares its name.
+ *   5. Retired terminology in visible copy ("free assessment", "diagnostic"
+ *      era wording, hype phrases). Comment lines are ignored.
  */
 
 import { readdirSync, readFileSync, statSync } from "node:fs";
@@ -52,12 +54,22 @@ const UTIL = "(?:bg|text|border|ring|fill|stroke|from|via|to|divide|outline|shad
 const EXEMPT = {
   hex: [
     "components/ui/Glyph.tsx",      // icon geometry, no colour decisions
-    "app/design-system/page.tsx",   // the swatch sheet must print literal values
     "app/global-error.tsx",         // replaces the root layout — no globals.css, so literals only
     "app/opengraph-image.tsx",      // Satori renders outside the DOM — CSS variables do not resolve
   ],
   stock: [],
+  // Legal text is revised with the owner's lawyer, not in copy passes.
+  terms: ["app/terms-conditions/page.tsx"],
+  // v2 templates stay for reports emailed before 26 Sep 2026 (deleted after 12 months, per the Privacy Policy).
+  v2: ["lib/assessment/reportTemplates.ts"],
 };
+
+/** Wording retired from the site (6 Nov 2026). Matched case-insensitively on non-comment lines. */
+const RETIRED_TERMS = [
+  "free assessment", "operations assessment", "operations diagnostic", "ai readiness assessment",
+  "cutting-edge", "age of ai", "cut costs", "ai that actually", "marketing funnel",
+  "retainer", "fixed-scope", "digital audit", "discovery call", "book a call",
+];
 
 // ── Walk ─────────────────────────────────────────────────────────────────────
 
@@ -143,6 +155,23 @@ for (const file of componentFiles) {
   if (!imported) fail("unimported", file, "nothing imports this file — delete it");
 }
 
+// ── 5. Retired terminology in visible copy ───────────────────────────────────
+
+const isComment = (line) => /^\s*(\/\/|\*|\/\*|\{\/\*)/.test(line);
+
+for (const [file, src] of read) {
+  if (EXEMPT.terms.includes(file) || EXEMPT.v2.includes(file)) continue;
+  const lines = src.split("\n");
+  lines.forEach((line, i) => {
+    if (isComment(line)) return;
+    // Ignore trailing line comments.
+    const lower = line.replace(/\s\/\/.*$/, "").toLowerCase();
+    for (const term of RETIRED_TERMS) {
+      if (lower.includes(term)) fail("retired-term", file, `line ${i + 1}: "${term}" is retired wording`);
+    }
+  });
+}
+
 // ── Report ───────────────────────────────────────────────────────────────────
 
 if (failures.length === 0) {
@@ -160,6 +189,7 @@ const HEADINGS = {
   "phantom-class": "Colour classes with no matching token (render as nothing)",
   "stock-palette": "Default Tailwind palette colours",
   unimported: "Components nothing imports",
+  "retired-term": "Retired terminology in visible copy",
 };
 
 console.error("❌ Drift guard failed.\n");

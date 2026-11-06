@@ -3,296 +3,304 @@
 /**
  * DisconnectDiagram — the "what Maru actually does" picture.
  *
- * Five systems a South African SME already runs, sitting isolated. On scroll
- * they converge through a single Maru hub into one live view. It states the
- * business model — we connect what you already have — without a sentence of
- * explanation, and it shows the outcome rather than the internal process.
+ * Navy-stage treatment (3 Nov 2026), carried over from the ESD consistency
+ * diagram so both diagrams read as one family: grain and grid on a navy stage,
+ * cyan links, a gold hub, and light that keeps running along the lines.
  *
- * Used once per page, at section scale. Two layouts share one node list:
- * horizontal convergence on >=sm, vertical stack below.
+ * Five systems a South African SME already runs start out loose (tilted,
+ * dashed, tagged as exports and attachments). On scroll they straighten and
+ * tick, the links draw into one gold hub ("connected"), and a single line
+ * runs out to co-ordinated access. Then white dots keep flowing in and gold dots
+ * flow out.
  *
- * Motion is scroll-triggered once, then settles. Under prefers-reduced-motion
- * the connected state renders immediately with no animation.
+ * Two layouts share one node list: horizontal convergence on >=sm, vertical
+ * below. Under prefers-reduced-motion the final state renders at once with no
+ * animation and no travelling dots.
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-type Node = { id: string; label: string };
+type Node = { id: string; label: string; badge: string; r: number; dx: number };
 
 const NODES: Node[] = [
-  { id: 'crm',      label: 'CRM' },
-  { id: 'email',    label: 'EMAIL' },
-  { id: 'sheets',   label: 'SPREADSHEETS' },
-  { id: 'invoices', label: 'INVOICING' },
-  { id: 'whatsapp', label: 'WHATSAPP' },
+  { id: 'crm',      label: 'CRM',          badge: 'export', r: -3.2, dx: -10 },
+  { id: 'email',    label: 'EMAIL',        badge: 'inbox',  r: 2.6,  dx: 12 },
+  { id: 'sheets',   label: 'SPREADSHEETS', badge: '.xlsx',  r: -1.8, dx: -4 },
+  { id: 'invoices', label: 'INVOICING',    badge: '.pdf',   r: 3.4,  dx: 9 },
+  { id: 'whatsapp', label: 'WHATSAPP',     badge: 'chat',   r: -2.6, dx: -12 },
 ];
 
-/** Desktop geometry — viewBox 0 0 1000 400 */
-const D = {
-  boxW: 176,
-  boxH: 46,
-  boxX: 24,
-  /** vertical centre of each source box, evenly distributed */
-  rowY: [56, 128, 200, 272, 344],
-  hubX: 520,
-  hubY: 200,
-  hubR: 13,
-  outX: 742,
-  outY: 148,
-  outW: 234,
-  outH: 104,
+/** Reveal stages, applied as classes on the stage in this order. */
+const STAGES = ['cd-in', 'cd-links', 'cd-hub', 'cd-outlinks', 'cd-outs'] as const;
+/** ms after start for each stage. */
+const STAGE_AT = [150, 900, 1900, 2600, 3300];
+const DOTS_AT = 3900;
+
+type Geo = {
+  m: boolean;
+  ib: { x: number; w: number; h: number };
+  inCy: (i: number) => number;
+  hub: { x: number; y: number };
+  ob: { x: number; y: number; w: number; h: number };
+};
+
+const DESK: Geo = {
+  m: false,
+  ib: { x: 40, w: 230, h: 56 },
+  inCy: (i) => 70 + 80 * i,
+  hub: { x: 560, y: 230 },
+  ob: { x: 712, y: 178, w: 262, h: 104 },
 };
 
 /**
- * Mobile geometry — viewBox 0 0 340 420.
- *
- * Third iteration. The first was 340×620 (73% of a phone screen). The second
- * kept five free curves converging on one point, which tangled: the strands
- * crossed each other inside a narrow channel and read as noise.
- *
- * This one routes every feed into a shared vertical trunk instead. Each box
- * leaves horizontally at its own height and turns down onto the trunk, so no
- * two strands can ever cross — five feeds joining one rail into the hub.
- *
- * The composition is deliberately asymmetric: the stack sits left, the trunk
- * and hub run down the right, and the outcome panel is offset right of the
- * boxes, so the eye travels top-left to bottom-right rather than down a centre
- * line.
- *
- * rowY values are box TOP edges; centres are rowY + boxH / 2.
+ * Mobile: free curves into one point tangle in a narrow column, so every feed
+ * leaves its box horizontally, turns a quarter-circle onto one shared trunk on
+ * the right, and runs down into the hub. No two strands cross.
  */
-const M = {
-  boxW: 196,
-  boxH: 36,
-  colX: 12,
-  rowY: [8, 58, 108, 158, 208],
-  /** x of the shared vertical trunk every feed turns onto */
-  trunkX: 252,
-  /** radius of the elbow where a feed turns down onto the trunk */
-  elbow: 14,
-  hubX: 252,
-  hubY: 300,
-  hubR: 12,
-  outX: 44,
-  outY: 344,
-  outW: 284,
-  outH: 66,
+const MOB: Geo = {
+  m: true,
+  ib: { x: 16, w: 214, h: 42 },
+  inCy: (i) => 30 + 54 * i,
+  hub: { x: 300, y: 338 },
+  ob: { x: 30, y: 432, w: 300, h: 96 },
 };
+const TRUNK_ELBOW = 14;
 
-/** Travelling pulses along each link, mounted once the diagram is live. */
-function Pulses({ prefix }: { prefix: 'd' | 'm' }) {
-  const ids = [0, 1, 2, 3, 4].map((i) => `dd-${prefix}-link-${i}`);
+function paths(g: Geo) {
+  const { m, ib, inCy, hub, ob } = g;
+  const e = TRUNK_ELBOW;
+  const inD = NODES.map((_, i) => {
+    const cy = inCy(i);
+    const sx = ib.x + ib.w;
+    return m
+      ? `M${sx} ${cy} L${hub.x - e} ${cy} Q${hub.x} ${cy} ${hub.x} ${cy + e} L${hub.x} ${hub.y - 16}`
+      : `M${sx} ${cy} C${sx + 130} ${cy} ${hub.x - 110} ${hub.y} ${hub.x - 16} ${hub.y}`;
+  });
+  const midX = ob.x + ob.w / 2;
+  const outD = m
+    ? `M${hub.x} ${hub.y + 16} C${hub.x} ${hub.y + 50} ${midX} ${ob.y - 40} ${midX} ${ob.y}`
+    : `M${hub.x + 16} ${hub.y} L${ob.x} ${hub.y}`;
+  return { inD, outD };
+}
+
+function Diagram({ g, dots, id }: { g: Geo; dots: boolean; id: 'd' | 'm' }) {
+  const { m, ib, inCy, hub, ob } = g;
+  const { inD, outD } = paths(g);
+  const tx = ob.x + (m ? 24 : 28);
+  const cy2 = ob.y + ob.h / 2;
+  const gradId = `cd-gout-${id}`;
+
   return (
-    <g aria-hidden="true">
-      {ids.map((id, i) => (
-        <circle key={id} className="dd-pulse" r={prefix === 'd' ? 3.5 : 3} opacity="0">
-          <animateMotion dur="2.4s" begin={`${1.7 + i * 0.4}s`} repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
-            <mpath href={`#${id}`} />
-          </animateMotion>
-          <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.15;0.85;1" dur="2.4s" begin={`${1.7 + i * 0.4}s`} repeatCount="indefinite" />
-        </circle>
+    <svg
+      className={`cd-svg ${m ? 'cd-mobile' : 'cd-desktop'}`}
+      viewBox={m ? '0 0 360 540' : '0 20 1000 420'}
+      role="img"
+      aria-label="Five business systems — CRM, email, spreadsheets, invoicing and WhatsApp — connected through one point that shares information between them, into co-ordinated access, with AI co-ordinating within rules you set."
+    >
+      <defs>
+        <linearGradient
+          id={gradId}
+          gradientUnits="userSpaceOnUse"
+          x1={hub.x}
+          y1={hub.y}
+          x2={m ? ob.x + ob.w / 2 : ob.x}
+          y2={m ? ob.y : hub.y}
+        >
+          <stop offset="0" stopColor="#D6B76A" />
+          <stop offset="1" stopColor="#3DB8C6" />
+        </linearGradient>
+      </defs>
+
+      {/* faint tracks, always visible */}
+      {inD.map((d, i) => <path key={`t${i}`} className="cd-track" d={d} />)}
+      <path className="cd-track" d={outD} />
+
+      {/* the "before" stubs that lead nowhere */}
+      {NODES.map((n, i) => {
+        const cy = inCy(i);
+        return (
+          <path
+            key={`s-${n.id}`}
+            className="cd-stub"
+            d={`M${ib.x + ib.w} ${cy} L${ib.x + ib.w + (m ? 18 : 34)} ${cy}`}
+          />
+        );
+      })}
+
+      {/* links drawing in */}
+      {inD.map((d, i) => (
+        <path
+          key={`l${i}`}
+          className="cd-link cd-link-in"
+          pathLength={1}
+          style={{ ['--i' as string]: i }}
+          d={d}
+        />
       ))}
-      <circle className="dd-pulse dd-pulse-out" r={prefix === 'd' ? 3.5 : 3} opacity="0">
-        <animateMotion dur="1.6s" begin="2.6s" repeatCount="indefinite">
-          <mpath href={`#dd-${prefix}-link-out`} />
-        </animateMotion>
-        <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.2;0.8;1" dur="1.6s" begin="2.6s" repeatCount="indefinite" />
-      </circle>
-    </g>
+      <path
+        className="cd-link cd-link-out"
+        pathLength={1}
+        style={{ ['--i' as string]: 0, stroke: `url(#${gradId})` }}
+        d={outD}
+      />
+
+      {/* source systems */}
+      {NODES.map((n, i) => {
+        const cy = inCy(i);
+        const y = cy - ib.h / 2;
+        const x = ib.x;
+        return (
+          <g
+            key={`n-${n.id}`}
+            className="cd-in-g"
+            style={{
+              ['--i' as string]: i,
+              ['--r' as string]: `${m ? n.r * 0.7 : n.r}deg`,
+              ['--dx' as string]: `${m ? n.dx * 0.5 : n.dx}px`,
+            }}
+          >
+            <rect className="cd-in-box" x={x} y={y} width={ib.w} height={ib.h} rx={m ? 7 : 9} />
+            <rect className="cd-in-rough" x={x + 3} y={y + 3} width={ib.w - 6} height={ib.h - 6} rx={m ? 5 : 7} />
+            <text className="cd-in-label" style={{ fontSize: m ? 11.5 : 13 }} x={x + (m ? 14 : 22)} y={cy + 4.5}>
+              {n.label}
+            </text>
+            <rect className="cd-in-badge-bg" x={x + ib.w - (m ? 50 : 58)} y={cy - 9} width={m ? 42 : 46} height={18} rx={9} />
+            <text className="cd-in-badge" x={x + ib.w - (m ? 29 : 35)} y={cy + 3.6} textAnchor="middle">
+              {n.badge}
+            </text>
+            <path className="cd-in-tick" pathLength={1} d={`M${x + ib.w - (m ? 32 : 38)} ${cy} l4 4.2 l8 -8.6`} />
+          </g>
+        );
+      })}
+
+      {/* the hub */}
+      <circle className="cd-hub-ring" cx={hub.x} cy={hub.y} r={m ? 28 : 34} />
+      <circle className="cd-hub-halo" cx={hub.x} cy={hub.y} r={14} />
+      <circle className="cd-hub-dot" cx={hub.x} cy={hub.y} r={m ? 14 : 16} />
+      {m ? (
+        <>
+          <text className="cd-hub-cap" x={hub.x - 92} y={hub.y + 5}>CONNECTED</text>
+        </>
+      ) : (
+        <>
+          <text className="cd-hub-cap" x={hub.x} y={hub.y + 60}>CONNECTED</text>
+          <text className="cd-hub-sub" x={hub.x} y={hub.y + 77}>Shared where it is needed</text>
+        </>
+      )}
+
+      {/* the outcome */}
+      <g className="cd-out-g" style={{ ['--ox' as string]: m ? '0px' : '-20px' }}>
+        <rect className="cd-out-box" x={ob.x} y={ob.y} width={ob.w} height={ob.h} rx={m ? 10 : 12} />
+        <circle className="cd-out-live" cx={tx} cy={ob.y + (m ? 22 : 24)} r={3.5} />
+        <text className="cd-out-livetx" x={tx + 11} y={ob.y + (m ? 25.5 : 27.5)}>AI-CO-ORDINATED</text>
+        <text className="cd-out-title" style={{ fontSize: m ? 21 : 24 }} x={tx} y={cy2 + 10}>
+          Co-ordinated access
+        </text>
+        <text className="cd-out-sub" style={{ fontSize: m ? 11.5 : 11.5 }} x={tx} y={cy2 + (m ? 30 : 32)}>
+          Each workflow uses only what it needs.
+        </text>
+        <path className="cd-out-ok" d={`M${ob.x + ob.w - 30} ${ob.y + (m ? 22 : 24)} l4.2 4.4 l8.6 -9`} />
+      </g>
+
+      {/* light running along the lines */}
+      {dots && (
+        <g aria-hidden="true">
+          {inD.map((d, i) => (
+            <circle key={`p${i}`} className="cd-dot" r={2.6} opacity={0}>
+              <animateMotion dur="3.2s" begin={`${i * 0.5}s`} repeatCount="indefinite" path={d} />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="3.2s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
+            </circle>
+          ))}
+          {[0, 1.1].map((t) => (
+            <circle key={`po${t}`} className="cd-dot cd-dot-gold" r={2.8} opacity={0}>
+              <animateMotion dur="2.2s" begin={`${0.6 + t}s`} repeatCount="indefinite" path={outD} />
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.88;1" dur="2.2s" begin={`${0.6 + t}s`} repeatCount="indefinite" />
+            </circle>
+          ))}
+        </g>
+      )}
+    </svg>
   );
 }
 
 export default function DisconnectDiagram({ className = '' }: { className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [live, setLive] = useState(false);
-  // Looping pulses and the hub's breathing run only when motion is allowed.
-  const [motion, setMotion] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const timers = useRef<number[]>([]);
+  const [stage, setStage] = useState(-1); // index into STAGES reached; -1 = before
+  const [dots, setDots] = useState(false);
+  const [reduced, setReduced] = useState(false);
+
+  const clear = () => {
+    timers.current.forEach((t) => window.clearTimeout(t));
+    timers.current = [];
+  };
+
+  const run = useCallback(() => {
+    clear();
+    setStage(-1);
+    setDots(false);
+    STAGE_AT.forEach((ms, i) => timers.current.push(window.setTimeout(() => setStage(i), ms)));
+    timers.current.push(window.setTimeout(() => setDots(true), DOTS_AT));
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setMotion(!reduced);
-    if (reduced) {
-      setLive(true);
+    const r = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setReduced(r);
+    if (r) {
+      setStage(STAGES.length - 1);
       return;
     }
-
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          setLive(true);
+          run();
           io.disconnect();
         }
       },
-      { threshold: 0.35 },
+      { threshold: 0.3 },
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    return () => {
+      io.disconnect();
+      clear();
+    };
+  }, [run]);
+
+  const replay = () => {
+    clear();
+    setStage(-1);
+    setDots(false);
+    timers.current.push(window.setTimeout(run, 350));
+  };
+
+  const stageClasses = STAGES.slice(0, stage + 1).join(' ');
 
   return (
-    <div ref={ref} className={`dd ${live ? 'dd-live' : ''} ${className}`.trim()}>
-      {/* ── Desktop / tablet — horizontal convergence ─────────────────── */}
-      <svg
-        className="dd-svg dd-desktop"
-        viewBox="0 0 1000 400"
-        role="img"
-        aria-label="Five business systems — CRM, email, spreadsheets, invoicing and WhatsApp — sitting disconnected, then joined through Maru into a single live view."
+    <div className={`cd ${className}`.trim()}>
+      <section
+        ref={ref}
+        className={`cd-stage ${stageClasses}`}
+        aria-label="Diagram: CRM, email, spreadsheets, invoicing and WhatsApp connect through one point into co-ordinated access."
       >
-        {/* converging links — drawn behind everything */}
-        {D.rowY.map((y, i) => (
-          <path
-            key={`d-link-${NODES[i].id}`}
-            id={`dd-d-link-${i}`}
-            className="dd-link"
-            style={{ ['--i' as string]: i }}
-            d={`M ${D.boxX + D.boxW} ${y} C ${D.boxX + D.boxW + 130} ${y}, ${D.hubX - 130} ${D.hubY}, ${D.hubX - D.hubR} ${D.hubY}`}
-          />
-        ))}
-        {/* the stubs that go nowhere — the "before" state */}
-        {D.rowY.map((y, i) => (
-          <path
-            key={`d-stub-${NODES[i].id}`}
-            className="dd-stub"
-            d={`M ${D.boxX + D.boxW} ${y} L ${D.boxX + D.boxW + 34} ${y}`}
-          />
-        ))}
-
-        {/* source systems */}
-        {NODES.map((n, i) => (
-          <g key={`d-node-${n.id}`} className="dd-node" style={{ ['--i' as string]: i }}>
-            <rect
-              className="dd-box"
-              x={D.boxX}
-              y={D.rowY[i] - D.boxH / 2}
-              width={D.boxW}
-              height={D.boxH}
-              rx="7"
-            />
-            <text className="dd-label" x={D.boxX + 18} y={D.rowY[i] + 4}>
-              {n.label}
-            </text>
-          </g>
-        ))}
-
-        {/* hub → output */}
-        <path
-          id="dd-d-link-out"
-          className="dd-link dd-link-out"
-          style={{ ['--i' as string]: 5 }}
-          d={`M ${D.hubX + D.hubR} ${D.hubY} L ${D.outX} ${D.hubY}`}
-        />
-
-        {live && motion && <Pulses prefix="d" />}
-
-        {/* the Maru hub */}
-        <g className="dd-hub">
-          <circle className={`dd-hub-halo ${motion ? 'dd-breathe' : ''}`} cx={D.hubX} cy={D.hubY} r={D.hubR + 13} />
-          <circle className="dd-hub-core" cx={D.hubX} cy={D.hubY} r={D.hubR} />
-        </g>
-
-        {/* the outcome */}
-        <g className="dd-out">
-          <rect
-            className="dd-out-box"
-            x={D.outX}
-            y={D.outY}
-            width={D.outW}
-            height={D.outH}
-            rx="9"
-          />
-          <text className="dd-out-title" x={D.outX + 22} y={D.outY + 42}>
-            One live view
-          </text>
-          <text className="dd-out-sub" x={D.outX + 22} y={D.outY + 70}>
-            Current. Not last month&apos;s export.
-          </text>
-        </g>
-      </svg>
-
-      {/* ── Mobile — left stack, right trunk ──────────────────────────── */}
-      <svg
-        className="dd-svg dd-mobile"
-        viewBox="0 0 340 420"
-        role="img"
-        aria-label="Five business systems — CRM, email, spreadsheets, invoicing and WhatsApp — sitting disconnected, then joined through Maru into a single live view."
-      >
-        {/* Each feed runs out horizontally, turns a quarter-circle onto the
-            shared trunk, and descends to the hub. Horizontals sit at distinct
-            heights and the verticals share one x, so no two strands cross. */}
-        {M.rowY.map((y, i) => {
-          const cy = y + M.boxH / 2;
-          const turn = cy + M.elbow;
-          return (
-            <path
-              key={`m-link-${NODES[i].id}`}
-              id={`dd-m-link-${i}`}
-              className="dd-link"
-              style={{ ['--i' as string]: i }}
-              d={`M ${M.colX + M.boxW} ${cy} L ${M.trunkX - M.elbow} ${cy} Q ${M.trunkX} ${cy} ${M.trunkX} ${turn} L ${M.trunkX} ${M.hubY - M.hubR}`}
-            />
-          );
-        })}
-        {M.rowY.map((y, i) => (
-          <path
-            key={`m-stub-${NODES[i].id}`}
-            className="dd-stub"
-            d={`M ${M.colX + M.boxW} ${y + M.boxH / 2} L ${M.colX + M.boxW + 20} ${y + M.boxH / 2}`}
-          />
-        ))}
-
-        {NODES.map((n, i) => (
-          <g key={`m-node-${n.id}`} className="dd-node" style={{ ['--i' as string]: i }}>
-            <rect
-              className="dd-box"
-              x={M.colX}
-              y={M.rowY[i]}
-              width={M.boxW}
-              height={M.boxH}
-              rx="6"
-            />
-            <text className="dd-label dd-label-sm" x={M.colX + 14} y={M.rowY[i] + M.boxH / 2 + 3.5}>
-              {n.label}
-            </text>
-          </g>
-        ))}
-
-        {/* The hub sits on the trunk at the right; the outcome panel is offset
-            left of it, so this connector sweeps down and across — the one
-            deliberate diagonal in the composition. */}
-        <path
-          id="dd-m-link-out"
-          className="dd-link dd-link-out"
-          style={{ ['--i' as string]: 5 }}
-          d={`M ${M.hubX} ${M.hubY + M.hubR} C ${M.hubX} ${M.hubY + M.hubR + 20}, ${M.outX + M.outW / 2} ${M.outY - 20}, ${M.outX + M.outW / 2} ${M.outY}`}
-        />
-
-        {live && motion && <Pulses prefix="m" />}
-
-        <g className="dd-hub">
-          <circle className={`dd-hub-halo ${motion ? 'dd-breathe' : ''}`} cx={M.hubX} cy={M.hubY} r={M.hubR + 12} />
-          <circle className="dd-hub-core" cx={M.hubX} cy={M.hubY} r={M.hubR} />
-        </g>
-
-        <g className="dd-out">
-          <rect
-            className="dd-out-box"
-            x={M.outX}
-            y={M.outY}
-            width={M.outW}
-            height={M.outH}
-            rx="8"
-          />
-          <text className="dd-out-title dd-out-title-sm" x={M.outX + M.outW / 2} y={M.outY + 29}>
-            One live view
-          </text>
-          <text className="dd-out-sub dd-out-sub-sm" x={M.outX + M.outW / 2} y={M.outY + 50}>
-            Current, not last month&apos;s export.
-          </text>
-        </g>
-      </svg>
+        <div className="cd-cols" aria-hidden="true">
+          <span className="cd-col">Your tools · as they are</span>
+          <span className="cd-col cd-col-mid">Connected</span>
+          <span className="cd-col cd-col-end">Co-ordinated access</span>
+        </div>
+        <div className="cd-svgwrap">
+          <Diagram g={DESK} dots={dots && !reduced} id="d" />
+          <Diagram g={MOB} dots={dots && !reduced} id="m" />
+        </div>
+      </section>
+      {!reduced && (
+        <div className="cd-bar">
+          <button type="button" className="cd-replay" onClick={replay}>
+            Replay
+          </button>
+        </div>
+      )}
     </div>
   );
 }

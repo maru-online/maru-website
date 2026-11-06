@@ -1,169 +1,85 @@
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import Glyph from "@/components/ui/Glyph";
-import { FadeUp } from "@/components/ui/Animate";
+import { DrawnVisual } from "@/components/ui/CardMedia";
+import { StaggerParent, StaggerChild } from "@/components/ui/Animate";
+import SectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
 
-const outerPad = "px-6 md:px-[60px]";
-const inner    = "max-w-[900px] mx-auto";
 
 const ASSESSMENT_HREF = "/popia-ai-check";
 const CONTACT_HREF    = "/contact#contact-form";
 
-// Homepage Section 5 — final call to action, 22 Oct 2026. Replaces the old
-// "Find out where your time, money and client data are exposed" block, which
-// still described the retired operations diagnostic. Two routes, in order of
-// weight: the free POPIA Assessment (primary, white card, gold button) and a
-// project conversation (secondary, text link on navy). The section keeps the
-// #assessment id so existing in-page links still land here.
+// Homepage Section 6 — final call to action. Copy: "Maru Online — Revised
+// Website Copy" v1.0 (1 Nov 2026), over the 22 Oct 2026 approval.
+// Reading system (3 Nov 2026): shared section head and card anatomy.
+// Blended UI, 1 Nov 2026 (approved on the design canvas): warm light ground
+// after the navy image band, two routes side by side in order of weight. The
+// free, informational POPIA review card leads (first, with the primary button);
+// the project conversation stays quiet. Gold retired 5 Nov 2026. Keeps the #assessment id so existing
+// in-page links still land here.
 export default function AssessmentFormSection() {
   return (
-    <section
-      id="assessment"
-      className={`${outerPad} py-24`}
-      style={{ background: "var(--gradient-navy-soft)" }}
-    >
-      <div className={inner}>
-        <FadeUp>
-          <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Next steps</span>
-          <h2 className="h2-cta" style={{ marginBottom: "var(--space-heading-body)" }}>
-            <span style={{ display: "block", fontWeight: 300 }}>Ready to Build AI Into</span>
-            <span style={{ display: "block", fontWeight: 700 }}>Your Existing Operations?</span>
-          </h2>
-          <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "var(--space-section-header-mb)" }}>
-            Whether you&apos;re exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward.
-          </p>
-        </FadeUp>
+    // Sits on the homepage's continuous stone ground (.flow-ground), so it sets
+    // no background of its own. Rhythm and head spacing: Open Flow, 4 Nov 2026.
+    <section id="assessment" className="sec overflow-hidden">
+      {/* Dots open each light run (left after the image band). */}
+      <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
+      <div className="sec-inner">
+        <SectionHead
+          eyebrow="Next steps"
+          title={<>Ready to build AI into <span className="hl">your existing operations?</span></>}
+          intro="Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical next step."
+        />
 
-        {/* ── Route 1: the free POPIA Assessment ─────────────────────────── */}
-        <FadeUp delay={0.08}>
-          <div
-            style={{
-              background: "var(--color-bg-primary)",
-              borderRadius: "12px",
-              padding: "clamp(1.5rem, 4vw, 2.25rem)",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
-            }}
-          >
-            <div className="flex flex-col sm:flex-row items-start gap-4" style={{ marginBottom: "1.75rem" }}>
-              <span className="glyph-chip glyph-chip-lg" style={{ flexShrink: 0 }}>
-                <Glyph name="clipboard" size={28} />
-              </span>
-              <div>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 500,
-                    fontSize: "var(--text-h3-serif)",
-                    color: "var(--color-ink-primary)",
-                    lineHeight: "var(--leading-subheading)",
-                    marginBottom: "0.375rem",
-                    borderBottom: "none",
-                    paddingBottom: 0,
-                  }}
-                >
-                  Start with the free POPIA Assessment
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "var(--text-body-sm)",
-                    fontWeight: 300,
-                    color: "var(--color-ink-secondary)",
-                    lineHeight: "var(--leading-body)",
-                    margin: 0,
-                  }}
-                >
-                  Identify areas to investigate and receive a summary report by email.
-                </p>
+        {/* Card build, 5 Nov 2026: same as the capability cards (navy grid
+            header carrying the title, body below). The review leads with the
+            primary button; the project card uses a text link. */}
+        <StaggerParent className="cta-cards">
+          {/* ── Route 1: the free, informational POPIA review ─────────────── */}
+          <StaggerChild className="h-full">
+            <article className="card-lift h-full flex flex-col overflow-hidden">
+              <DrawnVisual
+                title="Start with the free, informational POPIA review."
+                className="cta-card-visual"
+              />
+              <div className="card-body">
+                <ul className="prob-list" style={{ marginBottom: "1.75rem" }}>
+                  {[
+                    "10 questions, about five minutes.",
+                    "A report by email.",
+                    "Areas to review and actions to prioritise.",
+                  ].map((p) => (
+                    <li key={p}>
+                      <span className="prob-dot" aria-hidden="true" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto flex flex-col items-stretch sm:items-start gap-3">
+                  <Button href={ASSESSMENT_HREF} variant="primary" className="w-full sm:w-auto">
+                    Take the free POPIA review
+                  </Button>
+                </div>
               </div>
-            </div>
+            </article>
+          </StaggerChild>
 
-            <Button href={ASSESSMENT_HREF} variant="primary" className="w-full justify-center">
-              Take Your Free POPIA Assessment
-            </Button>
-
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "var(--text-meta)",
-                fontWeight: 300,
-                color: "var(--color-ink-tertiary)",
-                marginTop: "1rem",
-                marginBottom: 0,
-                lineHeight: 1.5,
-              }}
-            >
-              Free assessment · Report delivered by email
-            </p>
-          </div>
-        </FadeUp>
-
-        {/* ── Divider ────────────────────────────────────────────────────── */}
-        <div
-          role="separator"
-          aria-label="or"
-          className="flex items-center gap-4"
-          style={{ margin: "2rem 0" }}
-        >
-          <span aria-hidden="true" style={{ width: "1px", height: "1.75rem", background: "rgba(250,250,248,0.2)" }} />
-          <span
-            aria-hidden="true"
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "var(--text-label)",
-              fontWeight: 500,
-              letterSpacing: "var(--tracking-eyebrow)",
-              textTransform: "uppercase",
-              color: "var(--color-ink-inverted-muted)",
-            }}
-          >
-            Or
-          </span>
-          <span aria-hidden="true" style={{ width: "1px", height: "1.75rem", background: "rgba(250,250,248,0.2)" }} />
-        </div>
-
-        {/* ── Route 2: a project conversation ───────────────────────────── */}
-        <FadeUp delay={0.12}>
-          <div className="flex flex-col sm:flex-row items-start gap-4">
-            <span
-              className="glyph-chip glyph-chip-lg"
-              style={{
-                flexShrink: 0,
-                background: "rgba(250,250,248,0.08)",
-                color: "var(--color-ink-inverted)",
-                boxShadow: "0 0 0 1px rgba(250,250,248,0.12)",
-              }}
-            >
-              <Glyph name="chat" size={28} />
-            </span>
-            <div>
-              <h3
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 500,
-                  fontSize: "var(--text-h3-serif)",
-                  color: "var(--color-ink-inverted)",
-                  lineHeight: "var(--leading-subheading)",
-                  marginBottom: "0.375rem",
-                  borderBottom: "none",
-                  paddingBottom: 0,
-                }}
-              >
-                Already have a project in mind?
-              </h3>
-              <p className="body-on-navy" style={{ marginBottom: "0.75rem" }}>
-                Tell us about the business challenge you want to solve.
-              </p>
-              <Link
-                href={CONTACT_HREF}
-                className="inline-flex items-center min-h-[44px] font-body font-medium text-cyan no-underline transition-[color,opacity] duration-200 hover:underline hover:underline-offset-4 active:opacity-70 focus-visible:outline-none focus-visible:underline focus-visible:underline-offset-4 focus-visible:shadow-[0_0_0_2px_rgba(61,184,198,0.4)]"
-                style={{ fontSize: "var(--text-body)" }}
-              >
-                Discuss a Business Challenge&nbsp;→
-              </Link>
-            </div>
-          </div>
-        </FadeUp>
+          {/* ── Route 2: a project conversation ─────────────────────────── */}
+          <StaggerChild className="h-full">
+            <article className="card-lift h-full flex flex-col overflow-hidden">
+              <DrawnVisual title="Already have a project in mind?" className="cta-card-visual" />
+              <div className="card-body">
+                <p className="card-text">
+                  Tell us about the business challenge or workflow you want to improve.
+                </p>
+                <Link href={CONTACT_HREF} className="card-action min-h-[44px] focus-visible:outline-none">
+                  Discuss your challenge
+                  <span className="card-arrow" aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </article>
+          </StaggerChild>
+        </StaggerParent>
       </div>
     </section>
   );

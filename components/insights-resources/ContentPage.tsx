@@ -3,15 +3,13 @@ import Button from "@/components/ui/Button";
 import { FadeUp } from "@/components/ui/Animate";
 import {
   SECTIONS,
-  formatDate,
   getRelated,
   isPublished,
-  pillarFor,
   type ContentEntry,
 } from "@/lib/insights-resources/content";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
-import Body from "./Body";
-import { InsightCard, ResourceCard, TreatedImage, PillarVisual } from "./Cards";
+import { InsightCard, ResourceCard } from "./Cards";
+import { ArticleMeta, ArticleImage, ArticleContent, servicesFor } from "./Article";
 
 /**
  * Reusable template for one article or guide (brief section 5): breadcrumb,
@@ -24,35 +22,12 @@ const outerPad = "px-6 md:px-[60px]";
 const innerWide = "max-w-[1100px] mx-auto";
 const innerText = "max-w-[720px] mx-auto";
 
-/** Internal links to services, by pillar. Only pages that exist, saying something true. */
-function servicesFor(entry: ContentEntry): { href: string; label: string; note: string }[] {
-  if (entry.pillar === "popia-data-governance") {
-    return [
-      {
-        href: "/popia-ai-check",
-        label: "Free POPIA Assessment",
-        note: "See where your business stands on data protection when AI is involved.",
-      },
-    ];
-  }
-  return [];
-}
 
-const smallCaps: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontSize: "var(--text-label)",
-  fontWeight: 600,
-  letterSpacing: "var(--tracking-eyebrow)",
-  textTransform: "uppercase",
-};
 
 export default function ContentPage({ entry }: { entry: ContentEntry }) {
   const section = SECTIONS[entry.section];
-  const pillar = pillarFor(entry.pillar);
   const related = getRelated(entry);
   const services = servicesFor(entry);
-  const published = formatDate(entry.publishedAt);
-  const updated = formatDate(entry.updatedAt);
   const live = isPublished(entry);
 
   return (
@@ -63,7 +38,7 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(entry)) }} />
       )}
 
-      <header className={`${outerPad} pt-40 md:pt-44 pb-16`} style={{ background: "var(--gradient-hero)" }}>
+      <header className="page-hero navy-horizon hero-grid relative overflow-hidden">
         <div className={innerText}>
           <nav aria-label="Breadcrumb" style={{ marginBottom: "2rem" }}>
             <ol className="flex flex-wrap items-center gap-2 list-none m-0 p-0" style={{ fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)" }}>
@@ -77,113 +52,23 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
             </ol>
           </nav>
 
-          <span className="label-eyebrow" style={{ marginBottom: "1.25rem" }}>
-            {entry.format ?? entry.resourceType} · {entry.category === pillar.label ? entry.category : `${entry.category} · ${pillar.label}`}
-          </span>
-          <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 400,
-              fontSize: "clamp(2rem, 4.2vw, 3rem)",
-              color: "var(--color-ink-inverted)",
-              letterSpacing: "-0.03em",
-              lineHeight: 1.12,
-              marginBottom: "1.5rem",
-            }}
-          >
-            {entry.title}
-          </h1>
-          <p className="body-on-navy" style={{ marginBottom: "2rem" }}>{entry.summary}</p>
-
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2" style={{ fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)" }}>
-            {entry.author && <span>By {entry.author}</span>}
-            {published && <time dateTime={entry.publishedAt}>{live ? "Published" : "Written"} {published}</time>}
-            {updated && <time dateTime={entry.updatedAt}>Updated {updated}</time>}
-            {entry.readTime && <span>{entry.readTime}</span>}
-            {!live && (
-              <span style={{ ...smallCaps, border: "1px dashed rgba(250,250,248,0.45)", borderRadius: 4, padding: "2px 8px" }}>
-                Draft: for review
-              </span>
-            )}
-          </div>
+          <ArticleMeta entry={entry} tone="navy" />
         </div>
       </header>
 
-      <article className={`${outerPad} py-16`} style={{ background: "var(--gradient-surface)" }}>
+      <article className={`${outerPad} py-16`} style={{ background: "var(--color-bg-secondary)" }}>
         <div className={innerWide}>
           <FadeUp>
-            {entry.image ? (
-              <TreatedImage
-                src={entry.image}
-                alt={entry.imageAlt ?? ""}
-                sizes="(min-width: 1160px) 1100px, 100vw"
-                priority
-                className="ir-hero-img w-full rounded-2xl"
-              />
-            ) : (
-              <PillarVisual entry={entry} glyphSize={56} className="ir-hero-img rounded-2xl w-full" />
-            )}
+            <ArticleImage entry={entry} sizes="(min-width: 1160px) 1100px, 100vw" priority />
           </FadeUp>
         </div>
-        {/* The treated image needs a height: give the box one via aspect ratio. */}
-        <style>{`.ir-hero-img{aspect-ratio:16/7}`}</style>
 
         <div className={innerText} style={{ marginTop: "3rem" }}>
-          {entry.inShort && entry.inShort.length > 0 && (
-            <section
-              aria-label="In short"
-              style={{
-                marginBottom: "2.5rem",
-                padding: "1.5rem",
-                borderRadius: 12,
-                border: "1px solid var(--color-border-card)",
-                background: "var(--color-bg-card)",
-                boxShadow: "0 1px 2px rgba(38,32,20,0.05), 0 12px 32px -20px rgba(38,32,20,0.22)",
-              }}
-            >
-              <p style={{ ...smallCaps, color: "var(--color-cyan-ink)", marginBottom: "0.75rem" }}>In short</p>
-              <ul className="m-0 p-0 list-none">
-                {entry.inShort.map((t) => (
-                  <li key={t} className="flex gap-3 items-start" style={{ marginBottom: "0.6rem", lineHeight: 1.65, color: "var(--color-ink-primary)" }}>
-                    <span className="bullet-cyan" style={{ marginTop: 10 }} aria-hidden="true" />
-                    <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-          {entry.body && <Body blocks={entry.body} />}
-
-          {entry.legalNote && (
-            <p style={{ marginTop: "2.5rem", fontSize: "var(--text-meta)", lineHeight: 1.6, color: "var(--color-ink-tertiary)" }}>
-              This is general information, not legal advice. For a decision about specific people or a specific contract, speak to a qualified adviser.
-            </p>
-          )}
-
-          {entry.sources && entry.sources.length > 0 && (
-            <section aria-label="Sources" style={{ marginTop: "2.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--color-border-card)" }}>
-              <p style={{ ...smallCaps, color: "var(--color-ink-tertiary)", marginBottom: "0.75rem" }}>Sources</p>
-              <ul className="m-0 p-0 list-none" style={{ fontSize: "var(--text-meta)", lineHeight: 1.7, color: "var(--color-ink-secondary)" }}>
-                {entry.sources.map((s) => (
-                  <li key={s.title} style={{ marginBottom: "0.4rem" }}>
-                    {s.url ? (
-                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-[var(--color-cyan-ink)] focus-visible:outline-none focus-visible:text-[var(--color-cyan-ink)]">
-                        {s.title}
-                      </a>
-                    ) : (
-                      s.title
-                    )}
-                    {`, ${s.publisher}${s.date ? `, ${s.date}` : ""}`}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+          <ArticleContent entry={entry} />
         </div>
       </article>
 
-      <section className={`${outerPad} py-16`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className={`${outerPad} py-16`} style={{ backgroundColor: "var(--color-bg-secondary)", borderTop: "1px solid var(--color-border-card)" }}>
         <div className={innerText}>
           {services.length > 0 && (
             <div style={{ marginBottom: "2.5rem" }}>
@@ -200,20 +85,20 @@ export default function ContentPage({ entry }: { entry: ContentEntry }) {
               </ul>
             </div>
           )}
-          <h2 style={{ border: "none", fontWeight: 700, marginBottom: "0.75rem" }}>Have an AI challenge in your business?</h2>
+          <h2 style={{ border: "none", marginBottom: "0.75rem" }}>Have an AI challenge in your business?</h2>
           <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
             Understand where AI could make a practical difference to your business operations.
           </p>
           <div data-maru-primary-cta>
-            <Button href="/contact#contact-form" variant="primary">Discuss a Business Challenge</Button>
+            <Button href="/contact#contact-form" variant="primary">Discuss your challenge</Button>
           </div>
         </div>
       </section>
 
       {related.length > 0 && (
-        <section className={`${outerPad} py-20`} style={{ background: "var(--gradient-surface)" }}>
+        <section className={`${outerPad} py-20`} style={{ background: "var(--color-bg-secondary)", borderTop: "1px solid var(--color-border-card)" }}>
           <div className={innerWide}>
-            <h2 style={{ border: "none", fontWeight: 700, marginBottom: "2rem" }}>Related reading</h2>
+            <h2 style={{ border: "none", marginBottom: "2rem" }}>Related reading</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {related.map((r) => (
                 <div key={r.slug} className="flex">

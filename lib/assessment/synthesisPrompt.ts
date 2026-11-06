@@ -4,7 +4,7 @@
  * Inputs:
  *   1. The prospect's ten answers (option values from questions.ts), rendered
  *      back to the question and answer wording the visitor saw
- *   2. Their level (1 Exposed, 2 Partly protected, 3 Well protected)
+ *   2. Their level (1 Exposed, 2 Partly in place, 3 Largely in place)
  *   3. An optional site scrape (markdown). The route currently passes "".
  *
  * Output (JSON, shape unchanged from v2 so the route's schema and the
@@ -47,9 +47,9 @@ ${siteMarkdown.slice(0, 3000)}
     `.trim()
     : "WEBSITE ANALYSIS: No website provided or scrape unsuccessful. Base observations on assessment answers only.";
 
-  return `You are producing structured output for Maru Online, a POPIA-aware AI implementation consultancy for South African businesses. Maru maps where client personal information goes through a business's AI tools, apps, spreadsheets and WhatsApp, fixes the risks, and builds workflows that save time. Your output feeds two destinations: observations stored with the report the prospect receives, and an internal lead alert the team reads before a discovery call.
+  return `You are producing structured output for Maru Online, a POPIA-aware AI implementation consultancy for South African businesses. Maru maps where client personal information goes through a business's AI tools, apps, spreadsheets and WhatsApp, addresses the risks, and builds workflows that save time. Your output feeds two destinations: observations stored with the report the prospect receives, and an internal lead alert the team reads before the follow-up email.
 
-The prospect just completed a 10-question POPIA Assessment. Each answer is shown with its score: 4 is best practice, 0 is no practice at all.
+The prospect just completed the free, informational 10-question POPIA review (call it a "review", never an "assessment"). Each answer is shown with its score: 4 is best practice, 0 is no practice at all.
 
 PROSPECT RESULT:
 Level: ${level}, ${LEVEL_RESULTS[level].label}

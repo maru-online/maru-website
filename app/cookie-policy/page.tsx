@@ -74,7 +74,7 @@ export default function CookiePolicyPage() {
           We work with the following third-party services that may set cookies on your device:
         </p>
         
-        <div className="card-lift rounded-lg p-6 mb-4">
+        <div className="card-lift p-6 mb-4">
           <h4 className="text-ink-primary font-medium mb-2">Google Analytics</h4>
           <p className="text-ink-secondary text-sm">
             We use Google Analytics to analyze website traffic and usage patterns. Google Analytics sets 
@@ -85,7 +85,7 @@ export default function CookiePolicyPage() {
           </p>
         </div>
 
-        <div className="card-lift rounded-lg p-6">
+        <div className="card-lift p-6">
           <h4 className="text-ink-primary font-medium mb-2">Meta Pixel (Facebook)</h4>
           <p className="text-ink-secondary text-sm">
             We use Meta Pixel to measure the effectiveness of our advertising campaigns and deliver targeted 
@@ -141,7 +141,7 @@ export default function CookiePolicyPage() {
 
         <button
           onClick={() => window.dispatchEvent(new Event('open-cookie-preferences'))}
-          className="px-6 py-3 rounded-lg text-sm font-bold mb-8 [background:var(--gradient-gold)] text-[var(--color-ink-on-gold)] shadow-[var(--shadow-btn)] transition-[transform,box-shadow,filter] duration-200 ease-out hover:scale-[1.02] hover:brightness-105 hover:shadow-[var(--shadow-btn-hover)] active:scale-[0.98]"
+          className="btn btn-primary mb-8"
         >
           Manage Cookie Preferences
         </button>
@@ -245,7 +245,7 @@ export default function CookiePolicyPage() {
         <p className="text-ink-secondary mb-4">
           If you have questions about our use of cookies, please contact us:
         </p>
-        <div className="card-lift rounded-lg p-6 text-ink-secondary">
+        <div className="card-lift p-6 text-ink-secondary">
           <p>
             <strong className="text-ink-primary">Email:</strong> hello@maruonline.com
           </p>

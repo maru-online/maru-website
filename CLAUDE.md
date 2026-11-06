@@ -1,54 +1,110 @@
-# CLAUDE.md — Frontend Website Rules
+# CLAUDE.md — Maru Online website
 
-## Always Do First
-- **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
+Rules for AI agents working in this repo. Read this first, then
+`docs/DESIGN-SYSTEM.md` before any visual change.
 
-## Reference Images
-- If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
-- If no reference image: design from scratch with high craft (see guardrails below).
-- Screenshot your output, compare against reference, fix mismatches, re-screenshot. Do at least 2 comparison rounds. Stop only when no visible differences remain or user says so.
+## Project
 
-## Local Server
-- **Always serve on localhost** — never screenshot a `file:///` URL.
-- Start the dev server: `node serve.mjs` (serves the project root at `http://localhost:3000`)
-- `serve.mjs` lives in the project root. Start it in the background before taking any screenshots.
-- If the server is already running, do not start a second instance.
+- **What it is:** the Maru Online marketing site. Its job is due-diligence
+  credibility for people who look Maru up, not conversion. Fewer, better,
+  consistent beats more.
+- **Stack:** Next.js 16 (App Router, Turbopack), React 19, TypeScript,
+  Tailwind CSS 4, framer-motion, Sanity (CMS, studio at `/studio`), Drizzle
+  (Neon Postgres). Deployed on Vercel. Node 24 on Vercel (`engines`).
+- **This Next.js version has breaking changes.** Before using an API you are
+  not sure of, read the matching guide in `node_modules/next/dist/docs/`.
+  See `AGENTS.md` (included at the end of this file).
 
-## Screenshot Workflow
-- Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
-- **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
-- Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
-- Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → saves as `screenshot-N-label.png`
-- `screenshot.mjs` lives in the project root. Use it as-is.
-- After screenshotting, read the PNG from `temporary screenshots/` with the Read tool — Claude can see and analyze the image directly.
-- When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"
-- Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing
+## Branch and deploy
 
-## Output Defaults
-- Single `index.html` file, all styles inline, unless user says otherwise
-- Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
-- Placeholder images: `https://placehold.co/WIDTHxHEIGHT`
-- Mobile-first responsive
+- Current work happens on **`review/final-release`**. Commit and push there
+  directly. Do not create new branches unless the owner asks.
+- Every push builds a Vercel preview:
+  https://maru-website-git-review-final-release-maru-online.vercel.app/
+  (needs a Vercel login). Confirm the Vercel status on the commit before
+  calling work done.
+- The owner reviews on that preview. If they cannot open a page, publish a
+  screenshot or page snapshot for them instead.
 
-## Brand Assets
-- Always check the `brand_assets/` folder before designing. It may contain logos, color guides, style guides, or images.
-- If assets exist there, use them. Do not use placeholders where real assets are available.
-- If a logo is present, use it. If a color palette is defined, use those exact values — do not invent brand colors.
+## Before every push
 
-## Anti-Generic Guardrails
-- **Colors:** Never use default Tailwind palette (indigo-500, blue-600, etc.). Pick a custom brand color and derive from it.
-- **Shadows:** Never use flat `shadow-md`. Use layered, color-tinted shadows with low opacity.
-- **Typography:** Never use the same font for headings and body. Pair a display/serif with a clean sans. Apply tight tracking (`-0.03em`) on large headings, generous line-height (`1.7`) on body.
-- **Gradients:** Layer multiple radial gradients. Add grain/texture via SVG noise filter for depth.
-- **Animations:** Only animate `transform` and `opacity`. Never `transition-all`. Use spring-style easing.
-- **Interactive states:** Every clickable element needs hover, focus-visible, and active states. No exceptions.
-- **Images:** Add a gradient overlay (`bg-gradient-to-t from-black/60`) and a color treatment layer with `mix-blend-multiply`.
-- **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
-- **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
+1. `npx tsc --noEmit`
+2. `npx eslint <changed files>`
+3. `npm run lint:design` (drift guard, `scripts/drift-guard.mjs`). It fails on
+   retired brand hex values, phantom colour classes, default Tailwind palette
+   colours and components nothing imports. It reports; it does not delete.
+   Delete an unimported component only once you are sure it is dead.
+4. Look at the change in a browser at desktop (1440px) and mobile (390px)
+   widths.
 
-## Hard Rules
-- Do not add sections, features, or content not in the reference
-- Do not "improve" a reference design — match it
-- Do not stop after one screenshot pass
-- Do not use `transition-all`
-- Do not use default Tailwind blue/indigo as primary color
+A full local `npm run build` fails in sandboxed environments that cannot reach
+Sanity. That failure alone is not a bug; rely on the Vercel build instead.
+
+## Local development
+
+- `npm run dev` serves on http://localhost:3000.
+- **CSS gotcha:** the dev server does not reliably pick up `app/globals.css`
+  edits. After changing CSS, stop the server, move `.next` aside (or delete
+  it), and restart.
+- Visual tests: `npm run test:visual` (Playwright, `tests/`).
+- Do not commit screenshots, reports or scratch files to the repo root.
+
+## Where things live
+
+- `app/` — routes (App Router). `app/page.tsx` is the homepage.
+  `app/insights-resources/` uses an intercepted route (`@reader`) so articles
+  open in a reading panel; a direct link renders the full page.
+- `app/globals.css` — **the source of truth** for design tokens and shared
+  classes (`.sec`, `.sec-chapter`, `.sec-ruled`, `.flow-ground`,
+  `.section-dark`, `.navy-horizon`, `.card-lift`, `.card-dark`,
+  `.card-static`, `.open-cols`, …).
+- `components/ui/` — shared building blocks: `SectionHead`, `DotField`,
+  `CardMedia` (`TreatedImage`, `DrawnVisual`), `ProductShot`, `ImageBand`,
+  `Glyph`, `Animate`, `Nav`, `Footer`.
+- `components/homepage/`, `components/insights-resources/` — page-specific
+  pieces. `lib/insights-resources/entries/` holds the guide and insight
+  entries.
+- `docs/DESIGN-SYSTEM.md` — the current design system (the old root v2 copy
+  was deleted on 5 Nov 2026).
+
+## Design rules (summary — details in docs/DESIGN-SYSTEM.md)
+
+- **Layout ("Open Flow"):** one continuous stone ground (`.flow-ground`),
+  hairline dividers between sections (`.sec-ruled`), rhythm from `.sec` /
+  `.sec-chapter`. Navy sections use the Horizon gradient. DotField dots go
+  on light sections only, never on navy.
+- **Headings:** use `SectionHead`; it already sets the tight heading group and
+  the wide gap before content.
+- **Cards:** `.card-lift` owns the surface, edge, lift and hover. Never set a
+  card background inline (it kills the hover). `.card-dark` on navy,
+  `.card-static` for forms and tools. Card links never underline.
+- **Heroes:** `PageHero` — eyebrow, H1, one sentence; height from content.
+- **CTAs:** `Button` takes its colour from its ground: green on navy, deep
+  teal on light grounds and the nav. Sentence case, short labels. Gold is
+  retired from the interface. Only the homepage hero has buttons; inner pages
+  end with one CTA section.
+- **Photos:** every photo goes through `TreatedImage` (default "deep" tone);
+  product screenshots pass `untinted`. Crop tight on a detail, remove logos
+  and legible text, at most one photo set per page, and not every card gets
+  a photo. Where a photo would be too literal, use `DrawnVisual` (glyph, or
+  `title` to carry the card heading).
+- **Colour:** brand tokens only (`var(--color-…)`). No default Tailwind
+  palette colours, no retired hex values (the drift guard enforces this).
+- **Motion:** animate only `transform` and `opacity`. Never `transition-all`.
+  Respect reduced motion.
+- **Interaction:** every clickable element has hover, focus-visible and
+  active states. Keep keyboard focus visible.
+
+## Working style
+
+- Read the existing component before adding a new one; extend shared
+  components rather than copying them.
+- Keep reports short: what changed, checks run, open questions.
+- Never say something was tested or verified unless it was.
+
+## Next.js agent rules
+
+Next.js 16.4+ keeps its managed agent rules in `AGENTS.md` (written by
+`next dev`); they are included here:
+
+@AGENTS.md

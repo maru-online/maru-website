@@ -3,7 +3,6 @@ import { urlForImage } from "@/sanity/lib/image";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { AtmosphericBackground } from "@/components/ui/AtmosphericBackground";
 import { CTAPrimary } from "@/components/ui/CTAPrimary";
 import { seo } from "@/lib/seo";
 
@@ -53,13 +52,11 @@ export default async function LandingPage(props: Props) {
   }
 
   return (
-    <main className="min-h-screen" style={{ background: "var(--gradient-surface)" }}>
+    <main className="min-h-screen" style={{ background: "var(--color-bg-secondary)" }}>
       {/* Hero Section — dark surface is allowed here */}
       <section
-        className="relative min-h-[90vh] flex items-center pt-[clamp(150px,20vh,200px)] pb-[clamp(80px,12vh,140px)] overflow-hidden"
-        style={{ backgroundColor: "var(--color-bg-navy-deep)" }}
+        className="navy-horizon hero-grid relative min-h-[90vh] flex items-center pt-[clamp(150px,20vh,200px)] pb-[clamp(80px,12vh,140px)] overflow-hidden"
       >
-        <AtmosphericBackground variant="hero" />
         
         <div className="container mx-auto px-6 lg:px-8 relative z-10 w-full">
             <div className="grid lg:grid-cols-2 gap-12 items-center">

@@ -1,11 +1,16 @@
 import { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
+import SharedSectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
+import { TreatedImage } from "@/components/ui/CardMedia";
 
-// Invara product page, 20 Oct 2026. Copy drawn from the Invara artifacts
+// Invara product page, 20 Oct 2026. Copy revised 1 Nov 2026 per "Maru Online —
+// Revised Website Copy" v1.0 (section 5): five-step workflow, AI and
+// approval wording without absolutes, POPIA-aware handling points (no
+// "operator"/"sub-operator", no "designed to stay in South Africa"). Copy drawn from the Invara artifacts
 // ("Invara: where it stands", 18 Oct 2026, plus the workflow, engine and
 // User Manual docs). Rules carried over from those docs:
 //  - Invara is in its pilot phase. No results claims, time savings or
@@ -21,11 +26,11 @@ export const metadata: Metadata = {
   ...seo("/invara"),
   title: "Invara | Proof Sponsors Trust, for ESD, CSI and Bursary Programmes",
   description:
-    "Invara by Maru Online is the system of record for organisations that run sponsor-funded programmes. Every beneficiary and every rand on record, with reports ready when the sponsor asks.",
+    "Invara helps enterprise and supplier development, corporate social investment, and bursary implementers capture approved beneficiary, disbursement, and supporting evidence once, then produce sponsor-ready reports from one record.",
 };
 
 const outerPad  = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
 const DEMO_HREF = "/contact?service=invara#contact-form";
@@ -51,7 +56,7 @@ const beforeAfter = [
   ["Evidence rebuilt at year-end", "An evidence pack assembled as you go, one folder per beneficiary"],
   ["The same data re-captured across tools", "Captured once at source, on WhatsApp or email"],
   ["Each sponsor wants its own report", "One record, mapped to each sponsor's template"],
-  ["Spend without proof slips through", "Spend without proof is flagged when it is captured"],
+  ["Spend without evidence goes unnoticed", "Spend without proof is flagged when it is captured"],
 ];
 
 const audiences = [
@@ -78,35 +83,46 @@ const audiences = [
 ];
 
 const stages = [
-  { n: "01", name: "Set up", body: "Programme from a template, your questions, sponsor access." },
-  { n: "02", name: "Consent", body: "POPIA notice and channel opt-in before anything else." },
-  { n: "03", name: "Capture", body: "WhatsApp, email, a secure link or a mentor." },
-  { n: "04", name: "Intake", body: "Every item received, identified, checked and staged." },
-  { n: "05", name: "Approve", body: "A named person approves from the Today queue." },
-  { n: "06", name: "Record", body: "One record per beneficiary, with a full events log." },
-  { n: "07", name: "Proof", body: "Dashboards, sponsor reports and the evidence pack." },
+  { n: "01", name: "Set up", body: "Set up a programme from a template, add your questions, and configure sponsor access." },
+  { n: "02", name: "Capture", body: "Collect information through the channels and forms that fit the programme and the people involved." },
+  { n: "03", name: "Review", body: "A named team member reviews items in the Today queue—the worklist for items that need attention." },
+  { n: "04", name: "Approve", body: "Approved information becomes part of the programme record with its source and approval history attached." },
+  { n: "05", name: "Report", body: "Generate sponsor-ready evidence packs from the approved record." },
 ];
 
+// Channel cards as bullets (2 Nov 2026).
 const channels = [
   {
     icon: "connect" as const,
     name: "WhatsApp",
-    body: "Beneficiaries use the app they already have, personal or Business. Consent, applications, document photos, assessment answers and check-ins.",
+    points: [
+      "The app beneficiaries already have, personal or Business.",
+      "Consent, applications, document photos, and check-ins.",
+    ],
   },
   {
     icon: "browser" as const,
     name: "Email",
-    body: "One inbound address per programme. The sender is verified once, and every attachment lands on the right record.",
+    points: [
+      "One inbound address per programme.",
+      "Sender verified once; attachments land on the right record.",
+    ],
   },
   {
     icon: "shield" as const,
     name: "Secure link",
-    body: "ID numbers, bank details and anything signed go through a one-time secure link, never through chat.",
+    points: [
+      "For ID numbers, bank details, and signed documents.",
+      "One-time link, never through chat.",
+    ],
   },
   {
     icon: "team" as const,
     name: "Mentor capture",
-    body: "Mentors log sessions by voice note or a two-minute form, and can capture on a site visit.",
+    points: [
+      "Sessions logged by voice note or a two-minute form.",
+      "Capture on site visits.",
+    ],
   },
 ];
 
@@ -119,47 +135,34 @@ const roles = [
 
 const dataPoints = [
   {
-    label: "Where the record lives",
-    heading: "Designed to stay in South Africa",
-    body: "Beneficiary records and files are designed to be stored in South Africa, with each implementer's data kept separate from every other's.",
+    heading: "Consent before collection.",
+    body: "Explain the purpose and obtain the relevant permission before collecting information.",
   },
   {
-    label: "What leaves the country",
-    heading: "Masked text only",
-    body: "ID and bank numbers are masked before any AI step, so the AI model receives masked text only. Where a provider processes data outside South Africa, such as WhatsApp or email delivery, we set out the basis for that transfer under POPIA section 72.",
+    heading: "Collect what the programme needs.",
+    body: "Avoid collecting information that is not required for the defined purpose.",
   },
   {
-    label: "How it is handled",
-    heading: "Data protection in the design",
-    body: "Consent before collection. Only what the programme needs. Retention follows the programme's end date. The implementer acts as operator, and Invara as sub-operator under contract.",
+    heading: "Review before recording.",
+    body: "Use a named reviewer and an approval step before information is written to the programme record.",
+  },
+  {
+    heading: "Manage retention.",
+    body: "Align retention with the programme’s requirements and end date.",
+  },
+  {
+    heading: "Review provider and transfer arrangements.",
+    body: "Where a provider processes information outside South Africa, the relevant basis and safeguards should be documented.",
   },
 ];
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────
 
-function SectionHead({ eyebrow, light, strong, onNavy = false }: { eyebrow: string; light: string; strong: string; onNavy?: boolean }) {
-  return (
-    <>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2 style={{ marginBottom: "1.5rem", border: "none", ...(onNavy ? { color: "var(--color-ink-inverted)" } : {}) }}>
-        <span style={{ fontWeight: 300 }}>{light}</span>
-        <br />
-        <span style={{ fontWeight: 700 }}>{strong}</span>
-      </h2>
-    </>
-  );
+// One section head site-wide (reading system, 3 Nov 2026): one weight, the
+// second part highlighted in colour only. Wraps components/ui/SectionHead.
+function SectionHead({ eyebrow, light, strong, onNavy = false }: { eyebrow: string; light?: string; strong: string; onNavy?: boolean }) {
+  return <SharedSectionHead eyebrow={eyebrow} light={light} strong={strong} dark={onNavy} animate={false} />;
 }
-
-const cardHeading: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontWeight: 600,
-  fontSize: "var(--text-h3-sans)",
-  color: "var(--color-ink-primary)",
-  lineHeight: 1.3,
-  marginBottom: "0.75rem",
-  border: "none",
-  paddingBottom: 0,
-};
 
 const smallLabel: React.CSSProperties = {
   display: "block",
@@ -277,10 +280,8 @@ export default function InvaraPage() {
           HERO
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative overflow-hidden ${outerPad} pt-36 md:pt-44 pb-20 md:pb-28`}
-        style={{ background: "var(--gradient-hero)" }}
+        className={`navy-horizon hero-grid relative overflow-hidden ${outerPad} pt-36 md:pt-44 pb-20 md:pb-28`}
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <div style={{ display: "flex", alignItems: "center", gap: "0.875rem", marginBottom: "2rem" }}>
@@ -306,7 +307,7 @@ export default function InvaraPage() {
 
           <FadeUp delay={0.16}>
             <p className="body-on-navy" style={{ maxWidth: "700px", marginBottom: "1.25rem" }}>
-              Invara is the system of record for organisations that run sponsor-funded programmes: enterprise and supplier development, CSI and bursaries. Every beneficiary and every rand on record, with reports ready when the sponsor asks.
+              Invara helps enterprise and supplier development, corporate social investment, and bursary implementers capture approved beneficiary, disbursement, and supporting evidence once, then produce sponsor-ready reports from one record.
             </p>
             <p
               style={{
@@ -324,16 +325,8 @@ export default function InvaraPage() {
           </FadeUp>
 
           <FadeUp delay={0.22}>
-            <div data-maru-primary-cta className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4" style={{ marginBottom: "1rem" }}>
-              <Button href={DEMO_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Request a demo
-              </Button>
-              <Button href="#how-it-works" variant="secondary" className="w-full sm:w-auto justify-center">
-                See how it works
-              </Button>
-            </div>
-            <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontStyle: "italic", fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)", margin: "0 0 3.5rem" }}>
-              Invara is in its pilot phase. We are working with a small number of implementers to shape it.
+            <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)", margin: "0 0 3.5rem" }}>
+              Invara is in its pilot phase. This page describes how it is designed to work. We are working with a small number of implementers to shape it.
             </p>
           </FadeUp>
 
@@ -346,7 +339,9 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           THE PROBLEM AND THE PROOF
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="The problem" light="From year-end reconstruction" strong="to evidence on record." />
@@ -356,7 +351,7 @@ export default function InvaraPage() {
           </FadeUp>
 
           <FadeUp delay={0.08}>
-            <div className="card-lift rounded-[12px] overflow-hidden">
+            <div className="card-lift card-static overflow-hidden">
               <div className="hidden md:grid grid-cols-2" style={{ background: "var(--color-bg-secondary)" }}>
                 <span style={{ ...smallLabel, margin: 0, padding: "1rem 1.5rem" }}>Without a system of record</span>
                 <span style={{ ...smallLabel, margin: 0, padding: "1rem 1.5rem", color: "var(--color-cyan-ink, var(--color-ink-primary))" }}>With Invara</span>
@@ -394,7 +389,7 @@ export default function InvaraPage() {
                 maxWidth: "820px",
               }}
             >
-              <strong style={{ fontWeight: 700 }}>The audit trail is the product.</strong> Every field has a source and an approver, so a sponsor or verifier question is answered with evidence.
+              <strong style={{ fontWeight: 700 }}>The audit trail is the product.</strong> Each field is designed to carry its source and approver, so sponsor or verifier questions can be answered with evidence rather than reconstruction.
             </p>
           </FadeUp>
         </div>
@@ -403,63 +398,74 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           WHO IT IS FOR
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
+          {/* One photograph for the section (4 Nov 2026), beside the heading,
+              not one per card: it sets the scene, the cards carry the detail. */}
           <FadeUp>
-            <SectionHead eyebrow="Who it is for" light="Built for implementers who" strong="disburse on behalf of sponsors." />
-            <p className={`body-muted ${innerText}`} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              Invara is for the organisations in the middle: funded by corporate sponsors, working directly with beneficiaries, and accountable to both.
-            </p>
+            <div className="split-media" style={{ marginBottom: "var(--space-section-header-mb)" }}>
+              <div>
+                <SectionHead eyebrow="Who it is for" light="Built for implementers who" strong="disburse on behalf of sponsors." />
+                <p className="body-muted" style={{ marginBottom: 0 }}>
+                  Invara is for the organisations in the middle: funded by corporate sponsors, working directly with beneficiaries, and accountable to both.
+                </p>
+              </div>
+              <TreatedImage
+                src="/images/invara/workshop-visit.jpg"
+                alt="A small business owner in his woodwork workshop, pointing to timber stock during a programme visit"
+                sizes="(min-width: 1024px) 460px, 100vw"
+                className="split-media-img"
+              />
+            </div>
           </FadeUp>
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {audiences.map((a) => (
               <StaggerChild key={a.name} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={a.icon} size={22} />
-                  </span>
-                  <h3 style={cardHeading}>{a.name}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{a.body}</p>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                    <div className="card-label-row">
+                      <span className="glyph-chip">
+                        <Glyph name={a.icon} size={22} />
+                      </span>
+                    </div>
+                    <h3 className="card-title">{a.name}</h3>
+                    <p className="card-text">{a.body}</p>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
           </StaggerParent>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           HOW IT WORKS
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        id="how-it-works"
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ background: "var(--gradient-hero)" }}
-      >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.07)" className="pointer-events-none" />
-        <div className={`${innerWide} relative z-10`}>
+      {/* The page's one dark chapter (reading system, 3 Nov 2026): the walkthrough. */}
+      <section id="how-it-works" className="section-dark sec sec-chapter">
+        <div className={innerWide}>
           <FadeUp>
-            <SectionHead eyebrow="How it works" light="Seven stages," strong="one spine." onNavy />
+            <SectionHead eyebrow="How it works" light="A structured workflow" strong="from capture to reporting." onNavy />
             <p className="body-on-navy" style={{ maxWidth: "760px", marginBottom: "var(--space-section-header-mb)" }}>
-              Every programme runs on the same path, from set-up to proof. While a beneficiary is in the programme, a monthly cycle feeds each new item back through intake.
+              An evidence pack is a structured collection of approved programme information and supporting documents prepared for sponsor reporting or verification.
             </p>
           </FadeUp>
-          <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3">
+          <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {stages.map((s) => (
               <StaggerChild key={s.n} className="h-full">
                 <div
-                  className="h-full rounded-[10px]"
+                  className="card-dark h-full"
                   style={{
                     padding: "1.25rem 1rem",
-                    background: "rgba(250,250,248,0.05)",
-                    border: "1px solid rgba(250,250,248,0.12)",
-                    borderTop: `3px solid ${s.n === "05" ? "var(--color-gold)" : "var(--color-cyan)"}`,
+                    borderTop: `3px solid ${s.n === "04" ? "var(--color-gold)" : "var(--color-cyan)"}`,
                   }}
                 >
-                  <span aria-hidden="true" style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "1rem", color: s.n === "05" ? "var(--color-gold)" : "var(--color-cyan)", marginBottom: "0.5rem" }}>
+                  <span className="card-label" aria-hidden="true" style={{ display: "block", marginBottom: "0.75rem", ...(s.n === "04" ? { color: "var(--color-gold)" } : {}) }}>
                     {s.n}
                   </span>
-                  <h3 style={{ ...cardHeading, color: "var(--color-ink-inverted)", fontSize: "1.05rem", marginBottom: "0.4rem" }}>{s.name}</h3>
-                  <p style={{ margin: 0, fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "var(--text-meta)", lineHeight: 1.5, color: "var(--color-ink-inverted-muted)" }}>{s.body}</p>
+                  <h3 className="card-title" style={{ fontSize: "1.125rem", marginBottom: "0.5rem" }}>{s.name}</h3>
+                  <p className="card-text" style={{ fontSize: "0.9375rem", margin: 0 }}>{s.body}</p>
                 </div>
               </StaggerChild>
             ))}
@@ -467,10 +473,10 @@ export default function InvaraPage() {
           <FadeUp delay={0.1}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5" style={{ marginTop: "2.5rem" }}>
               <p className="body-on-navy" style={{ margin: 0, borderLeft: "4px solid var(--color-gold)", paddingLeft: "1.25rem" }}>
-                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>Nothing reaches the record unapproved.</strong> Every item is staged first, and a named person approves it. Reports read approved data only.
+                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>AI speeds up capture. People keep it accountable.</strong> Invara is being built so that AI classifies incoming items and extracts fields from masked text, and a named team member reviews and approves items before they enter the record.
               </p>
               <p className="body-on-navy" style={{ margin: 0, borderLeft: "4px solid var(--color-cyan)", paddingLeft: "1.25rem" }}>
-                <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>AI makes capture fast. People make it trustworthy.</strong> AI classifies items and pulls out the fields; your team checks and signs.
+                Review and approval are part of the workflow, not an afterthought.
               </p>
             </div>
           </FadeUp>
@@ -480,7 +486,9 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           CAPTURE AT SOURCE
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Capture at source" light="Beneficiaries use what" strong="they already have." />
@@ -491,19 +499,30 @@ export default function InvaraPage() {
           <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {channels.map((c) => (
               <StaggerChild key={c.name} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem" }}>
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={c.icon} size={22} />
-                  </span>
-                  <h3 style={cardHeading}>{c.name}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{c.body}</p>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                  <div className="card-label-row">
+                    <span className="glyph-chip">
+                      <Glyph name={c.icon} size={22} />
+                    </span>
+                  </div>
+                  <h3 className="card-title">{c.name}</h3>
+                  <ul className="prob-list">
+                    {c.points.map((p) => (
+                      <li key={p}>
+                        <span className="prob-dot" aria-hidden="true" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
           </StaggerParent>
           <FadeUp delay={0.1}>
             <p className="body-muted" style={{ marginTop: "2rem", marginBottom: 0, maxWidth: "820px", borderLeft: "4px solid var(--color-cyan)", paddingLeft: "1.25rem" }}>
-              <strong style={{ fontWeight: 600, color: "var(--color-ink-primary)" }}>Made for South African conditions.</strong> A low-data web form, mentor-assisted capture on site visits, and an SMS nudge when a WhatsApp message goes unread.
+              <strong style={{ fontWeight: 600, color: "var(--color-ink-primary)" }}>Built for South African programme delivery.</strong> Low-data forms, mentor-assisted capture, and SMS follow-up support the realities of programme delivery in the field and help teams follow up when a WhatsApp message goes unread.
             </p>
           </FadeUp>
         </div>
@@ -512,7 +531,7 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           YOU STAY IN CONTROL
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
             <SectionHead eyebrow="Your team, your sponsors" light="You stay in control." strong="Nothing gets lost." />
@@ -524,9 +543,9 @@ export default function InvaraPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 items-start">
             {/* Illustrative dashboard */}
             <FadeUp>
-              <figure className="card-lift rounded-[12px]" style={{ margin: 0, padding: "1.75rem" }}>
+              <figure className="card-lift" style={{ margin: 0, padding: "1.75rem" }}>
                 <span style={smallLabel}>Programme dashboard · illustrative</span>
-                <h3 style={{ ...cardHeading, marginBottom: "1.25rem" }}>Funds, from budget to proven</h3>
+                <h3 className="card-title" style={{ marginBottom: "1.25rem" }}>Funds, from budget to proven</h3>
                 {[
                   { label: "Budget", w: 100, c: "#16324F" },
                   { label: "Committed", w: 82, c: "#00679C" },
@@ -556,7 +575,7 @@ export default function InvaraPage() {
                     ))}
                   </ul>
                 </div>
-                <figcaption style={{ marginTop: "1rem", fontFamily: "var(--font-body)", fontSize: "var(--text-meta)", fontWeight: 300, fontStyle: "italic", color: "var(--color-ink-tertiary)" }}>
+                <figcaption style={{ marginTop: "1rem", fontFamily: "var(--font-body)", fontSize: "var(--text-meta)", fontWeight: 300, color: "var(--color-ink-tertiary)" }}>
                   Illustration of the dashboard design. Bar lengths are not data.
                 </figcaption>
               </figure>
@@ -566,12 +585,16 @@ export default function InvaraPage() {
             <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {roles.map((r) => (
                 <StaggerChild key={r.name} className="h-full">
-                  <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.4rem 1.25rem" }}>
-                    <span className="glyph-chip" style={{ marginBottom: "0.75rem" }}>
-                      <Glyph name={r.icon} size={20} />
-                    </span>
-                    <h3 style={{ ...cardHeading, fontSize: "1.05rem", marginBottom: "0.4rem" }}>{r.name}</h3>
-                    <p className="body-muted" style={{ marginBottom: 0 }}>{r.body}</p>
+                  <div className="card-lift h-full flex flex-col">
+                    <div className="card-body">
+                      <div className="card-label-row">
+                        <span className="glyph-chip">
+                          <Glyph name={r.icon} size={20} />
+                        </span>
+                      </div>
+                      <h3 className="card-title">{r.name}</h3>
+                      <p className="card-text">{r.body}</p>
+                    </div>
                   </div>
                 </StaggerChild>
               ))}
@@ -583,33 +606,36 @@ export default function InvaraPage() {
       {/* ════════════════════════════════════════════════════════════════════
           DATA AND POPIA
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec sec-ruled overflow-hidden">
+        {/* Last section of a three-section light run: dots from the other side. */}
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={15} />
         <div className={innerWide}>
           <FadeUp>
-            <SectionHead eyebrow="Data and POPIA" light="Your beneficiaries' records," strong="handled with care." />
+            <SectionHead eyebrow="Data and POPIA" light="POPIA-aware" strong="information handling." />
             <p className={`body-muted ${innerText}`} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              Beneficiary files hold ID documents, bank details and business records. Invara is designed around that from the start.
+              Invara is designed to make consent, access, data minimisation, retention, approval, and information handling visible parts of the workflow. The exact controls depend on the information involved, the implementation configuration, and the providers connected to the system.
             </p>
           </FadeUp>
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {dataPoints.map((d) => (
               <StaggerChild key={d.heading} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem", borderTop: "3px solid var(--color-cyan)" }}>
-                  <span style={smallLabel}>{d.label}</span>
-                  <h3 style={cardHeading}>{d.heading}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{d.body}</p>
+                <div className="card-lift h-full flex flex-col">
+                  <div className="card-body">
+                    <h3 className="card-title">{d.heading}</h3>
+                    <p className="card-text">{d.body}</p>
+                  </div>
                 </div>
               </StaggerChild>
             ))}
           </StaggerParent>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           FINAL CTA
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`relative overflow-hidden ${outerPad} py-24`} style={{ background: "var(--gradient-hero)" }}>
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.08)" className="pointer-events-none" />
+      <section className="navy-horizon sec sec-chapter relative overflow-hidden">
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem" }}>
@@ -617,16 +643,15 @@ export default function InvaraPage() {
               <span style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "0.85rem", color: "var(--color-cyan)" }}>Invara by Maru Online</span>
             </div>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              <span style={{ fontWeight: 300 }}>See your programme</span>
-              <br />
-              <span style={{ fontWeight: 700 }}>on one record.</span>
+              See how Invara could work{" "}
+              <span style={{ color: "var(--color-cyan)" }}>for your programmes.</span>
             </h2>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              Tell us about the programmes you run and the sponsors you report to. We will walk you through how Invara would handle them, from first contact with a beneficiary to the evidence pack.
+              Tell us about the programmes you run and the sponsor reporting requirements you manage. We will show how Invara can handle consent, evidence, review, approval, and sponsor-ready reporting through one record.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Button href={DEMO_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Request a demo
+                Discuss your programme
               </Button>
               <Button href="/about" variant="secondary" className="w-full sm:w-auto justify-center">
                 About Maru Online

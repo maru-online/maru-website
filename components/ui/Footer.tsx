@@ -28,33 +28,32 @@ const itemVariants = {
 // size is deliberately unchanged — the height comes from the box, not the type.
 // The vertical lists below drop their gap-3 to compensate, so the taller rows
 // tile edge to edge instead of ballooning the footer or overlapping each other.
-const linkClass =
-  'font-body text-[13px] font-light transition-colors duration-200 ' +
-  'hover:text-[var(--color-cyan)] inline-flex items-center min-h-[44px]'
-
-// Legal row: same treatment at the smaller 12px size used in the bottom bar.
-const legalLinkClass =
-  'font-body text-[12px] font-light transition-colors duration-200 ' +
-  'hover:text-[var(--color-cyan)] inline-flex items-center min-h-[44px]'
+// Colour, weight and the hover lift live in .footer-link (globals.css). They
+// used to be inline styles, which beat the hover class, so hover never showed.
+const linkClass = 'footer-link font-body inline-flex items-center min-h-[44px]'
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function Footer({ showInsights = false }: { showInsights?: boolean }) {
   return (
     <>
-      <footer style={{ background: 'var(--gradient-navy-soft)' }}>
-        <div className="max-w-[900px] mx-auto px-6 md:px-[60px] py-20">
+      <footer className="relative" style={{ background: 'var(--gradient-footer)' }}>
+        {/* Same column as the page content (sec-inner, 1120px) — it was capped
+            at 900px, which wrapped links and made the footer feel cramped. */}
+        <div className="px-6 md:px-[60px] py-20">
+          <div className="sec-inner">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={containerVariants}
           >
-            {/* ── 4-column grid ──────────────────────────────────────────── */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+            {/* ── 5 columns (5 Nov 2026): brand gets the wider share; legal
+                links moved out of the bottom bar into their own column. ── */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-x-6 md:gap-x-8 gap-y-10 md:gap-y-12">
 
               {/* Brand column */}
-              <motion.div variants={itemVariants} className="lg:col-span-1">
+              <motion.div variants={itemVariants} className="col-span-2 md:col-span-4 lg:col-span-1 lg:pr-8">
                 <Link
                   href="/"
                   aria-label="Maru Online — home"
@@ -68,11 +67,8 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                     style={{ height: '36px', width: 'auto' }}
                   />
                 </Link>
-                <p
-                  className="font-body font-light text-[13px] leading-relaxed mb-6"
-                  style={{ color: 'var(--color-ink-inverted-muted)' }}
-                >
-                  POPIA-aware AI implementation
+                <p className="footer-text font-body leading-relaxed mb-6">
+                  Practical digital systems and POPIA-aware AI implementation.
                 </p>
                 {/* Social icons */}
                 <div className="flex items-center gap-3">
@@ -83,23 +79,7 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.name}
-                      className="
-                        h-11 w-11 rounded-full flex items-center justify-center
-                        transition-[color,border-color] duration-200
-                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-cyan)]
-                      "
-                      style={{
-                        border: '1px solid rgba(250,250,248,0.15)',
-                        color: 'rgba(250,250,248,0.4)',
-                      }}
-                      onMouseEnter={e => {
-                        e.currentTarget.style.color = 'var(--color-cyan)'
-                        e.currentTarget.style.borderColor = 'rgba(61,184,198,0.5)'
-                      }}
-                      onMouseLeave={e => {
-                        e.currentTarget.style.color = 'rgba(250,250,248,0.4)'
-                        e.currentTarget.style.borderColor = 'rgba(250,250,248,0.15)'
-                      }}
+                      className="footer-social h-11 w-11 rounded-full flex items-center justify-center"
                     >
                       {item.icon}
                     </a>
@@ -121,7 +101,6 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                       <Link
                         href={item.href}
                         className={linkClass}
-                        style={{ color: 'var(--color-ink-inverted-muted)' }}
                       >
                         {item.name}
                       </Link>
@@ -142,14 +121,13 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                   {[
                     { name: 'How we work',               href: '/#how-we-work' },
                     { name: 'Supporting capabilities',   href: '/#capabilities' },
-                    { name: 'Free POPIA Assessment',     href: '/popia-ai-check' },
+                    { name: 'Free POPIA review',          href: '/popia-ai-check' },
                     { name: 'Invara',                    href: '/invara' },
                   ].map((item) => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
                         className={linkClass}
-                        style={{ color: 'var(--color-ink-inverted-muted)' }}
                       >
                         {item.name}
                       </Link>
@@ -173,16 +151,40 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                       event="email_click"
                       eventData={{ source: 'footer' }}
                       className={linkClass}
-                      style={{ color: 'var(--color-ink-inverted-muted)' }}
                     >
                       hello@maruonline.com
                     </TrackedLink>
                   </li>
-                  <li
-                    className="font-body text-[13px] font-light py-2"
-                    style={{ color: 'var(--color-ink-inverted-muted)' }}
-                  >
+                  <li className="footer-text font-body py-2">
                     Gauteng, South Africa
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* Legal column */}
+              <motion.div variants={itemVariants}>
+                <h4
+                  className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
+                  style={{ color: 'var(--color-ink-inverted)' }}
+                >
+                  Legal
+                </h4>
+                <ul className="flex flex-col list-none m-0 p-0">
+                  {footerNavigation.legal.map((item) => (
+                    <li key={item.name}>
+                      <Link href={item.href} className={linkClass}>
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => window.dispatchEvent(new Event('open-cookie-preferences'))}
+                      className={linkClass}
+                    >
+                      Cookie Preferences
+                    </button>
                   </li>
                 </ul>
               </motion.div>
@@ -193,47 +195,21 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
             <motion.div
               variants={itemVariants}
               className="mt-16 pt-8"
-              style={{ borderTop: '1px solid rgba(250,250,248,0.1)' }}
+              style={{ borderTop: '1px solid var(--footer-rule)' }}
             >
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
 
                 {/* Copyright */}
-                <p
-                  className="font-body text-[12px] font-light"
-                  style={{ color: 'rgba(250,250,248,0.35)' }}
-                >
+                <p className="footer-legal font-body">
                   © {new Date().getFullYear()} Maru Online. All Rights Reserved.
                 </p>
 
-                {/* Legal links */}
-                <ul className="flex flex-wrap items-center gap-5 list-none m-0 p-0">
-                  {footerNavigation.legal.map((item) => (
-                    <li key={item.name}>
-                      <Link
-                        href={item.href}
-                        className={legalLinkClass}
-                        style={{ color: 'rgba(250,250,248,0.35)' }}
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
-                  <li>
-                    <button
-                      type="button"
-                      onClick={() => window.dispatchEvent(new Event('open-cookie-preferences'))}
-                      className={`${legalLinkClass} focus-visible:outline-none focus-visible:underline`}
-                      style={{ color: 'rgba(250,250,248,0.35)' }}
-                    >
-                      Cookie Preferences
-                    </button>
-                  </li>
-                </ul>
 
               </div>
             </motion.div>
 
           </motion.div>
+          </div>
         </div>
       </footer>
     </>
