@@ -557,6 +557,8 @@ export interface V3StoredTemplate {
   levelSummary: string;
   consent: {
     marketing: boolean;
+    /** Ticked the box for the one follow-up email about the results (from 2026-11-v1). */
+    followUp?: boolean;
     at: string;           // ISO timestamp of the submission
     textVersion: string;  // CONSENT_TEXT_VERSION
   };

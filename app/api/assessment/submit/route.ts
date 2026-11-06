@@ -44,6 +44,7 @@ interface SubmissionBody {
   email: string;
   website?: string;
   marketingConsent?: boolean;
+  followUpConsent?: boolean;
   recaptchaToken?: string;
 }
 
@@ -51,8 +52,10 @@ interface SubmissionBody {
  * Bump when the consent wording in app/popia-ai-check/page.tsx changes, so
  * every stored consent can be matched to the exact text the visitor saw.
  * 2026-09-v1 = COPY-DECK-ADDENDUM-01 item D, approved 26 Sep 2026.
+ * 2026-11-v1 = adds the separate, unticked box for the one follow-up email
+ * about the results (6 Nov 2026); marketing wording unchanged.
  */
-const CONSENT_TEXT_VERSION = "2026-09-v1";
+const CONSENT_TEXT_VERSION = "2026-11-v1";
 
 // Upper bound on the Claude call. Typical is ~24s; past this we send the lead alert
 // brief without observations rather than wait on a hung request.
@@ -118,12 +121,14 @@ export async function POST(req: NextRequest) {
     const painTag = scoreResult.painTag;
     // Only an explicit `true` counts as consent — never a truthy string.
     const marketingConsent = body.marketingConsent === true;
+    const followUpConsent = body.followUpConsent === true;
     const consentAt = new Date().toISOString();
     const template: V3StoredTemplate = {
       version: ASSESSMENT_VERSION,
       levelSummary: scoreResult.summary,
       consent: {
         marketing: marketingConsent,
+        followUp: followUpConsent,
         at: consentAt,
         textVersion: CONSENT_TEXT_VERSION,
       },
@@ -196,6 +201,7 @@ export async function POST(req: NextRequest) {
           leadBrief: null,
           answers: body.answers,
           marketingConsent,
+          followUpConsent,
         };
 
         // 1. Prospect email first. Independent of everything below.
@@ -485,6 +491,7 @@ interface BrevoEmailParams {
   leadBrief: SynthesisOutput["objectB"] | null;
   answers: SubmissionBody["answers"];
   marketingConsent: boolean;
+  followUpConsent: boolean;
 }
 
 async function sendProspectEmail(params: BrevoEmailParams) {
@@ -552,10 +559,10 @@ async function sendProspectEmail(params: BrevoEmailParams) {
 }
 
 async function sendLeadAlertEmail(params: BrevoEmailParams) {
-  const { name, email, website, level, levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent } = params;
+  const { name, email, website, level, levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent, followUpConsent } = params;
 
   const briefHtml = buildLeadAlertHtml({
-    name, email, website, level, levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent,
+    name, email, website, level, levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent, followUpConsent,
   });
 
   const alertRes = await fetch("https://api.brevo.com/v3/smtp/email", {
@@ -591,8 +598,9 @@ function buildLeadAlertHtml(params: {
   leadBrief: SynthesisOutput["objectB"] | null;
   answers: SubmissionBody["answers"];
   marketingConsent: boolean;
+  followUpConsent: boolean;
 }): string {
-  const { levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent } = params;
+  const { levelLabel, reportUrl, segmentB, leadBrief, answers, marketingConsent, followUpConsent } = params;
   // Visitor-typed fields go into HTML, so escape them.
   const name = escapeHtml(params.name);
   const email = escapeHtml(params.email);
@@ -650,7 +658,8 @@ function buildLeadAlertHtml(params: {
         ${row("Email", `<a href="mailto:${email}">${email}</a>`)}
         ${row("Website", website ? `<a href="${website}">${website}</a>` : "Not provided")}
         ${row("Level", levelLabel)}
-        ${row("Marketing consent", marketingConsent ? "Yes — opted in, added to list 21" : "No — report and follow-up only. Do not add to marketing.")}
+        ${row("Follow-up email consent", followUpConsent ? "Yes — one automated follow-up goes from Jimmy after about two days." : "No — do not email about the results. They can still get in touch themselves.")}
+        ${row("Marketing consent", marketingConsent ? "Yes — opted in, added to list 21" : "No — do not add to marketing.")}
         ${row("Report", `<a href="${reportUrl}">View report →</a>`)}
       </table>
 

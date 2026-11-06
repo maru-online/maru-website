@@ -11,10 +11,19 @@
     },
     "app/api/cron/insights/route.ts": {
       "maxDuration": 300
+    },
+    "app/api/cron/assessment-followup/route.ts": {
+      "maxDuration": 60
     }
   },
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "installCommand": "npm install",
-  "devCommand": "npm run dev"
+  "devCommand": "npm run dev",
+  "crons": [
+    {
+      "path": "/api/cron/assessment-followup?apply=1",
+      "schedule": "0 6 * * *"
+    }
+  ]
 }

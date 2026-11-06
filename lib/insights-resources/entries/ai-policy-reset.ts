@@ -64,7 +64,7 @@ export const policyReset: ContentEntry = {
       t: 'ul',
       items: [
         '**POPIA already applies.** If a client’s or employee’s personal information goes into an AI tool, POPIA’s conditions for lawful processing apply, including security safeguards, purpose limits and how long you keep information. Section 71 restricts decisions made solely by automated profiling. A national AI policy being late does not suspend any of this.',
-        '**Regulator guidance is still thin.** As at March 2026, commentators reported that the Information Regulator had published no guidance on AI risk or on section 71. Guidance may follow. It is not a reason to wait.',
+        '**Regulator guidance may follow.** We are not aware of Information Regulator guidance on AI risk or on section 71. Check the Regulator’s website for anything issued since this was written. It is not a reason to wait.',
         '**Boards are being pointed the same way.** King V, the voluntary governance code published on 31 October 2025, applies to financial years starting on or after 1 January 2026. Under its technology practices, boards are expected to ensure human oversight and override for automated technologies, in proportion to the risk. It is aimed at governing bodies, but it is a sensible benchmark for any business.',
       ],
     },

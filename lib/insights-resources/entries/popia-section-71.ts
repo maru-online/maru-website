@@ -71,7 +71,7 @@ export const section71: ContentEntry = {
     },
     {
       t: 'p',
-      text: 'We are not aware of published guidance from the Information Regulator, or of court decisions, on how “solely” will be read in practice. As at March 2026, commentators reported none. Treat it as a risk judgement, not a safe harbour. Law firms advising employers describe the same approach: AI output is an input to a human decision, and the person deciding must be able to explain the reasons and be empowered to override.',
+      text: 'We are not aware of published guidance from the Information Regulator, or of court decisions, on how “solely” will be read in practice. Check the Regulator’s website for anything issued since this was written. Treat it as a risk judgement, not a safe harbour. Law firms advising employers describe the same approach: AI output is an input to a human decision, and the person deciding must be able to explain the reasons and be empowered to override.',
     },
     { t: 'h2', text: 'A five-question test before AI touches a decision about a person' },
     {

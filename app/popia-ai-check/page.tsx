@@ -75,6 +75,7 @@ function AssessmentWizard() {
   // POPIA s69: direct marketing needs a separate opt-in. Unticked by default,
   // and the report is sent whether or not it is ticked (Addendum 01, item D).
   const [marketingConsent, setMarketingConsent] = useState(false);
+  const [followUpConsent, setFollowUpConsent] = useState(false);
   const [submitting, setSubmitting]   = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [progress, setProgress]       = useState(0);
@@ -154,6 +155,7 @@ function AssessmentWizard() {
             email: email.trim(),
             website: website.trim() || undefined,
             marketingConsent,
+            followUpConsent,
             recaptchaToken,
           }),
           signal: controller.signal,
@@ -386,6 +388,20 @@ function AssessmentWizard() {
                 />
               </div>
 
+              {/* Follow-up consent (6 Nov 2026). Separate and unticked: ticking is
+                  never needed to get the report, and only a tick lets us send the
+                  one follow-up email about the results (POPIA s69, no silent opt-in). */}
+              <label className="flex items-start gap-3 cursor-pointer min-h-[44px] py-1">
+                <Checkbox
+                  checked={followUpConsent}
+                  onChange={(e) => setFollowUpConsent(e.target.checked)}
+                  className="mt-0.5"
+                />
+                <span className="text-sm text-ink-secondary leading-relaxed">
+                  Email me once, in about two days, to ask whether I would like to talk through my results.
+                </span>
+              </label>
+
               {/* Addendum 01 item D — approved 26 Sep 2026. Separate, opt-in,
                   unticked: only a tick adds the contact to the marketing list. */}
               <label className="flex items-start gap-3 cursor-pointer min-h-[44px] py-1">
@@ -414,11 +430,11 @@ function AssessmentWizard() {
 
               {/* POPIA s18 notice at the point of collection (Addendum 01 D). */}
               <p className="text-ink-tertiary text-xs text-center leading-relaxed">
-                We use your name and email to send your report, and to email you once in about two days to ask whether you would like to talk through your results. Nothing else. Some of our providers process information outside South Africa, as our{" "}
+                We use your name and email to send your report. If you tick the first box, we also use them to email you once about your results. Some of our providers process information outside South Africa, as our{" "}
                 <Link href="/privacy-policy" className="text-cyan-ink underline hover:no-underline">
                   Privacy Policy
                 </Link>{" "}
-                explains. By requesting your report, you agree to this.
+                explains.
               </p>
             </form>
           </div>
@@ -437,10 +453,12 @@ function AssessmentWizard() {
               Thank you.
             </h2>
             <p className="body-muted text-base leading-relaxed mb-4 max-w-md mx-auto">
-              Your report is on its way. We will email you in about two days to ask whether you would like to talk through your results.
+              {followUpConsent
+                ? "Your report is on its way. We will reach out to you by email in about two days to see if you would like to talk through your results."
+                : "Your report is on its way."}
             </p>
             <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
-              If you would like to get in touch sooner, email us at{" "}
+              {followUpConsent ? "If you would like to get in touch sooner, email us at" : "If you would like to talk through your results, email us at"}{" "}
               <a href="mailto:hello@maruonline.com" className="text-cyan-ink underline hover:no-underline">
                 hello@maruonline.com
               </a>

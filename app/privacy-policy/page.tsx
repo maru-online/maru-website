@@ -14,8 +14,8 @@ export default function PrivacyPolicyPage() {
     <LegalLayout
       title="Privacy Policy"
       description="What personal information we collect through this website, why, who receives it, and your rights."
-      lastUpdated="October 13, 2026"
-      effectiveDate="October 13, 2026"
+      lastUpdated="November 6, 2026"
+      effectiveDate="November 6, 2026"
     >
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">1. Who we are</h2>
@@ -33,8 +33,8 @@ export default function PrivacyPolicyPage() {
           We collect only what each form or tool needs.
         </p>
         <ul className="text-ink-secondary mb-4">
-          <li><strong className="text-ink-primary">Free POPIA review.</strong> Your name, email address, business name, your website address if you give one, and your answers to the questions. We use these to calculate your result, show you your report and email you the link, and to prepare for a conversation with you if you ask for a proposal. There is an optional, unticked box if you also want to hear from us by email; ticking it is never needed to get your report.</li>
-          <li><strong className="text-ink-primary">Contact form (request a proposal).</strong> Your name, business name, email address, optional mobile number, the service you are interested in, what you tell us about your needs, and how you heard about us. We use these to reply to you and prepare a proposal.</li>
+          <li><strong className="text-ink-primary">Free POPIA review.</strong> Your name, email address, business name, your website address if you give one, and your answers to the questions. We use these to calculate your result, show you your report and email you the link. If you tick the follow-up box, we also use your name and email address to email you once, about two days later, to ask whether you would like to talk through your results. If you leave it unticked, we do not send that email. There is a second, separate, optional box if you also want occasional notes by email. Ticking either box is never needed to get your report.</li>
+          <li><strong className="text-ink-primary">Contact form.</strong> Your name, business name, email address, optional mobile number, the service you are interested in, what you tell us about your needs, and how you heard about us. We use these to reply to you and suggest a next step.</li>
           <li><strong className="text-ink-primary">The Business AI Journal.</strong> Your email address and, if you give it, your first name, to send you the newsletter. You can unsubscribe at any time.</li>
           <li><strong className="text-ink-primary">Guide request.</strong> Your first name, email address and, optionally, company name, so we can send you our guide. A separate, unticked box lets you ask for our notes; the guide does not depend on it. We also record the wording you saw and the time, so we can show what you agreed to.</li>
           <li><strong className="text-ink-primary">WhatsApp and email.</strong> If you message us on WhatsApp or by email, we receive your number or address and what you write.</li>
@@ -81,7 +81,7 @@ export default function PrivacyPolicyPage() {
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Guide requests</strong> are deleted after 12 months unless you confirmed you want our notes, have become a client, or have used the POPIA review. If you confirmed the notes, we keep your details until you unsubscribe.</li>
           <li><strong className="text-ink-primary">POPIA review results and reports</strong> are kept for 12 months after you submit your answers and are then deleted, unless you have become a client or you have asked us to keep them. When they are deleted, your report link stops working.</li>
-          <li><strong className="text-ink-primary">Enquiries and proposals</strong> are kept only while we need them to reply to you or prepare a proposal. We review them at least once a year and delete or de-identify those we no longer need, unless you have become a client.</li>
+          <li><strong className="text-ink-primary">Enquiries and proposals</strong> are kept only while we need them to reply to you or prepare a proposal if one is agreed. We review them at least once a year and delete or de-identify those we no longer need, unless you have become a client.</li>
           <li><strong className="text-ink-primary">Client records</strong> are kept for as long as the law requires us to keep them, and then deleted.</li>
           <li><strong className="text-ink-primary">On request,</strong> we delete your personal information sooner, unless the law requires us to keep it.</li>
         </ul>
