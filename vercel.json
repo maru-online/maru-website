@@ -24,6 +24,14 @@
     {
       "path": "/api/cron/assessment-followup?apply=1",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/assessment-retention",
+      "schedule": "0 2 1 * *"
+    },
+    {
+      "path": "/api/cron/guide-retention",
+      "schedule": "30 2 1 * *"
     }
   ]
 }

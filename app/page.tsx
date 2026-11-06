@@ -4,7 +4,6 @@ import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
 import ImageBand from "@/components/ui/ImageBand";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
-import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
 import { DrawnVisual } from "@/components/ui/CardMedia";
 import SectionHead from "@/components/ui/SectionHead";
@@ -66,6 +65,33 @@ const steps = [
       "Measure performance against an agreed baseline.",
       "Refine the workflow and document how it works.",
       "Equip your team to use and manage it.",
+    ],
+  },
+];
+
+const problems = [
+  {
+    icon: "unlink" as const,
+    name: "Disconnected business systems",
+    points: [
+      "Information sits in separate applications.",
+      "Teams have limited visibility across the business.",
+    ],
+  },
+  {
+    icon: "hourglass" as const,
+    name: "Manual data processing",
+    points: [
+      "Repeated data entry takes up staff time.",
+      "More manual work increases the risk of error.",
+    ],
+  },
+  {
+    icon: "shield" as const,
+    name: "Data governance and POPIA considerations",
+    points: [
+      "Personal information is spread across systems and channels.",
+      "Access, consent, retention, and protection are harder to manage.",
     ],
   },
 ];
@@ -204,20 +230,41 @@ export default function Home() {
             SECTION 03 — THE PROBLEM
             bg: flow ground + faint dots from the right
             ════════════════════════════════════════════════════════════════════ */}
-        <section className="sec sec-ruled overflow-hidden">
+        <section className="sec sec-ruled overflow-clip">
           <DotField tone="light" mask="right" coverage={0.45} intensity={0.65} seed={4} />
           <div className="sec-inner">
-            <SectionHead
-              eyebrow="Why systems matter"
-              title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
-              intro="Your business tools may work well individually. When they do not share information, staff copy it between them by hand, manual work increases, and the same personal information ends up in more places than anyone intended. Weak information handling rarely starts with the tools, but disconnected systems add to it."
-            />
-            <ProblemCards />
-            <FadeUp>
-              <p className="body-muted" style={{ marginTop: "3rem", maxWidth: "46rem" }}>
-                POPIA-aware AI integration starts by reviewing the systems you already use and mapping how their workflows should connect.
-              </p>
-            </FadeUp>
+            {/* Same split as How we work (6 Nov 2026): heading held in view beside
+                three short rows. Replaces the three photo cards, which read as too
+                much to take in. overflow-clip so the sticky heading sticks. */}
+            <div className="split">
+              <div className="split-sticky">
+                <SectionHead
+                  eyebrow="Why systems matter"
+                  title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
+                  intro="Your business tools may work well individually. When they do not share information, staff copy it between them by hand, and the same personal information ends up in more places than anyone intended."
+                />
+              </div>
+              <div>
+                <StaggerParent className="rows rows-lift">
+                  {problems.map((p) => (
+                    <StaggerChild key={p.name} className="row-item">
+                      <span className="glyph-chip glyph-chip-lg" aria-hidden="true">
+                        <Glyph name={p.icon} size={28} />
+                      </span>
+                      <div>
+                        <h3 className="card-title">{p.name}</h3>
+                        <BulletList items={p.points} />
+                      </div>
+                    </StaggerChild>
+                  ))}
+                </StaggerParent>
+                <FadeUp>
+                  <p className="body-muted" style={{ marginTop: "2rem", maxWidth: "46rem" }}>
+                    POPIA-aware AI integration starts by reviewing the systems you already use and mapping how their workflows should connect.
+                  </p>
+                </FadeUp>
+              </div>
+            </div>
           </div>
         </section>
       </div>

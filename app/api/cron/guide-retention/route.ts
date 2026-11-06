@@ -8,8 +8,9 @@
  * no customer record, so that exemption is the owner's to apply by hand.
  *
  * Safe by default:
- *   - NOT scheduled in vercel.json. Run it by hand, or schedule it once the
- *     privacy policy states the period.
+ *   - Scheduled monthly in vercel.json as a DRY RUN (no `apply`): it logs the
+ *     count and deletes nothing. The privacy policy now states the period; add
+ *     `?apply=1` to the schedule once a manual dry run has been checked.
  *   - Requires `Authorization: Bearer $CRON_SECRET`; with no secret set it
  *     refuses every call.
  *   - Dry run unless `?apply=1`: reports what it would delete.
@@ -49,6 +50,7 @@ export async function GET(req: NextRequest) {
   const emails = [...new Set(candidates.map((c) => c.email))];
 
   if (!apply || emails.length === 0) {
+    console.log("guide retention dry run", { count: emails.length, apply });
     return NextResponse.json({ dryRun: !apply, cutoff, count: emails.length });
   }
 

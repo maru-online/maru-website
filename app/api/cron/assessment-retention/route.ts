@@ -25,9 +25,9 @@
  *   - Dry run unless `?apply=1`: reports what it would delete, including the
  *     addresses (dry run only), so they can be checked against the client list.
  *   - Brevo is touched only in production.
- *   - Scheduled monthly in vercel.json with `?apply=1`. Vercel sends
- *     CRON_SECRET as the bearer token, so nothing runs until the owner sets it.
- *     Run a manual dry run (no `apply`) before setting it.
+ *   - Scheduled monthly in vercel.json as a DRY RUN (no `apply`): it logs the
+ *     count and deletes nothing. Once a manual dry run has been checked against
+ *     the client list, add `?apply=1` to the schedule to make it live.
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -106,6 +106,7 @@ export async function GET(req: NextRequest) {
   const emails = rows.map((r) => r.email).filter((e) => !keep.has(e));
 
   if (!apply || emails.length === 0) {
+    console.log("assessment retention dry run", { count: emails.length, apply });
     return NextResponse.json({
       dryRun: !apply,
       cutoff,
