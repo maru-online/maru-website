@@ -24,6 +24,9 @@ import { TreatedImage } from "@/components/ui/CardMedia";
 
 export const metadata: Metadata = {
   ...seo("/invara"),
+  // Hidden until finished (6 Nov 2026): not linked, not in the sitemap, not indexed.
+  // Remove this line, restore the Nav/Footer/sitemap entries, to publish.
+  robots: { index: false, follow: false },
   title: "Invara | Proof Sponsors Trust, for ESD, CSI and Bursary Programmes",
   description:
     "Invara helps enterprise and supplier development, corporate social investment, and bursary implementers capture approved beneficiary, disbursement, and supporting evidence once, then produce sponsor-ready reports from one record.",

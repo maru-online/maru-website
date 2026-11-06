@@ -10,11 +10,11 @@ import Button from './Button'
 // ─── Nav link definitions ─────────────────────────────────────────────────────
 
 // Labels and order per "Maru Online — Revised Website Copy" v1.0 (1 Nov 2026):
-// Home, About, Invara, Working With Us, Guides & Resources, Contact.
+// Home, About, (Invara hidden), Working With Us, Guides & Resources, Contact.
 const allLinks = [
   { label: 'Home',         href: '/' },
   { label: 'About',        href: '/about' },
-  { label: 'Invara',       href: '/invara' },
+  // Invara hidden until the page is finished (6 Nov 2026). Restore: { label: 'Invara', href: '/invara' }
   { label: 'Working With Us', href: '/working-with-us' },
   // Insights shows only when there is something behind it: the layout passes
   // showInsights (GUIDE_PAGE_VISIBLE in lib/guides/config.ts — the guide is the
