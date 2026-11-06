@@ -11,7 +11,7 @@
  * Step "done":     Confirmation — report sent
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { calculateScore, SCORING_NOTE, type AssessmentAnswers, type ScoreResult } from "@/lib/assessment/scoring";
@@ -88,6 +88,18 @@ function AssessmentWizard() {
       /* storage blocked: keep showing the line */
     }
   }, []);
+
+  // Each step replaces the last inside one page, so the scroll position of the
+  // button just pressed would carry over (the intro's Start button sits low, and
+  // the next screen opened near the footer). Return to the top of the card on
+  // every step change, and move focus there for keyboard and screen-reader users.
+  const cardRef = useRef<HTMLDivElement>(null);
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    cardRef.current?.focus({ preventScroll: true });
+  }, [step]);
 
   useEffect(() => {
     if (step === "intro")          setProgress(0);
@@ -195,7 +207,7 @@ function AssessmentWizard() {
       <DotField tone="light" mask="edges" coverage={0.42} intensity={0.6} seed={4} className="z-0" />
 
       <div className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-        <div className="card-lift card-static font-normal p-6 sm:p-8 md:p-12">
+        <div ref={cardRef} tabIndex={-1} className="card-lift card-static font-normal p-6 sm:p-8 md:p-12 outline-none">
         {step !== "intro" && step !== "done" && (
           <div className="mb-8" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)} aria-label="Review progress">
             <p className="text-base font-semibold text-ink-primary mb-3">
