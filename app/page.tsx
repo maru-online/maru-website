@@ -4,6 +4,7 @@ import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
 import ImageBand from "@/components/ui/ImageBand";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
+import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
 import { DrawnVisual } from "@/components/ui/CardMedia";
 import SectionHead from "@/components/ui/SectionHead";
@@ -69,43 +70,19 @@ const steps = [
   },
 ];
 
-const problems = [
-  {
-    icon: "unlink" as const,
-    name: "Disconnected business systems",
-    points: [
-      "Information sits in separate applications.",
-      "Teams have limited visibility across the business.",
-    ],
-  },
-  {
-    icon: "hourglass" as const,
-    name: "Manual data processing",
-    points: [
-      "Repeated data entry takes up staff time.",
-      "More manual work increases the risk of error.",
-    ],
-  },
-  {
-    icon: "shield" as const,
-    name: "Data governance and POPIA considerations",
-    points: [
-      "Personal information is spread across systems and channels.",
-      "Access, consent, retention, and protection are harder to manage.",
-    ],
-  },
-];
-
 const bridgeReasons = [
   {
+    icon: "chat" as const,
     title: "Tools are adopted informally",
     text: "People choose what helps them work, and nobody decides what personal information may be entered.",
   },
   {
+    icon: "team" as const,
     title: "Nobody owns the question",
     text: "Responsibility sits between the owner, whoever manages IT and whoever set up each tool.",
   },
   {
+    icon: "clock" as const,
     title: "Time and expertise are limited",
     text: "Small businesses rarely have a specialist to map where information goes or to review supplier terms.",
   },
@@ -187,42 +164,52 @@ export default function Home() {
           AI-landscape insight.
           ════════════════════════════════════════════════════════════════════ */}
       <div className="flow-ground">
-        <section id="why-it-matters" className="sec">
+        <section id="why-it-matters" className="sec overflow-clip">
+          <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
           <div className="sec-inner">
-            <SectionHead
-              eyebrow="AI and personal information"
-              title={<>Staff already use AI tools, <span className="hl">often without clear rules for personal information.</span></>}
-              intro="Staff choose AI assistants and chat apps because they save time on everyday work. Each choice is sensible. However, they can leave a business unsure where personal information goes, who can see it and what happens to it outside the business."
-            />
-            <StaggerParent className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {bridgeReasons.map((r) => (
-                <StaggerChild
-                  key={r.title}
-                  className="pt-6"
-                  style={{ borderTop: "1px solid var(--color-border-card)" }}
-                >
-                  <h3 className="card-title">{r.title}</h3>
-                  <p className="body-muted" style={{ marginTop: "0.75rem" }}>{r.text}</p>
-                </StaggerChild>
-              ))}
-            </StaggerParent>
-            <FadeUp>
-              <p className="body-muted" style={{ marginTop: "3rem", maxWidth: "46rem" }}>
-                POPIA does not ask you to avoid AI or to keep your systems apart. It asks that you know what personal information you hold, why you hold it, where it goes and how long it is kept. Disconnected systems are not the root cause of that uncertainty, but they make it harder to resolve.
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "var(--text-meta)",
-                  color: "var(--color-ink-tertiary)",
-                  lineHeight: 1.6,
-                  margin: "1.5rem 0 0",
-                  maxWidth: "46rem",
-                }}
-              >
-                Xero&apos;s 2026 survey of 427 South African small businesses found that 52% use AI tools daily or weekly. In the Incasu-ITWeb AI Adoption Survey 2025 (144 responses), security and compliance concerns (52%) and lack of internal expertise (47%) were among the barriers respondents cited.
-              </p>
-            </FadeUp>
+            {/* Same split as How we work: heading held in view beside three short
+                rows (overflow-clip so the sticky heading sticks). */}
+            <div className="split">
+              <div className="split-sticky">
+                <SectionHead
+                  eyebrow="AI and personal information"
+                  title={<>Staff already use AI tools, <span className="hl">often without clear rules for personal information.</span></>}
+                  intro="Staff choose AI assistants and chat apps because they save time on everyday work. Each choice is sensible. However, they can leave a business unsure where personal information goes, who can see it and what happens to it outside the business."
+                />
+              </div>
+              <div>
+                <StaggerParent className="rows rows-lift">
+                  {bridgeReasons.map((r) => (
+                    <StaggerChild key={r.title} className="row-item">
+                      <span className="glyph-chip glyph-chip-lg" aria-hidden="true">
+                        <Glyph name={r.icon} size={28} />
+                      </span>
+                      <div>
+                        <h3 className="card-title">{r.title}</h3>
+                        <p className="body-muted" style={{ marginTop: "0.5rem" }}>{r.text}</p>
+                      </div>
+                    </StaggerChild>
+                  ))}
+                </StaggerParent>
+                <FadeUp>
+                  <p className="body-muted" style={{ marginTop: "2rem", maxWidth: "46rem" }}>
+                    POPIA does not ask you to avoid AI or to keep your systems apart. It asks that you know what personal information you hold, why you hold it, where it goes and how long it is kept. Disconnected systems are not the root cause of that uncertainty, but they make it harder to resolve.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "var(--text-meta)",
+                      color: "var(--color-ink-tertiary)",
+                      lineHeight: 1.6,
+                      margin: "1.5rem 0 0",
+                      maxWidth: "46rem",
+                    }}
+                  >
+                    Xero&apos;s 2026 survey of 427 South African small businesses found that 52% use AI tools daily or weekly. In the Incasu-ITWeb AI Adoption Survey 2025 (144 responses), security and compliance concerns (52%) and lack of internal expertise (47%) were among the barriers respondents cited.
+                  </p>
+                </FadeUp>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -230,41 +217,20 @@ export default function Home() {
             SECTION 03 — THE PROBLEM
             bg: flow ground + faint dots from the right
             ════════════════════════════════════════════════════════════════════ */}
-        <section className="sec sec-ruled overflow-clip">
+        <section className="sec sec-ruled overflow-hidden">
           <DotField tone="light" mask="right" coverage={0.45} intensity={0.65} seed={4} />
           <div className="sec-inner">
-            {/* Same split as How we work (6 Nov 2026): heading held in view beside
-                three short rows. Replaces the three photo cards, which read as too
-                much to take in. overflow-clip so the sticky heading sticks. */}
-            <div className="split">
-              <div className="split-sticky">
-                <SectionHead
-                  eyebrow="Why systems matter"
-                  title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
-                  intro="Your business tools may work well individually. When they do not share information, staff copy it between them by hand, and the same personal information ends up in more places than anyone intended."
-                />
-              </div>
-              <div>
-                <StaggerParent className="rows rows-lift">
-                  {problems.map((p) => (
-                    <StaggerChild key={p.name} className="row-item">
-                      <span className="glyph-chip glyph-chip-lg" aria-hidden="true">
-                        <Glyph name={p.icon} size={28} />
-                      </span>
-                      <div>
-                        <h3 className="card-title">{p.name}</h3>
-                        <BulletList items={p.points} />
-                      </div>
-                    </StaggerChild>
-                  ))}
-                </StaggerParent>
-                <FadeUp>
-                  <p className="body-muted" style={{ marginTop: "2rem", maxWidth: "46rem" }}>
-                    POPIA-aware AI integration starts by reviewing the systems you already use and mapping how their workflows should connect.
-                  </p>
-                </FadeUp>
-              </div>
-            </div>
+            <SectionHead
+              eyebrow="Why systems matter"
+              title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
+              intro="Your business tools may work well individually. When they do not share information, staff copy it between them by hand, manual work increases, and the same personal information ends up in more places than anyone intended. Weak information handling rarely starts with the tools, but disconnected systems add to it."
+            />
+            <ProblemCards />
+            <FadeUp>
+              <p className="body-muted" style={{ marginTop: "3rem", maxWidth: "46rem" }}>
+                POPIA-aware AI integration starts by reviewing the systems you already use and mapping how their workflows should connect.
+              </p>
+            </FadeUp>
           </div>
         </section>
       </div>
