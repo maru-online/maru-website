@@ -35,7 +35,6 @@ export default function PrivacyPolicyPage() {
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Free POPIA review.</strong> Your name, email address, business name, your website address if you give one, and your answers to the questions. We use these to calculate your result, show you your report and email you the link. If you tick the follow-up box, we also use your name and email address to email you once, about two days later, to ask whether you would like to talk through your results. If you leave it unticked, we do not send that email. There is a second, separate, optional box if you also want occasional notes by email. Ticking either box is never needed to get your report.</li>
           <li><strong className="text-ink-primary">Contact form.</strong> Your name, business name, email address, optional mobile number, the service you are interested in, what you tell us about your needs, and how you heard about us. We use these to reply to you and suggest a next step.</li>
-          <li><strong className="text-ink-primary">The Business AI Journal.</strong> Your email address and, if you give it, your first name, to send you the newsletter. You can unsubscribe at any time.</li>
           <li><strong className="text-ink-primary">Guide request.</strong> Your first name, email address and, optionally, company name, so we can send you our guide. A separate, unticked box lets you ask for our notes; the guide does not depend on it. We also record the wording you saw and the time, so we can show what you agreed to.</li>
           <li><strong className="text-ink-primary">WhatsApp and email.</strong> If you message us on WhatsApp or by email, we receive your number or address and what you write.</li>
           <li><strong className="text-ink-primary">Website use.</strong> Technical information such as your IP address, browser and the pages you visit. Analytics and advertising cookies collect more (see our Cookie Policy). Our forms are protected by Google reCAPTCHA, which checks that a visitor is a person.</li>
@@ -63,7 +62,7 @@ export default function PrivacyPolicyPage() {
         <ul className="text-ink-secondary mb-4">
           <li><strong className="text-ink-primary">Vercel</strong> hosts the website and keeps server logs, in the United States.</li>
           <li><strong className="text-ink-primary">Neon</strong> hosts the database that holds POPIA review results, reports and guide requests, in London, United Kingdom.</li>
-          <li><strong className="text-ink-primary">Brevo</strong> sends our emails (reports, replies, the newsletter and the guide) and holds contact records. Brevo stores data in the European Union (France, Germany and Belgium) and may also process it elsewhere, including the United States and India.</li>
+          <li><strong className="text-ink-primary">Brevo</strong> sends our emails (reports, replies and the guide) and holds contact records. Brevo stores data in the European Union (France, Germany and Belgium) and may also process it elsewhere, including the United States and India.</li>
           <li><strong className="text-ink-primary">Anthropic</strong> as described in section 3.</li>
           <li><strong className="text-ink-primary">Google</strong> provides reCAPTCHA and Google Analytics. Google acts for its own purposes for analytics cookies.</li>
           <li><strong className="text-ink-primary">Meta</strong> provides the Meta Pixel for measuring our advertising, and acts for its own purposes under its own terms. Meta also provides WhatsApp. If you message us on WhatsApp, Meta handles the messages and related information, such as your number, under WhatsApp&apos;s own terms and privacy policy and not on our behalf, and may process them outside South Africa. If you would rather not use WhatsApp, email us instead.</li>
@@ -90,7 +89,7 @@ export default function PrivacyPolicyPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">6. Marketing</h2>
         <p className="text-ink-secondary mb-4">
-          We send marketing email only if you have asked for it, for example by ticking an unticked box or subscribing to the newsletter. A report, a guide or an enquiry reply is not marketing. Every marketing email has an unsubscribe link, and you can also write to us to stop.
+          We send marketing email only if you have asked for it, for example by ticking an unticked box. A report, a guide or an enquiry reply is not marketing. Every marketing email has an unsubscribe link, and you can also write to us to stop.
         </p>
       </section>
 
