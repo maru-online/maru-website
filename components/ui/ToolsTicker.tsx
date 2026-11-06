@@ -28,7 +28,6 @@ const TOOLS: { name: string; kind: string }[] = [
   { name: "Brevo", kind: "CRM and email" },
   { name: "Resend", kind: "Email delivery" },
   { name: "WhatsApp Business", kind: "Messaging" },
-  { name: "Calendly", kind: "Bookings" },
   { name: "Make", kind: "Automation" },
   { name: "Notion", kind: "Workspace" },
   { name: "Google Analytics", kind: "Analytics" },

@@ -37,11 +37,14 @@ export default function GlobalError({
                 letterSpacing: '-0.02em',
               }}
             >
-              Something went wrong
+              This page could not be loaded
             </h1>
             <p style={{ color: '#4A5568', margin: '0 0 28px', lineHeight: 1.6 }}>
-              The page failed to load. Try again — if it keeps happening, please
-              let us know.
+              Please try again. If the problem continues, email{' '}
+              <a href="mailto:hello@maruonline.com" style={{ color: '#1A3A5C' }}>
+                hello@maruonline.com
+              </a>
+              .
             </p>
             <button
               onClick={() => reset()}

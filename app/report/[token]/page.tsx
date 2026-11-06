@@ -290,7 +290,7 @@ export default async function ReportPage({
           <p className={styles.guideLine}>
             Want the basics behind these questions?{" "}
             <Link href={guideHref("report")} className={styles.guideLink}>
-              Read the guide.
+              Get the guide.
             </Link>
           </p>
         )}

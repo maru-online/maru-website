@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Section 2 problem cards (homepage). Production card surface with the
+ * Section 3 problem cards (homepage). Production card surface with the
  * reading-system anatomy (3 Nov 2026): label row, title, bullets at card-text
  * size. Copy from the revised website copy handover, tightened for bullets.
  *
@@ -47,8 +47,8 @@ const CARDS: Card[] = [
     },
     points: [
       'Repeated data entry takes up staff time.',
-      'Routine administration adds up.',
-      'More manual work, more room for error.',
+      'Routine administration consumes staff time.',
+      'More manual work increases the risk of error.',
     ],
   },
   {

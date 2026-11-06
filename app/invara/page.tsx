@@ -56,7 +56,7 @@ const beforeAfter = [
   ["Evidence rebuilt at year-end", "An evidence pack assembled as you go, one folder per beneficiary"],
   ["The same data re-captured across tools", "Captured once at source, on WhatsApp or email"],
   ["Each sponsor wants its own report", "One record, mapped to each sponsor's template"],
-  ["Spend without proof slips through", "Spend without proof is flagged when it is captured"],
+  ["Spend without evidence goes unnoticed", "Spend without proof is flagged when it is captured"],
 ];
 
 const audiences = [
@@ -307,7 +307,7 @@ export default function InvaraPage() {
 
           <FadeUp delay={0.16}>
             <p className="body-on-navy" style={{ maxWidth: "700px", marginBottom: "1.25rem" }}>
-              Invara helps enterprise and supplier development, corporate social investment, and bursary implementers capture approved beneficiary, disbursement, and supporting evidence once—then produce sponsor-ready reports from one record.
+              Invara helps enterprise and supplier development, corporate social investment, and bursary implementers capture approved beneficiary, disbursement, and supporting evidence once, then produce sponsor-ready reports from one record.
             </p>
             <p
               style={{
@@ -326,7 +326,7 @@ export default function InvaraPage() {
 
           <FadeUp delay={0.22}>
             <p style={{ fontFamily: "var(--font-body)", fontWeight: 300, fontSize: "var(--text-meta)", color: "var(--color-ink-inverted-muted)", margin: "0 0 3.5rem" }}>
-              Invara is in its pilot phase. We are working with a small number of implementers to shape it.
+              Invara is in its pilot phase. This page describes how it is designed to work. We are working with a small number of implementers to shape it.
             </p>
           </FadeUp>
 
@@ -389,7 +389,7 @@ export default function InvaraPage() {
                 maxWidth: "820px",
               }}
             >
-              <strong style={{ fontWeight: 700 }}>The audit trail is the product.</strong> Every field has a source and an approver, so sponsor or verifier questions can be answered with evidence rather than reconstruction.
+              <strong style={{ fontWeight: 700 }}>The audit trail is the product.</strong> Each field is designed to carry its source and approver, so sponsor or verifier questions can be answered with evidence rather than reconstruction.
             </p>
           </FadeUp>
         </div>
@@ -476,7 +476,7 @@ export default function InvaraPage() {
                 <strong style={{ fontWeight: 600, color: "var(--color-ink-inverted)" }}>AI speeds up capture. People keep it accountable.</strong> Invara is being built so that AI classifies incoming items and extracts fields from masked text, and a named team member reviews and approves items before they enter the record.
               </p>
               <p className="body-on-navy" style={{ margin: 0, borderLeft: "4px solid var(--color-cyan)", paddingLeft: "1.25rem" }}>
-                The system is designed to make review and approval clear, traceable, and part of the workflow—not an afterthought.
+                Review and approval are part of the workflow, not an afterthought.
               </p>
             </div>
           </FadeUp>

@@ -47,8 +47,8 @@ const areas = ASSESSMENT_AREAS.map((a, i) => ({
 const statusConfig = {
   critical:    { label: "Critical gap",    colour: "#E53E3E", bg: "#FFF5F5", border: "#FC8181" },
   significant: { label: "Significant gap", colour: "#C05621", bg: "#FFFAF0", border: "#F6AD55" },
-  partial:     { label: "Partial",         colour: "#2F855A", bg: "#F0FFF4", border: "#68D391" },
-  strong:      { label: "Strong",          colour: "#2B6CB0", bg: "#EBF8FF", border: "#63B3ED" },
+  partial:     { label: "Partly in place", colour: "#2F855A", bg: "#F0FFF4", border: "#68D391" },
+  strong:      { label: "Largely in place", colour: "#2B6CB0", bg: "#EBF8FF", border: "#63B3ED" },
 };
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -210,7 +210,7 @@ function AssessmentWizard() {
               Understand how your business handles information when your team uses AI.
             </h1>
             <p className="body-muted text-lg mb-3 leading-relaxed">
-              Answer 10 questions in about five minutes to receive a short report showing your score across five areas, with actions to prioritise.
+              Answer 10 questions in about five minutes to receive a report showing your score across five areas, with actions to prioritise.
             </p>
             <p className="body-muted text-base mb-2 leading-relaxed">
               Designed for South African businesses exploring or already using AI.
@@ -224,7 +224,7 @@ function AssessmentWizard() {
                 Answer based on what happens today.
               </h2>
               <p className="text-ink-primary text-base leading-relaxed">
-                Answer based on how things actually work today—not how you want them to work. The more honest your answers, the more useful your result will be.
+                Answer for how your business works today, not how you would like it to work. The more honest your answers, the more useful your result will be.
               </p>
             </div>
 
@@ -247,7 +247,7 @@ function AssessmentWizard() {
             </div>
 
             <h2 className="text-ink-primary text-base font-semibold leading-relaxed mb-2 border-none">
-              Receive a practical summary.
+              What your report contains.
             </h2>
             <p className="body-muted text-base mb-8 leading-relaxed">
               Your report will highlight the areas that may need attention and suggest which actions to prioritise first. It is intended to help you identify questions for further investigation.
@@ -309,10 +309,10 @@ function AssessmentWizard() {
 
             <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-8">
               <p className="text-ink-primary font-semibold mb-2">
-                Your detailed report goes deeper.
+                Your report goes deeper.
               </p>
               <p className="body-muted text-base leading-relaxed">
-                It breaks down each area — what your answers reveal, the specific issues, and a recommended approach for your stage of business. Enter your details below to receive it.
+                It breaks down each area: what your answers reveal, the specific issues, and a recommended approach for your stage of business. Enter your details below to receive it.
               </p>
             </div>
 
@@ -321,7 +321,7 @@ function AssessmentWizard() {
               variant="primary"
               className="w-full"
             >
-              Get my free detailed report
+              Get my free report
             </Button>
 
             {/* Copy handover entry 19 §11 (approved 8 Oct), verbatim. */}
@@ -329,7 +329,7 @@ function AssessmentWizard() {
               <p className="body-muted text-sm leading-relaxed mt-6 mb-0 text-center">
                 Want the basics behind these questions?{" "}
                 <Link href={guideHref("review")} className="text-cyan-ink underline hover:no-underline">
-                  Read the guide.
+                  Get the guide.
                 </Link>
               </p>
             )}
@@ -344,7 +344,7 @@ function AssessmentWizard() {
               Where should we send it?
             </h2>
             <p className="body-muted text-base mb-8 leading-relaxed">
-              We will email you a link to your personalised report — a structured page showing your findings across all five areas with a recommended next step.
+              We will email you a link to your report: a page showing your findings across all five areas, with actions to prioritise.
             </p>
 
             <form onSubmit={handleGateSubmit} className="space-y-5">
@@ -414,11 +414,11 @@ function AssessmentWizard() {
 
               {/* POPIA s18 notice at the point of collection (Addendum 01 D). */}
               <p className="text-ink-tertiary text-xs text-center leading-relaxed">
-                We use your name and email to send your report and to follow up about it. Nothing else. Some of our providers process information outside South Africa, as our{" "}
+                We use your name and email to send your report, and to email you once in about two days to ask whether you would like to talk through your results. Nothing else. Some of our providers process information outside South Africa, as our{" "}
                 <Link href="/privacy-policy" className="text-cyan-ink underline hover:no-underline">
                   Privacy Policy
                 </Link>{" "}
-                explains. By sending your report request, you agree to this.
+                explains. By requesting your report, you agree to this.
               </p>
             </form>
           </div>
@@ -436,18 +436,16 @@ function AssessmentWizard() {
             <h2 className="text-2xl font-semibold text-navy mb-3 border-none">
               Thank you.
             </h2>
-            <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
-              Your responses have been received. Your informational summary will be sent by email.
+            <p className="body-muted text-base leading-relaxed mb-4 max-w-md mx-auto">
+              Your report is on its way. We will email you in about two days to ask whether you would like to talk through your results.
             </p>
-
-            <div className="bg-bg-canvas border border-border-default rounded-lg p-6 text-left mb-8">
-              <p className="text-ink-primary font-semibold text-base mb-2">
-                While you wait:
-              </p>
-              <p className="body-muted text-base leading-relaxed">
-                The report will invite you to request a proposal. We then contact you to arrange a short call at a time that suits you, where we go through your review together and go deeper on what we find. If there&apos;s no clear opportunity, we&apos;ll tell you.
-              </p>
-            </div>
+            <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
+              If you would like to get in touch sooner, email us at{" "}
+              <a href="mailto:hello@maruonline.com" className="text-cyan-ink underline hover:no-underline">
+                hello@maruonline.com
+              </a>
+              .
+            </p>
 
             <Link href="/" className="text-cyan-ink text-sm hover:underline">
               ← Back to Maru Online

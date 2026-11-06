@@ -119,7 +119,7 @@ export const integrationGuide: ContentEntry = {
     { t: 'h2', text: '7. Pilot small, then review' },
     {
       t: 'p',
-      text: 'Run the workflow on a small share of real work for a few weeks. Record the hours a week the task took before, and after. Record errors and exceptions. About a month in, review what works, fix what does not and decide whether to widen it. A pilot sized to what you can afford to get wrong also suits a business watching its cash flow.',
+      text: 'Run the workflow on a small share of real work for a few weeks. Record the hours a week the task took before, and after. Record errors and exceptions. About a month in, review what works, correct what does not and decide whether to widen it. A pilot sized to what you can afford to get wrong also suits a business watching its cash flow.',
     },
     { t: 'h2', text: 'Common ways integrations go wrong' },
     {

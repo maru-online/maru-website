@@ -66,8 +66,8 @@ export default async function GuidePage({ searchParams }: { searchParams: Promis
           <div className="guide-landing-body">
             <SectionHead
               eyebrow="What’s inside"
-              title={<>Two short primers, five parts, <span className="hl">one self-check.</span></>}
-              intro="Plain language, no legal jargon. About fifteen minutes to read."
+              title={<>A short guide in five parts, <span className="hl">with a one-page self-check.</span></>}
+              intro="Plain language, no legal jargon. About 15 minutes to read."
             />
             <FadeUp>
               <ol className="guide-parts">

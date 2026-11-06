@@ -24,7 +24,7 @@ export const readinessGuide: ContentEntry = {
   related: ['south-african-businesses-using-ai-gap-is-structure', 'ai-integration-guide-connect-ai-existing-systems', 'ai-and-popia'],
   inShort: [
     'Readiness is not about technology. It is six practical questions about your business.',
-    'Score each area from 0 to 3. A low score tells you what to fix first, not that you should wait.',
+    'Score each area from 0 to 3. A low score shows what to address first, not that you should wait.',
     'Choose a first move that fits your lowest score and your cash flow.',
   ],
   body: [
@@ -34,8 +34,8 @@ export const readinessGuide: ContentEntry = {
     },
     {
       t: 'callout',
-      title: 'What you will walk away with',
-      text: 'Your score across six areas, a clear view of what to fix first, and a first move sized to your cash flow. For an owner or manager, with the person who runs the process. About twenty minutes.',
+      title: 'What this guide gives you',
+      text: 'Your score across six areas, a clear view of what to address first, and a first move sized to your cash flow. For an owner or manager, with the person who runs the process. About 20 minutes.',
     },
     {
       t: 'callout',
@@ -83,9 +83,9 @@ export const readinessGuide: ContentEntry = {
       t: 'table',
       head: ['Score in an area', 'What it means', 'What to do'],
       rows: [
-        ['0 or 1', 'Fix this first', 'Work on this area before building anything. It is usually quick and cheap.'],
+        ['0 or 1', 'Address this first', 'Work on this area before building anything. It is usually quick and cheap.'],
         ['2', 'Ready with conditions', 'Proceed, and name the missing point as a risk to manage.'],
-        ['3', 'Ready', 'Nothing to hold you back in this area.'],
+        ['3', 'Ready', 'Nothing in this area needs to be addressed first.'],
       ],
     },
     { t: 'h2', text: 'Choosing a first move' },

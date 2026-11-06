@@ -7,7 +7,7 @@ import PageHero from "@/components/ui/PageHero";
 
 export const metadata: Metadata = {
   title:       'Contact | Maru Online',
-  description: "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use. Tell us about the business challenge you want to improve.",
+  description: "Maru Online helps South African businesses resolve operational problems by connecting AI, data and the tools their teams already use. Tell us about the business challenge you want to improve.",
   ...seo('/contact'),
 }
 
@@ -21,9 +21,9 @@ export default function ContactPage() {
           ════════════════════════════════════════════════════════════════════ */}
       <PageHero
         eyebrow="Contact Maru Online"
-        light="Let's discuss your"
+        light="Discuss your"
         strong="business challenge."
-        lead="Tell us about the operational challenge you are facing."
+        lead="Tell us what you want to resolve. We will reply with a suggested next step."
       />
 
       {/* ════════════════════════════════════════════════════════════════════

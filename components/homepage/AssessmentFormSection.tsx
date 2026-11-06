@@ -28,7 +28,7 @@ export default function AssessmentFormSection() {
         <SectionHead
           eyebrow="Next steps"
           title={<>Ready to build AI into <span className="hl">your existing operations?</span></>}
-          intro="Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical way forward."
+          intro="Whether you are exploring how your business uses AI or already know which process needs improving, Maru Online can help you identify a practical next step."
         />
 
         {/* Card build, 5 Nov 2026: same as the capability cards (navy grid
@@ -46,7 +46,7 @@ export default function AssessmentFormSection() {
                 <ul className="prob-list" style={{ marginBottom: "1.75rem" }}>
                   {[
                     "10 questions, about five minutes.",
-                    "A short summary by email.",
+                    "A report by email.",
                     "Areas to review and actions to prioritise.",
                   ].map((p) => (
                     <li key={p}>

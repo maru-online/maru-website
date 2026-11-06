@@ -68,7 +68,7 @@ export default function ContactForm() {
     try {
       // An empty token is a guaranteed 400 from /api/contact, so fail here
       // rather than posting one and surfacing it as a generic server error.
-      if (!executeRecaptcha) throw new Error('reCAPTCHA not ready')
+      if (!executeRecaptcha) throw new Error('The security check is still loading. Please wait a moment and try again.')
       const recaptchaToken = await executeRecaptcha('contact_form')
       const res = await fetch('/api/contact', {
         method:  'POST',
@@ -77,12 +77,12 @@ export default function ContactForm() {
       })
       if (!res.ok) {
         const json = await res.json()
-        throw new Error(json.error || 'Failed to send')
+        throw new Error(json.error || 'Your message could not be sent. Please try again, or email hello@maruonline.com.')
       }
       setIsSuccess(true)
     } catch (err) {
       setServerError(
-        err instanceof Error ? err.message : 'Something went wrong. Please try again.'
+        err instanceof Error ? err.message : 'Your message could not be sent. Please try again, or email hello@maruonline.com.'
       )
     } finally {
       setIsSubmitting(false)
@@ -180,10 +180,10 @@ export default function ContactForm() {
       <input type="hidden" {...register('service')} />
 
       {/* ── Message ── */}
-      <Field label="What process or operational challenge would you like to improve?" error={errors.message?.message}>
+      <Field label="What would you like to resolve?" error={errors.message?.message}>
         <Textarea
           {...register('message')}
-          placeholder="Briefly describe the problem, process or task you're looking to improve."
+          placeholder="A short description of the workflow, system or problem."
           className={textareaClass}
           style={{ minHeight: '140px' }}
         />
@@ -215,17 +215,6 @@ export default function ContactForm() {
       <Button variant="primary" type="submit" disabled={isSubmitting}>
         {isSubmitting ? 'Sending…' : 'Send my enquiry'}
       </Button>
-      <p style={{
-        fontFamily:   'var(--font-body)',
-        fontSize:     'var(--text-meta)',
-        fontWeight:   400,
-        color:        'var(--color-ink-secondary)',
-        lineHeight:   1.6,
-        marginTop:    '0.75rem',
-        marginBottom: 0,
-      }}>
-        We will review your enquiry and be in touch about the next step.
-      </p>
 
       {/* Privacy note, revised 1 Nov 2026 ("Maru Online — Revised Website Copy"
           v1.0, section 8; replaces the 22 Oct option B wording). Keep it true:

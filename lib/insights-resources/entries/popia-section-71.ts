@@ -24,7 +24,7 @@ export const section71: ContentEntry = {
   image: '/images/insights-resources/popia-data-protection.jpg',
   imageAlt: 'A laptop showing a data protection screen beside a privacy document, a notebook and printed charts on a desk.',
   legalNote: true,
-  related: ['south-africa-national-ai-policy-reset-what-businesses-should-do', 'ai-and-popia'],
+  related: ['south-african-businesses-using-ai-gap-is-structure', 'ai-and-popia'],
   inShort: [
     'Section 71 limits decisions with legal or substantial effects on a person that rest solely on automated processing meant to profile them.',
     'Using AI to screen applicants, score customers or rate staff can fall in scope. A score that only decides which enquiry gets a call first is unlikely to.',
@@ -33,7 +33,7 @@ export const section71: ContentEntry = {
   body: [
     {
       t: 'p',
-      text: 'More South African businesses now use AI for tasks that sit close to decisions about people: shortlisting CVs, flagging risky customers, ranking leads, scoring staff. Section 71 of POPIA is the provision most directly aimed at this, and few owners know it is there.',
+      text: 'More South African businesses now use AI for tasks that sit close to decisions about people: shortlisting CVs, flagging risky customers, ranking leads, scoring staff. Section 71 of POPIA is the provision most directly aimed at this.',
     },
     { t: 'h2', text: 'What section 71 says' },
     {
@@ -71,7 +71,7 @@ export const section71: ContentEntry = {
     },
     {
       t: 'p',
-      text: 'We are not aware of published guidance from the Information Regulator, or of court decisions, on how “solely” will be read in practice. As at March 2026, commentators reported none. Treat it as a risk judgement, not a safe harbour. The sound reading is the one law firms advising employers are already giving: AI output is an input to a human decision, and the person deciding must be able to explain the reasons and be empowered to override.',
+      text: 'We are not aware of published guidance from the Information Regulator, or of court decisions, on how “solely” will be read in practice. As at March 2026, commentators reported none. Treat it as a risk judgement, not a safe harbour. Law firms advising employers describe the same approach: AI output is an input to a human decision, and the person deciding must be able to explain the reasons and be empowered to override.',
     },
     { t: 'h2', text: 'A five-question test before AI touches a decision about a person' },
     {

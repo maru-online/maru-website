@@ -45,14 +45,14 @@ export async function POST(request: NextRequest) {
     const parsed = contactSchema.safeParse(await request.json())
 
     if (!parsed.success) {
-      return NextResponse.json({ error: 'Invalid input.' }, { status: 400 })
+      return NextResponse.json({ error: 'Please check the fields and try again.' }, { status: 400 })
     }
 
     const { firstName, lastName, business, email, mobile, service, message, referral, recaptchaToken } = parsed.data
 
     const captcha = await verifyRecaptcha(recaptchaToken ?? '')
     if (!captcha.ok) {
-      return NextResponse.json({ error: 'reCAPTCHA verification failed. Please try again.' }, { status: 400 })
+      return NextResponse.json({ error: 'The security check failed. Please try again.' }, { status: 400 })
     }
     const fullName = `${firstName} ${lastName}`
 
@@ -136,7 +136,7 @@ export async function POST(request: NextRequest) {
     if (!notifyRes.ok) {
       const err = await notifyRes.json()
       console.error('Brevo notification error:', err)
-      return NextResponse.json({ error: 'Failed to send message.' }, { status: 500 })
+      return NextResponse.json({ error: 'Your message could not be sent. Please try again, or email hello@maruonline.com.' }, { status: 500 })
     }
 
     // 3. Auto-reply to submitter
@@ -157,10 +157,10 @@ export async function POST(request: NextRequest) {
             <div style="background:#F5F4F0;padding:32px 40px;border-radius:0 0 8px 8px;border:1px solid #E2E8F0;border-top:none">
               <p style="font-size:17px;color:#0D1B2A;margin:0 0 16px">Hi ${safeFirst},</p>
               <p style="font-size:15px;color:#4A5568;line-height:1.8;margin:0 0 16px">
-                Thank you. We'll be in touch to discuss your enquiry.
+                Thank you for contacting Maru Online. We have received your enquiry and will reply by email about the next step.
               </p>
               <p style="font-size:14px;color:#718096;margin:0">
-                — The Maru Online Team<br>
+                Maru Online<br>
                 <a href="https://maruonline.com" style="color:#3DB8C6">maruonline.com</a>
               </p>
             </div>
@@ -173,6 +173,6 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Contact route error:', error)
-    return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 })
+    return NextResponse.json({ error: 'Your message could not be sent. Please try again, or email hello@maruonline.com.' }, { status: 500 })
   }
 }

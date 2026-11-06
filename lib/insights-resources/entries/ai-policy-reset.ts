@@ -18,7 +18,7 @@ export const policyReset: ContentEntry = {
   pillar: 'ai-for-business',
   category: 'AI Developments',
   format: 'News',
-  status: 'published', // approved by Jimmy, 3 Nov 2026
+  status: 'draft', // unpublished 6 Nov 2026 (owner decision): dated news, actions duplicated in the AI-landscape insight
   publishedAt: '2026-10-30',
   readTime: '4 min read',
   author: 'Maru Online',

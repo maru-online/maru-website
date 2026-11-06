@@ -26,7 +26,7 @@ export const smeLandscape: ContentEntry = {
   author: 'Maru Online',
   image: '/images/insights-resources/team-planning-board.jpg',
   imageAlt: 'A small team gathered around a whiteboard planning board, one person explaining while the others listen.',
-  related: ['south-africa-national-ai-policy-reset-what-businesses-should-do', 'ai-readiness-guide-south-african-business'],
+  related: ['popia-section-71-automated-decisions-ai-business', 'ai-readiness-guide-south-african-business'],
   inShort: [
     'Xero’s 2026 survey of 427 small businesses found 52% use AI tools daily or weekly, and 56% want more support understanding how AI fits their operations.',
     'Surveys of midsized and large firms point the same way: use is ahead of structure. One put formal GenAI strategy at 14% and governance guardrails at 13%.',
@@ -60,7 +60,7 @@ export const smeLandscape: ContentEntry = {
       t: 'p',
       text: 'The same shape shows up in the larger firms: widespread use, little strategy, few guardrails, and a small share of AI built into core processes. The gap is the structure around the tool.',
     },
-    { t: 'h2', text: 'What we would do differently' },
+    { t: 'h2', text: 'What we would do' },
     {
       t: 'ol',
       items: [

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   ...seo('/about'),
   title: "About Maru Online | AI Systems Built Around Real Business Problems",
   description:
-    "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use, with POPIA-aware data governance built into the design and implementation.",
+    "Maru Online is a South African consultancy that designs and implements AI-enabled workflows and digital systems, with POPIA-aware information handling. Read how we work and what we have contributed to.",
 };
 
 const innerWide = "sec-inner";
@@ -152,7 +152,7 @@ export default function AboutPage() {
         eyebrow="About Maru Online"
         light="We build AI-enabled systems around"
         strong="real business problems."
-        lead="We help South African businesses identify where AI, better-connected data, or workflow redesign can solve operational problems, and implement the right solution."
+        lead="We help South African businesses identify where AI, better-connected data, or workflow redesign can resolve operational problems, and implement the right solution."
       />
 
       {/* ════════════════════════════════════════════════════════════════════
@@ -192,7 +192,7 @@ export default function AboutPage() {
                   paddingLeft: "1.25rem",
                 }}
               >
-                The technology follows the problem—not the other way around.
+                The technology follows the problem, not the other way around.
               </p>
             </div>
           </FadeUp>
@@ -208,8 +208,8 @@ export default function AboutPage() {
           <FadeUp>
             <SectionHead
               eyebrow="How we think"
-              light="Understand the business. Design the solution."
-              strong="Make it work."
+              light="Assess the workflow. Design and integrate the system."
+              strong="Optimise and hand over."
             />
             <div className={innerText} style={{ marginBottom: "var(--space-section-header-mb)" }}>
               <p className="body-muted" style={{ marginBottom: 0 }}>
@@ -306,7 +306,7 @@ export default function AboutPage() {
                   <div className="card-body">
                   <h3 className="card-title">What this demonstrates</h3>
                   <p className="card-text" style={{ marginBottom: "0.875rem" }}>
-                    GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and translate that strategy into a distinctive digital experience.
+                    GrowthIQ illustrates how we approach a complex business challenge: understand the industry, identify the operational need, establish a meaningful product position and carry that strategy into the platform's brand and identity.
                   </p>
                   <p className="card-text" style={{ marginBottom: 0 }}>
                     The platform has recently launched, so measurable post-launch business outcomes are not yet available. As performance data becomes available, we can build on this case study with verified evidence of its impact.
@@ -337,10 +337,7 @@ export default function AboutPage() {
           <FadeUp delay={0.08}>
             <div className={innerText}>
               <p className="body-muted" style={{ marginBottom: "1rem" }}>
-                For AI-enabled systems involving personal information, we consider POPIA-related data protection requirements as part of the design conversation. This includes considering how information is collected, accessed, used, shared, stored, and retained.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1rem" }}>
-                The relevant considerations depend on what information is involved, how it will be used, and which systems or providers will access it.
+                For AI-enabled systems involving personal information, we consider POPIA-related data protection requirements as part of the design conversation. What that involves depends on the information, how it will be used, and the systems or providers that will access it.
               </p>
               <p
                 style={{
@@ -354,7 +351,7 @@ export default function AboutPage() {
                   paddingLeft: "1rem",
                 }}
               >
-                Maru Online provides implementation and design support. This is not legal advice or a blanket guarantee of POPIA compliance.
+                Maru Online provides implementation and design support. This is not legal advice, and it does not guarantee POPIA compliance.
               </p>
             </div>
           </FadeUp>
@@ -372,10 +369,10 @@ export default function AboutPage() {
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              Let&apos;s solve the right problem.
+              Start with the right problem.
             </h2>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              Let&apos;s identify the challenge, assess the opportunity, and outline a practical next step.
+              We identify the challenge, assess the opportunity, and outline a practical next step.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto">

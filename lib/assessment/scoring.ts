@@ -15,12 +15,12 @@
  *
  * Overall level (1–3) from the average area score. The Level 1 ceiling moved
  * from 1.5 to 2.0 on 9 Oct 2026: with the old ceiling, a profile where every
- * area was a "Significant gap" (average 2.0) was headlined "Partly protected",
- * which contradicted its own area labels. Now "Partly protected" needs at
+ * area was a "Significant gap" (average 2.0) was headlined "Partly in place",
+ * which contradicted its own area labels. Now "Partly in place" needs at
  * least one area above a significant gap. Stored reports are not re-scored.
  *   ≤ 2.0 = Level 1 — Exposed
- *   ≤ 2.8 = Level 2 — Partly protected
- *   > 2.8 = Level 3 — Well protected
+ *   ≤ 2.8 = Level 2 — Partly in place
+ *   > 2.8 = Level 3 — Largely in place
  * Addendum 02 still lists the old threshold: update it to match.
  *
  * v2 (the operations assessment) is retired. Its reports are stored with their
@@ -64,7 +64,7 @@ export const AREAS = ASSESSMENT_AREAS.map((a) => ({
   questions: a.questions.map((q) => q.id),
 }));
 
-// ── Scoring maps (derived, so a question can't drift from its score) ──────
+// ── Scoring maps (derived, so a question cannot drift from its score) ──────
 
 const SCORE_MAPS = Object.fromEntries(
   ASSESSMENT_QUESTIONS.map((q) => [
@@ -92,15 +92,15 @@ export function isValidAnswerSet(answers: unknown): answers is AssessmentAnswers
 export const LEVEL_RESULTS: Record<ReadinessLevel, { label: string; summary: string }> = {
   1: {
     label: "Exposed",
-    summary: "Client information is moving through tools and people with no guard rails yet. The first fixes are quick and cheap.",
+    summary: "Client information is moving through tools and people with no controls in place yet. The first improvements are quick and inexpensive.",
   },
   2: {
-    label: "Partly protected",
+    label: "Partly in place",
     summary: "You have some good habits, with gaps where AI tools, WhatsApp and old logins meet client data.",
   },
   3: {
-    label: "Well protected",
-    summary: "Your foundations are sound. The work now is keeping them sound as you add AI.",
+    label: "Largely in place",
+    summary: "Your answers describe sound foundations. The work now is keeping them sound as you add AI.",
   },
 };
 
@@ -111,11 +111,11 @@ export const LEVEL_RESULTS: Record<ReadinessLevel, { label: string; summary: str
  * (Exposed) covers an average up to 2.0.
  */
 export const SCORING_NOTE =
-  "How this is scored: each answer is rated from strong to weak. We average your two answers in each area, then average the five areas to place you at one of three levels. The level can't be better than your areas: to be 'Partly protected', at least one area has to be above a significant gap. It's a structured indicator based on your own answers, not an audit.";
+  "How this is scored: each answer is rated from strong to weak. We average your two answers in each area, then average the five areas to place you at one of three levels. The level cannot be better than your areas: to be “Partly in place”, at least one area has to be above a significant gap. It is a structured indicator based on your own answers, not an audit.";
 
 /** Addendum 02: "Every report ends:" The rebuild has no paid audit (copy handover entry 13), so the audit sentence is dropped. 6 Oct 2026. */
 export const REPORT_CLOSING_LINE =
-  "This check is a starting point, not legal advice.";
+  "This review is a starting point, not legal advice.";
 
 // ── Status thresholds ──────────────────────────────────────────────────────
 

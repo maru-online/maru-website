@@ -24,7 +24,7 @@ import {
 export function actionLabel(entry: ContentEntry): string {
   if (entry.section === "insights") return SECTIONS.insights.readLabel;
   const downloadable = entry.resourceType === "Checklist" || entry.resourceType === "Worksheet";
-  return downloadable ? "Download" : SECTIONS.resources.readLabel;
+  return downloadable ? "Open" : SECTIONS.resources.readLabel;
 }
 
 const stretch =

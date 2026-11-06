@@ -35,9 +35,9 @@ import PageHero from "@/components/ui/PageHero";
 
 export const metadata: Metadata = {
   ...seo("/working-with-us"),
-  title: "Working With Us | How a Maru Online Engagement Takes Shape",
+  title: "Working With Us | How a Maru Online Engagement Is Scoped",
   description:
-    "Maru Online helps South African businesses solve operational problems by connecting AI, data and the tools their teams already use. We start with the business challenge, then determine the right approach, scope and investment.",
+    "Maru Online helps South African businesses resolve operational problems by connecting AI, data and the tools their teams already use. We start with the business challenge, then determine the right approach, scope and investment.",
 };
 
 const innerWide = "sec-inner";
@@ -110,7 +110,7 @@ export default function PricingPage() {
                   paddingLeft: "1.25rem",
                 }}
               >
-                The business challenge determines the workflow to investigate. The workflow determines the systems, information, people, controls, and implementation work involved. Those factors determine the scope and investment.
+                The business challenge determines the workflow to investigate. The workflow determines the systems, information, people, controls, and implementation work involved.
               </p>
             </div>
           </FadeUp>
@@ -194,10 +194,10 @@ export default function PricingPage() {
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              Let&apos;s understand your business challenge.
+              Let us understand your business challenge.
             </h2>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              Tell us what you are trying to improve. We will use that context to recommend the next step, whether that is an informational review, a scoped discovery process, or a defined implementation plan.
+              Tell us what you are trying to improve. We will use that context to recommend the next step: the free POPIA review, a scoped discovery phase to confirm the problem and the scope, or an implementation plan where those are already clear.
             </p>
             <div className="flex flex-col items-stretch sm:items-start gap-3">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
@@ -218,7 +218,7 @@ export default function PricingPage() {
                   margin: 0,
                 }}
               >
-                Our work focuses on business, systems, workflow, and implementation decisions. POPIA-related considerations can be included in the design conversation, but this does not replace independent legal advice where that is required.
+                Maru Online provides implementation and design support. This is not legal advice, and it does not guarantee POPIA compliance. Where independent legal advice is required, it should be sought separately.
               </p>
             </div>
           </FadeUp>
