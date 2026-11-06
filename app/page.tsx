@@ -182,7 +182,7 @@ export default function Home() {
             </StaggerParent>
             <FadeUp>
               <p className="body-muted" style={{ marginTop: "3rem", maxWidth: "46rem" }}>
-                POPIA does not ask you to avoid AI or to keep your systems apart. It asks that you know what personal information you hold, why you hold it, where it goes and how long it is kept. Connecting your tools is the point at which you can make those answers deliberate, which is why we start with how your systems connect, or fail to.
+                POPIA does not ask you to avoid AI or to keep your systems apart. It asks that you know what personal information you hold, why you hold it, where it goes and how long it is kept. Disconnected systems are not the root cause of that uncertainty, but they make it harder to resolve.
               </p>
               <p
                 style={{
@@ -208,17 +208,22 @@ export default function Home() {
           <DotField tone="light" mask="right" coverage={0.45} intensity={0.65} seed={4} />
           <div className="sec-inner">
             <SectionHead
-              eyebrow="The problem"
+              eyebrow="Why systems matter"
               title={<>Disconnected systems create <span className="hl">unnecessary work.</span></>}
-              intro="Your business tools may work well individually. When they do not share information effectively, manual work increases, data becomes fragmented, and information handling becomes harder to manage."
+              intro="Your business tools may work well individually. When they do not share information, staff copy it between them by hand, manual work increases, and the same personal information ends up in more places than anyone intended. Weak information handling rarely starts with the tools, but disconnected systems add to it."
             />
             <ProblemCards />
+            <FadeUp>
+              <p className="body-muted" style={{ marginTop: "3rem", maxWidth: "46rem" }}>
+                POPIA-aware AI integration starts by reviewing the systems you already use and mapping how their workflows should connect.
+              </p>
+            </FadeUp>
           </div>
         </section>
       </div>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 04 — WHAT CHANGES (dark chapter)
+          SECTION 04 — THE OUTCOME (dark chapter; was "What changes", renamed 6 Nov 2026)
           The cards are the cost of disconnected tools; the diagram is the fix
           (story turn, Option A, approved 3 Nov 2026). Its own navy chapter
           since 4 Nov 2026.
@@ -226,9 +231,9 @@ export default function Home() {
       <section className="sec sec-chapter navy-horizon overflow-hidden">
         <div className="sec-inner">
           <SectionHead
-            eyebrow="What changes"
-            title={<>Your tools stay. <span className="hl">We connect them.</span></>}
-            intro="Information is captured once and shared where it is needed, so your team retypes less and personal information sits in fewer places."
+            eyebrow="The outcome"
+            title={<>Your current tools stay. <span className="hl">We connect their workflows.</span></>}
+            intro="Connected workflows share information in a controlled way, so personal information is easier to track and manage consistently."
             dark
           />
           <div>

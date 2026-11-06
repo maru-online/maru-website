@@ -9,8 +9,8 @@
  *
  * Five systems a South African SME already runs start out loose (tilted,
  * dashed, tagged as exports and attachments). On scroll they straighten and
- * tick, the links draw into one gold hub ("captured once"), and a single line
- * runs out to one live view. Then white dots keep flowing in and gold dots
+ * tick, the links draw into one gold hub ("connected"), and a single line
+ * runs out to co-ordinated access. Then white dots keep flowing in and gold dots
  * flow out.
  *
  * Two layouts share one node list: horizontal convergence on >=sm, vertical
@@ -95,7 +95,7 @@ function Diagram({ g, dots, id }: { g: Geo; dots: boolean; id: 'd' | 'm' }) {
       className={`cd-svg ${m ? 'cd-mobile' : 'cd-desktop'}`}
       viewBox={m ? '0 0 360 540' : '0 20 1000 420'}
       role="img"
-      aria-label="Five business systems — CRM, email, spreadsheets, invoicing and WhatsApp — connected through one point where information is captured once, into a single live view."
+      aria-label="Five business systems — CRM, email, spreadsheets, invoicing and WhatsApp — connected through one point that shares information between them, into co-ordinated access, with AI co-ordinating within rules you set."
     >
       <defs>
         <linearGradient
@@ -179,13 +179,12 @@ function Diagram({ g, dots, id }: { g: Geo; dots: boolean; id: 'd' | 'm' }) {
       <circle className="cd-hub-dot" cx={hub.x} cy={hub.y} r={m ? 14 : 16} />
       {m ? (
         <>
-          <text className="cd-hub-cap" x={hub.x - 92} y={hub.y - 2}>CAPTURED</text>
-          <text className="cd-hub-cap" x={hub.x - 92} y={hub.y + 13}>ONCE</text>
+          <text className="cd-hub-cap" x={hub.x - 92} y={hub.y + 5}>CONNECTED</text>
         </>
       ) : (
         <>
-          <text className="cd-hub-cap" x={hub.x} y={hub.y + 60}>CAPTURED ONCE</text>
-          <text className="cd-hub-sub" x={hub.x} y={hub.y + 77}>Shared where it&rsquo;s needed</text>
+          <text className="cd-hub-cap" x={hub.x} y={hub.y + 60}>CONNECTED</text>
+          <text className="cd-hub-sub" x={hub.x} y={hub.y + 77}>Shared where it is needed</text>
         </>
       )}
 
@@ -193,12 +192,12 @@ function Diagram({ g, dots, id }: { g: Geo; dots: boolean; id: 'd' | 'm' }) {
       <g className="cd-out-g" style={{ ['--ox' as string]: m ? '0px' : '-20px' }}>
         <rect className="cd-out-box" x={ob.x} y={ob.y} width={ob.w} height={ob.h} rx={m ? 10 : 12} />
         <circle className="cd-out-live" cx={tx} cy={ob.y + (m ? 22 : 24)} r={3.5} />
-        <text className="cd-out-livetx" x={tx + 11} y={ob.y + (m ? 25.5 : 27.5)}>LIVE</text>
+        <text className="cd-out-livetx" x={tx + 11} y={ob.y + (m ? 25.5 : 27.5)}>AI-CO-ORDINATED</text>
         <text className="cd-out-title" style={{ fontSize: m ? 21 : 24 }} x={tx} y={cy2 + 10}>
-          One live view
+          Co-ordinated access
         </text>
-        <text className="cd-out-sub" style={{ fontSize: m ? 12 : 12.5 }} x={tx} y={cy2 + (m ? 30 : 32)}>
-          Current. Not last month&rsquo;s export.
+        <text className="cd-out-sub" style={{ fontSize: m ? 11.5 : 11.5 }} x={tx} y={cy2 + (m ? 30 : 32)}>
+          Each workflow uses only what it needs.
         </text>
         <path className="cd-out-ok" d={`M${ob.x + ob.w - 30} ${ob.y + (m ? 22 : 24)} l4.2 4.4 l8.6 -9`} />
       </g>
@@ -283,12 +282,12 @@ export default function DisconnectDiagram({ className = '' }: { className?: stri
       <section
         ref={ref}
         className={`cd-stage ${stageClasses}`}
-        aria-label="Diagram: CRM, email, spreadsheets, invoicing and WhatsApp connect through one point into one live view."
+        aria-label="Diagram: CRM, email, spreadsheets, invoicing and WhatsApp connect through one point into co-ordinated access."
       >
         <div className="cd-cols" aria-hidden="true">
           <span className="cd-col">Your tools · as they are</span>
-          <span className="cd-col cd-col-mid">Captured once</span>
-          <span className="cd-col cd-col-end">One live view</span>
+          <span className="cd-col cd-col-mid">Connected</span>
+          <span className="cd-col cd-col-end">Co-ordinated access</span>
         </div>
         <div className="cd-svgwrap">
           <Diagram g={DESK} dots={dots && !reduced} id="d" />
