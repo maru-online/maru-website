@@ -495,7 +495,7 @@ interface BrevoEmailParams {
 }
 
 async function sendProspectEmail(params: BrevoEmailParams) {
-  const { name, email, level, levelLabel, reportUrl, painTag, segmentB } = params;
+  const { name, email, level, levelLabel, reportUrl, painTag, segmentB, followUpConsent } = params;
 
   const templateId1 = parseInt(process.env.BREVO_TEMPLATE_LEVEL_1 ?? "0");
   const templateId2 = parseInt(process.env.BREVO_TEMPLATE_LEVEL_2 ?? "0");
@@ -545,6 +545,9 @@ async function sendProspectEmail(params: BrevoEmailParams) {
         LEVEL_LABEL: levelLabel,
         REPORT_URL: reportUrl,
         PAIN_TAG: painTag,
+        // True only if the visitor ticked the follow-up box; the v4 template
+        // mentions the one follow-up email only then. Older templates ignore it.
+        FOLLOW_UP: followUpConsent,
         SHOW_GUIDE_LINK: showGuideLink,
         GUIDE_URL: `https://maruonline.com${GUIDE_PATH}`,
       },
