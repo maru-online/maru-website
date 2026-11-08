@@ -458,6 +458,19 @@
   }
 }
 
+/* Hero entrance (8 Nov 2026): plain CSS, so the headline is painted and moving
+   before any JavaScript runs. Animating the hero with framer-motion left the
+   H1 at opacity 0 in the server HTML until hydration (delayed first paint, and
+   nothing at all without JavaScript). Reduced motion: the rule above ends it
+   at once. */
+@keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero-rise { animation: hero-rise 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) both; animation-delay: var(--rise-delay, 0s); }
+
+/* Scroll entrances start at opacity 0 in the server HTML. When the page is
+   printed nothing has scrolled in, so show everything. (No-JavaScript visitors
+   get the same override from the <noscript> style in app/layout.tsx.) */
+@media print { [style*="opacity:0"], [style*="opacity: 0"] { opacity: 1 !important; transform: none !important; } }
+
 /* ── Base type ───────────────────────────────────────────────────────────────── */
 @layer base {
   html { scroll-behavior: smooth; }

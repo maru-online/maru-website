@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import { FadeUp } from "@/components/ui/Animate";
+import type { CSSProperties, ReactNode } from "react";
 
 /**
  * The one page hero (5 Nov 2026): eyebrow, H1, one sentence. The explanation
@@ -30,23 +29,21 @@ export default function PageHero({
 }) {
   const copy = (
     <div>
-        <FadeUp>
-          <span className="label-eyebrow page-hero-eyebrow">{eyebrow}</span>
-        </FadeUp>
-        <FadeUp delay={0.08}>
+        <span className="label-eyebrow page-hero-eyebrow hero-rise">{eyebrow}</span>
+        <div className="hero-rise" style={{ "--rise-delay": "0.06s" } as CSSProperties}>
           <h1 className="maru-headline-split page-hero-title">
             <span className="maru-headline-split-light">{light}</span>
             <br />
             <span className="maru-headline-split-strong">{strong}</span>
           </h1>
-        </FadeUp>
-        <FadeUp delay={0.16}>
+        </div>
+        <div className="hero-rise" style={{ "--rise-delay": "0.12s" } as CSSProperties}>
           <p className="body-on-navy page-hero-lead">{lead}</p>
-        </FadeUp>
+        </div>
         {actions && (
-          <FadeUp delay={0.22}>
+          <div className="hero-rise" style={{ "--rise-delay": "0.18s" } as CSSProperties}>
             <div className="page-hero-actions">{actions}</div>
-          </FadeUp>
+          </div>
         )}
     </div>
   );
@@ -56,7 +53,7 @@ export default function PageHero({
         {aside ? (
           <div className="page-hero-split">
             {copy}
-            <FadeUp delay={0.12}>{aside}</FadeUp>
+            <div className="hero-rise" style={{ "--rise-delay": "0.1s" } as CSSProperties}>{aside}</div>
           </div>
         ) : (
           copy

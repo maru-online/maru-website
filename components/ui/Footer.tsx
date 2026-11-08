@@ -2,24 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { TrackedLink } from '@/components/analytics/TrackedLink'
 import { footerNavigation } from '@/data/footer-navigation'
-
-// ─── Animation variants ───────────────────────────────────────────────────────
-
-const containerVariants = {
-  hidden:  { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-  },
-}
-
-const itemVariants = {
-  hidden:  { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
-}
 
 // ─── Shared link class ────────────────────────────────────────────────────────
 
@@ -42,18 +26,13 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
             at 900px, which wrapped links and made the footer feel cramped. */}
         <div className="px-6 md:px-[60px] py-20">
           <div className="sec-inner">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={containerVariants}
-          >
+          <div>
             {/* ── 5 columns (5 Nov 2026): brand gets the wider share; legal
                 links moved out of the bottom bar into their own column. ── */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-x-6 md:gap-x-8 gap-y-10 md:gap-y-12">
 
               {/* Brand column */}
-              <motion.div variants={itemVariants} className="col-span-2 md:col-span-4 lg:col-span-1 lg:pr-8">
+              <div className="col-span-2 md:col-span-4 lg:col-span-1 lg:pr-8">
                 <Link
                   href="/"
                   aria-label="Maru Online — home"
@@ -85,10 +64,10 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                     </a>
                   ))}
                 </div>
-              </motion.div>
+              </div>
 
               {/* Navigation column */}
-              <motion.div variants={itemVariants}>
+              <div>
                 <h4
                   className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
                   style={{ color: 'var(--color-ink-inverted)' }}
@@ -107,10 +86,10 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
 
               {/* What we do column */}
-              <motion.div variants={itemVariants}>
+              <div>
                 <h4
                   className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
                   style={{ color: 'var(--color-ink-inverted)' }}
@@ -133,10 +112,10 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
 
               {/* Contact column */}
-              <motion.div variants={itemVariants}>
+              <div>
                 <h4
                   className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
                   style={{ color: 'var(--color-ink-inverted)' }}
@@ -158,10 +137,10 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                     Gauteng, South Africa
                   </li>
                 </ul>
-              </motion.div>
+              </div>
 
               {/* Legal column */}
-              <motion.div variants={itemVariants}>
+              <div>
                 <h4
                   className="font-body font-medium text-[11px] tracking-[var(--tracking-eyebrow)] uppercase mb-6"
                   style={{ color: 'var(--color-ink-inverted)' }}
@@ -186,13 +165,12 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
                     </button>
                   </li>
                 </ul>
-              </motion.div>
+              </div>
 
             </div>
 
             {/* ── Bottom bar ─────────────────────────────────────────────── */}
-            <motion.div
-              variants={itemVariants}
+            <div
               className="mt-16 pt-8"
               style={{ borderTop: '1px solid var(--footer-rule)' }}
             >
@@ -205,9 +183,9 @@ export default function Footer({ showInsights = false }: { showInsights?: boolea
 
 
               </div>
-            </motion.div>
+            </div>
 
-          </motion.div>
+          </div>
           </div>
         </div>
       </footer>

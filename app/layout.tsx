@@ -106,6 +106,12 @@ export default function RootLayout({
           </>
         )}
 
+        {/* Scroll entrances start hidden in the server HTML; without JavaScript
+            they would never appear, so show them. */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+
         <MotionProvider>
           <Nav showInsights={GUIDE_PAGE_VISIBLE || HAS_PUBLISHED_CONTENT} />
           <main id="main-content">

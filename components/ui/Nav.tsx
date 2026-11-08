@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from './Button'
 
@@ -44,6 +44,8 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
   const pathname              = usePathname()
   const [isHero, setIsHero]   = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     // Navy (transparent) bar while the page's navy hero is under it; white
@@ -62,6 +64,17 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
+  // Keyboard: Escape closes the menu; focus moves to Close when it opens and
+  // back to the menu button when it closes (the overlay is aria-modal).
+  useEffect(() => {
+    if (!menuOpen) return
+    closeButtonRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('keydown', onKey)
+    const button = menuButtonRef.current
+    return () => { document.removeEventListener('keydown', onKey); button?.focus() }
   }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
@@ -155,6 +168,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
           {/* ── Mobile hamburger ──────────────────────────────────────────── */}
           <div className="flex lg:hidden items-center gap-3">
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label="Open navigation menu"
@@ -182,12 +196,13 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             className="on-navy fixed inset-0 z-[60] bg-bg-darkest flex flex-col px-6 pt-6 pb-10"
           >
             {/* Close */}
             <div className="flex justify-end mb-10">
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={closeMenu}
                 aria-label="Close navigation menu"
@@ -206,7 +221,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
                     key={href}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 + index * 0.05 }}
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 + index * 0.04 }}
                   >
                     <Link
                       href={href}

@@ -285,3 +285,27 @@ everything else has failed.
 | Files using `card-lift` / `glyph-chip` | 5 / 3 | 17 |
 | Phantom colour classes | 100+ | **0** |
 | Sitemap URLs that 404 | 13 | **0** |
+
+## Motion (audited 8 Nov 2026)
+
+Motion supports reading; it never gates content.
+
+- **Above the fold uses CSS, not framer-motion.** `PageHero` uses `.hero-rise`
+  (opacity + 14px rise, 0.5s, staggered by `--rise-delay`), so the headline paints
+  before JavaScript runs. A framer-motion `initial` of opacity 0 renders into the
+  server HTML and hides the H1 until hydration.
+- **Below the fold:** `FadeUp` / `StaggerParent` / `StaggerChild` (`components/ui/Animate.tsx`),
+  once only, `whileInView`. 0.5s, 24px (20px for stagger children), stagger 0.07s.
+  Keep a sequence under about one second end to end.
+- **Only `transform` and `opacity`.** Never layout properties, never `transition-all`.
+- **Reduced motion:** `MotionProvider` (`MotionConfig reducedMotion="user"`) removes
+  movement site-wide; a global CSS rule ends CSS animations and transitions at once.
+- **Safety nets:** a `<noscript>` style in `app/layout.tsx` and an `@media print`
+  rule in `globals.css` force entrance-animated content visible when JavaScript is
+  off or the page is printed.
+- **No entrance animation on navigation or on the footer.** Links must be there
+  when the reader looks for them. The mobile menu slides in (0.3s) with links
+  following within 0.4s; Escape closes it and focus returns to the menu button.
+- **Ambient motion** (DotField, ToolsTicker, DisconnectDiagram) pauses when off
+  screen or under reduced motion; the ticker has a Pause button.
+
