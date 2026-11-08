@@ -54,6 +54,7 @@ export default function CookieConsent() {
     <div
       role="dialog"
       aria-label="Cookie consent"
+      className="on-navy"
       style={{
         position:        'fixed',
         bottom:          '2rem',
@@ -103,43 +104,13 @@ export default function CookieConsent() {
         .
       </p>
 
+      {/* Site button system (5 Nov 2026). Accept and Decline carry equal
+          weight on purpose: the banner should not nudge either choice. */}
       <div style={{ display: 'flex', gap: '0.75rem' }}>
-        <button
-          onClick={accept}
-          style={{
-            flex:            1,
-            fontFamily:      'var(--font-body)',
-            fontSize:        'var(--text-cta)',
-            fontWeight:      600,
-            letterSpacing:   'var(--tracking-label)',
-            textTransform:   'uppercase',
-            color:           'var(--color-navy)',
-            backgroundColor: 'var(--color-cyan)',
-            border:          'none',
-            borderRadius:    '6px',
-            padding:         '0.625rem 0',
-            cursor:          'pointer',
-          }}
-        >
+        <button type="button" onClick={accept} className="btn btn-secondary btn-sm" style={{ flex: 1 }}>
           Accept
         </button>
-        <button
-          onClick={decline}
-          style={{
-            flex:            1,
-            fontFamily:      'var(--font-body)',
-            fontSize:        'var(--text-cta)',
-            fontWeight:      500,
-            letterSpacing:   'var(--tracking-label)',
-            textTransform:   'uppercase',
-            color:           'var(--color-ink-inverted-muted)',
-            backgroundColor: 'transparent',
-            border:          '1px solid rgba(250, 250, 248, 0.2)',
-            borderRadius:    '6px',
-            padding:         '0.625rem 0',
-            cursor:          'pointer',
-          }}
-        >
+        <button type="button" onClick={decline} className="btn btn-secondary btn-sm" style={{ flex: 1 }}>
           Decline
         </button>
       </div>

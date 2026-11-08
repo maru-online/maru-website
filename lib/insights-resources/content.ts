@@ -79,6 +79,13 @@ const ENTRIES: ContentEntry[] = [
 
 export const isPublished = (e: ContentEntry) => e.status === 'published'
 
+/** True once any entry is published. Drives the Guides & Resources link in the
+ *  nav and footer, independent of the AI and POPIA guide switches. */
+export const HAS_PUBLISHED_CONTENT = ENTRIES.some(isPublished)
+
+/** Published entries only, whatever the environment (for the sitemap). */
+export const getPublishedEntries = (): ContentEntry[] => ENTRIES.filter(isPublished)
+
 // ─── Accessors ───────────────────────────────────────────────────────────────
 
 export function getEntries(section?: SectionKey): ContentEntry[] {

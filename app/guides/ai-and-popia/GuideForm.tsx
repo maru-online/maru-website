@@ -15,6 +15,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import { trackEvent } from "@/lib/analytics";
 import { Checkbox } from "@/components/ui/Checkbox";
 import {
   GUIDE_PDF_ROUTE,
@@ -33,7 +34,7 @@ const inputClass =
   "w-full rounded-xl border border-border-default bg-bg-canvas px-4 py-3 text-sm text-ink-primary " +
   "placeholder-ink-tertiary outline-none transition-colors focus:border-cyan focus-visible:ring-2 focus-visible:ring-cyan";
 
-export default function GuideForm({ live }: { live: boolean }) {
+export default function GuideForm({ live, source = "direct" }: { live: boolean; source?: string }) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
@@ -69,6 +70,9 @@ export default function GuideForm({ live }: { live: boolean }) {
         /* storage blocked: the assessment simply keeps showing the guide line */
       }
       setDone({ marketing });
+      // GA4 recommended lead event, so the guide can be compared with the web
+      // guides over the trial month (5 Nov 2026).
+      trackEvent("generate_lead", { lead_type: "guide", guide: "ai-and-popia", source, marketing_opt_in: marketing });
     } catch {
       setErrors({ server: MSG_SERVER });
     } finally {
@@ -80,13 +84,20 @@ export default function GuideForm({ live }: { live: boolean }) {
   if (done) {
     return (
       <div role="status" aria-live="polite">
-        <h2 className="text-2xl font-semibold text-navy mb-3 border-none">Your guide is on its way.</h2>
+        <h2 className="card-title" style={{ fontSize: "1.5rem", marginBottom: "0.75rem" }}>Your guide is on its way.</h2>
         <p className="body-muted text-base leading-relaxed mb-6">
           Check your inbox for an email from hello@maruonline.com. If it isn&apos;t there in a few minutes, look in your spam folder.
         </p>
-        <Button href={GUIDE_PDF_ROUTE} variant="primary" target="_blank" rel="noopener">
+        <a
+          href={GUIDE_PDF_ROUTE}
+          target="_blank"
+          rel="noopener"
+          className="btn btn-primary"
+          onClick={() => trackEvent("file_download", { file_name: "ai-and-popia-guide.pdf", guide: "ai-and-popia", source })}
+        >
           Download the guide (PDF)
-        </Button>
+          <span className="btn-arrow" aria-hidden="true">→</span>
+        </a>
         {done.marketing && (
           <p className="body-muted text-base leading-relaxed mt-6">
             We have also sent a confirmation email. Your notes subscription starts once you confirm it.
@@ -95,7 +106,7 @@ export default function GuideForm({ live }: { live: boolean }) {
         <p className="body-muted text-base leading-relaxed mt-6">
           Want to see where your business stands?{" "}
           <Link href="/popia-ai-check" className="text-cyan-ink underline hover:no-underline">
-            Take the free POPIA Assessment.
+            Take the free POPIA review.
           </Link>
         </p>
       </div>
@@ -104,7 +115,10 @@ export default function GuideForm({ live }: { live: boolean }) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-5">
-      <h2 className="text-2xl font-semibold text-navy mb-2 border-none">Get the guide</h2>
+      <div>
+        <h2 className="card-title" style={{ fontSize: "1.5rem", marginBottom: "0.25rem" }}>Get the guide</h2>
+        <p className="card-text" style={{ margin: 0 }}>We email you the PDF, and you can download it straight away.</p>
+      </div>
 
       <div>
         <label htmlFor="guide-first-name" className="block text-sm font-medium text-ink-primary mb-2">First name</label>

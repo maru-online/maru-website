@@ -9,7 +9,6 @@ export const HUBSPOT_FORMS = {
   AI_READINESS: "48dfa41b-54b7-4298-83b5-98476252f525", // Operations Diagnostic Form GUID (2026)
   CONTACT: "2dc2a672-5057-476c-9326-5f4be49eb6af",        // Verified Contact Form GUID (2026)
   WEBSITE_AUDIT: "",   // Add your Website Audit form GUID
-  NEWSLETTER: "",   // Add your Newsletter form GUID
 } as const;
 
 interface HubSpotFormData {

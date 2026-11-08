@@ -46,11 +46,15 @@
   --color-cyan-light:         #E8F8FA;   /* solid tint — for badges/icon bg */
   --color-cyan-dark:          #2DA8B6;
   --color-cyan-ink:           #1B6F79;   /* cyan text on light grounds */
+  /* Action colour (5 Nov 2026): green means go. Fills primary buttons on navy
+     only — on light grounds it would vanish (1.3:1), so there the button is
+     the deep teal. Used for nothing else. */
+  --color-go:                 #9FE98F;   /* 9.1:1 on navy */
+  --color-go-ink:             #12361A;   /* text on --color-go */
 
   /* ── Brand gold — the primary accent ────────────────────────────────────── */
   /* Derived from --gradient-gold (#D6B76A → #A8862F). These were referenced by
-     .dd-hub-core, .stat-rule and .glyph-chip-gold long before they were
-     defined, which is why the DisconnectDiagram hub rendered with no fill. */
+     .stat-rule and .glyph-chip-gold long before they were defined. */
   --color-gold:               #C39F45;   /* solid fills, rules, diagram hub */
   --color-gold-light:         #F3EAD3;   /* chip tint */
   --color-gold-antique:       #6B5219;   /* text on gold tint — 6.16:1 */
@@ -80,6 +84,52 @@
   /* ── Borders / rules ────────────────────────────────────────────────────── */
   --color-border-default:     #E2E8F0;   /* same as profile --rule */
   --color-border-card:        #E4E0D6;   /* warm stone edge — cards only */
+
+  /* ── Card system (1 Nov 2026; production look restored 2 Nov 2026) ─────
+     One card everywhere: same radius, same soft layered shadow, same lift,
+     as on the live site before the blended UI.
+     Two fills: .card-lift (warm white, edged) on light grounds and .card-dark
+     in a dark chapter. Nothing else sets a card radius or shadow inline. */
+  --card-radius:              10px;
+  /* Floating cards (approved 4 Nov 2026): a barely-there outline at rest that
+     turns cyan on hover/focus; navy-tinted three-layer shadow (contact, near,
+     far) so a raised card reads as off the surface. */
+  --card-edge:                rgba(26, 58, 92, 0.07);
+  --card-edge-hover:          rgba(61, 184, 198, 0.55);
+  --card-edge-selected:       var(--color-cyan);
+  --card-shadow:              0 1px 2px rgba(22, 50, 79, 0.04), 0 4px 12px -2px rgba(22, 50, 79, 0.06);
+  --card-shadow-hover:        0 2px 4px rgba(22, 50, 79, 0.05), 0 16px 30px -8px rgba(22, 50, 79, 0.16), 0 40px 70px -20px rgba(22, 50, 79, 0.34);
+  --card-shadow-press:        0 1px 3px rgba(22, 50, 79, 0.06), 0 8px 18px -6px rgba(22, 50, 79, 0.14);
+  --card-lift:                translateY(-6px);
+  --card-ease:                cubic-bezier(0.22, 1, 0.36, 1);
+  /* One step darker than --gradient-surface, for a light section that needs
+     its white cards to lift more (homepage problem section). */
+  --gradient-surface-deep:    linear-gradient(180deg, #ECE9E1 0%, #E4E0D6 100%);
+  /* Reading system (3 Nov 2026), from the Guides & Resources page: one card
+     anatomy (label, title, text, meta, action) and one section head. */
+  --card-pad:                 1.75rem;   /* 28px inside every card */
+  --text-card:                var(--text-body-sm);   /* 18px card text and lists */
+  --text-card-title:          var(--text-h3-serif);  /* 22px card title, display font */
+  --section-intro-max:        620px;
+  /* Dark chapter: one per page at most, for proof, a walkthrough or timely analysis. */
+  --section-dark-glow:        radial-gradient(55% 70% at 100% 0%, rgba(61,184,198,0.14), transparent 60%),
+                              radial-gradient(40% 50% at 0% 100%, rgba(61,184,198,0.07), transparent 70%);
+  /* Cards on navy (4 Nov 2026): lit from above (inset highlight), a deep drop
+     shadow to separate them from the gradient, and a cyan halo that grows on
+     hover so the card lifts off the surface. */
+  --card-dark-fill:           linear-gradient(180deg, rgba(250,250,248,0.085), rgba(250,250,248,0.035));
+  --card-dark-border:         rgba(250, 250, 248, 0.14);
+  --card-dark-border-hover:   rgba(61, 184, 198, 0.6);
+  --card-dark-shadow:         inset 0 1px 0 rgba(250,250,248,0.08),
+                              0 1px 2px rgba(3,12,24,0.25),
+                              0 14px 32px -14px rgba(3,12,24,0.6),
+                              0 18px 50px -22px rgba(61,184,198,0.32);
+  --card-dark-shadow-hover:   inset 0 1px 0 rgba(250,250,248,0.12),
+                              0 2px 4px rgba(3,12,24,0.25),
+                              0 26px 50px -18px rgba(3,12,24,0.7),
+                              0 30px 80px -20px rgba(61,184,198,0.6),
+                              0 0 0 1px rgba(61,184,198,0.18);
+  --color-ink-inverted-subtle:#9FB3BE;   /* small print on navy */
   --color-border-subtle:      rgba(26, 58, 92, 0.1);
   --color-border-strong:      #CBD5E0;
 
@@ -114,7 +164,7 @@
   --space-heading-body:       1.625rem;  /* 26px between h border and first p */
   --space-para:               0.75rem;   /* 12px between paragraphs inside cards */
   --space-para-section:       1.5rem;    /* 24px between paragraphs in body copy */
-  --space-section-header-mb:  2.5rem;    /* 40px below section header before content */
+  --space-section-header-mb:  var(--sec-head-gap); /* heading group → content (Open Flow, 4 Nov 2026; was 2.5rem) */
 
   /* ── Font families — Outfit (headings) + Inter (body) ──────────────────── */
   --font-display:             var(--font-outfit);
@@ -190,120 +240,194 @@
   to   { transform: translateX(-50%); }
 }
 
-/* ── DisconnectDiagram — "what Maru does" section object ──────────────────────
-   Isolated systems converge through one hub into a single live view. States are
-   driven by .dd-live, added once the diagram scrolls into range. All timings are
-   staggered off --i so the connection reads as sequential, not simultaneous. */
-/* The two layouts are switched here rather than with Tailwind's `hidden sm:block`
-   utilities: this file loads after Tailwind at equal specificity, so a `display`
-   declaration on .dd-svg would silently beat them and render both at once. */
-.dd-svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
+/* ── DisconnectDiagram — "Your tools stay. We connect them." ──────────────────
+   Navy-stage treatment (3 Nov 2026), shared with the ESD consistency diagram.
+   Reveal stages are classes on .cd-stage, added in order: cd-in (tools
+   straighten and tick), cd-links (links draw), cd-hub (gold hub lights),
+   cd-outlinks (line to the live view), cd-outs (live view lands). Only
+   transform, opacity, stroke and fill animate. Layouts switch here, not with
+   Tailwind utilities, because this file loads after Tailwind at equal
+   specificity. */
+.cd {
+  --cd-gold-hi:   #D6B76A;
+  --cd-ink-inv:   #FAFAF8;
+  --cd-ink-muted: rgba(250, 250, 248, 0.75);
+  --cd-spring:    cubic-bezier(0.34, 1.4, 0.64, 1);
+  --cd-out:       cubic-bezier(0.25, 0.1, 0.25, 1);
 }
-.dd-desktop { display: none; }
-.dd-mobile  { display: block; }
-
+.cd-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: clamp(14px, 3vw, 34px);
+  background:
+    radial-gradient(900px 420px at 88% -10%, rgba(61, 184, 198, 0.20), transparent 60%),
+    radial-gradient(700px 380px at -8% 108%, rgba(195, 159, 69, 0.16), transparent 62%),
+    linear-gradient(160deg, var(--color-navy) 0%, var(--color-bg-navy-deep) 55%, var(--color-bg-darkest) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 28px 60px -24px rgba(13, 27, 42, 0.55),
+    0 8px 18px -10px rgba(26, 58, 92, 0.45);
+}
+.cd-stage::before { /* grain */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  opacity: 0.22; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+.cd-stage::after { /* faint grid */
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(250, 250, 248, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(250, 250, 248, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%);
+}
+.cd-cols {
+  position: relative; z-index: 1; display: none;
+  grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 0 0 6px; padding: 0 2px;
+}
+.cd-col {
+  font-family: var(--font-body); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--cd-ink-muted);
+}
+.cd-col-mid { text-align: center; color: var(--cd-gold-hi); }
+.cd-col-end { text-align: right; color: var(--color-cyan); }
+.cd-svgwrap { position: relative; z-index: 1; }
+.cd-svg { width: 100%; height: auto; overflow: visible; }
+.cd-desktop { display: none; }
+.cd-mobile  { display: block; }
 @media (min-width: 640px) {
-  .dd-desktop { display: block; }
-  .dd-mobile  { display: none; }
+  .cd-desktop { display: block; }
+  .cd-mobile  { display: none; }
+  .cd-cols    { display: grid; }
 }
 
-/* Source system boxes */
-.dd-box {
-  fill: var(--color-bg-primary);
-  stroke: var(--color-border-strong);
-  stroke-width: 1.25;
-  transition: stroke 520ms ease-out calc(var(--i) * 90ms);
+/* tools: loose before, aligned and ticked after */
+.cd-in-g {
+  transform-box: fill-box; transform-origin: center;
+  transform: translate(var(--dx), 0) rotate(var(--r));
+  transition: transform 760ms var(--cd-spring) calc(var(--i) * 90ms);
 }
-.dd-live .dd-box { stroke: var(--color-border-default); }
+.cd-in .cd-in-g { transform: none; }
+.cd-in-box {
+  fill: rgba(250, 250, 248, 0.045); stroke: rgba(250, 250, 248, 0.30); stroke-width: 1.2;
+  transition: stroke 600ms ease-out calc(var(--i) * 90ms), fill 600ms ease-out calc(var(--i) * 90ms);
+}
+.cd-in .cd-in-box { stroke: rgba(61, 184, 198, 0.55); fill: rgba(61, 184, 198, 0.07); }
+.cd-in-rough {
+  fill: none; stroke: rgba(250, 250, 248, 0.5); stroke-width: 1; stroke-dasharray: 3 3;
+  transition: opacity 420ms ease-out calc(var(--i) * 90ms);
+}
+.cd-in .cd-in-rough { opacity: 0; }
+.cd-in-label {
+  font-family: var(--font-body); font-weight: 500; letter-spacing: 0.16em;
+  fill: rgba(250, 250, 248, 0.72);
+  transition: fill 500ms ease-out calc(var(--i) * 90ms);
+}
+.cd-in .cd-in-label { fill: var(--cd-ink-inv); }
+.cd-in-badge {
+  font-family: var(--font-body); font-size: 10px; letter-spacing: 0.06em; fill: var(--cd-gold-hi);
+  transition: opacity 300ms ease-out calc(var(--i) * 90ms);
+}
+.cd-in-badge-bg {
+  fill: rgba(195, 159, 69, 0.14); stroke: rgba(214, 183, 106, 0.45); stroke-width: 1;
+  transition: opacity 300ms ease-out calc(var(--i) * 90ms);
+}
+.cd-in .cd-in-badge, .cd-in .cd-in-badge-bg { opacity: 0; }
+.cd-in-tick {
+  fill: none; stroke: var(--color-cyan); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition: opacity 200ms ease-out calc(var(--i) * 90ms + 450ms),
+    stroke-dashoffset 420ms ease-out calc(var(--i) * 90ms + 450ms);
+}
+.cd-in .cd-in-tick { opacity: 1; stroke-dashoffset: 0; }
 
-.dd-label {
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  fill: var(--color-ink-tertiary);
-  transition: fill 520ms ease-out calc(var(--i) * 90ms);
+/* links */
+.cd-stub {
+  fill: none; stroke: rgba(250, 250, 248, 0.45); stroke-width: 1.2; stroke-dasharray: 3 4;
+  transition: opacity 400ms ease-out;
 }
-/* Boxes run 61% of the mobile viewBox, so the label has room to sit at a
-   legible size rather than the 9.5px the old narrow boxes forced. */
-.dd-label-sm { font-size: 10.5px; letter-spacing: 0.1em; }
-.dd-live .dd-label { fill: var(--color-ink-secondary); }
+.cd-links .cd-stub { opacity: 0; }
+.cd-track { fill: none; stroke: rgba(61, 184, 198, 0.12); stroke-width: 1.2; }
+.cd-link {
+  fill: none; stroke: var(--color-cyan); stroke-width: 1.6; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.9;
+  transition: stroke-dashoffset 950ms var(--cd-out) calc(var(--i) * 110ms);
+}
+.cd-link-out { stroke-width: 1.8; }
+.cd-links .cd-link-in, .cd-outlinks .cd-link-out { stroke-dashoffset: 0; }
 
-/* The "before" state — stubs that lead nowhere */
-.dd-stub {
-  fill: none;
-  stroke: var(--color-ink-tertiary);
-  stroke-width: 1.25;
-  stroke-dasharray: 3 4;
-  opacity: 0.55;
-  transition: opacity 420ms ease-out;
+/* hub */
+.cd-hub-ring {
+  fill: rgba(195, 159, 69, 0.12); stroke: rgba(214, 183, 106, 0.35); stroke-width: 1;
+  opacity: 0.4; transition: opacity 600ms ease-out;
 }
-.dd-live .dd-stub { opacity: 0; }
+.cd-hub .cd-hub-ring { opacity: 1; }
+.cd-hub-dot {
+  fill: var(--color-gold); transform-box: fill-box; transform-origin: center;
+  transform: scale(0.4); opacity: 0.5;
+  transition: transform 600ms var(--cd-spring) 100ms, opacity 300ms ease-out 100ms;
+}
+.cd-hub .cd-hub-dot { transform: scale(1); opacity: 1; }
+.cd-hub-halo { fill: var(--color-gold); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.cd-hub .cd-hub-halo { animation: cd-halo 3.2s ease-out infinite; }
+@keyframes cd-halo {
+  0%   { opacity: 0.35; transform: scale(0.6); }
+  100% { opacity: 0;    transform: scale(2.6); }
+}
+.cd-hub-cap {
+  font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+  fill: var(--cd-gold-hi); text-anchor: middle; opacity: 0.45;
+  transition: opacity 500ms ease-out 300ms;
+}
+.cd-hub-sub {
+  font-family: var(--font-body); font-size: 10.5px; font-weight: 300;
+  fill: var(--cd-ink-muted); text-anchor: middle; opacity: 0.45;
+  transition: opacity 500ms ease-out 400ms;
+}
+.cd-hub .cd-hub-cap, .cd-hub .cd-hub-sub { opacity: 1; }
 
-/* The "after" state — links drawing through to the hub */
-.dd-link {
-  fill: none;
-  stroke: var(--color-cyan);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-dasharray: 620;
-  stroke-dashoffset: 620;
-  transition: stroke-dashoffset 900ms cubic-bezier(0.25, 0.1, 0.25, 1)
-    calc(var(--i) * 110ms);
+/* the outcome */
+.cd-out-g {
+  opacity: 0.3; transform-box: fill-box; transform-origin: center;
+  transform: translateX(var(--ox)) scale(0.96);
+  transition: opacity 520ms ease-out, transform 700ms var(--cd-spring);
 }
-.dd-live .dd-link { stroke-dashoffset: 0; }
-.dd-link-out { stroke-width: 2; }
+.cd-outs .cd-out-g { opacity: 1; transform: none; }
+.cd-out-box {
+  fill: rgba(61, 184, 198, 0.10); stroke: rgba(61, 184, 198, 0.7); stroke-width: 1.2;
+  transition: fill 260ms ease-out, stroke 260ms ease-out;
+}
+.cd-out-g:hover .cd-out-box { fill: rgba(61, 184, 198, 0.2); stroke: var(--color-cyan); }
+.cd-out-title { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; fill: var(--cd-ink-inv); }
+.cd-out-sub   { font-family: var(--font-body); font-weight: 300; fill: var(--cd-ink-muted); }
+.cd-out-live  { fill: var(--color-cyan); }
+.cd-outs .cd-out-live { animation: cd-blink 2.4s ease-in-out infinite; }
+@keyframes cd-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+.cd-out-livetx { font-family: var(--font-body); font-size: 10px; letter-spacing: 0.18em; fill: var(--color-cyan); }
+.cd-out-ok {
+  fill: none; stroke: var(--cd-gold-hi); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  opacity: 0; transition: opacity 300ms ease-out 500ms;
+}
+.cd-outs .cd-out-ok { opacity: 1; }
 
-/* The Maru hub */
-.dd-hub-core {
-  fill: var(--color-gold);
-  opacity: 0;
-  transform: scale(0.3);
-  transform-origin: center;
-  transform-box: fill-box;
-  transition: opacity 320ms ease-out 640ms,
-    transform 520ms cubic-bezier(0.34, 1.45, 0.64, 1) 640ms;
-}
-.dd-hub-halo {
-  fill: var(--color-gold);
-  opacity: 0;
-  transform-origin: center;
-  transform-box: fill-box;
-  transition: opacity 420ms ease-out 700ms;
-}
-.dd-live .dd-hub-core { opacity: 1; transform: scale(1); }
-.dd-live .dd-hub-halo { opacity: 0.14; }
+/* light running along the lines */
+.cd-dot { fill: #FFFFFF; }
+.cd-dot-gold { fill: var(--cd-gold-hi); }
 
-/* The outcome panel */
-.dd-out {
-  opacity: 0;
-  transition: opacity 560ms ease-out 1080ms;
+/* replay */
+.cd-bar { display: flex; justify-content: flex-end; margin-top: 16px; }
+.cd-replay {
+  font: 500 12px/1 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer; padding: 13px 20px; border-radius: 999px; border: 0; color: #0D1B2A;
+  background: linear-gradient(135deg, #D6B76A 0%, #A8862F 100%);
+  box-shadow: 0 2px 8px rgba(13, 27, 42, 0.18);
+  transition: transform 220ms var(--cd-spring), box-shadow 220ms ease-out;
 }
-.dd-live .dd-out { opacity: 1; }
-
-.dd-out-box {
-  fill: var(--color-cyan-light);
-  stroke: var(--color-cyan);
-  stroke-width: 1.25;
-}
-.dd-out-title {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  fill: var(--color-ink-primary);
-}
-.dd-out-sub {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 300;
-  fill: var(--color-ink-secondary);
-}
-.dd-out-title-sm { font-size: 17px; text-anchor: middle; }
-.dd-out-sub-sm   { font-size: 10.5px; text-anchor: middle; }
+.cd-replay:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(205, 170, 83, 0.40); }
+.cd-replay:active { transform: translateY(0) scale(0.97); }
+.cd-replay:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(61, 184, 198, 0.45); }
 
 /* ── Homepage problem cards: bullet list ─────────────────────────────────────
    Bullets are short phrases. The dot pulses once when its card is hovered;
@@ -312,7 +436,7 @@
 .prob-list li {
   display: flex; align-items: flex-start; gap: 0.75rem;
   font-family: var(--font-body); font-weight: 300;
-  font-size: var(--text-body); line-height: 1.6;
+  font-size: var(--text-card); line-height: 1.6;
   color: var(--color-ink-secondary);
 }
 .prob-dot {
@@ -325,17 +449,6 @@
 .prob-card:hover .prob-list li:nth-child(2) .prob-dot { transition-delay: 60ms; }
 .prob-card:hover .prob-list li:nth-child(3) .prob-dot { transition-delay: 120ms; }
 
-/* DisconnectDiagram: after the links draw, a pulse travels each link into the
-   hub on a loop, and the hub breathes. Mounted only once the diagram is live and
-   motion is allowed (see the component). */
-@keyframes dd-breathe {
-  0%, 100% { transform: scale(1);    opacity: 0.14; }
-  50%      { transform: scale(1.55); opacity: 0.04; }
-}
-.dd-live .dd-hub-halo.dd-breathe { animation: dd-breathe 2.8s ease-in-out 1.6s infinite; }
-.dd-pulse { fill: var(--color-cyan); opacity: 0.9; }
-.dd-pulse-out { fill: var(--color-gold); }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration:        0.01ms !important;
@@ -344,6 +457,19 @@
     scroll-behavior:           auto   !important;
   }
 }
+
+/* Hero entrance (8 Nov 2026): plain CSS, so the headline is painted and moving
+   before any JavaScript runs. Animating the hero with framer-motion left the
+   H1 at opacity 0 in the server HTML until hydration (delayed first paint, and
+   nothing at all without JavaScript). Reduced motion: the rule above ends it
+   at once. */
+@keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero-rise { animation: hero-rise 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) both; animation-delay: var(--rise-delay, 0s); }
+
+/* Scroll entrances start at opacity 0 in the server HTML. When the page is
+   printed nothing has scrolled in, so show everything. (No-JavaScript visitors
+   get the same override from the <noscript> style in app/layout.tsx.) */
+@media print { [style*="opacity:0"], [style*="opacity: 0"] { opacity: 1 !important; transform: none !important; } }
 
 /* ── Base type ───────────────────────────────────────────────────────────────── */
 @layer base {
@@ -682,19 +808,45 @@
      sets its own background inline will beat this rule and lose the brighten. */
   .card-lift {
     background-color: var(--color-bg-card);
-    border-color:     var(--color-border-card);
-    box-shadow:  0 1px 2px rgba(38, 32, 20, 0.05), 0 4px 12px rgba(38, 32, 20, 0.07);
-    transition:  transform 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
-                 box-shadow 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
-                 background-color 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
-                 border-color 280ms cubic-bezier(0.25, 0.1, 0.25, 1);
+    border:           1px solid var(--card-edge);
+    border-radius:    var(--card-radius);
+    box-shadow:       var(--card-shadow);
+    transition:  transform 420ms var(--card-ease),
+                 box-shadow 420ms var(--card-ease),
+                 background-color 240ms ease,
+                 border-color 240ms ease;
   }
   .card-lift:hover,
   .card-lift:focus-within {
     background-color: var(--color-bg-card-hover);
-    border-color:     var(--color-border-strong);
-    transform:   translateY(-2px) scale(1.015);
-    box-shadow:  0 4px 8px rgba(38, 32, 20, 0.06), 0 14px 32px rgba(38, 32, 20, 0.13);
+    border-color:     var(--card-edge-hover);
+    transform:        var(--card-lift);
+    box-shadow:       var(--card-shadow-hover);
+  }
+  /* Selected: stays raised, outline goes full cyan with a soft ring. */
+  .card-lift.is-selected,
+  .card-lift[aria-selected="true"],
+  .card-lift[aria-current="true"],
+  .card-lift[aria-current="page"] {
+    background-color: var(--color-bg-card-hover);
+    border-color:     var(--card-edge-selected);
+    transform:        var(--card-lift);
+    box-shadow:       var(--card-shadow-hover), 0 0 0 3px rgba(61, 184, 198, 0.16);
+  }
+  /* Press: settles halfway back down so the click is felt. */
+  .card-lift:active {
+    transform:  translateY(-2px);
+    box-shadow: var(--card-shadow-press);
+    transition-duration: 120ms;
+  }
+  /* A card that holds a working tool (the booking calendar) keeps the edge
+     and surface but doesn't rise while someone is using it. */
+  .card-lift.card-static:hover,
+  .card-lift.card-static:focus-within,
+  .card-lift.card-static:active {
+    transform:    none;
+    box-shadow:   var(--card-shadow);
+    border-color: var(--card-edge);
   }
 
   /* ── Metrics band ────────────────────────────────────────────────────────
@@ -802,13 +954,14 @@
   .card-lift:hover .glyph-chip,
   .card-lift:focus-within .glyph-chip,
   .foundation-cell:hover .glyph-chip {
-    transform: scale(1.08) rotate(-3deg);
+    transform: scale(1.08);
   }
-  /* The larger chip leans harder into the gesture and deepens its tint, so the
-     icon is the thing that answers a hover. */
+  /* The larger chip grows a little more and deepens its tint, so the icon is
+     the thing that answers a hover. No rotation: cards and their icons stay
+     straight on hover and click (Jimmy, 3 Nov 2026). */
   .card-lift:hover .glyph-chip-lg,
   .card-lift:focus-within .glyph-chip-lg {
-    transform: scale(1.12) rotate(-4deg);
+    transform: scale(1.12);
     box-shadow: 0 0 0 1px rgba(205, 170, 83, 0.38),
                 0 4px 10px rgba(38, 32, 20, 0.10);
   }
@@ -890,3 +1043,751 @@
 
 /* Prevent Calendly's injected iframe from blocking page interactions */
 .calendly-frame-tag { pointer-events: none !important; }
+
+/* ── Blended UI (1 Nov 2026) ─────────────────────────────────────────────────
+   Production roots (Outfit, navy gradient, teal eyebrows, gold actions) with
+   the new finish: colour-only heading emphasis and one sheen on the
+   assessment buttons. Transform and opacity only. */
+
+/* Gold assessment CTA: one light sweep crosses the button every 2 minutes,
+   first pass ~3s after load, then it rests. */
+/* ── Page hero (5 Nov 2026) ──────────────────────────────────────────────────
+   Eyebrow, H1, one sentence (PageHero). Height comes from content and this
+   padding, never from the viewport. Breadcrumb heroes (section listings,
+   legal pages) take the same padding. */
+.page-hero {
+  padding-inline: var(--sec-gutter);
+  padding-top: clamp(9rem, 12vw, 10.5rem);   /* clears the fixed nav */
+  padding-bottom: clamp(4.5rem, 7vw, 6rem);
+}
+.page-hero-split { display: grid; gap: 3rem; align-items: center; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) { .page-hero-split { grid-template-columns: minmax(0, 1fr) auto; gap: 4rem; } }
+.page-hero-eyebrow { display: block; margin-bottom: 1.5rem !important; }
+.page-hero-title { margin-bottom: 1.5rem; }
+.page-hero-lead { max-width: 40rem; margin: 0; text-wrap: pretty; }
+.page-hero-actions {
+  margin-top: 2.5rem; display: flex; flex-direction: column; gap: 0.875rem;
+}
+@media (min-width: 640px) { .page-hero-actions { flex-direction: row; align-items: center; } }
+
+/* ── Guide as a book (5 Nov 2026) ───────────────────────────────────────────
+   GuideBook: the real cover, turned slightly in 3D, with a spine highlight,
+   page edges and a lifted shadow, so a downloadable guide reads as a
+   publication rather than another card. */
+.guide-book { perspective: 1600px; max-width: 100%; flex: none; }
+.guide-book-body {
+  position: relative; border-radius: 3px 8px 8px 3px;
+  transform: rotateY(-16deg) rotateX(3deg); transform-origin: 40% 50%;
+  box-shadow:
+    1px 1px 0 rgba(255, 255, 255, 0.06) inset,
+    28px 34px 56px -22px rgba(8, 20, 36, 0.6),
+    8px 12px 22px -10px rgba(8, 20, 36, 0.4);
+  transition: transform 700ms var(--card-ease);
+}
+.guide-book-cover { display: block; width: 100%; height: auto; border-radius: 3px 8px 8px 3px; }
+.guide-book-body::before { /* spine */
+  content: ""; position: absolute; z-index: 1; left: 0; top: 0; bottom: 0; width: 7%;
+  border-radius: 3px 0 0 3px; pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.16) 0%, rgba(0,0,0,0.28) 35%, rgba(255,255,255,0.07) 70%, transparent 100%);
+}
+.guide-book-body::after { /* page edges */
+  content: ""; position: absolute; z-index: -1; top: 1.4%; bottom: 1.4%; right: -9px; width: 12px;
+  border-radius: 0 3px 3px 0;
+  background: repeating-linear-gradient(90deg, #FAFAF8 0 1px, #DCD8CE 1px 2px);
+  box-shadow: 2px 2px 6px rgba(8, 20, 36, 0.25);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .guide-book:hover .guide-book-body { transform: rotateY(-6deg) rotateX(1deg); }
+}
+@media (prefers-reduced-motion: reduce) { .guide-book-body { transition: none; } }
+
+/* Guide promo (Guides & Resources): a navy panel with the grid, the book on
+   the left, copy and one green button on the right. */
+.guide-promo {
+  position: relative; overflow: hidden; isolation: isolate;
+  border-radius: 14px; color: var(--color-ink-inverted);
+  background:
+    radial-gradient(70% 90% at 85% 0%, rgba(61,184,198,0.26), transparent 60%),
+    radial-gradient(60% 70% at 0% 100%, rgba(61,184,198,0.10), transparent 70%),
+    var(--gradient-hero);
+  box-shadow: var(--card-shadow-hover);
+  display: grid; gap: 2.5rem; align-items: center;
+  padding: clamp(2rem, 4vw, 3.25rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 900px) { .guide-promo { grid-template-columns: auto minmax(0, 1fr); gap: 3.5rem; } }
+.guide-promo > .grid-motif { position: absolute; inset: 0; z-index: -1; }
+.guide-promo .guide-book { justify-self: center; }
+.guide-promo-title {
+  font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em;
+  font-size: clamp(1.625rem, 1.2rem + 1.4vw, 2.25rem); line-height: 1.15;
+  color: var(--color-ink-inverted); margin: 0 0 1rem; border: 0; padding: 0; text-wrap: balance;
+}
+.guide-promo-meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin: 1.5rem 0 2rem; padding: 0; list-style: none; }
+.guide-promo-meta li { font-size: var(--text-meta); color: var(--color-ink-inverted-muted); display: inline-flex; align-items: center; gap: 0.5rem; }
+.guide-promo-meta li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--color-cyan); }
+
+/* Guide landing page: form first on phones, beside the content on wide
+   screens (sticky, so it stays in reach while reading what is inside). */
+.guide-landing { display: grid; gap: 3rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) {
+  .guide-landing { grid-template-columns: minmax(0, 1fr) 420px; gap: 5rem; align-items: start; }
+  .guide-landing-form { grid-column: 2; grid-row: 1; position: sticky; top: 7rem; }
+  .guide-landing-body { grid-column: 1; grid-row: 1; }
+}
+.guide-parts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.guide-parts li {
+  display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 1rem; align-items: start;
+  padding: 1.25rem 0; border-top: 1px solid var(--color-border-card);
+}
+.guide-parts li:last-child { border-bottom: 1px solid var(--color-border-card); }
+.guide-part-num {
+  width: 2.25rem; height: 2.25rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--color-bg-navy-deep); color: var(--color-ink-inverted);
+  font-family: var(--font-display); font-weight: 600; font-size: 0.875rem;
+}
+.guide-pages { display: grid; grid-template-columns: repeat(2, minmax(0, 260px)); gap: 1.25rem; margin-top: 1.25rem; }
+.guide-page { margin: 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-card); box-shadow: var(--card-shadow); background: var(--color-bg-card); }
+.guide-page img { display: block; width: 100%; height: auto; }
+
+/* ── Closing statement frame (homepage, 8 Nov 2026) ─────────────────────────
+   Desktop: one 21:9 frame, title inside on the left over the dark office
+   photograph (light text, soft navy shade from the left), subject across the
+   frame. Phones: title above on the stone ground, photo below. */
+.closing-media { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); }
+.closing-media img { object-position: 20% 50%; }
+.closing .sec-head { margin-bottom: 1.75rem; }
+@media (min-width: 768px) {
+  .closing { position: relative; aspect-ratio: 21 / 9; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); background: var(--color-bg-navy-deep); }
+  .closing-media { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+  .closing-media img { object-position: 50% 50%; }
+  .closing-media::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(13,27,42,0.68) 0%, rgba(13,27,42,0.42) 42%, rgba(13,27,42,0) 74%);
+  }
+  .closing-copy { position: absolute; z-index: 1; top: 0; bottom: 0; left: clamp(1.5rem, 4vw, 3.5rem); display: flex; align-items: center; max-width: 46%; }
+  .closing .sec-head { margin-bottom: 0; }
+  .closing .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.2; color: var(--color-ink-inverted); }
+  .closing .section-title .hl { color: var(--color-cyan); }
+}
+
+/* ── Tools we build with (5 Nov 2026) ───────────────────────────────────────
+   A slim band after Supporting capabilities: label on the left, a slow
+   ticker of tool names on the right, edges fading out. On stone with its own
+   hairline, so it reads as its own thing, apart from the navy diagram. */
+.tools-band { padding-inline: var(--sec-gutter); padding-bottom: clamp(3.5rem, 6vw, 5rem); }
+.tools-band-inner {
+  border-top: 1px solid var(--color-border-card); padding-top: clamp(2.5rem, 4vw, 3.25rem);
+  display: grid; gap: 1.75rem; grid-template-columns: minmax(0, 1fr); align-items: center;
+}
+@media (min-width: 1024px) { .tools-band-inner { grid-template-columns: 17rem minmax(0, 1fr); gap: 3rem; } }
+.tools-band-title {
+  font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; line-height: 1.3;
+  letter-spacing: -0.01em; color: var(--color-ink-primary); margin: 0 0 0.5rem; border: 0; padding: 0;
+}
+.tools-band-text { margin: 0; font-size: var(--text-meta); line-height: 1.55; color: var(--color-ink-secondary); }
+.tools-ticker-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; min-width: 0; }
+.tools-ticker-wrap > .tools-ticker { width: 100%; }
+@media (min-width: 768px) {
+  .tools-ticker-wrap { flex-direction: row; align-items: center; }
+}
+.tools-ticker {
+  flex: 1 1 auto; min-width: 0; overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.tools-track { display: flex; width: max-content; animation: tools-scroll 80s linear infinite; }
+.tools-ticker:hover .tools-track,
+.tools-ticker:focus-within .tools-track,
+.tools-ticker[data-paused] .tools-track { animation-play-state: paused; }
+@keyframes tools-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.tools-list { display: flex; margin: 0; padding: 0; list-style: none; }
+.tools-item {
+  display: flex; flex-direction: column; gap: 0.125rem; white-space: nowrap;
+  padding: 0.25rem 2.25rem; border-left: 1px solid var(--color-border-card);
+}
+.tools-name { font-family: var(--font-display); font-weight: 500; font-size: 1.375rem; letter-spacing: -0.01em; color: var(--color-ink-primary); }
+.tools-kind { font-size: 0.8125rem; color: var(--color-ink-secondary); }
+.tools-toggle {
+  flex: none; display: inline-flex; align-items: center; gap: 0.375rem;
+  min-height: 36px; padding: 0 0.75rem; border-radius: 999px; border: 0; cursor: pointer;
+  background: transparent; box-shadow: inset 0 0 0 1px var(--color-border-card);
+  font-family: var(--font-body); font-size: 0.8125rem; font-weight: 500; color: var(--color-ink-secondary);
+}
+.tools-toggle:hover { color: var(--color-ink-primary); box-shadow: inset 0 0 0 1px rgba(22, 50, 79, 0.35); }
+.tools-toggle:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .tools-track { animation: none; width: auto; }
+  .tools-list { flex-wrap: wrap; row-gap: 1rem; }
+  .tools-list[aria-hidden="true"], .tools-toggle { display: none; }
+  .tools-ticker { -webkit-mask-image: none; mask-image: none; }
+}
+
+/* ── CTA system (5 Nov 2026) ─────────────────────────────────────────────────
+   Sentence case, 16px at weight 500, 48px tall, card radius, short label and
+   one arrow that moves on hover. Primary: deep teal with white text on light
+   grounds and the nav bar; green with dark text inside navy grounds. Gold is
+   retired from the interface. Secondary: a quiet outline. */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem;
+  min-height: 48px; padding: 0 1.375rem; border-radius: var(--card-radius);
+  font-family: var(--font-body); font-size: 1rem; font-weight: 500;
+  letter-spacing: -0.005em; line-height: 1.2; text-transform: none;
+  text-decoration: none; white-space: nowrap; cursor: pointer; border: 0;
+  transition: transform 300ms var(--card-ease), box-shadow 300ms var(--card-ease), opacity 200ms ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 3px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.4; pointer-events: none; }
+.btn-sm { min-height: 40px; padding: 0 1rem; font-size: 0.875rem; border-radius: 8px; }
+.btn-arrow { display: inline-block; transition: transform 300ms var(--card-ease); }
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+.btn-primary {
+  background: var(--color-cyan-ink); color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(22, 50, 79, 0.12), 0 12px 24px -12px rgba(27, 111, 121, 0.55);
+}
+.btn-primary:hover { box-shadow: 0 2px 4px rgba(22, 50, 79, 0.12), 0 16px 30px -12px rgba(27, 111, 121, 0.6); }
+.btn-secondary { background: transparent; color: var(--color-ink-primary); box-shadow: inset 0 0 0 1px rgba(22, 50, 79, 0.28); }
+.btn-secondary:hover { box-shadow: inset 0 0 0 1px rgba(22, 50, 79, 0.5); }
+.btn-tertiary {
+  min-height: 44px; padding: 0; border-radius: 0; background: none;
+  color: var(--color-cyan-ink); font-weight: 600;
+}
+.btn-tertiary:hover { transform: none; }
+
+/* Navy grounds: heroes, chapters, dark sections, the mobile menu, the footer. */
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-primary {
+  background: var(--color-go); color: var(--color-go-ink);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15), 0 12px 26px -12px rgba(159, 233, 143, 0.5);
+}
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-primary:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 16px 32px -12px rgba(159, 233, 143, 0.6);
+}
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-secondary { color: var(--color-ink-inverted); box-shadow: inset 0 0 0 1px rgba(250, 250, 248, 0.35); }
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-secondary:hover { box-shadow: inset 0 0 0 1px rgba(250, 250, 248, 0.6); }
+:is(.navy-horizon, .section-dark, .on-navy, footer) .btn-tertiary { color: var(--color-cyan); }
+@media (prefers-reduced-motion: reduce) {
+  .btn, .btn-arrow { transition: none; }
+  .btn:hover, .btn:hover .btn-arrow { transform: none; }
+}
+
+/* Section headings: one weight (the base h2 weight, 600); the highlight
+   changes colour only. Was 200 until 3 Nov 2026: too thin to read at size. */
+.h2-blend { font-weight: 600; }
+.h2-blend .hl { color: var(--color-cyan-ink); }
+.h2-blend-dark .hl { color: var(--color-cyan); }
+
+@media (prefers-reduced-motion: reduce) {
+}
+
+/* Eyebrows on light grounds: the cyan that passes 4.5:1 (the bright cyan is
+   ~2:1 on the warm surface). Navy sections keep .label-eyebrow as it is. */
+.label-eyebrow.label-eyebrow-ink { color: var(--color-cyan-ink); }
+
+/* ── Reading system (3 Nov 2026) ─────────────────────────────────────────────
+   Carried site-wide from the Guides & Resources page. See docs/DESIGN-SYSTEM.md
+   section 4. Section head: eyebrow, one-weight title, one intro line. Cards:
+   label row, title, text or list, optional meta, one action at the bottom. */
+.section-title {
+  font-weight: 600; border: none; padding: 0;
+  color: var(--color-ink-primary); margin-bottom: 1rem;
+}
+.section-title .hl { color: var(--color-cyan-ink); }
+.section-intro { max-width: var(--section-intro-max); margin-bottom: 2.5rem; }
+
+/* Dark chapters use the Horizon gradient with grain (Open Flow, 4 Nov 2026). */
+.section-dark {
+  /* clip, not hidden: hidden makes the section a scroll container, which stops
+     sticky children (the GrowthIQ showcase) from sticking. */
+  position: relative; overflow: clip; isolation: isolate;
+  background: var(--gradient-horizon);
+}
+.section-dark::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -1;
+  background-image: var(--grain); opacity: 0.07; mix-blend-mode: soft-light;
+}
+.section-dark > * { position: relative; }
+.section-dark .section-title { color: var(--color-ink-inverted); }
+.section-dark .section-title .hl { color: var(--color-cyan); }
+.section-dark .label-eyebrow.label-eyebrow-ink { color: var(--color-cyan); }
+
+.card-body { padding: var(--card-pad); display: flex; flex-direction: column; flex: 1 1 auto; }
+.card-label-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.card-label {
+  font-family: var(--font-body); font-size: var(--text-label); font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--color-cyan-ink);
+}
+.card-label-muted { color: var(--color-ink-secondary); }
+.card-title {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: var(--text-card-title); line-height: 1.25; letter-spacing: -0.02em;
+  color: var(--color-ink-primary); margin: 0 0 0.75rem; border: none; padding: 0;
+}
+.card-text {
+  font-family: var(--font-body); font-weight: 300;
+  font-size: var(--text-card); line-height: 1.6;
+  color: var(--color-ink-secondary); margin: 0 0 1.25rem;
+}
+.card-text-lead { font-weight: 500; color: var(--color-ink-primary); }
+.card-body > .prob-list { margin-bottom: 1.25rem; }
+.card-body > :last-child { margin-bottom: 0; }
+.card-action {
+  margin-top: auto; align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-weight: 600; color: var(--color-cyan-ink); text-underline-offset: 4px;
+}
+/* Card links never underline (4 Nov 2026): the arrow nudges on hover and the
+   card itself lifts and outlines in cyan on hover and keyboard focus. */
+.card-action, .card-action:hover, .card-action:focus-visible { text-decoration: none; }
+.card-action:focus-visible .card-arrow { transform: translateX(4px); }
+.card-action .card-arrow { transition: transform 300ms cubic-bezier(0.34, 1.45, 0.64, 1); }
+.card-action:hover .card-arrow, .group:hover .card-arrow { transform: translateX(4px); }
+
+/* Cards in a dark chapter: the Guides insight card, as tokens. */
+.card-dark {
+  background: var(--card-dark-fill);
+  border: 1px solid var(--card-dark-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-dark-shadow);
+  transition: transform 420ms var(--card-ease),
+              box-shadow 420ms var(--card-ease),
+              border-color 240ms ease;
+}
+.card-dark:hover, .card-dark:focus-within {
+  transform: var(--card-lift);
+  border-color: var(--card-dark-border-hover);
+  box-shadow: var(--card-dark-shadow-hover);
+}
+.card-dark.is-selected, .card-dark[aria-selected="true"], .card-dark[aria-current="true"] {
+  transform: var(--card-lift);
+  border-color: var(--color-cyan);
+  box-shadow: var(--card-dark-shadow-hover), 0 0 0 3px rgba(61,184,198,0.22);
+}
+.card-dark:active { transform: translateY(-2px); transition-duration: 120ms; }
+.card-dark .card-title { color: var(--color-ink-inverted); }
+.card-dark .card-text, .card-dark .prob-list li { color: var(--color-ink-inverted-muted); }
+.card-dark .card-label { color: var(--color-cyan); }
+.card-dark .card-action { color: var(--color-cyan); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-dark, .card-dark:hover { transition: none; transform: none; }
+  .card-action .card-arrow { transition: none; }
+}
+.section-title-dark .hl { color: var(--color-cyan); }
+
+/* ── Footer (4 Nov 2026) ─────────────────────────────────────────────────────
+   Was 13px/300 at 75% white, legal row at 35% (failed contrast), and colours
+   were inline so hover never showed. Now: one step heavier and brighter, and
+   links lift 2px and turn cyan on hover/focus. Transform + colour only. */
+:root {
+  --footer-ink:        rgba(250, 250, 248, 0.86);  /* links and body */
+  --footer-ink-legal:  rgba(250, 250, 248, 0.64);  /* 12–13px legal row, ≥4.5:1 on navy */
+  --footer-rule:       rgba(250, 250, 248, 0.12);
+  --footer-ease:       cubic-bezier(0.22, 1, 0.36, 1);
+}
+.footer-text { font-size: 14px; font-weight: 400; color: var(--footer-ink); }
+.footer-link {
+  font-size: 14px; font-weight: 400; color: var(--footer-ink);
+  transition: color 200ms ease, transform 280ms var(--footer-ease);
+}
+.footer-link:hover,
+.footer-link:focus-visible { color: var(--color-cyan); transform: translateY(-2px); }
+.footer-link:active { transform: translateY(0); transition-duration: 100ms; }
+.footer-link:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; border-radius: 2px; }
+.footer-legal { font-size: 13px; font-weight: 400; color: var(--footer-ink-legal); }
+
+.footer-social {
+  border: 1px solid rgba(250, 250, 248, 0.24);
+  color: rgba(250, 250, 248, 0.72);
+  transition: color 200ms ease, border-color 200ms ease,
+              transform 280ms var(--footer-ease), box-shadow 280ms var(--footer-ease);
+}
+.footer-social:hover,
+.footer-social:focus-visible {
+  color: var(--color-cyan);
+  border-color: rgba(61, 184, 198, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px -10px rgba(61, 184, 198, 0.55);
+}
+.footer-social:active { transform: translateY(-1px); box-shadow: none; transition-duration: 100ms; }
+.footer-social:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
+p.footer-legal { margin: 0; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Homepage layout — "Open Flow" (approved 4 Nov 2026)
+   Spacing studied on dreamwanoura.com: tight heading groups, wide gaps between
+   a group and its content, one continuous stone ground with hairline dividers
+   instead of tinted bands. Navy sections use the Horizon gradient (no dots);
+   light sections carry a faint DotField. Built in the layout lab.
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --sec-y:        clamp(5.5rem, 9vw, 8.5rem);    /*  88 → 136px section rhythm */
+  --sec-chapter-y:clamp(6.5rem, 12vw, 10.5rem);  /* 104 → 168px dark chapter */
+  --sec-head-gap: clamp(3.5rem, 6vw, 5.5rem);    /* heading group → its content */
+  --sec-gutter:   clamp(1.5rem, 5vw, 5rem);
+  --sec-wide:     1120px;
+  --sec-measure:  34rem;                         /* intro paragraphs */
+
+  /* Horizon: dark sky with a cyan dawn rising off the bottom edge and a thin
+     warm gold rim where the light meets the ground. */
+  --gradient-horizon:
+    radial-gradient(70% 26% at 50% 104%, rgba(214,183,106,0.16), transparent 70%),
+    radial-gradient(95% 60% at 50% 120%, rgba(61,184,198,0.30), rgba(61,184,198,0.07) 45%, transparent 72%),
+    linear-gradient(180deg, #0E223A 0%, #142E4B 55%, #1A3A5C 100%);
+  --gradient-footer:
+    radial-gradient(80% 50% at 50% 0%, rgba(61,184,198,0.14), transparent 70%),
+    linear-gradient(180deg, #1A3A5C 0%, #0E223A 100%);
+  /* Fine grain so gradients read as a material and never band. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.sec {
+  position: relative;
+  isolation: isolate;
+  padding-block: var(--sec-y);
+  padding-inline: var(--sec-gutter);
+}
+.sec > canvas { z-index: -1; }
+.sec-chapter { padding-block: var(--sec-chapter-y); }
+.sec-inner   { position: relative; max-width: var(--sec-wide); margin-inline: auto; }
+
+/* Proximity: eyebrow, title and intro read as one group. SectionHead sets the
+   eyebrow margin inline, hence !important. */
+.sec-head                 { margin-bottom: var(--sec-head-gap); }
+.sec-head .label-eyebrow  { margin-bottom: 1rem !important; }
+.sec-head .section-title  { margin-bottom: 1.25rem; }
+.sec-head .section-intro  { max-width: var(--sec-measure); margin-bottom: 0; }
+
+/* One continuous light ground; sections inside it stay transparent. */
+.flow-ground { position: relative; background: var(--color-bg-secondary); }
+.sec-ruled { padding-top: 0; }
+.sec-ruled > .sec-inner { border-top: 1px solid var(--color-border-card); padding-top: var(--sec-y); }
+
+.navy-horizon { position: relative; isolation: isolate; background: var(--gradient-horizon); color: var(--color-ink-inverted); }
+.navy-horizon::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image: var(--grain); opacity: 0.07; mix-blend-mode: soft-light;
+}
+
+/* ── Grid motif (5 Nov 2026) ─────────────────────────────────────────────────
+   One grid, three weights. 1px cyan lines; strength, cell size and fade are
+   set per use so card panels and heroes stay one family:
+     .grid-motif          faint, centred — glyph panels (guides, problem cards)
+     .grid-motif-feature  the visible feature — titled card panels
+     .hero-grid           page heroes: same fade as the card panels, larger
+                          cells, slightly lower strength (a big area reads
+                          stronger); holds at about half strength behind
+                          the copy.                                          */
+.grid-motif,
+.hero-grid::before {
+  background-image:
+    linear-gradient(rgb(61 184 198 / var(--grid-alpha)) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(61 184 198 / var(--grid-alpha)) 1px, transparent 1px);
+  background-size: var(--grid-cell) var(--grid-cell);
+  background-position: -1px -1px;
+  -webkit-mask-image: var(--grid-mask);
+          mask-image: var(--grid-mask);
+}
+.grid-motif {
+  --grid-alpha: 0.10; --grid-cell: 40px;
+  --grid-mask: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+.grid-motif.grid-motif-feature {
+  --grid-alpha: 0.22; --grid-cell: 28px;
+  --grid-mask: radial-gradient(120% 140% at 85% 0%, #000 25%, rgb(0 0 0 / 0.55) 55%, transparent 90%);
+}
+.hero-grid { isolation: isolate; }
+.hero-grid::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  /* Same fade as the card panels (.grid-motif-feature): full strength
+     top-right, about half strength across the copy, fading out only in the
+     far bottom-left, so the grid holds behind the headline. */
+  --grid-alpha: 0.20; --grid-cell: 52px;
+  --grid-mask: radial-gradient(120% 140% at 85% 0%, #000 25%, rgb(0 0 0 / 0.55) 55%, transparent 90%);
+}
+@media (max-width: 767px) {
+  /* Phones: smaller cells for the narrower hero; same fade. */
+  .hero-grid::before { --grid-cell: 40px; }
+}
+@media (min-width: 768px) {
+  /* Wide heroes: the card fade is shaped for a tall-ish panel, so on a wide
+     hero it left the left side and bottom bare. Here the grid covers the
+     whole hero the way it does on phones: full strength top-right, easing
+     to a floor of about 45% so it never drops out behind the copy. */
+  .hero-grid::before {
+    --grid-mask: radial-gradient(140% 150% at 80% 0%, #000 30%, rgb(0 0 0 / 0.75) 60%, rgb(0 0 0 / 0.45) 100%);
+  }
+}
+
+/* Heading beside stacked rows; the heading stays in view while rows scroll.
+   Its section must not be overflow:hidden (that makes the section the sticky
+   container) — use overflow-clip. */
+.split { display: grid; gap: clamp(2rem, 5vw, 6rem); grid-template-columns: 1fr; }
+@media (min-width: 1024px) {
+  .split        { grid-template-columns: 5fr 7fr; }
+  .split-sticky { position: sticky; top: 8rem; align-self: start; }
+}
+.split-sticky .sec-head { margin-bottom: 0; }
+
+.rows > * + * { border-top: 1px solid var(--color-border-card); }
+.row-item {
+  display: grid; gap: 1rem 2.5rem;
+  padding-block: clamp(2rem, 3.5vw, 2.75rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) { .row-item { grid-template-columns: 4.5rem 1fr; } }
+.row-item:first-child { padding-top: 0; }
+/* Hover lift for stacked rows (homepage "How we work", 5 Nov 2026). The row
+   rises 4px and a card surface with a soft shadow fades in behind it; no
+   redesign at rest. Uses `translate`, not `transform`, because the entrance
+   animation leaves an inline transform on the row. Mouse devices only. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .rows-lift .row-item {
+    position: relative; isolation: isolate;
+    transition: translate 420ms var(--card-ease);
+  }
+  .rows-lift .row-item::before {
+    content: ""; position: absolute; z-index: -1; pointer-events: none;
+    inset: 0.75rem -1.5rem;
+    border-radius: var(--card-radius);
+    background: var(--color-bg-card-hover);
+    border: 1px solid var(--card-edge);
+    /* Slight: lighter than a raised card's --card-shadow-hover. */
+    box-shadow: 0 1px 2px rgba(22, 50, 79, 0.04), 0 12px 28px -12px rgba(22, 50, 79, 0.18);
+    opacity: 0;
+    transition: opacity 420ms var(--card-ease);
+  }
+  .rows-lift .row-item:first-child::before { top: -1.5rem; }
+  .rows-lift .row-item:hover { translate: 0 -4px; }
+  .rows-lift .row-item:hover::before { opacity: 1; }
+}
+
+
+/* Statement beside its explanation. */
+.pair { display: grid; gap: 2rem 4rem; grid-template-columns: 1fr; }
+@media (min-width: 1024px) { .pair { grid-template-columns: 7fr 5fr; align-items: end; } }
+/* Type consistency pass (5 Nov 2026).
+   - Section intros are 18px on every ground. .body-on-navy is 20px, which is
+     right for hero leads but made navy-section intros and paragraphs larger
+     than the same text on stone. Heroes carry .hero-grid, so everything else
+     on navy steps down to the section size.
+   - Legal pages: headings at the site's one heading weight (600), without the
+     global h2 rule line. */
+.section-intro { font-size: var(--text-body-sm); }
+.navy-horizon:not(.hero-grid) .body-on-navy,
+.section-dark .body-on-navy { font-size: var(--text-body-sm); }
+.legal-prose h2, .legal-prose h3, .legal-prose h4 {
+  font-weight: 600; border-bottom: 0; padding-bottom: 0;
+}
+
+/* Takes the section-title H2 as is (weight, size, leading, tracking), so it
+   matches every other section heading (5 Nov 2026; it was a light 300 face
+   with its own size). Only the global h2 rule's rule line and gap go. */
+.statement {
+  text-wrap: balance;
+  border: none; padding: 0; margin: 0;
+  color: var(--color-ink-primary);
+}
+.statement .hl { color: var(--color-cyan-ink); }
+/* A head without its own intro is usually followed by the intro paragraph
+   written inline on the page (About, Invara). Keep that paragraph inside the
+   group instead of opening the wide gap between a title and its own text. */
+.sec-head:not(:has(.section-intro)) { margin-bottom: 1.25rem; }
+
+/* ── Reading panel (Insights & Resources, 4 Nov 2026) ───────────────────────
+   An article opens over the listing; the listing stays where it was. */
+.reader-root { position: fixed; inset: 0; z-index: 70; }
+.reader-scrim {
+  position: absolute; inset: 0;
+  background: rgba(14, 34, 58, 0.55);
+  backdrop-filter: blur(3px);
+  animation: reader-fade 260ms ease both;
+}
+.reader-panel {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(880px, 100%);
+  display: flex; flex-direction: column;
+  background: var(--color-bg-secondary);
+  box-shadow: -24px 0 60px -20px rgba(14, 34, 58, 0.45);
+  outline: none;
+  animation: reader-in 420ms var(--card-ease) both;
+}
+@media (min-width: 900px) { .reader-panel { border-radius: 16px 0 0 16px; } }
+.reader-bar {
+  position: relative; flex: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.75rem clamp(1.25rem, 4vw, 3rem);
+  padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+  border-bottom: 1px solid var(--color-border-card);
+  background: var(--color-bg-secondary);
+}
+.reader-bar-label {
+  font-family: var(--font-body); font-size: var(--text-label); font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--color-cyan-ink);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0;
+}
+.reader-bar-actions { display: flex; align-items: center; gap: 0.5rem; flex: none; }
+.reader-action {
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  color: var(--color-ink-secondary);
+  padding: 0.6rem 0.9rem; border-radius: 999px; min-height: 44px;
+  display: inline-flex; align-items: center;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+.reader-action:hover { color: var(--color-cyan-ink); background: var(--color-bg-tertiary); }
+.reader-close {
+  width: 44px; height: 44px; border-radius: 999px;
+  display: grid; place-items: center;
+  color: var(--color-ink-primary);
+  border: 1px solid var(--color-border-card);
+  background: var(--color-bg-card);
+  transition: transform 200ms var(--card-ease), border-color 160ms ease, color 160ms ease;
+}
+.reader-close:hover { border-color: var(--card-edge-hover); color: var(--color-cyan-ink); transform: rotate(90deg); }
+.reader-close:active { transform: scale(0.94); }
+.reader-action:focus-visible,
+.reader-close:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; }
+.reader-progress {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: var(--color-cyan);
+  transform-origin: left center;
+}
+.reader-scroll {
+  flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain;
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 6vw, 4.5rem);
+  padding-bottom: max(4rem, env(safe-area-inset-bottom, 0px));
+}
+.reader-scroll .reader-measure { max-width: 680px; margin-inline: auto; }
+.reader-end {
+  margin-top: 3.5rem; padding-top: 2.5rem;
+  border-top: 1px solid var(--color-border-card);
+}
+@keyframes reader-in   { from { transform: translateX(48px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes reader-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .reader-panel, .reader-scrim { animation: none; }
+}
+
+/* ── Product showcase (About → GrowthIQ, 4 Nov 2026) ────────────────────────
+   One legible screenshot, pinned on the left while the story cards scroll past
+   on the right. Wider than the reading column so the screenshot stays legible.
+   Stacks on small screens (screenshot first). */
+.showcase {
+  display: grid; gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 1024px) {
+  .showcase {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    margin-inline: calc((100% - min(1280px, 100vw - 2 * var(--sec-gutter))) / 2);
+  }
+  .showcase-media { position: sticky; top: 7rem; align-self: start; }
+}
+.showcase-stack { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.shot { margin: 0; }
+.shot-frame {
+  border-radius: 14px; overflow: hidden;
+  background: #F7F8FA;
+  border: 1px solid rgba(250, 250, 248, 0.16);
+  box-shadow: 0 2px 4px rgba(3, 12, 24, 0.25),
+              0 30px 60px -24px rgba(3, 12, 24, 0.75),
+              0 40px 110px -30px rgba(61, 184, 198, 0.45);
+}
+.shot-bar {
+  display: flex; align-items: center; justify-content: center;
+  height: 34px; background: #0F2540;
+  border-bottom: 1px solid rgba(250, 250, 248, 0.08);
+}
+.shot-bar-label {
+  font-family: var(--font-body); font-size: 12px; letter-spacing: 0.02em;
+  color: var(--color-ink-inverted-muted);
+}
+.shot-open {
+  display: block; width: 100%; padding: 0; border: 0; background: none;
+  cursor: zoom-in;
+}
+.shot-open:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: -2px; }
+.shot-img { display: block; width: 100%; height: auto; }
+.shot-caption {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 0.5rem 1.5rem; margin-top: 1rem;
+  font-family: var(--font-body); font-size: var(--text-meta); line-height: 1.5;
+  color: var(--color-ink-inverted-subtle);
+}
+.shot-zoom {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  min-height: 44px; padding: 0 0.25rem;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  color: var(--color-cyan);
+  transition: transform 240ms var(--card-ease), color 160ms ease;
+}
+.shot-zoom:hover { transform: translateY(-2px); color: var(--color-ink-inverted); }
+.shot-zoom:active { transform: none; }
+.shot-zoom:focus-visible { outline: 2px solid var(--color-cyan); outline-offset: 2px; border-radius: 4px; }
+
+.shot-dialog {
+  width: min(1800px, 96vw); max-width: none; max-height: 94dvh;
+  margin: auto; padding: 0; border: 0; background: transparent; overflow: visible;
+}
+.shot-dialog::backdrop { background: rgba(10, 24, 42, 0.82); backdrop-filter: blur(4px); }
+.shot-dialog[open] { animation: reader-fade 220ms ease both; }
+.shot-dialog-inner { position: relative; }
+.shot-dialog-img {
+  display: block; width: 100%; height: auto; max-height: 86dvh; object-fit: contain;
+  border-radius: 12px; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+}
+.shot-dialog-close { position: absolute; top: -0.75rem; right: -0.75rem; z-index: 1; }
+@media (max-width: 640px) { .shot-dialog-close { top: -3.25rem; right: 0; } }
+.shot-dialog-caption {
+  margin: 0.875rem 0 0; text-align: center;
+  font-family: var(--font-body); font-size: var(--text-meta);
+  color: var(--color-ink-inverted-muted);
+}
+@media (prefers-reduced-motion: reduce) { .shot-dialog[open] { animation: none; } }
+/* Homepage capabilities cards (5 Nov 2026): built like the Guides & Resources
+   cards. Same 24px grid gap; the drawn panel sits flush at the top at the
+   guide card's panel proportion (about 3:1, wide and shallow), with a floor so
+   a two-line title always fits; body padded by .card-body. */
+.cap-cards { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 1024px) { .cap-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Single column below 1024px (three columns would squeeze the cards on
+   tablets); the cap stops a full-width panel getting tall. */
+.cap-card-visual { aspect-ratio: 3 / 1; min-height: 7.25rem; max-height: 9rem; width: 100%; flex: none; }
+/* Homepage next-step (CTA) cards, 5 Nov 2026: the capability-card build at
+   two columns. The header keeps the 3:1 proportion but grows to fit the
+   title on a phone (min-height: fit-content; the panel clips overflow, so
+   the automatic minimum would not apply). */
+.cta-cards { display: grid; gap: 2rem; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+@media (min-width: 768px) { .cta-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.cta-card-visual { aspect-ratio: 3 / 1; min-height: fit-content; width: 100%; flex: none; }
+/* Wider cards than the capability row: let the title run longer per line. */
+.cta-card-visual .drawn-visual-title { max-width: 24ch; }
+
+/* DrawnVisual carrying the card title (homepage capabilities, 5 Nov 2026):
+   the title sits bottom-left in the navy panel, away from the cyan light in
+   the top-right corner, and replaces the title in the card body. */
+.drawn-visual-titled { display: flex; align-items: flex-end; }
+.drawn-visual-title {
+  position: relative; margin: 0; padding: 1.25rem 1.75rem;
+  max-width: 17ch;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.375rem, 1.1rem + 0.7vw, 1.625rem);
+  line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--color-ink-inverted); text-wrap: balance;
+}
+/* Section heading beside one photograph (Invara "Who it is for", 4 Nov 2026). */
+.split-media { display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: end; }
+@media (min-width: 1024px) { .split-media { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); } }
+.split-media .sec-head { margin-bottom: 1.25rem; }
+.split-media-img {
+  aspect-ratio: 3 / 2; width: 100%;
+  border-radius: 14px; box-shadow: var(--card-shadow-hover);
+}

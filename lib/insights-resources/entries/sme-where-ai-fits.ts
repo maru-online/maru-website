@@ -13,20 +13,20 @@ export const smeLandscape: ContentEntry = {
   slug: 'south-african-businesses-using-ai-gap-is-structure',
   title: 'South African businesses are trying AI. The open question is how it fits the work.',
   summary:
-    'More than half of small businesses in one 2026 survey use AI weekly, and larger firms report strategy and governance trailing adoption. We think the open question is workflow, not tools.',
+    'AI adoption is increasing, but the practical challenge is connecting AI to workflows, systems, data, and appropriate human oversight.',
   seoTitle: 'AI Adoption in South African Business: Where the Real Gap Is',
   seoDescription:
     'What recent South African surveys say about AI adoption, where the evidence is weak, and why we think the gap is about workflow and governance rather than access to tools.',
   pillar: 'ai-strategy-readiness',
   category: 'South African AI Landscape',
   format: 'Opinion',
-  status: 'draft',
+  status: 'published', // approved by Jimmy, 3 Nov 2026
   publishedAt: '2026-10-30',
   readTime: '6 min read',
   author: 'Maru Online',
   image: '/images/insights-resources/team-planning-board.jpg',
   imageAlt: 'A small team gathered around a whiteboard planning board, one person explaining while the others listen.',
-  related: ['south-africa-national-ai-policy-reset-what-businesses-should-do', 'ai-readiness-guide-south-african-business'],
+  related: ['popia-section-71-automated-decisions-ai-business', 'ai-readiness-guide-south-african-business'],
   inShort: [
     'Xero’s 2026 survey of 427 small businesses found 52% use AI tools daily or weekly, and 56% want more support understanding how AI fits their operations.',
     'Surveys of midsized and large firms point the same way: use is ahead of structure. One put formal GenAI strategy at 14% and governance guardrails at 13%.',
@@ -60,7 +60,7 @@ export const smeLandscape: ContentEntry = {
       t: 'p',
       text: 'The same shape shows up in the larger firms: widespread use, little strategy, few guardrails, and a small share of AI built into core processes. The gap is the structure around the tool.',
     },
-    { t: 'h2', text: 'What we would do differently' },
+    { t: 'h2', text: 'What we would do' },
     {
       t: 'ol',
       items: [

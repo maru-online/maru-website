@@ -3,20 +3,24 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from './Button'
 
 // ─── Nav link definitions ─────────────────────────────────────────────────────
 
+// Labels and order per "Maru Online — Revised Website Copy" v1.0 (1 Nov 2026):
+// Home, About, (Invara hidden), Working With Us, Guides & Resources, Contact.
 const allLinks = [
+  { label: 'Home',         href: '/' },
   { label: 'About',        href: '/about' },
-  { label: 'Invara',       href: '/invara' },
+  // Invara hidden until the page is finished (6 Nov 2026). Restore: { label: 'Invara', href: '/invara' }
+  { label: 'Working With Us', href: '/working-with-us' },
   // Insights shows only when there is something behind it: the layout passes
   // showInsights (GUIDE_PAGE_VISIBLE in lib/guides/config.ts — the guide is the
   // hub's featured item). A nav item that leads to an empty room costs
   // credibility with this buyer.
-  { label: 'Insights & Resources', href: '/insights-resources' },
+  { label: 'Guides & Resources', href: '/insights-resources' },
   { label: 'Contact',      href: '/contact' },
 ]
 
@@ -40,9 +44,18 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
   const pathname              = usePathname()
   const [isHero, setIsHero]   = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setIsHero(window.scrollY < window.innerHeight)
+    // Navy (transparent) bar while the page's navy hero is under it; white
+    // once it scrolls past. Heroes are content-height now (PageHero), so this
+    // follows the hero's real bottom edge, not the viewport height. Pages
+    // without a navy hero get the white bar from the start.
+    const onScroll = () => {
+      const hero = document.querySelector('.hero-grid')
+      setIsHero(!!hero && hero.getBoundingClientRect().bottom > 64)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -51,6 +64,17 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
+  // Keyboard: Escape closes the menu; focus moves to Close when it opens and
+  // back to the menu button when it closes (the overlay is aria-modal).
+  useEffect(() => {
+    if (!menuOpen) return
+    closeButtonRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false) }
+    document.addEventListener('keydown', onKey)
+    const button = menuButtonRef.current
+    return () => { document.removeEventListener('keydown', onKey); button?.focus() }
   }, [menuOpen])
 
   const closeMenu = () => setMenuOpen(false)
@@ -67,7 +91,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
       {/* ── Header bar ────────────────────────────────────────────────────── */}
       <header
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b transition-[background-color,border-color] duration-300"
+        className={`${isHero ? 'on-navy ' : ''}fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b transition-[background-color,border-color] duration-300`}
         style={{
           backgroundColor: isHero ? 'rgba(26,58,92,0.5)' : 'rgba(255,255,255,0.95)',
           borderBottomColor: isHero ? 'transparent' : 'var(--color-border-default)',
@@ -75,22 +99,19 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
       >
         <nav
           aria-label="Main navigation"
-          className="flex items-center justify-between h-[56px] lg:h-[64px] px-6 lg:px-[60px] max-w-[1200px] mx-auto"
+          className="flex items-center justify-between h-[56px] lg:h-[64px] px-6 lg:px-[60px] max-w-[1240px] mx-auto"
         >
           {/* Logo */}
           <Link href="/" aria-label="Maru Online — home">
+            {/* Navy hero: the reversed lockup (white wordmark, teal "m"), the
+                brand's own version for dark grounds. White bar: the primary. */}
             <Image
-              src="/images/brand/maru-logo-primary.png"
+              src={isHero ? '/images/brand/maru-logo-reversed.png' : '/images/brand/maru-logo-primary.png'}
               alt="Maru Online"
-              width={100}
-              height={44}
+              width={84}
+              height={32}
               priority
-              style={{
-                height: '32px',
-                width: 'auto',
-                filter: isHero ? 'brightness(0) invert(1)' : 'none',
-                transition: 'filter 0.3s ease',
-              }}
+              style={{ height: '32px', width: 'auto' }}
             />
           </Link>
 
@@ -109,14 +130,18 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
                       'font-body text-[14px] font-normal',
                       'relative pb-[2px]',
                       'transition-colors duration-200',
-                      // active state — always cyan
-                      active
-                        ? 'var(--color-cyan)'
-                        // hero: white muted default, white on hover
-                        : isHero
-                          ? 'text-[var(--color-ink-inverted-muted)] hover:text-white'
-                          // scrolled: slate default, dark navy on hover
-                          : 'text-[var(--color-ink-secondary)] hover:text-[var(--color-ink-primary)]',
+                      // Maru cyan on hover, keyboard focus and the active page.
+                      // On the navy hero that is --color-cyan; once the bar turns
+                      // white it is --color-cyan-ink, the cyan that passes 4.5:1
+                      // on a light ground.
+                      isHero
+                        ? (active
+                            ? 'text-[var(--color-cyan)]'
+                            : 'text-[var(--color-ink-inverted-muted)] hover:text-[var(--color-cyan)] focus-visible:text-[var(--color-cyan)]')
+                        : (active
+                            ? 'text-[var(--color-cyan-ink)]'
+                            : 'text-[var(--color-ink-secondary)] hover:text-[var(--color-cyan-ink)] focus-visible:text-[var(--color-cyan-ink)]'),
+                      'focus:outline-none focus-visible:underline focus-visible:underline-offset-4',
                     ].join(' ')}
                   >
                     {label}
@@ -135,14 +160,15 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
           {/* ── Desktop CTA ───────────────────────────────────────────────── */}
           <div className="hidden lg:flex items-center gap-4">
-            <Button variant="primary" href="/popia-ai-check" className="!px-5 !py-2 !text-[11px]">
-              Start the assessment
+            <Button variant="primary" href="/popia-ai-check" size="sm">
+              Free POPIA review
             </Button>
           </div>
 
           {/* ── Mobile hamburger ──────────────────────────────────────────── */}
           <div className="flex lg:hidden items-center gap-3">
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label="Open navigation menu"
@@ -170,12 +196,13 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-            className="fixed inset-0 z-[60] bg-bg-darkest flex flex-col px-6 pt-6 pb-10"
+            transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+            className="on-navy fixed inset-0 z-[60] bg-bg-darkest flex flex-col px-6 pt-6 pb-10"
           >
             {/* Close */}
             <div className="flex justify-end mb-10">
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={closeMenu}
                 aria-label="Close navigation menu"
@@ -194,7 +221,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
                     key={href}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1], delay: 0.2 + index * 0.05 }}
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 + index * 0.04 }}
                   >
                     <Link
                       href={href}
@@ -202,7 +229,7 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
                       aria-current={active ? 'page' : undefined}
                       className={[
                         'font-body font-light text-[24px] transition-colors duration-150',
-                        active ? 'var(--color-cyan)' : 'text-ink-inverted hover:text-[var(--color-cyan)]',
+                        active ? 'text-[var(--color-cyan)]' : 'text-ink-inverted hover:text-[var(--color-cyan)] focus-visible:text-[var(--color-cyan)]',
                       ].join(' ')}
                     >
                       {label}
@@ -214,8 +241,8 @@ export default function Nav({ showInsights = false }: { showInsights?: boolean }
 
             {/* CTA */}
             <div className="pt-8" onClick={closeMenu}>
-              <Button variant="primary" href="/popia-ai-check" className="w-full !justify-center">
-                Start the assessment
+              <Button variant="primary" href="/popia-ai-check" className="w-full">
+                Free POPIA review
               </Button>
             </div>
           </motion.div>

@@ -19,49 +19,25 @@ interface ButtonProps {
   target?: '_blank' | '_self' | '_parent' | '_top'
   /** rel for external links — defaults to "noopener noreferrer" for _blank */
   rel?: string
+  /** "sm" for the navigation bar */
+  size?: 'md' | 'sm'
 }
 
-// ─── Variant class maps ───────────────────────────────────────────────────────
+// ─── Variant classes ──────────────────────────────────────────────────────────
+// Colour, shape and states live in globals.css (.btn, .btn-primary,
+// .btn-secondary, "CTA system", 5 Nov 2026) so a button takes its colour from
+// the ground it sits on: green on navy, teal on stone, white and the nav.
+// Sentence case, 16px at weight 500, 48px tall, card radius. Gold retired.
 
-const base =
-  'inline-flex items-center justify-center ' +
-  'font-body font-bold text-[13px] tracking-[0.15em] uppercase ' +
-  'rounded-[8px] min-h-[44px] px-6 ' +
-  'transition-[transform,opacity,box-shadow,background-color,border-color] duration-200 ease-out ' +
-  'focus:outline-none focus-visible:ring-0 ' +
-  'disabled:opacity-40 disabled:pointer-events-none'
+const base = 'btn'
 
 const variantClasses: Record<ButtonVariant, string> = {
-  // Warm Stone: gold gradient fill — dark navy text, resting + hover shadows
-  primary:
-    'px-6 py-2.5 [background:var(--gradient-gold)] text-[var(--color-ink-on-gold)] border-0 ' +
-    'shadow-[var(--shadow-btn)] ' +
-    'hover:scale-[1.02] hover:shadow-[var(--shadow-btn-hover)] hover:brightness-105 ' +
-    'active:scale-[0.98] active:brightness-95 active:shadow-[var(--shadow-btn)] ' +
-    'focus-visible:shadow-[0_0_0_3px_rgba(205,170,83,0.45),var(--shadow-btn)]',
-
-  // Transparent — cyan outline, cyan text
-  secondary:
-    'px-6 py-2.5 bg-transparent text-cyan border border-cyan ' +
-    'hover:bg-cyan hover:text-navy hover:scale-[1.02] hover:shadow-[0_4px_16px_rgba(61,184,198,0.25)] ' +
-    'active:scale-[0.98] active:bg-cyan-dark active:text-navy active:shadow-none ' +
-    'focus-visible:shadow-[0_0_0_3px_rgba(61,184,198,0.45),0_4px_16px_rgba(61,184,198,0.15)]',
-
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
   // Legacy alias — renders identically to secondary.
-  outline:
-    'px-6 py-2.5 bg-transparent text-cyan border border-cyan ' +
-    'hover:bg-cyan hover:text-navy hover:scale-[1.02] hover:shadow-[0_4px_16px_rgba(61,184,198,0.25)] ' +
-    'active:scale-[0.98] active:bg-cyan-dark active:text-navy active:shadow-none ' +
-    'focus-visible:shadow-[0_0_0_3px_rgba(61,184,198,0.45),0_4px_16px_rgba(61,184,198,0.15)]',
-
+  outline: 'btn-secondary',
   // Inline text link — no border, no background.
-  // The → character is appended inside the component so callers
-  // only need to pass the label text.
-  tertiary:
-    'rounded-none text-cyan-ink no-underline ' +
-    'hover:text-cyan hover:underline hover:underline-offset-4 ' +
-    'active:opacity-70 ' +
-    'focus-visible:underline focus-visible:underline-offset-4 focus-visible:shadow-[0_0_0_2px_rgba(61,184,198,0.4)]',
+  tertiary: 'btn-tertiary',
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -77,15 +53,19 @@ function Button({
   ariaLabel,
   target,
   rel,
+  size = 'md',
 }: ButtonProps) {
-  const classes = `${base} ${variantClasses[variant]} ${className}`.trim()
+  const classes = `${base} ${variantClasses[variant]} ${size === 'sm' ? 'btn-sm' : ''} ${className}`
+    .replace(/\s+/g, ' ')
+    .trim()
 
-  // Tertiary buttons append → for directional affordance
+  // Primary and tertiary carry an arrow that moves on hover: the button
+  // shows it leads somewhere. Hidden from screen readers.
   const label =
-    variant === 'tertiary' ? (
+    variant === 'primary' || variant === 'tertiary' ? (
       <>
         {children}
-        {' →'}
+        <span className="btn-arrow" aria-hidden="true">→</span>
       </>
     ) : (
       children

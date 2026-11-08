@@ -11,7 +11,7 @@ import { MetadataRoute } from 'next'
  * already pay for. The general SemrushBot crawler stays blocked.
  */
 export default function robots(): MetadataRoute.Robots {
-  const privatePaths = ['/api/', '/_next/', '/report/', '/partners/', '/studio/']
+  const privatePaths = ['/api/', '/_next/', '/report/', '/studio/']
 
   return {
     rules: [

@@ -1,9 +1,11 @@
 import { Metadata } from "next";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import Glyph from "@/components/ui/Glyph";
-import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
+import { FadeUp } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
+import SharedSectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
+import PageHero from "@/components/ui/PageHero";
 
 // Working With Us (Engagement & Investment) page, at /working-with-us. Named
 // 31 Oct 2026 so the site does not read as selling priced products; /pricing
@@ -15,14 +17,17 @@ import { seo } from "@/lib/seo";
 //  - No price figures, price ranges, packages or "fixed price" wording. The
 //    page explains how investment is determined; it does not state any.
 //  - Discovery, assessment and consultation are not described as free. Only the
-//    POPIA Assessment is free, and it is labelled as such by its own CTA.
+//    POPIA review is free, and it is labelled as such by its own CTA.
 //  - No turnaround or response-time promises.
 //  - Speaks as "we". Never names or implies the founder.
 //  - No outbound links in the page body. CTAs go to the contact form and the
-//    POPIA Assessment, as on the About page.
+//    POPIA review, as on the About page.
 //  - No separate Our Process page: /process still redirects to the homepage.
 //  - One H1 (the hero). H2 for sections, H3 for cards and steps. Eyebrows are
 //    styled spans, not headings.
+//
+// Copy revised 1 Nov 2026 per "Maru Online — Revised Website Copy" v1.0
+// (section 6), including the optional boundary note under the final CTA.
 //
 // Section 5 describes intended commercial practice (scope, assumptions, change
 // handling, third-party costs). Confirm it matches how Maru Online contracts
@@ -30,13 +35,12 @@ import { seo } from "@/lib/seo";
 
 export const metadata: Metadata = {
   ...seo("/working-with-us"),
-  title: "Working With Us | How a Maru Online Engagement Takes Shape",
+  title: "Working With Us | How a Maru Online Engagement Is Scoped",
   description:
-    "We start with your business challenge, then determine the right approach, scope and investment. See how an engagement takes shape and what determines the cost.",
+    "Maru Online helps South African businesses resolve operational problems by connecting AI, data and the tools their teams already use. We start with the business challenge, then determine the right approach, scope and investment.",
 };
 
-const outerPad = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner";
 const innerText = "max-w-[820px]";
 
 const CONTACT_HREF = "/contact#contact-form";
@@ -45,65 +49,23 @@ const ASSESSMENT_HREF = "/popia-ai-check";
 // ─── Content ──────────────────────────────────────────────────────────────────
 
 const factors = [
-  {
-    icon: "layers" as const,
-    heading: "Existing Systems and Processes",
-    body: "The applications, data sources and workflows involved, including the extent to which they need to be connected or changed.",
-  },
-  {
-    icon: "connect" as const,
-    heading: "Solution Complexity",
-    body: "The level of integration, development and configuration required to address the identified business challenge.",
-  },
-  {
-    icon: "shield" as const,
-    heading: "Data and Governance Requirements",
-    body: "The nature of the information involved, access requirements, security considerations and relevant data protection obligations.",
-  },
-  {
-    icon: "clipboard" as const,
-    heading: "Implementation and Support",
-    body: "The work required for testing, deployment, documentation, staff training, ongoing maintenance or optimisation, where applicable.",
-  },
+  "Business and workflow discovery",
+  "Data and information flows",
+  "System integrations",
+  "AI model, API, and platform usage fees",
+  "Hosting and infrastructure",
+  "Testing, documentation, training, and handover",
+  "Ongoing support and optimisation",
 ];
 
 // ─── Small pieces ─────────────────────────────────────────────────────────────
 
-function SectionHead({
-  eyebrow,
-  light,
-  strong,
-}: {
-  eyebrow: string;
-  light?: string;
-  strong: string;
-}) {
-  return (
-    <>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2 style={{ marginBottom: "1.5rem", border: "none" }}>
-        {light && (
-          <>
-            <span style={{ fontWeight: 300 }}>{light}</span>
-            <br />
-          </>
-        )}
-        <span style={{ fontWeight: 700 }}>{strong}</span>
-      </h2>
-    </>
-  );
+// One section head site-wide (reading system, 3 Nov 2026): one weight, the
+// second part highlighted in colour only. Wraps components/ui/SectionHead.
+function SectionHead({ eyebrow, light, strong }: { eyebrow: string; light?: string; strong: string }) {
+  return <SharedSectionHead eyebrow={eyebrow} light={light} strong={strong} animate={false} />;
 }
 
-const cardHeading: React.CSSProperties = {
-  fontFamily: "var(--font-body)",
-  fontWeight: 600,
-  fontSize: "var(--text-h3-sans)",
-  color: "var(--color-ink-primary)",
-  lineHeight: 1.3,
-  marginBottom: "0.75rem",
-  border: "none",
-  paddingBottom: 0,
-};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -111,71 +73,31 @@ export default function PricingPage() {
   return (
     <>
       {/* ════════════════════════════════════════════════════════════════════
-          HERO — bg: navy, matches the homepage and About hero
+          HERO — bg: Horizon gradient, matches the homepage and About hero
           ════════════════════════════════════════════════════════════════════ */}
-      <section
-        className={`relative min-h-[70vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-32`}
-        style={{ background: "var(--gradient-hero)" }}
-      >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
-        <div className={`${innerWide} relative z-10 w-full`}>
-          <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Engagement &amp; Investment</span>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: "2rem" }}>
-              <span className="maru-headline-split-light">Every Business Challenge Is Different.</span>
-              <br />
-              <span className="maru-headline-split-strong">Your Solution Should Be, Too.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              We start by understanding your business challenge, then determine the right approach, scope and investment. Before implementation begins, you should understand what is being proposed, what it will cost and what the engagement is intended to achieve.
-            </p>
-          </FadeUp>
-          <FadeUp delay={0.22}>
-            <div
-              data-maru-primary-cta
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-            >
-              <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                Discuss a Business Challenge
-              </Button>
-              <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                Take Your Free POPIA Assessment
-              </Button>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Working with us"
+        light="Every business challenge is different."
+        strong="Your solution should be, too."
+        lead="We help South African businesses identify and implement practical AI solutions with POPIA-aware data governance built into the scope."
+      />
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 2 — WHY WE PRICE THIS WAY — bg: surface
+          SECTION 2 — WHY WE PRICE THIS WAY — bg: flow ground
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <div className="flow-ground">
+      <section className="sec overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <SectionHead
               eyebrow="Our approach"
-              light="We Start with the Problem,"
-              strong="Not a Package."
+              light="We start with the problem,"
+              strong="not a package."
             />
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className={innerText}>
-              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Every business operates differently. The systems it uses, the processes it follows and the challenges it faces all influence what an effective solution requires.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                One business may need to connect existing applications and reduce manual data processing. Another may require a more extensive AI system involving multiple data sources, redesigned workflows or purpose-built development.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                These are different problems, and they should not automatically be approached or priced in the same way.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
-                At Maru Online, we first establish what needs to change and where AI can make a practical difference. The proposed solution and its scope then determine the investment.
-              </p>
               <p
                 style={{
                   fontFamily: "var(--font-body)",
@@ -188,7 +110,7 @@ export default function PricingPage() {
                   paddingLeft: "1.25rem",
                 }}
               >
-                The business challenge determines the solution. The solution determines the scope and investment.
+                The business challenge determines the workflow to investigate. The workflow determines the systems, information, people, controls, and implementation work involved.
               </p>
             </div>
           </FadeUp>
@@ -196,65 +118,56 @@ export default function PricingPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 4 — WHAT DETERMINES THE INVESTMENT — bg: secondary (the steps section was dropped, 31 Oct)
+          SECTION 4 — WHAT DETERMINES THE INVESTMENT — bg: flow ground (the steps section was dropped, 31 Oct)
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+      <section className="sec sec-ruled">
         <div className={innerWide}>
           <FadeUp>
-            <SectionHead eyebrow="Project scope" strong="The Work Determines the Cost." />
+            <SectionHead eyebrow="Project scope" light="Scope and complexity" strong="determine the investment." />
             <div className={innerText} style={{ marginBottom: "var(--space-section-header-mb)" }}>
-              <p className="body-muted" style={{ marginBottom: "1rem" }}>
-                The investment required for an AI system depends on what the business needs, the complexity of the proposed solution and the work involved in putting it into practice.
-              </p>
               <p className="body-muted" style={{ marginBottom: 0 }}>
-                Factors may include:
+                Investment depends on the nature of the workflow, the systems and data involved, the level of integration required, the governance and security considerations, and the support needed after implementation.
               </p>
             </div>
           </FadeUp>
-
-          <StaggerParent className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            {factors.map((card) => (
-              <StaggerChild key={card.heading} className="h-full">
-                <div className="card-lift h-full rounded-[10px]" style={{ padding: "1.75rem 1.5rem" }}>
-                  <span className="glyph-chip" style={{ marginBottom: "1rem" }}>
-                    <Glyph name={card.icon} size={22} />
-                  </span>
-                  <h3 style={cardHeading}>{card.heading}</h3>
-                  <p className="body-muted" style={{ marginBottom: 0 }}>{card.body}</p>
-                </div>
-              </StaggerChild>
-            ))}
-          </StaggerParent>
 
           <FadeUp delay={0.08}>
-            <p className={`body-muted ${innerText}`} style={{ marginTop: "2rem", marginBottom: 0 }}>
-              These factors vary from one engagement to another. We use the requirements of the proposed solution to establish a realistic scope and investment rather than applying a standard price to fundamentally different projects.
-            </p>
+            <div className="card-lift">
+              <div className="card-body">
+                <div className="card-label-row">
+                  <span className="glyph-chip">
+                    <Glyph name="layers" size={22} />
+                  </span>
+                </div>
+                <h3 className="card-title">Cost factors</h3>
+                <ul className="prob-list md:grid-cols-2 md:gap-x-8">
+                  {factors.map((item) => (
+                    <li key={item}>
+                      <span className="prob-dot" aria-hidden="true" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </FadeUp>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 5 — COMMERCIAL CLARITY — bg: surface
+          SECTION 5 — COMMERCIAL CLARITY — bg: flow ground
           ════════════════════════════════════════════════════════════════════ */}
-      <section className={`${outerPad} py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec sec-ruled overflow-hidden">
+        {/* Last section of a three-section light run: dots from the other side. */}
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <FadeUp>
-            <SectionHead eyebrow="Before work begins" strong={"Know What You’re Committing To."} />
+            <SectionHead eyebrow="Expectations" light="Understand the engagement" strong="before work begins." />
           </FadeUp>
           <FadeUp delay={0.08}>
             <div className={innerText}>
               <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                A clear engagement starts with a shared understanding of the work involved.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Our proposals should establish the agreed scope, deliverables, expected timeline and investment, together with any relevant assumptions, exclusions and responsibilities.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.25rem" }}>
-                Where third-party services are required, such as software licences, AI API usage or hosting, these costs should be identified and distinguished from Maru Online&apos;s fees wherever applicable.
-              </p>
-              <p className="body-muted" style={{ marginBottom: "1.5rem" }}>
-                If requirements change or additional work becomes necessary, the implications for scope, cost and timing should be discussed before that work proceeds.
+                Before implementation starts, we define the problem, the scope, the expected outputs, the responsibilities of each party, the assumptions, and the costs that may sit outside Maru Online&apos;s fees.
               </p>
               <p
                 className="body-muted"
@@ -264,53 +177,48 @@ export default function PricingPage() {
                   paddingLeft: "1.25rem",
                 }}
               >
-                The objective is straightforward: both parties should understand what has been agreed and what is required to deliver the proposed solution.
+                Where third-party services are required, such as software licences, AI API and platform usage fees, or hosting, these costs will be identified separately from Maru Online&apos;s fees in the proposal.
               </p>
             </div>
           </FadeUp>
         </div>
       </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
-          SECTION 6 — FINAL CTA — bg: navy
+          SECTION 6 — FINAL CTA — bg: Horizon gradient
           ════════════════════════════════════════════════════════════════════ */}
       <section
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ background: "var(--gradient-hero)" }}
+        className="navy-horizon sec sec-chapter relative overflow-hidden"
       >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.08)" className="pointer-events-none" />
         <div className={`${innerWide} relative z-10`}>
           <FadeUp>
             <h2 style={{ marginBottom: "1.5rem", border: "none", color: "var(--color-ink-inverted)" }}>
-              <span style={{ fontWeight: 700 }}>Let&apos;s Understand Your Business Challenge.</span>
+              Let us understand your business challenge.
             </h2>
-            <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "1rem" }}>
-              If you&apos;re considering AI for your business, the starting point is not choosing a tool. It&apos;s understanding the problem you need to solve.
-            </p>
             <p className="body-on-navy" style={{ maxWidth: "680px", marginBottom: "2.5rem" }}>
-              Tell us what your business is trying to achieve, where current processes are falling short or what you would like to improve. We&apos;ll use that context to determine the appropriate next step.
+              Tell us what you are trying to improve. We will use that context to recommend the next step: the free POPIA review, a scoped discovery phase to confirm the problem and the scope, or an implementation plan where those are already clear.
             </p>
             <div className="flex flex-col items-stretch sm:items-start gap-3">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
-                <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto justify-center">
-                  Discuss a Business Challenge
+                <Button href={CONTACT_HREF} variant="primary" className="w-full sm:w-auto">
+                  Discuss your challenge
                 </Button>
-                <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto justify-center">
-                  Take Your Free POPIA Assessment
+                <Button href={ASSESSMENT_HREF} variant="secondary" className="w-full sm:w-auto">
+                  Take the free POPIA review
                 </Button>
               </div>
               <p
                 style={{
                   fontFamily: "var(--font-body)",
                   fontWeight: 300,
-                  fontStyle: "italic",
                   fontSize: "var(--text-meta)",
                   color: "var(--color-ink-inverted)",
                   opacity: 0.8,
                   margin: 0,
                 }}
               >
-                Start with a conversation about your business challenge. The right approach comes next.
+                Maru Online provides implementation and design support. This is not legal advice, and it does not guarantee POPIA compliance. Where independent legal advice is required, it should be sought separately.
               </p>
             </div>
           </FadeUp>

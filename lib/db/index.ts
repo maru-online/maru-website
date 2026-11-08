@@ -24,9 +24,7 @@ neonConfig.fetchConnectionCache = true;
 // =============================================================================
 
 declare global {
-  // eslint-disable-next-line no-var
   var _websitePool: Pool | undefined;
-  // eslint-disable-next-line no-var
   var _leadEnginePool: Pool | undefined;
 }
 

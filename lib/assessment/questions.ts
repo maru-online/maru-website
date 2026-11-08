@@ -27,16 +27,16 @@ export interface AssessmentArea {
 export const ASSESSMENT_AREAS: AssessmentArea[] = [
   {
     key: "ai_use",
-    label: "AI in your business",
+    label: "AI use and oversight",
     questions: [
       {
         id: "q1",
         text: "How is your team using AI tools like ChatGPT or Gemini at the moment?",
         options: [
-          { value: "agreed-tools",  score: 4, label: "We've agreed which tools are allowed and what they can be used for" },
-          { value: "informal-talk", score: 2, label: "A few people use them, and we've talked about it informally" },
-          { value: "anything-goes", score: 1, label: "People use whatever they like; we haven't discussed it" },
-          { value: "dont-know",     score: 0, label: "I don't really know who uses what" },
+          { value: "agreed-tools",  score: 4, label: "We have agreed which tools are allowed and what they can be used for" },
+          { value: "informal-talk", score: 2, label: "A few people use them, and we have talked about it informally" },
+          { value: "anything-goes", score: 1, label: "Staff choose their own tools; we have not discussed it" },
+          { value: "dont-know",     score: 0, label: "I do not really know who uses what" },
         ],
       },
       {
@@ -44,16 +44,16 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
         text: "Has client information ever gone into an AI tool: names, ID numbers, account details, medical or financial notes?",
         options: [
           { value: "rule-known",    score: 4, label: "No. We have a rule against it and the team knows it" },
-          { value: "never-checked", score: 2, label: "Probably not, but we've never checked" },
-          { value: "probably-yes",  score: 1, label: "Probably yes. It's the quickest way to get things done" },
-          { value: "dont-know",     score: 0, label: "I don't know" },
+          { value: "never-checked", score: 2, label: "Probably not, but we have never checked" },
+          { value: "probably-yes",  score: 1, label: "Probably yes. It is the quickest way to complete the work" },
+          { value: "dont-know",     score: 0, label: "I do not know" },
         ],
       },
     ],
   },
   {
     key: "data_location",
-    label: "Where client information goes",
+    label: "Information flows",
     questions: [
       {
         id: "q3",
@@ -69,17 +69,17 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
         id: "q4",
         text: "Do you know which of your apps store client information outside South Africa?",
         options: [
-          { value: "checked-known", score: 4, label: "Yes. We've checked, and we know what's stored where" },
+          { value: "checked-known", score: 4, label: "Yes. We have checked, and we know what is stored where" },
           { value: "main-only",     score: 2, label: "For our main systems, but not the smaller apps" },
-          { value: "never-looked",  score: 1, label: "Not really. We've never looked" },
-          { value: "didnt-know",    score: 0, label: "I didn't know that mattered" },
+          { value: "never-looked",  score: 1, label: "Not really. We have never looked" },
+          { value: "didnt-know",    score: 0, label: "I did not know that mattered" },
         ],
       },
     ],
   },
   {
     key: "access",
-    label: "Who can see it",
+    label: "Access",
     questions: [
       {
         id: "q5",
@@ -98,14 +98,14 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
           { value: "need-to-know",         score: 4, label: "Only the people who need it for their job" },
           { value: "most-behind-password", score: 2, label: "Most of the team, behind a password" },
           { value: "anyone-office",        score: 1, label: "Anyone in the office or the team WhatsApp group" },
-          { value: "not-sure",             score: 0, label: "I'm not sure" },
+          { value: "not-sure",             score: 0, label: "I am not sure" },
         ],
       },
     ],
   },
   {
     key: "permission",
-    label: "Permission and trust",
+    label: "Consent and transparency",
     questions: [
       {
         id: "q7",
@@ -114,7 +114,7 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
           { value: "opted-in",         score: 4, label: "Yes. They opted in and can unsubscribe easily" },
           { value: "mostly",           score: 2, label: "Mostly. Some were added from our existing contacts" },
           { value: "message-everyone", score: 1, label: "We message everyone on our list" },
-          { value: "not-tracked",      score: 0, label: "We don't track who agreed" },
+          { value: "not-tracked",      score: 0, label: "We do not track who agreed" },
         ],
       },
       {
@@ -122,24 +122,24 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
         text: "If a client asked what information you hold about them and who you share it with, could you answer?",
         options: [
           { value: "within-days",    score: 4, label: "Yes, within a few days" },
-          { value: "real-digging",   score: 2, label: "Yes, but it would take real digging" },
-          { value: "would-struggle", score: 1, label: "We'd struggle to give a full answer" },
-          { value: "no-idea",        score: 0, label: "We wouldn't know where to start" },
+          { value: "real-digging",   score: 2, label: "Yes, but it would take extensive searching" },
+          { value: "would-struggle", score: 1, label: "We would struggle to give a full answer" },
+          { value: "no-idea",        score: 0, label: "We would not know where to start" },
         ],
       },
     ],
   },
   {
     key: "incident",
-    label: "If something goes wrong",
+    label: "Incidents and response",
     questions: [
       {
         id: "q9",
         text: "If a laptop or phone with client information were lost or hacked tomorrow, what would happen?",
         options: [
           { value: "have-plan",      score: 4, label: "We have a plan: who to tell, what to do and by when" },
-          { value: "work-it-out",    score: 2, label: "We'd work it out, and we know who's responsible" },
-          { value: "scramble",       score: 1, label: "We'd scramble. Nobody owns this" },
+          { value: "work-it-out",    score: 2, label: "We would work it out, and we know who is responsible" },
+          { value: "scramble",       score: 1, label: "We would struggle to respond. Nobody owns this" },
           { value: "might-not-know", score: 0, label: "We might not even know it had happened" },
         ],
       },
@@ -148,9 +148,9 @@ export const ASSESSMENT_AREAS: AssessmentArea[] = [
         text: "Who in your business is responsible for protecting personal information?",
         options: [
           { value: "named-registered", score: 4, label: "A named person, registered with the Information Regulator" },
-          { value: "me-informal",      score: 2, label: "Me by default, but I haven't done anything formal" },
+          { value: "me-informal",      score: 2, label: "Me by default, but I have not done anything formal" },
           { value: "nobody",           score: 1, label: "Nobody specific" },
-          { value: "didnt-know",       score: 0, label: "I didn't know someone had to be" },
+          { value: "didnt-know",       score: 0, label: "I did not know someone had to be" },
         ],
       },
     ],

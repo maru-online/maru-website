@@ -165,7 +165,7 @@ export default function TermsConditionsPage() {
 
       <section className="mb-12">
         <h2 className="text-2xl font-medium text-ink-primary mb-6">13. Contact</h2>
-        <div className="card-lift rounded-lg p-6 text-ink-secondary">
+        <div className="card-lift p-6 text-ink-secondary">
           <p className="mb-2">Questions about these terms? Reach out:</p>
           <p><strong className="text-ink-primary">Email:</strong> <a href="mailto:hello@maruonline.com" className="text-cyan-ink hover:underline">hello@maruonline.com</a></p>
           <p><strong className="text-ink-primary">Location:</strong> Johannesburg, South Africa</p>
@@ -173,7 +173,7 @@ export default function TermsConditionsPage() {
       </section>
 
       <div className="border-t border-white/10 pt-8 mt-12 mb-12">
-        <p className="text-sm text-ink-secondary italic">
+        <p className="text-sm text-ink-secondary">
           By engaging our services, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.
         </p>
       </div>

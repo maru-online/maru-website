@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { BGPattern } from "@/components/ui/bg-pattern";
 import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import { seo } from "@/lib/seo";
@@ -11,8 +10,14 @@ import {
 } from "@/lib/insights-resources/content";
 import { breadcrumbJsonLd } from "@/lib/insights-resources/jsonld";
 import { FeaturedCard, InsightCard, ResourceCard } from "@/components/insights-resources/Cards";
+import GuidePromo from "@/components/insights-resources/GuidePromo";
+import SectionHead from "@/components/ui/SectionHead";
+import DotField from "@/components/ui/DotField";
+import PageHero from "@/components/ui/PageHero";
 
-// Insights & Resources landing page. Copy: "Insights & Resources, Website Page
+// Guides & Resources landing page (route /insights-resources). Hero, section
+// headings, CTA and card titles revised 1 Nov 2026 per "Maru Online — Revised
+// Website Copy" v1.0 (section 7). Earlier brief: Copy: "Insights & Resources, Website Page
 // Architecture & Implementation Brief", 30 Oct 2026, applied as written except
 // the brand name ("Maru Online", two words).
 //
@@ -29,51 +34,16 @@ export function generateMetadata(): Metadata {
   const hasReal = getEntries().some(isPublished);
   return {
     ...seo("/insights-resources"),
-    title: "Insights & Resources | Practical Guidance on AI for Business",
+    title: "Guides & Resources | Practical, POPIA-Aware AI Guidance for South African Businesses",
     description:
-      "AI developments explained in business terms, plus practical guides on integrating AI, POPIA and data governance, AI readiness and automation, from Maru Online.",
+      "Understand how AI, POPIA and South African policy affect your business, and find practical guidance for introducing AI with appropriate human oversight.",
     robots: hasReal ? undefined : { index: false, follow: false },
   };
 }
 
-const outerPad = "px-6 md:px-[60px]";
-const innerWide = "max-w-[1100px] mx-auto";
+const innerWide = "sec-inner"; // same 1120px column as every other page (was 1100px)
 
 const CONTACT_HREF = "/contact#contact-form";
-
-function SectionHead({
-  id,
-  eyebrow,
-  title,
-  copy,
-  dark = false,
-}: {
-  id: string;
-  eyebrow: string;
-  title: string;
-  copy: string;
-  dark?: boolean;
-}) {
-  return (
-    <FadeUp>
-      <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>{eyebrow}</span>
-      <h2
-        id={id}
-        style={{
-          marginBottom: "1rem",
-          border: "none",
-          fontWeight: 700,
-          ...(dark ? { color: "var(--color-ink-inverted)" } : {}),
-        }}
-      >
-        {title}
-      </h2>
-      <p className={dark ? "body-on-navy" : "body-muted"} style={{ maxWidth: "620px", marginBottom: "2.5rem" }}>
-        {copy}
-      </p>
-    </FadeUp>
-  );
-}
 
 function EmptyState({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
   return (
@@ -92,8 +62,17 @@ function EmptyState({ children, dark = false }: { children: React.ReactNode; dar
 
 export default function InsightsResourcesPage() {
   const featured = getFeatured();
-  const insights = getEntries("insights").slice(0, 3);
-  const resources = getEntries("resources").slice(0, 4);
+  // The index shows up to 3 insights and 4 guides. "See all" links appear only
+  // when a section has more than that; otherwise they led to the same items
+  // again on a near-identical page, which felt like being sent back to the top.
+  const allInsights = getEntries("insights");
+  // The downloadable (gated) guide gets its own promo above the grid; the
+  // grid holds the web guides it is being compared with (5 Nov 2026).
+  const resourceEntries = getEntries("resources");
+  const gatedGuide = resourceEntries.find((e) => e.access === "gated");
+  const allResources = resourceEntries.filter((e) => e.access !== "gated");
+  const insights = allInsights.slice(0, 3);
+  const resources = allResources.slice(0, 4);
 
   return (
     <>
@@ -103,32 +82,16 @@ export default function InsightsResourcesPage() {
       />
 
       {/* SECTION 1 — Page introduction (navy) */}
-      <section
-        className={`relative min-h-[60vh] flex items-center overflow-hidden ${outerPad} pt-40 md:pt-48 pb-24 md:pb-28`}
-        style={{ background: "var(--gradient-hero)" }}
-      >
-        <BGPattern variant="grid" mask="fade-edges" size={40} fill="rgba(61, 184, 198, 0.101)" className="pointer-events-none" />
-        <div className={`${innerWide} relative z-10 w-full`}>
-          <FadeUp>
-            <span className="label-eyebrow" style={{ marginBottom: "2rem" }}>Insights &amp; Resources</span>
-          </FadeUp>
-          <FadeUp delay={0.08}>
-            <h1 className="maru-headline-split" style={{ marginBottom: "2rem" }}>
-              <span className="maru-headline-split-light">Practical Insights for</span>
-              <br />
-              <span className="maru-headline-split-strong">Businesses Navigating AI.</span>
-            </h1>
-          </FadeUp>
-          <FadeUp delay={0.16}>
-            <p className="body-on-navy" style={{ maxWidth: "700px", marginBottom: 0 }}>
-              Explore the latest developments in AI, understand what they mean for your business and access practical guidance on integrating AI into your operations. From industry insights to implementation best practices, find information to help you make informed decisions.
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Guides and resources"
+        light="Practical, POPIA-aware AI guidance"
+        strong="for South African businesses."
+        lead="Understand how AI, POPIA, and South African policy affect your business."
+      />
 
       {/* SECTION 2 — Featured content (light) */}
-      <section className={`${outerPad} py-20 md:py-24`} style={{ background: "var(--gradient-surface)" }}>
+      <section className="sec flow-ground overflow-hidden">
+        <DotField tone="light" mask="right" coverage={0.42} intensity={0.6} seed={4} />
         <div className={innerWide}>
           <FadeUp>
             <span className="label-eyebrow" style={{ marginBottom: "1.5rem" }}>Featured</span>
@@ -148,24 +111,14 @@ export default function InsightsResourcesPage() {
       <section
         id={SECTIONS.insights.segment}
         aria-labelledby="ai-insights-heading"
-        className={`relative overflow-hidden ${outerPad} py-24`}
-        style={{ backgroundColor: "var(--color-bg-navy-deep)" }}
+        className="section-dark sec sec-chapter"
       >
-        <div
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{
-            inset: 0,
-            background:
-              "radial-gradient(55% 70% at 100% 0%, rgba(61,184,198,0.14), transparent 60%), radial-gradient(40% 50% at 0% 100%, rgba(61,184,198,0.07), transparent 70%)",
-          }}
-        />
         <div className={`${innerWide} relative`}>
           <SectionHead
             id="ai-insights-heading"
             eyebrow="Timely · Analytical"
-            title="AI Insights for Business"
-            copy="The latest AI developments, industry news and analysis — with a focus on what matters to business."
+            title="AI insights for business"
+            intro="The latest AI developments, industry news and analysis — with a focus on what matters to business."
             dark
           />
           {insights.length ? (
@@ -179,13 +132,15 @@ export default function InsightsResourcesPage() {
           ) : (
             <EmptyState dark>The first insights are in preparation.</EmptyState>
           )}
-          <FadeUp delay={0.1}>
-            <div style={{ marginTop: "2.5rem" }}>
-              <Button href={`/insights-resources/${SECTIONS.insights.segment}`} variant="secondary">
-                View All Insights
-              </Button>
-            </div>
-          </FadeUp>
+          {allInsights.length > insights.length && (
+            <FadeUp delay={0.1}>
+              <div style={{ marginTop: "2.5rem" }}>
+                <Button href={`/insights-resources/${SECTIONS.insights.segment}`} variant="secondary">
+                  See all {allInsights.length} insights
+                </Button>
+              </div>
+            </FadeUp>
+          )}
         </div>
       </section>
 
@@ -193,16 +148,24 @@ export default function InsightsResourcesPage() {
       <section
         id={SECTIONS.resources.segment}
         aria-labelledby="resources-heading"
-        className={`${outerPad} py-24`}
-        style={{ background: "var(--gradient-surface)" }}
+        className="sec flow-ground overflow-hidden"
       >
+        {/* Dots open each light run (left after a navy break). */}
+        <DotField tone="light" mask="left" coverage={0.42} intensity={0.6} seed={9} />
         <div className={innerWide}>
           <SectionHead
             id="resources-heading"
             eyebrow="Practical · Evergreen"
-            title="Resources & Best Practice"
-            copy="Practical guides and resources to help businesses understand, plan and implement AI."
+            title="Resources and best practice"
+            intro="Practical guides and resources to help businesses understand, plan and implement AI."
           />
+          {gatedGuide && (
+            <FadeUp>
+              <div style={{ marginBottom: "2.5rem" }}>
+                <GuidePromo location="resources" />
+              </div>
+            </FadeUp>
+          )}
           {resources.length ? (
             <StaggerParent className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {resources.map((e) => (
@@ -214,32 +177,34 @@ export default function InsightsResourcesPage() {
           ) : (
             <EmptyState>The first guides are in preparation.</EmptyState>
           )}
-          <FadeUp delay={0.1}>
-            <div style={{ marginTop: "2.5rem" }}>
-              <Button href={`/insights-resources/${SECTIONS.resources.segment}`} variant="secondary">
-                View All Resources
-              </Button>
-            </div>
-          </FadeUp>
+          {allResources.length > resources.length && (
+            <FadeUp delay={0.1}>
+              <div style={{ marginTop: "2.5rem" }}>
+                <Button href={`/insights-resources/${SECTIONS.resources.segment}`} variant="secondary">
+                  See all {allResources.length} guides and resources
+                </Button>
+              </div>
+            </FadeUp>
+          )}
         </div>
       </section>
 
       {/* SECTION 5 — Final CTA (navy) */}
-      <section className={`relative overflow-hidden ${outerPad} py-24`} style={{ backgroundColor: "var(--color-bg-navy)" }}>
+      <section className="navy-horizon sec sec-chapter relative overflow-hidden">
         <div className={`${innerWide} max-w-[760px] mx-0 md:mx-auto`}>
           <FadeUp>
             <h2 style={{ color: "var(--color-ink-inverted)", border: "none", padding: 0, marginBottom: "var(--space-heading-body)" }}>
-              <span style={{ fontWeight: 700 }}>Have an AI Challenge in Your Business?</span>
+              Do you have an AI challenge in your business?
             </h2>
           </FadeUp>
           <FadeUp delay={0.08}>
             <p className="body-on-navy" style={{ marginBottom: "var(--space-para-section)" }}>
-              Understand where AI could make a practical difference to your business operations.
+              Understand where AI could make a practical difference to your operations and what a sensible next step could look like.
             </p>
           </FadeUp>
           <FadeUp delay={0.14}>
             <div data-maru-primary-cta>
-              <Button href={CONTACT_HREF} variant="primary">Discuss a Business Challenge</Button>
+              <Button href={CONTACT_HREF} variant="primary">Discuss your challenge</Button>
             </div>
           </FadeUp>
         </div>

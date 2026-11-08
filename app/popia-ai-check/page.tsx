@@ -11,30 +11,44 @@
  * Step "done":     Confirmation — report sent
  */
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { calculateScore, SCORING_NOTE, type AssessmentAnswers, type ScoreResult } from "@/lib/assessment/scoring";
 import { ASSESSMENT_AREAS, ASSESSMENT_QUESTIONS } from "@/lib/assessment/questions";
-import { BGPattern } from "@/components/ui/bg-pattern";
+import DotField from "@/components/ui/DotField";
 import Button from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
-import { GUIDE_LIVE, GUIDE_PATH, GUIDE_REQUESTED_STORAGE_KEY } from "@/lib/guides/config";
+import { GUIDE_LIVE, GUIDE_REQUESTED_STORAGE_KEY, guideHref } from "@/lib/guides/config";
 
 // ── Questions ──────────────────────────────────────────────────────────────
 // Approved copy (Addendum 02 item B) lives in lib/assessment/questions.ts so
 // scoring and the synthesis prompt read the same wording the visitor sees.
 
 const questions = ASSESSMENT_QUESTIONS;
-const areas = ASSESSMENT_AREAS.map((a, i) => ({ index: i + 1, label: a.label }));
+// Intro descriptions per area ("Maru Online — Revised Website Copy" v1.0,
+// section 9). Keyed by area key so they stay with the right area if the
+// question order changes.
+const AREA_DESCRIPTIONS: Record<string, string> = {
+  ai_use:        "How AI is used and where a person reviews or controls the outcome.",
+  data_location: "Where client information is stored and shared.",
+  access:        "Who can access client information.",
+  permission:    "How people are informed and how relevant permission is handled.",
+  incident:      "What happens if there is a data or information-handling incident.",
+};
+const areas = ASSESSMENT_AREAS.map((a, i) => ({
+  index: i + 1,
+  label: a.label,
+  description: AREA_DESCRIPTIONS[a.key] ?? "",
+}));
 
 // ── Status display ─────────────────────────────────────────────────────────
 
 const statusConfig = {
-  critical:    { label: "Critical gap",    colour: "#E53E3E", bg: "#FFF5F5", border: "#FC8181" },
-  significant: { label: "Significant gap", colour: "#C05621", bg: "#FFFAF0", border: "#F6AD55" },
-  partial:     { label: "Partial",         colour: "#2F855A", bg: "#F0FFF4", border: "#68D391" },
-  strong:      { label: "Strong",          colour: "#2B6CB0", bg: "#EBF8FF", border: "#63B3ED" },
+  critical:    { label: "Critical gap",     colour: "var(--color-danger)",   bg: "var(--color-danger-tint)",   border: "var(--color-danger-border)" },
+  significant: { label: "Significant gap",  colour: "var(--color-danger)",   bg: "#FFFFFF",                    border: "var(--color-danger-border)" },
+  partial:     { label: "Partly in place",  colour: "var(--color-cyan-ink)", bg: "var(--color-cyan-light)",    border: "var(--color-cyan-ink)" },
+  strong:      { label: "Largely in place", colour: "var(--color-success)",  bg: "var(--color-success-tint)",  border: "var(--color-success-border)" },
 };
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -61,6 +75,7 @@ function AssessmentWizard() {
   // POPIA s69: direct marketing needs a separate opt-in. Unticked by default,
   // and the report is sent whether or not it is ticked (Addendum 01, item D).
   const [marketingConsent, setMarketingConsent] = useState(false);
+  const [followUpConsent, setFollowUpConsent] = useState(false);
   const [submitting, setSubmitting]   = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [progress, setProgress]       = useState(0);
@@ -73,6 +88,18 @@ function AssessmentWizard() {
       /* storage blocked: keep showing the line */
     }
   }, []);
+
+  // Each step replaces the last inside one page, so the scroll position of the
+  // button just pressed would carry over (the intro's Start button sits low, and
+  // the next screen opened near the footer). Return to the top of the card on
+  // every step change, and move focus there for keyboard and screen-reader users.
+  const cardRef = useRef<HTMLDivElement>(null);
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) { firstRender.current = false; return; }
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    cardRef.current?.focus({ preventScroll: true });
+  }, [step]);
 
   useEffect(() => {
     if (step === "intro")          setProgress(0);
@@ -140,6 +167,7 @@ function AssessmentWizard() {
             email: email.trim(),
             website: website.trim() || undefined,
             marketingConsent,
+            followUpConsent,
             recaptchaToken,
           }),
           signal: controller.signal,
@@ -173,64 +201,85 @@ function AssessmentWizard() {
   return (
     <div
       className="relative min-h-screen flex items-center text-ink-primary"
-      style={{ background: "var(--gradient-surface)" }}
+      style={{ background: "var(--color-bg-secondary)" }}
     >
-      <BGPattern
-        variant="grid"
-        mask="none"
-        size={40}
-        fill="rgba(61, 184, 198, 0.05)"
-        className="z-0"
-      />
+      {/* Light ground with faint dots (Open Flow, 4 Nov 2026; was a grid). */}
+      <DotField tone="light" mask="edges" coverage={0.42} intensity={0.6} seed={4} className="z-0" />
 
-      {/* Progress bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-bg-secondary">
-        <div
-          className="h-full bg-cyan transition-all duration-500 ease-out"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
-      <div className="relative z-10 w-full max-w-2xl mx-auto px-6 py-20">
-        <div className="card-lift p-8 md:p-12">
+      <div className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+        <div ref={cardRef} tabIndex={-1} className="card-lift card-static font-normal p-6 sm:p-8 md:p-12 outline-none">
+        {step !== "intro" && step !== "done" && (
+          <div className="mb-8" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(progress)} aria-label="Review progress">
+            <p className="text-base font-semibold text-ink-primary mb-3">
+              {typeof step === "number" ? `Question ${step + 1} of ${questions.length}` : step === "results" ? "Your result" : "Last step"}
+            </p>
+            <div className="h-2 w-full rounded-full" style={{ background: "var(--color-border-default)" }}>
+              <div className="h-full rounded-full transition-[width] duration-500 ease-out" style={{ width: `${progress}%`, background: "var(--color-cyan-ink)" }} />
+            </div>
+          </div>
+        )}
         {/* ── INTRO ─────────────────────────────────────────────────────── */}
         {step === "intro" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">POPIA Assessment</span>
-            <h1 className="text-3xl font-semibold text-navy leading-tight mb-4 border-none">
-              Find out where your client information goes when your team uses AI.
+            <span className="label-eyebrow label-eyebrow-ink">Free, informational POPIA review</span>
+            <h1 className="text-3xl md:text-4xl font-semibold text-navy leading-tight mb-5 border-none">
+              Understand how your business handles information when your team uses AI.
             </h1>
-            <p className="body-muted text-lg mb-8 leading-relaxed">
-              10 questions across 5 areas. About 5 minutes.
+            <p className="text-xl text-ink-primary mb-4 leading-relaxed">
+              Answer 10 questions in about five minutes to receive a report showing your score across five areas, with actions to prioritise.
+            </p>
+            <p className="text-lg text-ink-secondary mb-3 leading-relaxed">
+              Designed for South African businesses exploring or already using AI.
+            </p>
+            <p className="text-base text-ink-secondary mb-8 leading-relaxed">
+              This is an informational review, not legal advice or a formal compliance opinion.
             </p>
 
-            <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-6">
-              <p className="text-ink-primary text-base font-medium leading-relaxed mb-3">
-                You&apos;ll get a short report showing how your business rates in each of the five areas, and what to fix first.
-              </p>
-              <p className="text-ink-primary text-base font-medium leading-relaxed">
-                Answer based on how things actually work today — not how you want them to work. The more honest your answers, the more useful your result.
+            <div className="bg-cyan-light rounded-lg p-6 mb-8" style={{ borderLeft: "4px solid var(--color-cyan-ink)" }}>
+              <h2 className="text-ink-primary text-lg font-semibold leading-snug mb-2 border-none">
+                Answer based on what happens today.
+              </h2>
+              <p className="text-ink-primary text-lg leading-relaxed">
+                Answer for how your business works today, not how you would like it to work. The more honest your answers, the more useful your result will be.
               </p>
             </div>
 
             {/* Area preview */}
-            <div className="grid grid-cols-1 gap-2 mb-8">
+            <ol className="grid grid-cols-1 gap-3 mb-10 list-none p-0">
               {areas.map((a) => (
-                <div
+                <li
                   key={a.index}
-                  className="flex items-center gap-3 bg-bg-canvas border border-border-default rounded-lg px-4 py-3"
+                  className="flex items-start gap-4 bg-white rounded-xl px-5 py-4"
+                  style={{ border: "1.5px solid var(--color-border-strong)" }}
                 >
-                  <span className="text-xs font-mono text-cyan-ink w-4">{a.index}</span>
-                  <span className="text-ink-secondary text-sm">{a.label}</span>
-                </div>
+                  <span
+                    aria-hidden="true"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cyan-light text-cyan-ink text-base font-semibold"
+                  >
+                    {a.index}
+                  </span>
+                  <span className="flex flex-col">
+                    <span className="text-ink-primary text-lg font-semibold leading-snug">{a.label}</span>
+                    {a.description && (
+                      <span className="text-ink-secondary text-base leading-relaxed">{a.description}</span>
+                    )}
+                  </span>
+                </li>
               ))}
-            </div>
+            </ol>
+
+            <h2 className="text-navy text-xl font-semibold leading-snug mb-2 border-none">
+              What your report contains.
+            </h2>
+            <p className="text-lg text-ink-secondary mb-8 leading-relaxed">
+              Your report will highlight the areas that may need attention and suggest which actions to prioritise first. It is intended to help you identify questions for further investigation.
+            </p>
 
             <Button
               onClick={handleStart}
               variant="primary"
             >
-              Start the assessment
+              Start the free review
             </Button>
           </div>
         )}
@@ -240,8 +289,6 @@ function AssessmentWizard() {
           <QuestionStep
             key={step}
             question={questions[step]}
-            questionNumber={step + 1}
-            totalQuestions={questions.length}
             onAnswer={(value) => handleAnswer(questions[step].id, value)}
           />
         )}
@@ -249,11 +296,11 @@ function AssessmentWizard() {
         {/* ── RESULTS PREVIEW ───────────────────────────────────────────── */}
         {step === "results" && scoreResult && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Your result</span>
-            <h2 className="text-2xl font-semibold text-navy mb-2 border-none">
+            <span className="label-eyebrow label-eyebrow-ink">Your result</span>
+            <h2 className="text-3xl font-semibold text-navy mb-3 border-none">
               {scoreResult.label}
             </h2>
-            <p className="body-muted text-base mb-8 leading-relaxed">
+            <p className="text-lg text-ink-secondary mb-8 leading-relaxed">
               {scoreResult.tagline}
             </p>
 
@@ -264,11 +311,12 @@ function AssessmentWizard() {
                 return (
                   <div
                     key={area.areaKey}
-                    className="flex items-center justify-between rounded-lg px-5 py-4 border border-border-default bg-bg-canvas"
+                    className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between rounded-xl px-5 py-4 bg-white"
+                    style={{ border: "1.5px solid var(--color-border-strong)" }}
                   >
-                    <span className="text-ink-primary text-sm font-medium">{area.area}</span>
+                    <span className="text-ink-primary text-lg font-semibold leading-snug">{area.area}</span>
                     <span
-                      className="text-xs font-mono px-3 py-1 rounded-full border"
+                      className="self-start text-base font-semibold px-4 py-1.5 rounded-full border whitespace-nowrap"
                       style={{ color: cfg.colour, background: cfg.bg, borderColor: cfg.border }}
                     >
                       {cfg.label}
@@ -278,14 +326,14 @@ function AssessmentWizard() {
               })}
             </div>
 
-            <p className="body-muted text-sm leading-relaxed mb-8">{SCORING_NOTE}</p>
+            <p className="text-base text-ink-secondary leading-relaxed mb-8">{SCORING_NOTE}</p>
 
-            <div className="bg-cyan-light border border-cyan/20 rounded-lg p-6 mb-8">
-              <p className="text-ink-primary font-semibold mb-2">
-                Your detailed report goes deeper.
+            <div className="bg-cyan-light rounded-lg p-6 mb-8" style={{ borderLeft: "4px solid var(--color-cyan-ink)" }}>
+              <p className="text-ink-primary text-lg font-semibold mb-2">
+                Your report goes deeper.
               </p>
-              <p className="body-muted text-base leading-relaxed">
-                It breaks down each area — what your answers reveal, the specific issues, and a recommended approach for your stage of business. Enter your details below to receive it.
+              <p className="text-ink-primary text-lg leading-relaxed">
+                It breaks down each area: what your answers reveal, the specific issues, and a recommended approach for your stage of business. Enter your details below to receive it.
               </p>
             </div>
 
@@ -294,15 +342,15 @@ function AssessmentWizard() {
               variant="primary"
               className="w-full"
             >
-              Get my free detailed report
+              Get my free report
             </Button>
 
             {/* Copy handover entry 19 §11 (approved 8 Oct), verbatim. */}
             {GUIDE_LIVE && !hasGuide && (
-              <p className="body-muted text-sm leading-relaxed mt-6 mb-0 text-center">
+              <p className="text-ink-secondary text-base leading-relaxed mt-6 mb-0 text-center">
                 Want the basics behind these questions?{" "}
-                <Link href={GUIDE_PATH} className="text-cyan-ink underline hover:no-underline">
-                  Read the guide.
+                <Link href={guideHref("review")} className="text-cyan-ink underline hover:no-underline">
+                  Get the guide.
                 </Link>
               </p>
             )}
@@ -312,52 +360,66 @@ function AssessmentWizard() {
         {/* ── EMAIL GATE ────────────────────────────────────────────────── */}
         {step === "gate" && (
           <div className="animate-fade-in">
-            <span className="label-eyebrow">Your report</span>
-            <h2 className="text-2xl font-semibold text-navy mb-2 border-none">
+            <span className="label-eyebrow label-eyebrow-ink">Your report</span>
+            <h2 className="text-3xl font-semibold text-navy mb-3 border-none">
               Where should we send it?
             </h2>
-            <p className="body-muted text-base mb-8 leading-relaxed">
-              We will email you a link to your personalised report — a structured page showing your findings across all five areas with a recommended next step.
+            <p className="text-lg text-ink-secondary mb-8 leading-relaxed">
+              We will email you a link to your report: a page showing your findings across all five areas, with actions to prioritise.
             </p>
 
             <form onSubmit={handleGateSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-ink-primary mb-2">Your name</label>
+                <label className="block text-base font-semibold text-ink-primary mb-2">Your name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="First name is fine"
                   required
-                  className="w-full rounded-xl border border-border-default bg-bg-canvas px-4 py-3 text-sm text-ink-primary placeholder-ink-tertiary outline-none transition focus:border-cyan"
+                  className="w-full rounded-xl bg-white px-4 py-3.5 text-lg text-ink-primary placeholder-ink-tertiary outline-none transition-colors focus:border-cyan-ink focus-visible:ring-2 focus-visible:ring-cyan border-[1.5px] border-ink-tertiary"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-ink-primary mb-2">Email address</label>
+                <label className="block text-base font-semibold text-ink-primary mb-2">Email address</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@yourbusiness.com"
                   required
-                  className="w-full rounded-xl border border-border-default bg-bg-canvas px-4 py-3 text-sm text-ink-primary placeholder-ink-tertiary outline-none transition focus:border-cyan"
+                  className="w-full rounded-xl bg-white px-4 py-3.5 text-lg text-ink-primary placeholder-ink-tertiary outline-none transition-colors focus:border-cyan-ink focus-visible:ring-2 focus-visible:ring-cyan border-[1.5px] border-ink-tertiary"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-ink-primary mb-2">
+                <label className="block text-base font-semibold text-ink-primary mb-2">
                   Business website{" "}
-                  <span className="font-normal text-ink-tertiary">(optional — helps us personalise your report)</span>
+                  <span className="font-normal text-ink-secondary">(optional — helps us personalise your report)</span>
                 </label>
                 <input
                   type="text"
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
                   placeholder="yourbusiness.com"
-                  className="w-full rounded-xl border border-border-default bg-bg-canvas px-4 py-3 text-sm text-ink-primary placeholder-ink-tertiary outline-none transition focus:border-cyan"
+                  className="w-full rounded-xl bg-white px-4 py-3.5 text-lg text-ink-primary placeholder-ink-tertiary outline-none transition-colors focus:border-cyan-ink focus-visible:ring-2 focus-visible:ring-cyan border-[1.5px] border-ink-tertiary"
                 />
               </div>
+
+              {/* Follow-up consent (6 Nov 2026). Separate and unticked: ticking is
+                  never needed to get the report, and only a tick lets us send the
+                  one follow-up email about the results (POPIA s69, no silent opt-in). */}
+              <label className="flex items-start gap-3 cursor-pointer min-h-[44px] py-1">
+                <Checkbox
+                  checked={followUpConsent}
+                  onChange={(e) => setFollowUpConsent(e.target.checked)}
+                  className="mt-0.5 border-[var(--color-ink-tertiary)]"
+                />
+                <span className="text-base text-ink-primary leading-relaxed">
+                  Email me once, in about two days, to ask whether I would like to talk through my results.
+                </span>
+              </label>
 
               {/* Addendum 01 item D — approved 26 Sep 2026. Separate, opt-in,
                   unticked: only a tick adds the contact to the marketing list. */}
@@ -365,15 +427,15 @@ function AssessmentWizard() {
                 <Checkbox
                   checked={marketingConsent}
                   onChange={(e) => setMarketingConsent(e.target.checked)}
-                  className="mt-0.5"
+                  className="mt-0.5 border-[var(--color-ink-tertiary)]"
                 />
-                <span className="text-sm text-ink-secondary leading-relaxed">
+                <span className="text-base text-ink-primary leading-relaxed">
                   Also send me occasional notes on using AI safely under POPIA. Unsubscribe from any email.
                 </span>
               </label>
 
               {submitError && (
-                <p className="text-danger text-sm">{submitError}</p>
+                <p className="text-danger text-base font-medium" role="alert">{submitError}</p>
               )}
 
               <Button
@@ -386,12 +448,12 @@ function AssessmentWizard() {
               </Button>
 
               {/* POPIA s18 notice at the point of collection (Addendum 01 D). */}
-              <p className="text-ink-tertiary text-xs text-center leading-relaxed">
-                We use your name and email to send your report and to follow up about it. Nothing else. Some of our providers process information outside South Africa, as our{" "}
+              <p className="text-ink-secondary text-sm text-center leading-relaxed">
+                We use your name and email to send your report. If you tick the first box, we also use them to email you once about your results. Some of our providers process information outside South Africa, as our{" "}
                 <Link href="/privacy-policy" className="text-cyan-ink underline hover:no-underline">
                   Privacy Policy
                 </Link>{" "}
-                explains. By sending your report request, you agree to this.
+                explains.
               </p>
             </form>
           </div>
@@ -406,23 +468,23 @@ function AssessmentWizard() {
               </svg>
             </div>
 
-            <h2 className="text-2xl font-semibold text-navy mb-3 border-none">
-              Your report is on its way.
+            <h2 className="text-3xl font-semibold text-navy mb-4 border-none">
+              Thank you.
             </h2>
-            <p className="body-muted text-base leading-relaxed mb-8 max-w-md mx-auto">
-              Check your inbox for a link to your report: your result in each of the five areas and a recommended next step.
+            <p className="text-lg text-ink-primary leading-relaxed mb-4 max-w-md mx-auto">
+              {followUpConsent
+                ? "Your report is on its way. We will reach out to you by email in about two days to see if you would like to talk through your results."
+                : "Your report is on its way."}
+            </p>
+            <p className="text-lg text-ink-secondary leading-relaxed mb-8 max-w-md mx-auto">
+              {followUpConsent ? "If you would like to get in touch sooner, email us at" : "If you would like to talk through your results, email us at"}{" "}
+              <a href="mailto:hello@maruonline.com" className="text-cyan-ink underline hover:no-underline">
+                hello@maruonline.com
+              </a>
+              .
             </p>
 
-            <div className="bg-bg-canvas border border-border-default rounded-lg p-6 text-left mb-8">
-              <p className="text-ink-primary font-semibold text-base mb-2">
-                While you wait:
-              </p>
-              <p className="body-muted text-base leading-relaxed">
-                The report will invite you to request a proposal. We then contact you to arrange a short call at a time that suits you, where we go through your assessment together and go deeper on what we find. If there&apos;s no clear opportunity, we&apos;ll tell you.
-              </p>
-            </div>
-
-            <Link href="/" className="text-cyan-ink text-sm hover:underline">
+            <Link href="/" className="text-cyan-ink text-base font-medium hover:underline">
               ← Back to Maru Online
             </Link>
           </div>
@@ -447,13 +509,9 @@ export default function AssessmentPage() {
 
 function QuestionStep({
   question,
-  questionNumber,
-  totalQuestions,
   onAnswer,
 }: {
   question: (typeof questions)[number];
-  questionNumber: number;
-  totalQuestions: number;
   onAnswer: (value: string) => void;
 }) {
   const [selected, setSelected] = useState<string | null>(null);
@@ -463,50 +521,43 @@ function QuestionStep({
     setTimeout(() => onAnswer(value), 200);
   }
 
-  const isFirstInArea = questionNumber % 2 === 1; // questions 1,3,5,7,9 are first in each area
-
   return (
     <div className="animate-fade-in">
-      {/* Area label — show on first question of each pair */}
-      {isFirstInArea && (
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-1.5 h-1.5 rounded-full bg-cyan" />
-          <p className="text-xs font-mono text-cyan-ink tracking-widest uppercase">
-            Area {question.areaIndex} of 5 — {question.area}
-          </p>
-        </div>
-      )}
-      {!isFirstInArea && (
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-1.5 h-1.5 rounded-full bg-ink-tertiary/30" />
-          <p className="text-xs font-mono text-ink-tertiary tracking-widest uppercase">
-            {question.area}
-          </p>
-        </div>
-      )}
-
-      <p className="text-xs font-mono text-ink-tertiary tracking-widest uppercase mb-4">
-        Question {questionNumber} of {totalQuestions}
+      <p className="label-eyebrow label-eyebrow-ink" style={{ marginBottom: "0.75rem" }}>
+        Area {question.areaIndex} of 5: {question.area}
       </p>
 
-      <h2 className="text-xl font-semibold text-navy leading-snug mb-6 border-none">
+      <h2 className="text-2xl md:text-3xl font-semibold text-navy leading-snug mb-8 border-none">
         {question.text}
       </h2>
 
-      <div className="space-y-3">
-        {question.options.map((option) => (
-          <button
-            key={option.value}
-            onClick={() => handleSelect(option.value)}
-            className={`w-full text-left border rounded-lg px-5 py-4 text-base font-medium leading-relaxed transition-all cursor-pointer ${
-              selected === option.value
-                ? "border-cyan text-ink-primary bg-cyan/10"
-                : "border-border-default text-ink-secondary bg-bg-canvas hover:border-cyan hover:bg-cyan/5 hover:text-cyan-ink"
-            }`}
-          >
-            {option.label}
-          </button>
-        ))}
+      <div className="space-y-3" role="group" aria-label="Choose the answer that fits best">
+        {question.options.map((option) => {
+          const isSelected = selected === option.value;
+          return (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => handleSelect(option.value)}
+              aria-pressed={isSelected}
+              className={`w-full text-left flex items-start gap-4 rounded-xl px-5 py-4 md:py-5 text-lg font-medium leading-snug text-ink-primary transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan border-2 ${
+                isSelected
+                  ? "border-cyan-ink bg-cyan-light"
+                  : "border-ink-tertiary bg-white hover:border-cyan-ink hover:bg-cyan-light"
+              }`}
+            >
+              <span
+                aria-hidden="true"
+                className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${
+                  isSelected ? "border-cyan-ink" : "border-ink-tertiary"
+                }`}
+              >
+                {isSelected && <span className="h-3 w-3 rounded-full bg-cyan-ink" />}
+              </span>
+              <span>{option.label}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );
