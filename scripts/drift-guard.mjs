@@ -16,9 +16,11 @@
  *      as live because components/CookieConsent.tsx shares its name.
  *   5. Retired terminology in visible copy ("free assessment", "diagnostic"
  *      era wording, hype phrases). Comment lines are ignored.
+ *   6. Email assets that already-sent emails link to must still exist (the
+ *      Maru logo in the report email header).
  */
 
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = process.cwd();
@@ -173,6 +175,12 @@ for (const [file, src] of read) {
 }
 
 // ── Report ───────────────────────────────────────────────────────────────────
+
+// ── Rule 6: email assets must not disappear ────────────────────────────────
+// Emails already in people's inboxes load these by URL. Never rename or delete.
+for (const asset of ["public/email/maru-logo-primary.png"]) {
+  if (!existsSync(join(ROOT, asset))) fail("email-asset", asset, "missing: sent emails link to this file, restore it");
+}
 
 if (failures.length === 0) {
   console.log("✅ Drift guard passed — no design drift detected.");

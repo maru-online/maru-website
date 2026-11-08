@@ -32,3 +32,18 @@ These live in Brevo and were not visible from the repo. Check each of the three 
 | `/api/cron/guide-retention` | 1st of month 02:30 | **Dry run**: logs the count, deletes nothing |
 
 To make a retention job live: set `CRON_SECRET`, run it once by hand without `apply`, check the list against clients (`RETENTION_KEEP_EMAILS`), then add `?apply=1` to its path in `vercel.json`.
+
+## Logo in the report email (8 Nov 2026)
+- The header logo is `https://maruonline.com/email/maru-logo-primary.png`, a small (330 × 126, 10 KB) copy
+  at `public/email/`. It ships with every release, so the email never depends on the brand folder.
+- **Never rename or delete it.** Emails already in inboxes load it by URL. `npm run lint:design` fails if it is missing.
+- Why not embed it in the email? Gmail removes `data:` images and Outlook desktop does not show them, and
+  Brevo has no inline (CID) attachments. A hosted image with width and height set is the reliable option.
+- If a client blocks images, the styled alt text shows "Maru Online" in the brand colour instead.
+
+## Release order for the Brevo switch
+1. Merge PR #49. Wait until the production deploy is Ready.
+2. Open `https://maruonline.com/email/maru-logo-primary.png` and confirm the logo loads.
+3. In Vercel set `BREVO_TEMPLATE_LEVEL_1/2/3` (Production) from 9 to 11, then Redeploy.
+4. Submit one real review with the follow-up box ticked and check the email.
+
