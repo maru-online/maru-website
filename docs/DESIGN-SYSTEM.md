@@ -188,10 +188,13 @@ category line, slow scroll with edge fades, pause on hover/focus plus a Pause
 button, static wrapped list under reduced motion. The list comes from the build
 repositories; update it there when the stack changes.
 
-**Closing statement** (homepage, `.split-media-closer`, 8 Nov 2026): the line
-"We do not replace your team. We give them their time back." as a `SectionHead`
-beside one `TreatedImage` (5:4) on the stone ground. It replaced the dark full-width
-`ImageBand`, which was removed. The photograph is illustrative, not Maru's team.
+**Closing statement** (homepage, `.closing`, 8 Nov 2026): the line
+"We do not replace your team. We give them their time back." set inside one 21:9
+frame, on the left over the photograph's soft golden blur, with the subject on the
+right. Dark ink, no scrim, because the left side of the photo is light. The photo is
+`untinted` so that side stays light. On phones the line sits above the photo, which
+is cropped to the subject. It replaced the dark full-width `ImageBand`, which was
+removed. The photograph is illustrative, not Maru's team.
 
 **Grid motif** (`.grid-motif`, `.grid-motif-feature`, `.hero-grid` in
 `globals.css`): 1px cyan lines, one style at three weights — glyph panels

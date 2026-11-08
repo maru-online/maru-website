@@ -376,18 +376,22 @@ export default function Home() {
             ══════════════════════════════════════════════════════════════════ */}
         <section className="sec sec-ruled" aria-labelledby="closing-line">
           <div className="sec-inner">
-            <div className="split-media split-media-closer">
-              <SectionHead
-                id="closing-line"
-                title={<>We do not replace your team.<br />We give them their <span className="hl">time back.</span></>}
-              />
-              <TreatedImage
-                src="/images/people/team-time-back.jpg"
-                alt="A woman leans back in her chair at a tidy desk, hands behind her head, looking out of a sunlit window"
-                sizes="(min-width: 1024px) 520px, 100vw"
-                className="split-media-img"
-                position="50% 40%"
-              />
+            <div className="closing">
+              <div className="closing-copy">
+                <SectionHead
+                  id="closing-line"
+                  title={<>We do not replace your team.<br />We give them their <span className="hl">time back.</span></>}
+                />
+              </div>
+              <div className="closing-media">
+                <TreatedImage
+                  src="/images/people/team-time-back.jpg"
+                  alt="A woman leans back in her chair at a tidy desk, hands behind her head, smiling and looking up in warm afternoon light"
+                  sizes="(min-width: 1200px) 1120px, 100vw"
+                  className="h-full w-full"
+                  untinted
+                />
+              </div>
             </div>
           </div>
         </section>

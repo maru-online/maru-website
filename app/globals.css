@@ -1137,6 +1137,23 @@
 .guide-page { margin: 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-card); box-shadow: var(--card-shadow); background: var(--color-bg-card); }
 .guide-page img { display: block; width: 100%; height: auto; }
 
+/* ── Closing statement frame (homepage, 8 Nov 2026) ─────────────────────────
+   Desktop: one 21:9 frame, title inside on the left over the photograph's soft
+   golden blur, subject on the right. Phones: title above, photo below cropped
+   to the subject. Dark ink on the light left side, so no scrim is needed. */
+.closing-media { position: relative; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); }
+.closing-media img { object-position: 82% 20%; }
+.closing .sec-head { margin-bottom: 1.75rem; }
+.closing .section-title .hl { color: color-mix(in srgb, var(--color-cyan-ink) 70%, var(--color-ink-primary)); }
+@media (min-width: 768px) {
+  .closing { position: relative; aspect-ratio: 21 / 9; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); }
+  .closing-media { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+  .closing-media img { object-position: 50% 12%; }
+  .closing-copy { position: absolute; z-index: 1; top: 0; bottom: 0; left: clamp(1.5rem, 4vw, 3.5rem); display: flex; align-items: center; max-width: 46%; }
+  .closing .sec-head { margin-bottom: 0; }
+  .closing .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.2; }
+}
+
 /* ── Tools we build with (5 Nov 2026) ───────────────────────────────────────
    A slim band after Supporting capabilities: label on the left, a slow
    ticker of tool names on the right, edges fading out. On stone with its own
@@ -1753,11 +1770,6 @@ p.footer-legal { margin: 0; }
 .split-media { display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: end; }
 @media (min-width: 1024px) { .split-media { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); } }
 .split-media .sec-head { margin-bottom: 1.25rem; }
-.split-media-closer { align-items: center; }
-@media (min-width: 1024px) { .split-media-closer { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); } }
-.split-media-closer .split-media-img { aspect-ratio: 5 / 4; }
-/* Two short lines that should each stay on one line beside the photograph. */
-.split-media-closer .section-title { font-size: clamp(1.75rem, 2.9vw, 2.5rem); line-height: 1.2; }
 .split-media-img {
   aspect-ratio: 3 / 2; width: 100%;
   border-radius: 14px; box-shadow: var(--card-shadow-hover);
