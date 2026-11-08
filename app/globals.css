@@ -1138,20 +1138,24 @@
 .guide-page img { display: block; width: 100%; height: auto; }
 
 /* ── Closing statement frame (homepage, 8 Nov 2026) ─────────────────────────
-   Desktop: one 21:9 frame, title inside on the left over the photograph's soft
-   golden blur, subject on the right. Phones: title above, photo below cropped
-   to the subject. Dark ink on the light left side, so no scrim is needed. */
-.closing-media { position: relative; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); }
-.closing-media img { object-position: 82% 20%; }
+   Desktop: one 21:9 frame, title inside on the left over the dark office
+   photograph (light text, soft navy shade from the left), subject across the
+   frame. Phones: title above on the stone ground, photo below. */
+.closing-media { position: relative; aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); }
+.closing-media img { object-position: 20% 50%; }
 .closing .sec-head { margin-bottom: 1.75rem; }
-.closing .section-title .hl { color: color-mix(in srgb, var(--color-cyan-ink) 70%, var(--color-ink-primary)); }
 @media (min-width: 768px) {
-  .closing { position: relative; aspect-ratio: 21 / 9; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); }
+  .closing { position: relative; aspect-ratio: 21 / 9; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow-hover); background: var(--color-bg-navy-deep); }
   .closing-media { position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
-  .closing-media img { object-position: 50% 12%; }
+  .closing-media img { object-position: 50% 50%; }
+  .closing-media::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(13,27,42,0.68) 0%, rgba(13,27,42,0.42) 42%, rgba(13,27,42,0) 74%);
+  }
   .closing-copy { position: absolute; z-index: 1; top: 0; bottom: 0; left: clamp(1.5rem, 4vw, 3.5rem); display: flex; align-items: center; max-width: 46%; }
   .closing .sec-head { margin-bottom: 0; }
-  .closing .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.2; }
+  .closing .section-title { font-size: clamp(1.5rem, 2.5vw, 2.2rem); line-height: 1.2; color: var(--color-ink-inverted); }
+  .closing .section-title .hl { color: var(--color-cyan); }
 }
 
 /* ── Tools we build with (5 Nov 2026) ───────────────────────────────────────

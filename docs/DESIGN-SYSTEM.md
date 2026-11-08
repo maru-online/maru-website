@@ -190,11 +190,10 @@ repositories; update it there when the stack changes.
 
 **Closing statement** (homepage, `.closing`, 8 Nov 2026): the line
 "We do not replace your team. We give them their time back." set inside one 21:9
-frame, on the left over the photograph's soft golden blur, with the subject on the
-right. Dark ink, no scrim, because the left side of the photo is light. The photo is
-`untinted` so that side stays light. On phones the line sits above the photo, which
-is cropped to the subject. It replaced the dark full-width `ImageBand`, which was
-removed. The photograph is illustrative, not Maru's team.
+frame over a dark office-at-dusk photograph, light text on the left with a soft navy
+shade from the left edge. The photo is `untinted` (it is already navy). On phones the
+line sits above the photo on the stone ground. It replaced the dark full-width
+`ImageBand`, which was removed. The photograph is illustrative, not Maru's office.
 
 **Grid motif** (`.grid-motif`, `.grid-motif-feature`, `.hero-grid` in
 `globals.css`): 1px cyan lines, one style at three weights — glyph panels

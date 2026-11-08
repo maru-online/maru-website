@@ -385,8 +385,8 @@ export default function Home() {
               </div>
               <div className="closing-media">
                 <TreatedImage
-                  src="/images/people/team-time-back.jpg"
-                  alt="A woman leans back in her chair at a tidy desk, hands behind her head, smiling and looking up in warm afternoon light"
+                  src="/images/people/closing-office-dusk.jpg"
+                  alt="An open-plan office at dusk with the desks empty, lamps lit and the city lights beyond the windows"
                   sizes="(min-width: 1200px) 1120px, 100vw"
                   className="h-full w-full"
                   untinted
