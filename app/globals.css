@@ -1137,24 +1137,6 @@
 .guide-page { margin: 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-card); box-shadow: var(--card-shadow); background: var(--color-bg-card); }
 .guide-page img { display: block; width: 100%; height: auto; }
 
-/* Headline over a photo band (homepage "We do not replace your team",
-   5 Nov 2026): section-title scale, light line then strong line, like the
-   heroes. Was a 200-weight line that read faint over the photo. */
-.image-band-headline {
-  margin: 0; max-width: 46rem;
-  font-family: var(--font-display); color: var(--color-ink-inverted);
-  font-size: var(--text-h2); line-height: 1.15; letter-spacing: var(--tracking-display);
-  text-wrap: balance;
-}
-/* Hero weights are 100/500, which suit 72px on a flat navy ground; over a
-   photo at section size that is what read faint, so this band uses 300/600. */
-.image-band-headline .maru-headline-split-light { font-weight: 300; }
-.image-band-headline .maru-headline-split-strong { font-weight: 600; }
-/* Phones: the text spans the whole photo, so the shade is even across it. */
-@media (max-width: 767px) {
-  .image-band-scrim { background: linear-gradient(180deg, rgba(13,27,42,0.55), rgba(13,27,42,0.7)) !important; }
-}
-
 /* ── Tools we build with (5 Nov 2026) ───────────────────────────────────────
    A slim band after Supporting capabilities: label on the left, a slow
    ticker of tool names on the right, edges fading out. On stone with its own
@@ -1771,6 +1753,11 @@ p.footer-legal { margin: 0; }
 .split-media { display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 1fr); align-items: end; }
 @media (min-width: 1024px) { .split-media { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); } }
 .split-media .sec-head { margin-bottom: 1.25rem; }
+.split-media-closer { align-items: center; }
+@media (min-width: 1024px) { .split-media-closer { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); } }
+.split-media-closer .split-media-img { aspect-ratio: 5 / 4; }
+/* Two short lines that should each stay on one line beside the photograph. */
+.split-media-closer .section-title { font-size: clamp(1.75rem, 2.9vw, 2.5rem); line-height: 1.2; }
 .split-media-img {
   aspect-ratio: 3 / 2; width: 100%;
   border-radius: 14px; box-shadow: var(--card-shadow-hover);

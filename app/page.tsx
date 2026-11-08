@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Button from "@/components/ui/Button";
 import { FadeUp, StaggerParent, StaggerChild } from "@/components/ui/Animate";
 import AssessmentFormSection from "@/components/homepage/AssessmentFormSection";
-import ImageBand from "@/components/ui/ImageBand";
+import { TreatedImage } from "@/components/ui/CardMedia";
 import DisconnectDiagram from "@/components/ui/DisconnectDiagram";
 import ProblemCards from "@/components/homepage/ProblemCards";
 import Glyph from "@/components/ui/Glyph";
@@ -368,21 +368,30 @@ export default function Home() {
         </section>
       </div>
 
-      {/* ── IMAGE BAND — between capabilities and the assessment section ── */}
-      <ImageBand
-        src="/images/people/replace-team.png"
-        alt="A team of colleagues with their hands stacked together in a huddle"
-        overlayText={
-          <>
-            <span className="maru-headline-split-light">We do not replace your team.</span>
-            <br />
-            <span className="maru-headline-split-strong">
-              We give them their <span style={{ color: "var(--color-cyan)" }}>time back.</span>
-            </span>
-          </>
-        }
-        height={520}
-      />
+      <div className="flow-ground">
+        {/* ══════════════════════════════════════════════════════════════════
+            CLOSING STATEMENT (8 Nov 2026) — replaces the dark photo band.
+            One photograph beside the line, on the stone ground, like the
+            Invara "Who it is for" section. Illustrative image: not Maru's team.
+            ══════════════════════════════════════════════════════════════════ */}
+        <section className="sec sec-ruled" aria-labelledby="closing-line">
+          <div className="sec-inner">
+            <div className="split-media split-media-closer">
+              <SectionHead
+                id="closing-line"
+                title={<>We do not replace your team.<br />We give them their <span className="hl">time back.</span></>}
+              />
+              <TreatedImage
+                src="/images/people/team-time-back.jpg"
+                alt="A woman leans back in her chair at a tidy desk, hands behind her head, looking out of a sunlit window"
+                sizes="(min-width: 1024px) 520px, 100vw"
+                className="split-media-img"
+                position="50% 40%"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
 
       {/* ════════════════════════════════════════════════════════════════════
           SECTION 08 — NEXT STEPS

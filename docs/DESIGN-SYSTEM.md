@@ -188,8 +188,10 @@ category line, slow scroll with edge fades, pause on hover/focus plus a Pause
 button, static wrapped list under reduced motion. The list comes from the build
 repositories; update it there when the stack changes.
 
-**Photo band headline** (`ImageBand`, `.image-band-headline`): section-title
-size, light line (300) then strong line (600); shade evened out on phones.
+**Closing statement** (homepage, `.split-media-closer`, 8 Nov 2026): the line
+"We do not replace your team. We give them their time back." as a `SectionHead`
+beside one `TreatedImage` (5:4) on the stone ground. It replaced the dark full-width
+`ImageBand`, which was removed. The photograph is illustrative, not Maru's team.
 
 **Grid motif** (`.grid-motif`, `.grid-motif-feature`, `.hero-grid` in
 `globals.css`): 1px cyan lines, one style at three weights — glyph panels
