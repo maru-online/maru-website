@@ -75,6 +75,14 @@ const nextConfig: NextConfig = {
         destination: 'https://maruonline.com/:path*',
         permanent: true,
       },
+      // Short link for social posts (10 Nov 2026). Temporary (307) on purpose:
+      // the short path can be pointed at a later article without browsers or
+      // search engines caching the old target.
+      {
+        source: '/popia-fines',
+        destination: '/insights-resources/ai-insights/popia-fines-fnb-tvet-college',
+        permanent: false,
+      },
       // Legacy static-site pages (~42% of recorded GA views were bot-hammered
       // .html URLs from the retired site) — permanent redirect to real routes
       {
