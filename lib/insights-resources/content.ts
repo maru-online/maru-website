@@ -54,6 +54,7 @@ export const SHOW_DRAFTS = process.env.VERCEL_ENV !== 'production'
 import { GUIDE_INDEXABLE, GUIDE_LIVE, GUIDE_PAGE_VISIBLE } from '@/lib/guides/config'
 import { policyReset } from './entries/ai-policy-reset'
 import { section71 } from './entries/popia-section-71'
+import { popiaFinesResponse } from './entries/popia-fines-response'
 import { smeLandscape } from './entries/sme-where-ai-fits'
 import { integrationGuide } from './entries/ai-integration-guide'
 import { readinessGuide } from './entries/ai-readiness-guide'
@@ -66,6 +67,7 @@ import { aiPopiaGuide } from './entries/ai-and-popia-guide'
  * lib/guides/config.ts, so it can never appear before the guide itself is live.
  */
 const ENTRIES: ContentEntry[] = [
+  popiaFinesResponse,
   policyReset,
   section71,
   smeLandscape,
