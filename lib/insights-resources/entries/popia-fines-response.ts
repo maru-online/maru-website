@@ -6,6 +6,10 @@ import type { ContentEntry } from '../types'
  * fault (88 applicants, 9 account numbers, 696 users, the 2022 reports) and
  * the further directions to FNB: TechCentral and ITWeb, both 27 October 2026,
  * reporting the enforcement notice. Section summaries: POPIA, Act 4 of 2013.
+ * Added 14 Nov 2026: FNB's response (ITWeb, 28 Oct), the cause (BusinessTech,
+ * quoting the Regulator), and context on earlier fines (BusinessTech 1 Sep 2026;
+ * Moonstone for the Basic Education set-aside). The Chair's remark on public
+ * bodies complying within the deadline is from ITWeb (FNB article).
  * Short link /popia-fines redirects here (next.config.ts).
  * Re-check on publishing day whether either body has appealed or gone to court.
  */
@@ -23,7 +27,7 @@ export const popiaFinesResponse: ContentEntry = {
   format: 'News',
   status: 'draft', // prepared 9 Nov 2026 for owner review; publish on his go (planned 10 Nov 2026)
   publishedAt: '2026-11-10',
-  readTime: '6 min read',
+  readTime: '8 min read',
   author: 'Maru Online',
   image: '/images/insights-resources/south-africa-business-district.jpg',
   imageAlt: 'A Johannesburg business district at dusk, with office towers above a busy intersection.',
@@ -33,7 +37,8 @@ export const popiaFinesResponse: ContentEntry = {
     'On 26 October 2026 the Information Regulator announced administrative fines of R1 million for First National Bank and R500,000 for Central Johannesburg TVET College.',
     'FNB was fined after a fault in its digital home loan platform exposed applicants’ information, including account numbers. The Regulator found weaknesses in its security safeguards, its handling of repeated incidents and its retention of personal information.',
     'The college was fined for not complying with an earlier enforcement notice, issued after it shared students’ personal information with third parties without a lawful basis.',
-    'The obligations involved apply to every responsible party: security safeguards, notification of security compromises, a registered Information Officer and limits on retention.',
+    'The FNB finding rests on a test that applies to any business: whether it should reasonably have known of the risk. Reports that are handled one at a time, without looking for a pattern, are difficult to defend under that test.',
+    'The fines are modest against the R10 million maximum, and earlier fines have been challenged in court. The practical exposure is the compliance directions that follow, and the obligations involved apply to every responsible party.',
   ],
   body: [
     {
@@ -45,6 +50,10 @@ export const popiaFinesResponse: ContentEntry = {
     {
       t: 'p',
       text: 'According to the enforcement notice, as reported by TechCentral and ITWeb, a fault in FNB’s digital home loan application platform allowed users to see home loan applications belonging to 88 other people. Nine of those applications included bank account numbers, which 696 unauthorised users could see. TechCentral reports that customers reported the problem in March and May 2022, and that each report was handled as an isolated case. FNB notified the Regulator of a security compromise after the matter was reported in the media, and the Regulator then carried out a compliance assessment.',
+    },
+    {
+      t: 'p',
+      text: 'The Regulator said that the unlawful access arose because some individual account holders had been classified as employees, which gave them access to home loan applicants’ information. It also noted that exposed data of this kind can be combined with information from other breaches, which raises the risk of identity theft and fraud. In a statement reported by ITWeb on 28 October 2026, FNB said it has completed remediation and that no customers suffered financial harm.',
     },
     { t: 'h3', text: 'What the Regulator found' },
     {
@@ -92,6 +101,40 @@ export const popiaFinesResponse: ContentEntry = {
       t: 'p',
       text: 'Not complying with an enforcement notice is itself an offence under POPIA. That is the situation the college found itself in: the fine followed its response to the notice, not only the original disclosure.',
     },
+    { t: 'h2', text: 'What the findings mean for a business' },
+    {
+      t: 'p',
+      text: 'The two cases are different in kind, and four points follow from them.',
+    },
+    { t: 'h3', text: 'Repeated reports are treated as knowledge' },
+    {
+      t: 'p',
+      text: 'The section 105 finding turns on whether FNB should reasonably have known of the risk. Earlier reports of the same fault had been resolved for the individual customers concerned but not escalated as a possible security compromise. A report from a customer, employee or supplier that they can see information they should not is a potential security compromise. It needs to be recorded, assessed and checked against earlier reports, even when the individual case is closed quickly.',
+    },
+    { t: 'h3', text: 'Access errors are an ordinary cause' },
+    {
+      t: 'p',
+      text: 'The cause the Regulator identified was a misclassification of user roles, not an attack. The same kind of error can arise in any client portal, CRM, accounting platform or shared drive where permissions are set by role or group. Permissions need to be reviewed when roles, staff or system settings change, not only when the system is first set up.',
+    },
+    { t: 'h3', text: 'Handling the Regulator’s directions is itself a compliance matter' },
+    {
+      t: 'p',
+      text: 'The college’s fine followed its response to an enforcement notice. The failures listed by the Regulator were basic ones: no registered Information Officer, a security compromise not reported in the prescribed manner, no compliance framework and missed deadlines. The matter began with three complaints. A business that receives a notice needs to know who owns the response and who tracks each deadline.',
+    },
+    { t: 'h3', text: 'An enforcement notice can reach beyond the incident' },
+    {
+      t: 'p',
+      text: 'According to TechCentral, the directions to FNB covered its lawful basis for collecting information, its retention schedule and its privacy notice, as well as the platform fault. An incident can lead the Regulator to review a responsible party’s wider documentation, so retention schedules, lawful bases and privacy notices should be current before an incident, not after.',
+    },
+    { t: 'h2', text: 'Reading the fines in context' },
+    {
+      t: 'p',
+      text: 'The maximum administrative fine under section 109 is R10 million. FNB’s fine is one tenth of that, and the college’s is one twentieth. The Regulator’s earlier fines of R5 million against the Department of Justice and the Department of Basic Education were both challenged in court, and the Basic Education notices were reported to have been set aside by the High Court in December 2025. The Regulator’s chairperson has also said that public bodies often comply within the deadline, which ends the enforcement process, or challenge the fine in court.',
+    },
+    {
+      t: 'p',
+      text: 'The financial penalty is therefore not the main practical consequence for most businesses. The directions in the enforcement notice, the management time needed to meet them and the public record of the findings carry more weight. The Regulator’s statement also calls on public and private bodies to review their compliance programmes, strengthen information-security safeguards and ensure that Information Officers carry out their responsibilities.',
+    },
     { t: 'h2', text: 'The obligations involved' },
     {
       t: 'ul',
@@ -111,11 +154,12 @@ export const popiaFinesResponse: ContentEntry = {
     {
       t: 'ol',
       items: [
-        '**Access.** Confirm that clients, staff and suppliers can see only the records they should, in client portals, CRMs and shared drives. Remove shared links that are no longer needed.',
-        '**Incident handling.** Agree what counts as a security incident, who receives reports, and how repeated reports of the same problem are escalated.',
+        '**Access.** Confirm that clients, staff and suppliers can see only the records they should, in client portals, CRMs and shared drives. Check how roles and groups are assigned, and review them when staff or system settings change. Remove shared links that are no longer needed.',
+        '**Incident handling.** Agree what counts as a security incident, who receives reports, and how repeated reports of the same problem are escalated. Keep a log of every report, including those resolved quickly, and review it periodically for patterns.',
         '**Notification.** Know who decides whether a security compromise must be reported, and how to submit a notification through the Regulator’s eServices Portal.',
         '**Information Officer.** Confirm that your Information Officer, and any deputy, is registered with the Regulator.',
         '**Retention.** Set retention periods for the main types of personal information you hold, such as client files, applications and CVs, and remove what is no longer needed.',
+        '**Regulator correspondence.** Decide who receives any notice or request from the Regulator, who owns the response and how deadlines are tracked.',
       ],
     },
     { t: 'h2', text: 'AI tools and automation' },
@@ -138,6 +182,10 @@ export const popiaFinesResponse: ContentEntry = {
     },
     { title: 'FNB fined by Information Regulator', publisher: 'TechCentral', date: '27 October 2026', url: 'https://techcentral.co.za/fnb-fine-information-regulator-popia/287711/' },
     { title: 'FNB issued with R1m fine for POPIA violation', publisher: 'ITWeb', date: '27 October 2026', url: 'https://www.itweb.co.za/article/fnb-issued-with-r1m-fine-for-popia-violation/O2rQGqAEWwBqd1ea' },
+    { title: 'Data exposure shortcomings fixed, says FNB', publisher: 'ITWeb', date: '28 October 2026', url: 'https://www.itweb.co.za/article/data-exposure-shortcomings-fixed-says-fnb/o1Jr5MxP3AbMKdWL' },
+    { title: 'Top bank in South Africa fined R1 million for not protecting customer data', publisher: 'BusinessTech', date: '26 October 2026', url: 'https://businesstech.co.za/news/?p=881407' },
+    { title: 'Two departments nailed with R5 million fines in South Africa', publisher: 'BusinessTech', date: '1 September 2026', url: 'https://businesstech.co.za/news/?p=872960' },
+    { title: 'Information Regulator sounds alarm over data breaches', publisher: 'Moonstone', url: 'https://www.moonstone.co.za/?p=61572' },
     { title: 'South Africa introduces mandatory e-portal reporting for data breaches', publisher: 'DataBreaches.net', date: '16 April 2025', url: 'https://databreaches.net/2025/04/16/south-africa-introduces-mandatory-e-portal-reporting-for-data-breaches/' },
     { title: 'Protection of Personal Information Act 4 of 2013, sections 14, 19, 22, 55, 74, 76, 89, 95, 97, 105 and 109', publisher: 'Republic of South Africa' },
   ],
