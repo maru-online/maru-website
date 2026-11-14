@@ -149,17 +149,17 @@ export const popiaFinesResponse: ContentEntry = {
     { t: 'h2', text: 'Practical checks for a business' },
     {
       t: 'p',
-      text: 'The findings point to areas that any business can review without new systems:',
+      text: 'The findings point to areas that any business can review without new systems. Each check is a question the business should be able to answer:',
     },
     {
       t: 'ol',
       items: [
-        '**Access.** Confirm that clients, staff and suppliers can see only the records they should, in client portals, CRMs and shared drives. Check how roles and groups are assigned, and review them when staff or system settings change. Remove shared links that are no longer needed.',
-        '**Incident handling.** Agree what counts as a security incident, who receives reports, and how repeated reports of the same problem are escalated. Keep a log of every report, including those resolved quickly, and review it periodically for patterns.',
-        '**Notification.** Know who decides whether a security compromise must be reported, and how to submit a notification through the Regulator’s eServices Portal.',
-        '**Information Officer.** Confirm that your Information Officer, and any deputy, is registered with the Regulator.',
-        '**Retention.** Set retention periods for the main types of personal information you hold, such as client files, applications and CVs, and remove what is no longer needed.',
-        '**Regulator correspondence.** Decide who receives any notice or request from the Regulator, who owns the response and how deadlines are tracked.',
+        '**Access.** Can clients, staff and suppliers see only the records they should, in client portals, CRMs and shared drives? Who checks how roles and groups are assigned, and when are they reviewed after staff or system settings change? Have shared links that are no longer needed been removed?',
+        '**Incident handling.** Is there an agreed definition of a security incident, a named person who receives reports, and a route for escalating repeated reports of the same problem? Is every report logged, including those resolved quickly, and reviewed periodically for patterns?',
+        '**Notification.** Who decides whether a security compromise must be reported, and do they know how to submit a notification through the Regulator’s eServices Portal?',
+        '**Information Officer.** Is the Information Officer, and any deputy, registered with the Regulator?',
+        '**Retention.** Has a retention period been set for each main type of personal information, such as client files, applications and CVs, and is what is no longer needed removed?',
+        '**Regulator correspondence.** Who receives any notice or request from the Regulator, who owns the response, and how are deadlines tracked?',
       ],
     },
     { t: 'h2', text: 'AI tools and automation' },
@@ -170,7 +170,7 @@ export const popiaFinesResponse: ContentEntry = {
     {
       t: 'callout',
       title: 'Administrative fines',
-      text: 'An administrative fine under an infringement notice is not a criminal conviction. The Regulator’s statement does not say that either organisation has been prosecuted, and both may challenge the notices.',
+      text: 'An administrative fine under an infringement notice is not a criminal conviction. The Regulator’s statement does not say that either organisation has been prosecuted. In the reports reviewed for this article, neither FNB nor the college had announced an appeal, and both may challenge the notices.',
     },
   ],
   sources: [
