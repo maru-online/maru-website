@@ -1196,7 +1196,7 @@
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
-.tools-track { display: flex; width: max-content; animation: tools-scroll 80s linear infinite; }
+.tools-track { display: flex; width: max-content; animation: tools-scroll 85s linear infinite; }
 .tools-ticker:hover .tools-track,
 .tools-ticker:focus-within .tools-track,
 .tools-ticker[data-paused] .tools-track { animation-play-state: paused; }

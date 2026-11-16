@@ -32,6 +32,7 @@ const TOOLS: { name: string; kind: string }[] = [
   { name: "Notion", kind: "Workspace" },
   { name: "Google Analytics", kind: "Analytics" },
   { name: "Microsoft Azure", kind: "Cloud" },
+  { name: "Amazon Web Services", kind: "Cloud" },
 ];
 
 function List({ hidden = false }: { hidden?: boolean }) {
